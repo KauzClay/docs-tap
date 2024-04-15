@@ -1,34 +1,35 @@
-# Install Application Live View Connector as a Service
+# Install Application Live View connector as a service
 
-This topic tells you how to install Application Live View Connector as a service from the Tanzu Application Platform
+This topic tells you how to install Application Live View connector as a service from the Tanzu Application Platform
 (commonly known as TAP) package repository.
 
-## <a id='connector-as-a-service-overview'></a>Security and access control overview
+## <a id='overview'></a> Overview of Application Live View connector as a service
+<!-- wrong heading? -->
 
 This section outlines advancements in the communication strategy between view and run clusters within the system.
-The primary objective is on minimizing bi-directional communication between view and run clusters.
+The primary objective is on minimizing bidirectional communication between view and run clusters.
 This approach involves replacing the current RSocket communication channel with a standard HTTPS-based
 request/response mechanism. This change enables the connector component in run clusters to offer a
-REST API instead of establishing an RSocket channel to the backend located in the view cluster.
-The backend will then interact with the exposed ALV connector service in the run cluster to retrieve
+REST API instead of establishing an RSocket channel to the back end located in the view cluster.
+The back end then interacts with the exposed Application Live View connector service in the run cluster to retrieve
 actuator data for an application.
 
 ## <a id='prereqs'></a>Prerequisites
 
-Before installing Application Live View:
+Before installing Application Live View connector:
 
 - Complete all prerequisites to install Tanzu Application Platform. For more information, see
-[Prerequisites](../prerequisites.md).
+  [Prerequisites](../prerequisites.md).
 
 - Install Cartographer Conventions, which is bundled with Supply Chain Choreographer as of v0.5.3.
   To install, see [Installing Supply Chain Choreographer](../scc/install-scc.md).
   For more information, see [Cartographer Conventions](../cartographer-conventions/about.md).
 
-## <a id='install-alv-connector-as-a-service'></a> Install Application Live View connector
+## <a id='install-alv-connector'></a> Install Application Live View connector
 
 To install Application Live View connector:
 
-1. List version information for the package by running:
+1. Retrieve version information for the package by running:
 
     ```console
     tanzu package available list connector.appliveview.tanzu.vmware.com --namespace tap-install
@@ -44,45 +45,48 @@ To install Application Live View connector:
       connector.appliveview.tanzu.vmware.com  1.10.0         2024-05-03T00:00:00Z
     ```
 
-1. Create the file `app-live-view-connector-values.yaml` using the following details:
+1. Create the file `app-live-view-connector-values.yaml`. In the file, enable the connector component
+   to expose a REST API and facilitate communication with the back end as follows:
 
-    To enable the connector component to expose a REST API and facilitate communication with the backend, follow these steps:
+    1. Ensure that the connector is deployed as a regular deployment.
+       To do this, set the `connector.deployment.enabled` key to `true` in your configuration.
+       You can adjust the number of replicas according to your scalability requirements by setting the
+       `connector.deployment.replicas` key to the value that you want.
 
-    - Enable Connector Deployment mode:
-      Ensure that the connector is deployed as a regular deployment. To do this, set the `connector.deployment.enabled` key to `true` in your configuration. You can adjust the number of replicas according to your scalability requirements by setting the `connector.deployment.replicas` key to the desired value.
+      For more information about deployment strategies, see
+      [Connector deployment modes in Application Live View](connector-deployment-modes.hbs.md).
 
-      For more information about the deployment strategies, see
-      [Connector deployment modes in Application Live View#](connector-deployment-modes.hbs.md).
+    1. Activate the REST API by setting the flag `connector.restApi.enabled` to `true`.
+       This configuration instructs the connector to expose the REST API endpoints for interaction
+       with the back end.
 
-    - Enable REST API:
-      Set the flag `connector.restApi.enabled` to `true` to activate the REST API feature. This configuration instructs the connector to expose the REST API endpoints for interaction with the backend.
+        Copy the following YAML content into your `app-live-view-connector-values.yaml` file:
 
-    Copy the below YAML content into `app-live-view-connector-values.yaml` file:
+          ```yaml
+          appliveview_connector:
+            connector:
+              deployment:
+                enabled: true
+                replicas: 1
+              restApi:
+                enabled: true
+            activateSensitiveOperations: false
+            activateAppLiveViewSecureAccessControl: true
+          ```
 
-      ```yaml
-      appliveview_connector:
-        connector:
-          deployment:
-            enabled: true
-            replicas: 1
-          restApi:
-            enabled: true
-        activateSensitiveOperations: false
-        activateAppLiveViewSecureAccessControl: true
-      ```
+        Adjust the configuration settings as necessary to suit your specific preferences.
+        For your cluster, you can activate or deactivate security by setting
+        `activateAppLiveViewSecureAccessControl` and sensitive operations by setting `activateSensitiveOperations`.
 
-    Adjust the configuration settings as necessary to suit your specific preferences to enable/disable security(`activateAppLiveViewSecureAccessControl`) and sensitive operations(`activateSensitiveOperations`) on the cluster
+1. To customize the domain used to expose the REST API of the connector, update your
+  `app-live-view-connector-values.yaml` file as follows:
 
-
-1. If you want to customize the domain used to expose the rest Api of the connector, update the file `app-live-view-connector-values.yaml` using the following details:
-
-    Profile install using shared ingress domain key
     If you are using a Tanzu Application Platform profile installation and the top-level key
-    `shared.ingress_domain` is set in the `tap-values.yaml`, the Application Live View connector
-    is configured to expose the rest Api on this ingress.
+    `shared.ingress_domain` is set in the `tap-values.yaml` file, the Application Live View connector
+    is configured to expose the REST API on this ingress.
 
-    To override the shared ingress for Application Live View coneector in an environment,
-    use the following values:
+    To override the shared ingress for Application Live View connector in an environment,
+    use the following values in your `app-live-view-connector-values.yaml` file:
 
     ```yaml
     appliveview_connector:
@@ -94,9 +98,9 @@ To install Application Live View connector:
             url: connector.INGRESS-DOMAIN
     ```
 
-    Where `INGRESS-DOMAIN` is the top-level domain the Application Live View
-    connector exposes the rest Apis by using `tanzu-shared-ingress` for the backend in other
-    cluster to reach the Application Live View connector.
+    Where `INGRESS-DOMAIN` is the top-level domain. The Application Live View connector exposes the
+    REST APIs by using `tanzu-shared-ingress` for the back end in other cluster to reach the
+    Application Live View connector.
 
 1. Configure TLS in your `app-live-view-connector-values.yaml` file:
 
@@ -181,7 +185,7 @@ To install Application Live View connector:
       --namespace tap-install
     ```
 
-    Where `VERSION-NUMBER` is the version of the package listed earlier. For example, `1.9.0`.
+    Where `VERSION-NUMBER` is the version of the package you retrieved earlier. For example, `1.9.0`.
 
     For example:
 
@@ -229,7 +233,7 @@ To install Application Live View connector:
       --values-file app-live-view-connector-values.yaml
     ```
 
-    Where `VERSION-NUMBER` is the version of the package listed earlier. For example, `1.10.0`.
+    Where `VERSION-NUMBER` is the version of the package you retrieved earlier. For example, `1.10.0`.
 
     For example:
 
@@ -279,11 +283,11 @@ To install Application Live View connector:
     Verify that `STATUS` is `Reconcile succeeded`.
 
 
-## <a id='install-app-live-view-back-end'></a> Install Application Live View back end
+## <a id='install-alv-back-end'></a> Install Application Live View back end
 
 To install Application Live View back end:
 
-1. List version information for the package by running:
+1. Retrieve version information for the package by running:
 
     ```console
     tanzu package available list backend.appliveview.tanzu.vmware.com --namespace tap-install
@@ -299,34 +303,40 @@ To install Application Live View back end:
       backend.appliveview.tanzu.vmware.com  1.10.0         2024-05-03T00:00:00Z
     ```
 
-1. From the `Run` clusters, discover the `CLUSTER-NAME`, `CONNECTOR-URL` and `CONNECTOR-CA-CERTIFICATE` values.
+1. From the `Run` clusters, get the values for `CLUSTER-NAME`, `CONNECTOR-URL`, and `CONNECTOR-CA-CERTIFICATE`:
 
-    The `CLUSTER-NAME` is the name of the run cluster or any cluster where the connector and application are deployed. This is a unique name of your choice. Make sure it matches with the `tap-gui` cluster config
+    1. The `CLUSTER-NAME` is the name of the run cluster or any cluster where the connector and application are deployed.
+       This is a unique name of your choice. Ensure that it matches the `tap-gui` cluster configuration.
 
-    Fetch the `CONNECTOR-URL` on which the connector exposes its REST API. If you are using a Tanzu Application Platform profile installation with the top-level key
-    `shared.ingress_domain` set, you can find the `CONNECTOR-URL` by listing the HTTPProxy object.
+    1. Fetch the `CONNECTOR-URL` on which the connector exposes its REST API. If you are using a
+       Tanzu Application Platform profile installation and the top-level key `shared.ingress_domain`
+       is set, find the `CONNECTOR-URL` by listing the HTTPProxy object by running:
 
-      ```console
-      kubectl get httpproxy -A
-      ```
+        ```console
+        kubectl get httpproxy -A
+        ```
 
-      Expected output:
+        Expected output:
 
-      ```console
-      NAMESPACE                 NAME                        FQDN                                  TLS SECRET                          STATUS      STATUS DESCRIPTION
-      app-live-view-connector   appliveview-connector       connector.172.175.234.14.nip.io       appliveview-connector-cert          valid       Valid HTTPProxy
-      ```
+        ```console
+        NAMESPACE                 NAME                        FQDN                                  TLS SECRET                          STATUS      STATUS DESCRIPTION
+        app-live-view-connector   appliveview-connector       connector.172.175.234.14.nip.io       appliveview-connector-cert          valid       Valid HTTPProxy
+        ```
 
-    Fetch the `CONNECTOR-CA-CERTIFICATE` data from the secret to enable TLS communication
+    1. Fetch the `CONNECTOR-CA-CERTIFICATE` data from the secret to enable TLS communication by running:
 
-      ```console
-      kubectl get secret appliveview-connector-cert -n app-live-view-connector -o yaml |  yq '.data."ca.crt"' | base64 -d
-      ```
+        ```console
+        kubectl get secret appliveview-connector-cert -n app-live-view-connector -o yaml |  yq '.data."ca.crt"' | base64 -d
+        ```
 
-1. Create the file `app-live-view-backend-values.yaml` using the following information:
+1. Create the file `app-live-view-backend-values.yaml`.
 
-    With the connector as a service, the backend will query the exposed ALV connector service in the run cluster to retrieve actuator data for an application. To facilitate this, the backend requires knowledge of the connector configuration for the cluster.
-    Copy the below YAML content into `app-live-view-backend-values.yaml` to provide the connector cluster configuration in the backend:
+   With the connector as a service, the back end queries the exposed Application Live View connector
+   service in the run cluster to retrieve actuator data for an application.
+   To enable this, the back end requires the connector configuration for the cluster.
+
+   Copy the following YAML content into your `app-live-view-backend-values.yaml` file to provide the
+   back end with the connector cluster configuration:
 
       ```yaml
       appliveview:
@@ -343,7 +353,7 @@ To install Application Live View back end:
      - `CONNECTOR-URL` is the value you discovered earlier.
      - `CONNECTOR-CA-CERTIFICATE` is the value you discovered earlier.
 
-    You can configure multiple run clusters for the Application Live View backend
+    You can configure multiple run clusters for the Application Live View back end.
 
 1. (Optional) View additional changes you can make in your `app-live-view-backend-values.yaml` file
    by running:
@@ -354,7 +364,7 @@ To install Application Live View back end:
       --namespace tap-install
     ```
 
-    Where `VERSION-NUMBER` is the version of the package listed earlier. For example, `1.10.0`.
+    Where `VERSION-NUMBER` is the version of the package you retrieved earlier. For example, `1.10.0`.
 
     For example:
 
@@ -397,7 +407,7 @@ To install Application Live View back end:
       --values-file app-live-view-backend-values.yaml
     ```
 
-    Where `VERSION-NUMBER` is the version of the package listed earlier. For example, `1.10.0`.
+    Where `VERSION-NUMBER` is the version of the package you retrieved earlier. For example, `1.10.0`.
 
     For example:
 
@@ -420,8 +430,7 @@ To install Application Live View back end:
     Added installed package 'appliveview' in namespace 'tap-install'
     ```
 
-    The Application Live View back end component is deployed in `app-live-view`
-    namespace by default.
+    The Application Live View back end component is deployed in the `app-live-view` namespace by default.
 
 1. Verify the Application Live View back end package installation by running:
 

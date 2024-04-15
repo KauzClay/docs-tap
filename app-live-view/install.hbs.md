@@ -3,7 +3,7 @@
 This topic tells you how to install Application Live View from the Tanzu Application Platform
 (commonly known as TAP) package repository.
 
-## <a id='overview'></a>Overview
+## <a id='overview'></a>Overview of Application Live View installation
 
 Application Live View includes four packages you must install. The following table lists these packages
 and shows the Tanzu Application Platform profiles each package is included in.
@@ -53,7 +53,7 @@ For more information about these packages, see
 Before installing Application Live View:
 
 - Complete all prerequisites to install Tanzu Application Platform. For more information, see
-[Prerequisites](../prerequisites.md).
+  [Prerequisites](../prerequisites.md).
 
 - Install Cartographer Conventions, which is bundled with Supply Chain Choreographer as of v0.5.3.
   To install, see [Installing Supply Chain Choreographer](../scc/install-scc.md).

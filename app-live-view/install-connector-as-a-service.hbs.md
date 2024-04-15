@@ -3,16 +3,17 @@
 This topic tells you how to install Application Live View connector as a service from the Tanzu Application Platform
 (commonly known as TAP) package repository.
 
-## <a id='overview'></a> Overview of Application Live View connector as a service
-<!-- wrong heading? -->
+## <a id='overview'></a> Overview of the Application Live View connector service
 
-This section outlines advancements in the communication strategy between view and run clusters within the system.
-The primary objective is on minimizing bidirectional communication between view and run clusters.
+Installing Application Live View connector as a service enables an advancement in the communication
+strategy between view and run clusters within the system.
+The primary objective is to minimize bidirectional communication between view and run clusters.
+
 This approach involves replacing the current RSocket communication channel with a standard HTTPS-based
-request/response mechanism. This change enables the connector component in run clusters to offer a
+request and response mechanism. This change enables the connector component in run clusters to offer a
 REST API instead of establishing an RSocket channel to the back end located in the view cluster.
-The back end then interacts with the exposed Application Live View connector service in the run cluster to retrieve
-actuator data for an application.
+The back end then interacts with the exposed Application Live View connector service in the run
+cluster to retrieve actuator data for an application.
 
 ## <a id='prereqs'></a>Prerequisites
 

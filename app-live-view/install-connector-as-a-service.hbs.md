@@ -5,7 +5,13 @@ This topic tells you how to install Application Live View Connector as a service
 
 ## <a id='connector-as-a-service-overview'></a>Security and access control overview
 
-This section outlines advancements in the communication strategy between view and run clusters within the system. The primary objective is on minimizing bi-directional communication between view and run clusters. This approach involves replacing the current RSocket communication channel with a standard HTTPS-based request/response mechanism. This change enables the connector component in run clusters to offer a REST API instead of establishing an RSocket channel to the backend located in the view cluster. The backend will then interact with the exposed ALV connector service in the run cluster to retrieve actuator data for an application.
+This section outlines advancements in the communication strategy between view and run clusters within the system.
+The primary objective is on minimizing bi-directional communication between view and run clusters.
+This approach involves replacing the current RSocket communication channel with a standard HTTPS-based
+request/response mechanism. This change enables the connector component in run clusters to offer a
+REST API instead of establishing an RSocket channel to the backend located in the view cluster.
+The backend will then interact with the exposed ALV connector service in the run cluster to retrieve
+actuator data for an application.
 
 ## <a id='prereqs'></a>Prerequisites
 
@@ -42,13 +48,13 @@ To install Application Live View connector:
 
     To enable the connector component to expose a REST API and facilitate communication with the backend, follow these steps:
 
-    - Enable Connector Deployment mode: 
-      Ensure that the connector is deployed as a regular deployment. To do this, set the `connector.deployment.enabled` key to `true` in your configuration. You can adjust the number of replicas according to your scalability requirements by setting the `connector.deployment.replicas` key to the desired value. 
+    - Enable Connector Deployment mode:
+      Ensure that the connector is deployed as a regular deployment. To do this, set the `connector.deployment.enabled` key to `true` in your configuration. You can adjust the number of replicas according to your scalability requirements by setting the `connector.deployment.replicas` key to the desired value.
 
       For more information about the deployment strategies, see
       [Connector deployment modes in Application Live View#](connector-deployment-modes.hbs.md).
 
-    - Enable REST API: 
+    - Enable REST API:
       Set the flag `connector.restApi.enabled` to `true` to activate the REST API feature. This configuration instructs the connector to expose the REST API endpoints for interaction with the backend.
 
     Copy the below YAML content into `app-live-view-connector-values.yaml` file:
@@ -83,7 +89,7 @@ To install Application Live View connector:
       connector:
           deployment:
             enabled: true
-          restApi: 
+          restApi:
             enabled: true
             url: connector.INGRESS-DOMAIN
     ```
@@ -197,7 +203,7 @@ To install Application Live View connector:
                                                                             1.X+Y.0 of TAP, please migrate to the key sslDeactivated
       connector.deployment.enabled            true                boolean   Flag for the connector to run in deployment mode
       connector.deployment.replicas             1                 number    Number of replicas of connector pods at any given time
-      connector.restApi.enabled               false               boolean   Flag to switch to http connector 
+      connector.restApi.enabled               false               boolean   Flag to switch to http connector
       connector.restApi.url                                       string    This field specifies the URL on which the connector exposes its REST API
       connector.restApi.tls.namespace         <nil>               string    The targeted namespace for secret consumption by the HTTPProxy.
       connector.restApi.tls.secretName        <nil>               string    The name of secret for consumption by the HTTPProxy.
@@ -299,7 +305,7 @@ To install Application Live View back end:
 
     Fetch the `CONNECTOR-URL` on which the connector exposes its REST API. If you are using a Tanzu Application Platform profile installation with the top-level key
     `shared.ingress_domain` set, you can find the `CONNECTOR-URL` by listing the HTTPProxy object.
-  
+
       ```console
       kubectl get httpproxy -A
       ```
@@ -309,10 +315,10 @@ To install Application Live View back end:
       ```console
       NAMESPACE                 NAME                        FQDN                                  TLS SECRET                          STATUS      STATUS DESCRIPTION
       app-live-view-connector   appliveview-connector       connector.172.175.234.14.nip.io       appliveview-connector-cert          valid       Valid HTTPProxy
-      ```   
-    
-    Fetch the `CONNECTOR-CA-CERTIFICATE` data from the secret to enable TLS communication 
-    
+      ```
+
+    Fetch the `CONNECTOR-CA-CERTIFICATE` data from the secret to enable TLS communication
+
       ```console
       kubectl get secret appliveview-connector-cert -n app-live-view-connector -o yaml |  yq '.data."ca.crt"' | base64 -d
       ```
@@ -333,7 +339,7 @@ To install Application Live View back end:
 
     Where:
 
-     - `CLUSTER-NAME` is the value you discovered earlier.  
+     - `CLUSTER-NAME` is the value you discovered earlier.
      - `CONNECTOR-URL` is the value you discovered earlier.
      - `CONNECTOR-CA-CERTIFICATE` is the value you discovered earlier.
 

@@ -215,8 +215,8 @@ generate your first SupplyChain. Start the wizard:
     Created file tasks/store-content-oci.yaml
     ```
 
-4. You have now authored your first SupplyChain. View the SupplyChain definition created by the wizard
-by viewing the manifest created in the `supplychains/` directory. Run:
+4. You have now authored your first SupplyChain. View the SupplyChain definition created by the
+wizard by viewing the manifest created in the `supplychains/` directory. Run:
 
     ```console
     cat supplychains/mavenappbuildv1.yaml

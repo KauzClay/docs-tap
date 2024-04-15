@@ -192,20 +192,6 @@ To install OOTB Supply Chain with Testing and Scanning:
     If the package is not already installed, follow the steps in [Supply Chain Security Tools - Scan](../scst-scan/install-scst-scan.hbs.md)
     to install the required scanning components.
 
-1. Grype Scanner for SCST - Scan is installed through Namespace Provisioner. Verify that Grype Scanner
-   is present on your workload namespace:
-
-    ```console
-    tanzu package installed get grype-scanner-YOUR-DEV-NAMESPACE -n tap-install
-    ```
-
-    To install Grype Scanner to multiple namespaces, VMware recommends using
-    [Namespace Provisioner](../namespace-provisioner/about.hbs.md).
-    ScanTemplates with Grype scanner are automatically installed into namespaces created by
-    Namespace Provisioner.
-
-    Grype scanner must be present in the namespace that the workload is deployed to for scanning.
-
 1. Apply a ScanPolicy in the required namespace. The sample ScanPolicy provided in this step is
    configured with `notAllowedSeverities := ["Critical","High","UnknownSeverity"]`.
    This blocks a supply chain when the scanner finds CVEs with critical, high, and unknown ratings.
@@ -293,6 +279,20 @@ To install OOTB Supply Chain with Testing and Scanning:
     ```
 
     Where `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`.
+
+1. When `supply_chain: testing_scanning` is used, Grype Scanner for SCST - Scan is installed through Namespace Provisioner. Verify that Grype Scanner
+   is present on your workload namespace:
+
+    ```console
+    tanzu package installed get grype-scanner-YOUR-DEV-NAMESPACE -n tap-install
+    ```
+
+    To install Grype Scanner to multiple namespaces, VMware recommends using
+    [Namespace Provisioner](../namespace-provisioner/about.hbs.md).
+    ScanTemplates with Grype scanner are automatically installed into namespaces created by
+    Namespace Provisioner.
+
+    Grype scanner must be present in the namespace that the workload is deployed to for scanning.
 
 ### <a id="workload-update"></a>Workload update
 

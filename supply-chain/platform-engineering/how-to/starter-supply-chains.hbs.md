@@ -36,7 +36,7 @@ Complete the following steps:
 > **Note** To deploy other workload types, replace the `app-config-web-1.0.0` component with another
 option such as `app-config-server-1.0.0`, or `app-config-worker-1.0.0`.
 
-## <a id='artifact-git'></a>Build an application and store the artifact in Git recipe
+## <a id='artifact-git'></a>Build an application and store the artifact in a Git recipe
 
 This Supply Chain builds a Carvel package from the application source and stores it in a Git
 repository for deployment to a runtime environment.
@@ -95,9 +95,10 @@ Complete the following steps:
 
 ## <a id='scc'></a>Supply Chain Choreographer
 
-The recipes in this topic are analogous to OOTB Supply Chains and Profile experiences in Supply Chain Choreographer. Use this mapping to help decide which recipe to start with. These recipes
-do not provide exact parity with OOTB Supply Chains.
+The recipes in this topic are analogous to out of the box supply chains, and profile experiences in
+[Supply Chain Choreographer](../../../scc/about.hbs.md). Use this mapping to help decide which
+recipe to start with. These recipes do not provide exact parity with out of the box supply chains.
 
 - Iterate Profile: Use [Build and deploy an application recipe](starter-supply-chains.hbs.md#app-recipe).
-- Supply Chain Basic: Use [Build an application and store the artifact in Git recipe](starter-supply-chains.hbs.md#artifact-git).
-- Delivery Basic: Use [Deploy an application package from Git recipe](starter-supply-chains.hbs.md#git-recipe).
+- Supply Chain Basic: Use [Build an application and store the artifact in a Git recipe](starter-supply-chains.hbs.md#artifact-git).
+- Delivery Basic: Use [Deploy an application package from a Git recipe](starter-supply-chains.hbs.md#git-recipe).

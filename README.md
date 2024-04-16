@@ -1,6 +1,8 @@
 # Documentation Repository for Tanzu Application Platform (TAP)
 
-This repo contains the content for Tanzu Application Platform docs.
+This repo contains the content for Tanzu Application Platform docs. 
+
+If you need access to send an MR, request developer level permissions in GitLab then send us a message on the #tap-docs Slack channel.
 
 ## Branches
 

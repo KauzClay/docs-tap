@@ -1,14 +1,14 @@
 # Create starter Supply Chains
 
-This topic provides recipes for authoring useful, minimal Supply Chains to get started with.
+This topic gives you recipes for authoring useful, minimal Supply Chains to get started with.
 
-## Build and Deploy an application recipe
+## <a id='app-recipe'></a> Build and deploy an application recipe
 
 This Supply Chain builds and deploys an application from source.
 
 It performs the following actions:
 
-- Pull application source from Git
+- Pull the application source from Git
 - Build a container image using Buildpacks
 - Generate a runtime definition with the image
 - Generate a Kubernetes Deployment and Service
@@ -17,9 +17,9 @@ It performs the following actions:
 
 Complete the following steps:
 
-1. Ensure that you have first initialized a working directory using [tanzu supplychain init](../../reference/supplychain-cli/tanzu_supplychain_init.hbs.md).
+1. Ensure that you have first initialized a working directory by running [tanzu supplychain init](../../reference/supplychain-cli/tanzu_supplychain_init.hbs.md).
 
-1. Run the following command to generate the supply chain.
+1. Generate the Supply Chain by running:
 
     ```console
     tanzu supplychain generate \
@@ -33,25 +33,27 @@ Complete the following steps:
       --component deployer-1.0.0
     ```
 
-> **Note** To deploy other workload types, replace the ``app-config-web-1.0.0`` component with other options such as `app-config-server-1.0.0 `or `app-config-worker-1.0.0`.
+> **Note** To deploy other workload types, replace the `app-config-web-1.0.0` component with another
+option such as `app-config-server-1.0.0`, or `app-config-worker-1.0.0`.
 
-## Build an application and store the artifact in Git recipe
+## <a id='artifact-git'></a>Build an application and store the artifact in Git recipe
 
-This Supply Chain builds a Carvel package from application source and stores it in a Git repository for deployment to a runtime environment.
+This Supply Chain builds a Carvel package from the application source and stores it in a Git
+repository for deployment to a runtime environment.
 
 It performs the following actions:
 
-- Pull application source from Git
+- Pull the application source from Git
 - Build a container image using Buildpacks
 - Generate a runtime definition with the image
 - Generate a Knative service
 - Generate a Carvel package to make the application deployable
-- Create a PR against a Git repository with the Carvel package contents
+- Create a pull request against a Git repository with the Carvel package contents
 
 Complete the following steps:
 
 1. Ensure that you have initialized a working directory using [tanzu supplychain init](../../reference/supplychain-cli/tanzu_supplychain_init.hbs.md).
-2. Run the following command to generate the supply chain.
+2. Generate the Supply Chain by running:
 
     ```console
     tanzu supplychain generate \
@@ -65,22 +67,22 @@ Complete the following steps:
       --component git-writer-pr-1.0.0
     ```
 
-> **Note** To write directly to a Git repository without creating a PR, replace the `git-writer-pr-1.0.0` component with `git-writer-1.0.0`.
+> **Note** To write directly to a Git repository without creating a pull request, replace the `git-writer-pr-1.0.0` component with `git-writer-1.0.0`.
 
-## Deploy an application package from Git recipe
+## <a id='git-recipe'></a> Deploy an application package from a Git recipe
 
 This Supply Chain deploys a Carvel package from a Git repository.
 
 It performs the following actions:
 
-- Pull application package from Git
+- Pull the application package from Git
 - Translate the Carvel package to a deployable package
 - Deploy the application
 
 Complete the following steps:
 
-1. Ensure that you have initialized a working directory using [tanzu supplychain init](../../reference/supplychain-cli/tanzu_supplychain_init.hbs.md).
-2. Run the following command to generate the supply chain.
+1. Ensure that you have initialized a working directory by running [tanzu supplychain init](../../reference/supplychain-cli/tanzu_supplychain_init.hbs.md).
+2. Generate the Supply Chain by running:
 
     ```console
     tanzu supplychain generate \
@@ -91,11 +93,11 @@ Complete the following steps:
       --component deployer-1.0.0
     ```
 
-## Supply Chain Choreographer
+## <a id='scc'></a>Supply Chain Choreographer
 
 The recipes in this topic are analogous to OOTB Supply Chains and Profile experiences in Supply Chain Choreographer. Use this mapping to help decide which recipe to start with. These recipes
 do not provide exact parity with OOTB Supply Chains.
 
-- Iterate Profile: Use [Build and Deploy an application](#build-and-deploy-an-application).
-- Supply Chain Basic: Use [Build an application and store the artifact in Git](#build-an-application-and-store-the-artifact-in-git).
-- Delivery Basic: Use [Deploy an application package from Git](#deploy-an-application-package-from-git).
+- Iterate Profile: Use [Build and deploy an application recipe](starter-supply-chains.hbs.md#app-recipe).
+- Supply Chain Basic: Use [Build an application and store the artifact in Git recipe](starter-supply-chains.hbs.md#artifact-git).
+- Delivery Basic: Use [Deploy an application package from Git recipe](starter-supply-chains.hbs.md#git-recipe).

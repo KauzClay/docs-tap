@@ -1,4 +1,4 @@
-# Manage SupplyChains with GitOps
+# Manage Supply Chains with GitOps
 
 This topic tells you how to manage SupplyChains using GitOps.
 

@@ -23,7 +23,7 @@ If migrating from the internal database to an external database, back up the dat
 1. Update your `tap-values.yaml` file:
 
    ```yaml
-   metadata-store: 
+   metadata_store: 
      db_host: "<DB Instance Endpoint>"
      db_user: "<Master Username>"
      db_password: "<Master Password>"
@@ -61,8 +61,8 @@ reconciliation might fail. You must manually delete the secret the
 cert-manager created and cycle the AMR and MDS Services so that the new secret is picked up.
 
    ```console
-   kubectl delete secret -n metadata-store postgres-db-tls-cert
-   kubectl rollout restart -n metadata-store deployment metadata-store-app
+   kubectl delete secret -n metadata_store postgres-db-tls-cert
+   kubectl rollout restart -n metadata_store deployment metadata_store-app
    ```
 
 ## Validation

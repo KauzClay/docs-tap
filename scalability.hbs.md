@@ -86,8 +86,8 @@ The following table describes the resource limit changes that are required for c
 | Services Toolkit Controller | 100&nbsp;m/200&nbsp;m | **750&nbsp;Mi/1.5&nbsp;Gi** | n/a| No | Yes | Yes| overlay |
 | tap-telemetry/tap-telemetry-informer | 100&nbsp;m/1000&nbsp;m | 100&nbsp;Mi/**2&nbsp;Gi** | n/a| Yes | No | Yes| `tap-values.yaml` |
 | App SSO/App SSO Controller | 20&nbsp;m/500&nbsp;m | **512&nbsp;Mi/2&nbsp;Gi** | n/a| No | Yes | Yes| `tap-values.yaml` |
-| Tekton | n/a | n/a | Update default Timeout for tekton pipeline | Yes | No | Yes| `tap-values.yaml` |
-| App Scanning | n/a | n/a | Update maxConcurrentScan to 100 | Yes | No | No | `tap-values.yaml` |
+| Tekton | n/a | n/a | Update default timeout for Tekton pipeline | Yes | No | Yes| `tap-values.yaml` |
+| App Scanning | n/a | n/a | Update `maxConcurrentScan` to 100 | Yes | No | No | `tap-values.yaml` |
 
 - CPU is measured in millicores. m = millicore. 1000 millicores = 1 vCPU.
 - Memory is measured in Mebibyte and Gibibyte. Mi = Mebibyte. Gi = Gibibyte

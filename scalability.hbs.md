@@ -554,7 +554,7 @@ tekton_pipelines:
     timeout_minutes: "120"
 ```
 
-### App Scanning max concurrent scan (Scan 2.0)
+### App Scanning maximum concurrent scan (Scan 2.0)
 
 The default resource limits are:
 
@@ -571,3 +571,5 @@ app_scanning:
   scans:
     maxConcurrentScans: 100
 ```
+
+For more information, see [Supply Chain Security Tools - Scan 2.0](./scst-scan/scan-2-0.hbs.md).

@@ -572,4 +572,4 @@ app_scanning:
     maxConcurrentScans: 100
 ```
 
-For more information, see [Supply Chain Security Tools - Scan 2.0](./scst-scan/scan-2-0.hbs.md).
+For more information, see [Supply Chain Security Tools - Scan 2.0](scst-scan/scan-2-0.hbs.md).

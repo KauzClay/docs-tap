@@ -30,7 +30,7 @@ Handler, the following values are required:
 - `amr.observer.cloudevent_handler.endpoint` is required for the Observer to send to the AMR CloudEvent Handler.
 - `amr.observer.cloudevent_handler.ca_cert_data` or `shared.ca_cert_data` are required for AMR CloudEvent Handlers that use Custom CA certificates to generate the associated TLS certificate for the ingress endpoint.
 
->**Note** If SCST - Scan 2.0 is installed after AMR Observer has already been deployed, a deployment you must restart AMR Observer to observe the new ImageVulerabilityScan Custom Resource that was installed with SCST - Scan 2.0.
+>**Note** If SCST - Scan 2.0 is installed after AMR Observer has already been deployed, a deployment you must restart AMR Observer to observe the new ImageVulnerabilityScan Custom Resource that was installed with SCST - Scan 2.0.
 
 ```console
 kubectl -n amr-observer-system rollout restart deployment amr-observer-controller-manager

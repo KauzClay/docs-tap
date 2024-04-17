@@ -27,7 +27,7 @@ can provide a secret to pull the source for their repository without the Platfor
 
 ## Kubernetes Distribution Support
 
-- The Beta release of Tanzu Supply Chains does not include support for Red Hat OpenShift. However, this support is planned for an upcoming velease. Attempting to individually
+- The Beta release of Tanzu Supply Chains does not include support for Red Hat OpenShift. However, this support is planned for an upcoming release. Attempting to individually
 install components for Tanzu Supply Chains and Managed Resource Controller, as well as installing
 the Authoring profile that comes with those components out of the box, results in failure due
 to the absence of this support.

@@ -185,7 +185,7 @@ to it. Run:
     tanzu workload get tanzu-java-web-app
     ```
 
-    Èxample output:
+    Example output:
 
     ```console
 

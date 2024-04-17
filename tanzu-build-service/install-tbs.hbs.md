@@ -149,7 +149,7 @@ to your `tbs-values.yaml` file. This is to exclude the default `lite` dependenci
         --package buildservice.tanzu.vmware.com \
         --version 1.12.4 \
         --namespace tap-install \
-        --vaules-file tbs-values.yaml
+        --values-file tbs-values.yaml
 
     | Installing package 'buildservice.tanzu.vmware.com'
     | Getting namespace 'tap-install'

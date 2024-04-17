@@ -4,7 +4,7 @@ This topic tells you how to use the Tanzu Workload CLI plug-in to create your fi
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-The Platform Engineer has already created some Supply Chains for you to use.
+In this tutorial, the platform Engineer has already created some Supply Chains for you to use.
 The Supply Chains can pull the source code from the source repository and build it.
 The built artifact is then pushed to a GitOps repository determined by the Platform Engineer.
 

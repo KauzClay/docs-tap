@@ -123,7 +123,7 @@ a path to any structure where all desired child fields must be set. For example:
     Path to any key representing a YAML object
     : Examples:
 
-       1. Path `spec.registry`:
+       Example 1: Path `spec.registry`:
 
             ```yaml
             config:
@@ -133,7 +133,7 @@ a path to any structure where all desired child fields must be set. For example:
                     repository: "https://my-registry.url.com"
             ```
 
-       1. Path `spec`. In this example, there is no value for `spec.registry.server`, it will not be available to modify in the `Workload`.
+       Example 2: Path `spec`. In this example, there is no value for `spec.registry.server`, it will not be available to modify in the `Workload`.
 
           ```yaml
           config:
@@ -144,7 +144,7 @@ a path to any structure where all desired child fields must be set. For example:
                     repository: "https://my-registry.url.com"
           ```
 
-       1. Path `spec` with empty value. This example results in a `Workload` without a spec.
+       Example 3: Path `spec` with empty value. This example results in a `Workload` without a spec.
 
           ```yaml
           config:

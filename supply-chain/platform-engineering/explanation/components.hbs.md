@@ -22,10 +22,10 @@ Components are unique from other CI/CD offerings in three distinct ways:
 
 These design constraints exist to:
 
-1. **Simplify the end-user experience:** Provides a single, well-defined API and a way of mitigating
+1. Simplify the end-user experience: Provides a single, well-defined API and a way of mitigating
    errors if they arise.
 
-2. **Simplify the authoring experience:** Requires minimal Kubernetes experience to construct
+2. Simplify the authoring experience: Requires minimal Kubernetes experience to construct
    supply chains that meet your organization's needs.
 
 <!--

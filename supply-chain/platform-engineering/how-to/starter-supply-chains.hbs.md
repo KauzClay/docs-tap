@@ -8,12 +8,12 @@ This Supply Chain builds and deploys an application from source.
 
 It performs the following actions:
 
-- Pull the application source from Git
-- Build a container image using Buildpacks
-- Generate a runtime definition with the image
-- Generate a Kubernetes Deployment and Service
-- Generate a Carvel package to make the application deployable
-- Deploy the application
+- Pulls the application source from Git.
+- Builds a container image using Buildpacks.
+- Generates a runtime definition with the image.
+- Generates a Kubernetes Deployment and Service.
+- Generates a Carvel package to make the application deployable.
+- Deploys the application.
 
 Complete the following steps:
 
@@ -43,16 +43,16 @@ repository for deployment to a runtime environment.
 
 It performs the following actions:
 
-- Pull the application source from Git
-- Build a container image using Buildpacks
-- Generate a runtime definition with the image
-- Generate a Knative service
-- Generate a Carvel package to make the application deployable
-- Create a pull request against a Git repository with the Carvel package contents
+- Pulls the application source from Git.
+- Builds a container image using Buildpacks.
+- Generates a runtime definition with the image.
+- Generates a Knative service.
+- Generates a Carvel package to make the application deployable.
+- Creates a pull request against a Git repository with the Carvel package contents.
 
 Complete the following steps:
 
-1. Ensure that you have initialized a working directory using [tanzu supplychain init](../../reference/supplychain-cli/tanzu_supplychain_init.hbs.md).
+1. Ensure that you have initialized a working directory by running [tanzu supplychain init](../../reference/supplychain-cli/tanzu_supplychain_init.hbs.md).
 2. Generate the Supply Chain by running:
 
     ```console
@@ -75,9 +75,9 @@ This Supply Chain deploys a Carvel package from a Git repository.
 
 It performs the following actions:
 
-- Pull the application package from Git
-- Translate the Carvel package to a deployable package
-- Deploy the application
+- Pulls the application package from Git.
+- Translates the Carvel package to a deployable package.
+- Deploys the application.
 
 Complete the following steps:
 

@@ -24,7 +24,7 @@ If a resumption has already been executed with the same parameters, the result o
 This allows hundreds or thousands of workloads to reuse the same common inputs from resumptions without
 needing to run another resumption.
 
-Resumptions wait for the period of time specified in `resumptions[].trigger.runAfter`, after the last
+Resumptions wait for the period specified in `resumptions[].trigger.runAfter`, after the last
 completion of a resumption `TaskRun`, before running it again.
 
 When a result for a resumption changes, all the `WorkloadRuns` with the same `resumptionKey` are cloned,

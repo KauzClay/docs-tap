@@ -157,8 +157,7 @@ a path to any structure where all desired child fields must be set. For example:
 
 Platform engineers generate SupplyChains with  defaults to allow them to define default values
 that can be changed by developers using the `Workload` (Developer API).
-By configuring defaults for each component in the SupplyChain, the generated `Workload` will contain
-default values.
+By configuring defaults for each component in the SupplyChain, the generated `Workload` will contain default values.
 
 Defaults consist of:
 

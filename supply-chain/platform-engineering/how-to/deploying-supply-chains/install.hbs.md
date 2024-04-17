@@ -1,11 +1,11 @@
 # Install an authored Supply Chain
 
-This topic tells you how to install a SupplyChain authored using the Tanzu Supplychain CLI plug-in.
+This topic tells you how to install a SupplyChain authored using the Tanzu Supply Chain CLI plug-in.
 {{> 'partials/supply-chain/beta-banner' }}
 
 ## Prerequisite
 
-- Ensure that you created a SupplyChain by following the tutorial [Build your first SupplyChain](./../../tutorials/my-first-supply-chain.hbs.md).
+- Ensure that you created a SupplyChain by following the [Build your first SupplyChain](./../../tutorials/my-first-supply-chain.hbs.md) tutorial.
 - The `make install` command requires `kapp` CLI to be installed on the local machine. Install [kapp CLI](https://carvel.dev/kapp/docs/latest/install/).
 
 ## Installation
@@ -131,4 +131,4 @@ Tekton resources, such as `Pipelines` and `Tasks` to execute the logic of the co
 
 ## Installing using GitOps
 
-For information about how to manage and install Supply Chains in your build or full clusters, see [GitOps managed SupplyChains](./../deploying-supply-chains/gitops-managed.hbs.md).
+For information about how to manage and install Supply Chains in your build or full clusters, see [Manage SupplyChains with GitOps](./../deploying-supply-chains/gitops-managed.hbs.md).

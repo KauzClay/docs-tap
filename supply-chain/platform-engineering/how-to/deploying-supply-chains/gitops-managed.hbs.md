@@ -8,13 +8,13 @@ SupplyChains, especially the authoring resources SupplyChain, Component, and Tek
 
 The expected flow is as follows:
 
-1. Author the SupplyChain as a collection of yaml files in a file system backed by Git.
+1. Author the SupplyChain as a collection of YAML files in a file system backed by Git.
 2. Test and debug by pushing all the files to a single namespace.
-3. When you're happy with your new or modified SupplyChain, commit it to Git and create a pull/merge request.
-4. Using continuous integration, test, and approve the pull/merge request.
+3. When you're happy with your new or modified SupplyChain, commit it to Git and create a pull request.
+4. Using continuous integration, test, and approve the pull request.
 5. Using continuous deployment, deliver your edits to build clusters.
 
-**Note** Both the integration and deployment of your SupplyChains should be managed by SupplyChains.
+>**Note** Both the integration and deployment of your SupplyChains should be managed by SupplyChains.
 VMware will release examples of integration and delivery SupplyChains for SupplyChains in a future release.
 
 <!--

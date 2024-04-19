@@ -4,8 +4,9 @@ This topic guides you through creating an accelerator and registering it in a Ta
 (commonly known as TAP) instance.
 
 Tanzu Application Platform offers a selection of built-in accelerators to streamline your development process.
-However, if these accelerators don't align with your needs, you can create a new accelerator.
-By doing so, you can ensure that your technology stacks and organizational best practices are adhered to consistently.
+However, if these accelerators don't meet your needs, you can create a new accelerator.
+By creating an accelerator, you can ensure that your technology stacks and organizational best practices
+are adhered to.
 
 > **Note** This guide follows a quick start format. See the [Application Accelerator
 > documentation](../application-accelerator/about-application-accelerator.hbs.md)

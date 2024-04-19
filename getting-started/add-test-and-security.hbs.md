@@ -280,8 +280,8 @@ To install OOTB Supply Chain with Testing and Scanning:
 
     Where `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`.
 
-1. When `supply_chain: testing_scanning` is used, Grype Scanner for SCST - Scan is installed through Namespace Provisioner. Verify that Grype Scanner
-   is present on your workload namespace:
+1. Because you set `supply_chain: testing_scanning` in your `tap-values.yaml` earlier, Grype Scanner for SCST - Scan
+   is installed through Namespace Provisioner. Verify that Grype Scanner is present on your workload namespace:
 
     ```console
     tanzu package installed get grype-scanner-YOUR-DEV-NAMESPACE -n tap-install

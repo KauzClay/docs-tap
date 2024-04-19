@@ -376,6 +376,49 @@ spec:
     url:
 ```
 
+---
+# kaniko-build
+
+Version: 1.0.0
+
+## Description
+
+Builds an app with kaniko
+
+
+## Inputs
+
+| Name  | Type |
+| ---   | ---  |
+| source | [source](./output-types.hbs.md#source) |
+| git | [git](./output-types.hbs.md#git) |
+
+## Outputs
+
+| Name  | Type |
+| ---   | ---  |
+| image | [image](./output-types.hbs.md#image) |
+
+## Config
+
+```yaml
+spec:
+  # Kaniko build specification
+  build:
+    # path to dockerfile to build
+    dockerfile:
+    # extra args to pass to kaniko build
+    extra-args:
+  # Registry to use
+  registry:
+    # The repository to use
+    # +required
+    repository:
+    # The registry address
+    # +required
+    server:
+```
+
 
 ---
 ## source-git-provider

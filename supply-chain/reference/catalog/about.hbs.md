@@ -385,19 +385,18 @@ Version: 1.0.0
 
 Builds an app with kaniko
 
-
 ## Inputs
 
-| Name  | Type |
-| ---   | ---  |
-| source | [source](./output-types.hbs.md#source) |
-| git | [git](./output-types.hbs.md#git) |
+| Name   | Type                                 |
+|--------|--------------------------------------|
+| source | [source](output-types.hbs.md#source) |
+| git    | [git](output-types.hbs.md#git)       |
 
 ## Outputs
 
-| Name  | Type |
-| ---   | ---  |
-| image | [image](./output-types.hbs.md#image) |
+| Name  | Type                               |
+|-------|------------------------------------|
+| image | [image](output-types.hbs.md#image) |
 
 ## Config
 
@@ -418,7 +417,6 @@ spec:
     # +required
     server:
 ```
-
 
 ---
 ## source-git-provider

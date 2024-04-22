@@ -4,30 +4,19 @@ This topic lists known issues for Tanzu Supply Chains.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-## Workload Visibility
-
-- Tekton failures in Tasks are not propagated properly in the status of the `WorkloadRuns` and
-thereby not visible in the `tanzu workload run get` outputs.
-- Errors in the `Component` pipelines and exposed as a message is not properly propagated in the
-status of the `WorkloadRun` and thereby not visible in the `tanzu workload run get` outputs.
-
 ## Component Authoring
 
 - Components cannot have more than one resumption defined. When there are multiple resumptions,
 the `WorkloadRuns` are not being correctly created upon changes triggered by these resumptions.
 The current workaround is to assess all triggers in a single resumption.
 
-## Security
-
-- The Tekton `Pipelines` and `Tasks` are currently running in the Developer namespace where the
-`Workload` is. In a future release, `SupplyChain` namespaces will run these resources for the
-`Component` unless its specifically chosen by the component author to run in the Developer
-namespace. There are use cases for components such as `source-git-provider` where a Developer
-can provide a secret to pull the source for their repository without the Platform Engineer being the bottleneck.
-
 ## Kubernetes Distribution Support
 
-- The Beta release of Tanzu Supply Chains does not include support for Red Hat OpenShift. However, this support is planned for an upcoming release. Attempting to individually
+- The Beta release of Tanzu Supply Chain does not include support for Red Hat OpenShift. However, this support is planned for an upcoming release. Attempting to individually
 install components for Tanzu Supply Chains and Managed Resource Controller, as well as installing
 the Authoring profile that comes with those components out of the box, results in failure due
 to the absence of this support.
+
+## CA Cert Support
+
+- The Beta version of Tanzu Supply Chain currently does not include support for CA certificates in the Out of the Box components. However, users can modify the components to support CA certificates and utilize them to construct a new Supply Chain. The support for CA certificates out of the box is part of the roadmap and will be included in future versions.

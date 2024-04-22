@@ -1,22 +1,26 @@
-# Tanzu Supply Chains Known Issues
+# Tanzu Supply Chain known issues
 
-This topic lists known issues for Tanzu Supply Chains.
+This topic lists known issues for Tanzu Supply Chain.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-## Component Authoring
+## Component authoring
 
-- Components cannot have more than one resumption defined. When there are multiple resumptions,
-the `WorkloadRuns` are not being correctly created upon changes triggered by these resumptions.
-The current workaround is to assess all triggers in a single resumption.
+- Components cannot have more than one resumption defined. When there are multiple resumptions, the
+  `WorkloadRuns` are not correctly created after changes triggered by these resumptions. The
+  current workaround is to assess all triggers in a single resumption.
 
-## Kubernetes Distribution Support
+## Kubernetes distribution support
 
-- The Beta release of Tanzu Supply Chain does not include support for Red Hat OpenShift. However, this support is planned for an upcoming release. Attempting to individually
-install components for Tanzu Supply Chains and Managed Resource Controller, as well as installing
-the Authoring profile that comes with those components out of the box, results in failure due
-to the absence of this support.
+- The beta release of Tanzu Supply Chain does not include support for Red Hat OpenShift. However,
+  this support is planned for an upcoming release. Attempting to individually install components for
+  Tanzu Supply Chains and Managed Resource Controller, as well as installing the Authoring profile
+  that includes those components as standard, results in failure due to the absence of this
+  support.
 
-## CA Cert Support
+## CA certificate support
 
-- The Beta version of Tanzu Supply Chain currently does not include support for CA certificates in the Out of the Box components. However, users can modify the components to support CA certificates and utilize them to construct a new Supply Chain. The support for CA certificates out of the box is part of the roadmap and will be included in future versions.
+- The beta version of Tanzu Supply Chain currently does not include support for CA certificates in
+  the out-of-the-box components. However, you can edit the components to support CA certificates and
+  use them to construct a new Supply Chain. Support for CA certificates as standard is planned for
+  future versions.

@@ -361,6 +361,17 @@ spec:
                             storage: 1Gi
 ```
 
+## Install the component
+
+```
+NAMESPACE=mysupplychains make install
+```
+
+## Next Steps
+
+Add your new `Component` to a `SupplyChain`. For instructions, see
+[Add Stages to your Supply Chain](./add-stages-supply-chain.hbs.md).
+
 ## Useful links
 
 - [Component API Reference](../../reference/api/component.hbs.md)

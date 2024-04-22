@@ -824,6 +824,7 @@
               - [Workload Kind](./supply-chain/reference/workload-cli/tanzu_workload_kind.hbs.md)
               - [Workload Kind List](./supply-chain/reference/workload-cli/tanzu_workload_kind_list.hbs.md)
               - [Workload List](./supply-chain/reference/workload-cli/tanzu_workload_list.hbs.md)
+              - [Workload Logs](./supply-chain/reference/workload-cli/tanzu_workload_logs.hbs.md)
               - [Workload Run](./supply-chain/reference/workload-cli/tanzu_workload_run.hbs.md)
               - [Workload Run Get](./supply-chain/reference/workload-cli/tanzu_workload_run_get.hbs.md)
           - [Supply Chain CLI Plugin Reference](./supply-chain/reference/supplychain-cli/tanzu_supplychain.hbs.md)

@@ -8,7 +8,6 @@ create, update, view and list Tanzu Workloads.
   -h, --help              help for workload
       --kubeconfig file   kubeconfig file (default is $HOME/.kube/config)
       --no-color          deactivate color, bold, animations, and emoji output
-  -v, --verbose int32     number for the log level verbosity (default 1)
 ```
 
 ## SEE ALSO
@@ -20,6 +19,6 @@ create, update, view and list Tanzu Workloads.
 * [tanzu workload get](tanzu_workload_get.hbs.md)	 - Get details of a workload
 * [tanzu workload kind](tanzu_workload_kind.hbs.md)	 - View supported workload types (kinds)
 * [tanzu workload list](tanzu_workload_list.hbs.md)	 - Lists all workloads
+* [tanzu workload logs](tanzu_workload_logs.hbs.md)	 - Watch workload related logs
 * [tanzu workload run](tanzu_workload_run.hbs.md)	 - View workload runs
-
 

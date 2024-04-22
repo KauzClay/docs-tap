@@ -33,15 +33,14 @@ tanzu supplychain list
   -w, --wide             output the supplychain list with additional information
 ```
 
-### Options inherited from parent commands
+## Options inherited from parent commands
 
 ```console
       --kubeconfig file   kubeconfig file (default is $HOME/.kube/config)
       --no-color          deactivate color, bold, animations, and emoji output
-  -v, --verbose int32     number for the log level verbosity (default 1)
 ```
 
-### SEE ALSO
+## SEE ALSO
 
-* [tanzu supplychain](tanzu_supplychain.md)	 - supplychain management
+* [tanzu supplychain](tanzu_supplychain.hbs.md)	 - supplychain management
 

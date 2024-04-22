@@ -7,7 +7,7 @@ Get details of a component
 Get the details of the specified component within a namespace.
 
 component get configuration options include:
-- Specify the namespace of the component
+- Specify the namespace of the component (optional)
 - Output the component formatted
 - Show more details of the component
 
@@ -27,7 +27,7 @@ tanzu supplychain component get NAME
 
 ```console
   -h, --help             help for get
-  -n, --namespace name   kubernetes namespace (defaulted from kube config)
+  -n, --namespace name   kubernetes namespace
   -o, --output string    output the component details formatted. Supported formats: "json", "yaml", "yml"
       --show-details     show more details of the component
 ```
@@ -37,10 +37,9 @@ tanzu supplychain component get NAME
 ```console
       --kubeconfig file   kubeconfig file (default is $HOME/.kube/config)
       --no-color          deactivate color, bold, animations, and emoji output
-  -v, --verbose int32     number for the log level verbosity (default 1)
 ```
 
 ## SEE ALSO
 
-* [tanzu supplychain component](tanzu_supplychain_component.md)	 - Interacting with supplychain components
+* [tanzu supplychain component](tanzu_supplychain_component.hbs.md)	 - Interacting with supplychain components
 

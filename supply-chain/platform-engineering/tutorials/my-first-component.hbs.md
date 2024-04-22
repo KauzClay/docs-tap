@@ -245,6 +245,121 @@ spec:
 
 ```
 
+## Create a Supplychain Component
+
+### Step 1: Define Component Configuration
+```
+---
+apiVersion: supply-chain.apps.tanzu.vmware.com/v1alpha1
+kind: Component
+metadata:
+    name: maven-unit-tester-1.0.0
+spec:
+    description: Execute a maven unit test command using the mvn CLI
+    config:
+        - path: spec.test.cmd
+          schema:
+            description: |
+                Unit testing mvn command to run
+            required:
+                - cmd
+            type: string
+            default: "mvn test"
+            example: "mvn test"
+```
+
+### Step 2: Define Component Inputs/Outputs
+
+```
+    inputs:
+      - name: source
+        type: source
+```
+
+### Step 3: Define Component Pipeline Details
+
+```
+    pipelineRun:
+        params:
+            - name: source-url
+              value: $(inputs.source.url)
+            - name: sub-path
+              value: $(workload.spec.source.subPath)
+            - name: testcmd
+              value: $(workload.spec.test.cmd)
+            - name: workload-name
+              value: $(workload.metadata.name)
+        pipelineRef:
+            name: maven-unit-tester-1.0.0
+        taskRunTemplate:
+            podTemplate:
+                securityContext:
+                    fsGroup: 1000
+                    runAsGroup: 1000
+                    runAsUser: 1001
+        workspaces:
+            - name: shared-data
+              volumeClaimTemplate:
+                spec:
+                    accessModes:
+                        - ReadWriteOnce
+                    resources:
+                        requests:
+                            storage: 1Gi
+
+```
+
+Putting it all togather and your `Component` CR looks like follows:
+
+```
+---
+apiVersion: supply-chain.apps.tanzu.vmware.com/v1alpha1
+kind: Component
+metadata:
+    name: maven-unit-tester-1.0.0
+spec:
+    description: Execute a maven unit test command using the mvn CLI
+    inputs:
+      - name: source
+        type: source
+    config:
+        - path: spec.test.cmd
+          schema:
+            description: |
+                Unit testing mvn command to run
+            required:
+                - cmd
+            type: string
+            default: "mvn test"
+            example: "mvn test"
+    pipelineRun:
+        params:
+            - name: source-url
+              value: $(inputs.source.url)
+            - name: sub-path
+              value: $(workload.spec.source.subPath)
+            - name: testcmd
+              value: $(workload.spec.test.cmd)
+            - name: workload-name
+              value: $(workload.metadata.name)
+        pipelineRef:
+            name: maven-unit-tester-1.0.0
+        taskRunTemplate:
+            podTemplate:
+                securityContext:
+                    fsGroup: 1000
+                    runAsGroup: 1000
+                    runAsUser: 1001
+        workspaces:
+            - name: shared-data
+              volumeClaimTemplate:
+                spec:
+                    accessModes:
+                        - ReadWriteOnce
+                    resources:
+                        requests:
+                            storage: 1Gi
+```
 
 ## Useful links
 

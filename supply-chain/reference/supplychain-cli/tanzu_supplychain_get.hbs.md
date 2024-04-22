@@ -33,10 +33,9 @@ tanzu supplychain get NAME
 ```console
       --kubeconfig file   kubeconfig file (default is $HOME/.kube/config)
       --no-color          deactivate color, bold, animations, and emoji output
-  -v, --verbose int32     number for the log level verbosity (default 1)
 ```
 
 ## SEE ALSO
 
-* [tanzu supplychain](tanzu_supplychain.md)	 - supplychain management
+* [tanzu supplychain](tanzu_supplychain.hbs.md)	 - supplychain management
 

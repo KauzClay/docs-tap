@@ -6,5 +6,4 @@ This section contains guides for platform engineers about deploying and managing
 
 In this section:
 
-- [Install an authored SupplyChain](./install.hbs.md)
 - [GitOps managed SupplyChains](./gitops-managed.hbs.md)

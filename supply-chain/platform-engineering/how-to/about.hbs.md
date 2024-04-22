@@ -16,7 +16,6 @@ In this section:
 
 ## How to Guides: Deploying and Managing SupplyChains
 
-- [Install an authored SupplyChain](./deploying-supply-chains/install.hbs.md)
 - [GitOps Managed SupplyChains](./deploying-supply-chains/gitops-managed.hbs.md)
 
 ## How to Guides: Starter SupplyChains

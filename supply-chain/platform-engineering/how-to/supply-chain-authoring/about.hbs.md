@@ -7,3 +7,4 @@ This section contains guides for platform engineers about authoring SupplyChain 
 In this section:
 
 - [Construct a Supply Chain using the CLI](./construct-with-cli.hbs.md)
+- [Configure a Supply Chain using the Tanzu CLI](./configure.hbs.md)

@@ -26,6 +26,7 @@ Install these CLI tools:
 ## How to Guides: SupplyChain Authoring
 
 - [Construct a Supply Chain using the Tanzu CLI](./how-to/supply-chain-authoring/construct-with-cli.hbs.md)
+- [Configure a Supply Chain using the Tanzu CLI](./how-to/supply-chain-authoring/configure.hbs.md)
 
 ## How to Guides: Deploying and Managing SupplyChains
 

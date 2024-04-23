@@ -37,6 +37,14 @@ Example:
 
 ## Create a Tekton pipeline
 
+The first step in creating a `Component` is to make a Tekton `Pipeline` that includes the logic the component will use. In our case, the `maven-unit-tester` does two things: it gets the source code extracted by the `source-git-provider` component and uses it as input. Then, it runs the unit test command on that source repository.
+
+Our Tekton pipeline has 3 parts:
+
+* Define the `parameters` that a Developer can provide using the Workload.
+* Create a shared `workspace` to store intermediate files like the source code from the `source-git-provider` stage.
+* Tasks that actually execute the unit testing logic.
+
 ### Step 1: Define Parameters
 ```
 ---
@@ -147,7 +155,9 @@ We will add 2 tasks in the `Pipeline` resource.
 
 ```
 
-Put it all togather and our pipeline looks as follows:
+>**Important** It is best practice to add the version of the pipeline in the name of the yaml file as well as the name of the pipeline so you can create new versions of the pipelines without interfearing with the old one. 
+
+Put it all togather and our pipeline looks as follows and we will store our `Pipeline` in the `pipelines` folder created by the CLI as `maven-unit-tester-1.0.0.yaml`. 
 
 ```
 ---

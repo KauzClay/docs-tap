@@ -257,6 +257,17 @@ spec:
 
 ## Create a Supplychain Component
 
+Next step is to write a `Component` manifest that defines the following 4 things:
+
+* **Configuration:** for a `Component` that is exposed as part of the Developer API. These is the configuration that
+    * Platform Engineer can override at a Supply chain level or
+    * Developer can provide using the `Workload` if not overriden by a Platform Engineer at the `Supplychain` level.
+* **Inputs/Outputs:**: 
+    * `Inputs` is a list of named `Outputs` from a previous stage in a Supply chain that the current `Component` depends on.
+    * `Outputs` are named outputs from this component that can be used by another `Component` as `Inputs`.
+* **Pipeline Run Definition:** section defines the work done by this component. spec.pipelineRun is used to create a [Tekton PipelineRun] and has many similarities.
+
+
 ### Step 1: Define Component Configuration
 ```
 ---
@@ -280,13 +291,17 @@ spec:
 
 ### Step 2: Define Component Inputs/Outputs
 
+In our case, we will use the Output of the `source-git-provider` component as an input to our `maven-unit-tester` component.
+
 ```
     inputs:
       - name: source
         type: source
 ```
 
-### Step 3: Define Component Pipeline Details
+### Step 3: Define Component Pipeline Run Details
+
+In this section, we will reference the `Pipeline` we created earlier and pass the values from the `Workload` and `Inputs` to satisfy the parameters for the Pipeline.
 
 ```
     pipelineRun:
@@ -319,7 +334,7 @@ spec:
 
 ```
 
-Putting it all togather and your `Component` CR looks like follows:
+Put it all togather and our `Component` looks as follows and we will store it in the `components` folder created by the CLI as `maven-unit-tester-1.0.0.yaml`. 
 
 ```
 ---
@@ -372,6 +387,8 @@ spec:
 ```
 
 ## Install the component
+
+We can now use the `make install` target created by the `tanzu supplychain` CLI to install our new `Component` and `Pipeline` to see if they reconcile successfully. Errors thrown by Tekton will be caught by this command and will be displayed to the User.
 
 ```
 NAMESPACE=mysupplychains make install

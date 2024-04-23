@@ -14,7 +14,7 @@ In the first tutorial, we built a SupplyChain that retrieves the source code fro
 packaging it as a Carvel package. Subsequently, it initiates a pull request to transfer the Carvel
 package to a GitOps repository, facilitating the installation of the built package on the Run clusters. 
 
-In this tutorial, We will create a component that we can use in our supplychain for unit testing our Maven apps. 
+In this tutorial, we will create a component that we can use in our supplychain for unit testing our Maven apps. 
 We will create a component called `maven-unit-tester` and that will run unit tests on the source pulled by the `source-git-provider` stage.
 
 ```

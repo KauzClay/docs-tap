@@ -157,7 +157,7 @@ We will add 2 tasks in the `Pipeline` resource.
 
 >**Important** It is best practice to add the version of the pipeline in the name of the yaml file as well as the name of the pipeline so you can create new versions of the pipelines without interfearing with the old one. 
 
-Put it all togather and our pipeline looks as follows and we will store our `Pipeline` in the `pipelines` folder created by the CLI as `maven-unit-tester-1.0.0.yaml`. 
+Put it all together, and our pipeline looks as follows. We will store our `Pipeline` in the `pipelines` folder created by the CLI as `maven-unit-tester-1.0.0.yaml`.
 
 ```
 ---

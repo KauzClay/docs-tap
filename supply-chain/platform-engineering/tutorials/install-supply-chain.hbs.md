@@ -5,7 +5,7 @@ This topic tells you how to install a SupplyChain authored using the Tanzu Suppl
 
 ## Prerequisite
 
-- Ensure that you created a SupplyChain by following the [Build your first SupplyChain](./../../tutorials/my-first-supply-chain.hbs.md) tutorial.
+- Ensure that you created a SupplyChain by following the tutorial [Build your first SupplyChain](./my-first-supply-chain.hbs.md).
 - The `make install` command requires `kapp` CLI to be installed on the local machine. Install [kapp CLI](https://carvel.dev/kapp/docs/latest/install/).
 
 ## Installation
@@ -16,7 +16,7 @@ This topic tells you how to install a SupplyChain authored using the Tanzu Suppl
     kubectl create namespace mysupplychains
     ```
 
-1. The `Makefile` was generated in the [Build your first Supply Chain](../../tutorials/my-first-supply-chain.hbs.md) tutorial. Use the `Makefile` to install the `SupplyChain` with required `Components` and
+1. The `Makefile` was generated in the [Build your first Supply Chain](./my-first-supply-chain.hbs.md) tutorial. Use the `Makefile` to install the `SupplyChain` with required `Components` and
 Tekton resources, such as `Pipelines` and `Tasks` to execute the logic of the components. Run:
 
     ```bash
@@ -129,6 +129,12 @@ Tekton resources, such as `Pipelines` and `Tasks` to execute the logic of the co
 
 >**Note** By default, the `make install` command installs to the default namespace in your kubeconfig.
 
-## Installing using GitOps
+## Next Steps
 
-For information about how to manage and install Supply Chains in your build or full clusters, see [Manage SupplyChains with GitOps](./../deploying-supply-chains/gitops-managed.hbs.md).
+Create your first `Component` to add to your `SupplyChain`. For instructions, see
+[Build your first Component](./my-first-component.hbs.md).
+
+### Useful links
+- [GitOps Managed Supplychains](../how-to/deploying-supply-chains/gitops-managed.hbs.md)
+- [Supply Chain API Reference](../../reference/api/supplychain.hbs.md)
+- [Component Catalog](../../reference/catalog/about.hbs.md)

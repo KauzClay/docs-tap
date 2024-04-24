@@ -473,9 +473,8 @@ spec:
 
 ## Next Steps
 
-Deploy the `SupplyChain` to your Tanzu Application Platform clusters where your developers are
-creating the `Workloads`. For instructions, see
-[Install an authored Supply Chain](../how-to/deploying-supply-chains/install.hbs.md).
+Deploy the `SupplyChain` to your Tanzu Application Platform cluster. For instructions, see
+[Install an authored Supply Chain](./install-supply-chain.hbs.md).
 
 ### Useful links
 

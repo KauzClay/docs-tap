@@ -77,6 +77,14 @@ the component to operate.
           - url
 ```
 
+### `spec.inputs`
+
+```yaml
+  inputs:
+    - name: source
+      type: source
+```
+
 ### `spec.pipelineRun`
 
 The `spec.pipelineRun` section defines the work done by this component.

@@ -19,14 +19,17 @@ Install these CLI tools:
 ## Tutorial
 
 - [Build your first SupplyChain](./tutorials/my-first-supply-chain.hbs.md)
+- [Install an authored SupplyChain](./tutorials/install-supply-chain.hbs.md)
+- [Build your first Component](./tutorials/my-first-component.hbs.md)
+- [Add Stages to your SupplyChain](./tutorials/add-stages-supply-chain.hbs.md)
 
 ## How to Guides: SupplyChain Authoring
 
 - [Construct a Supply Chain using the Tanzu CLI](./how-to/supply-chain-authoring/construct-with-cli.hbs.md)
+- [Configure a Supply Chain using the Tanzu CLI](./how-to/supply-chain-authoring/configure.hbs.md)
 
 ## How to Guides: Deploying and Managing SupplyChains
 
-- [Install an authored SupplyChain](./how-to/deploying-supply-chains/install.hbs.md)
 - [Manage SupplyChains with GitOps](./how-to/deploying-supply-chains/gitops-managed.hbs.md)
 
 ## How to Guides: Starter SupplyChains

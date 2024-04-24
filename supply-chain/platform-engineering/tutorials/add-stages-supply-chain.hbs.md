@@ -1,32 +1,47 @@
-# Add Stages to your Supply Chain
+# Add stages to your Supply Chain
 
-This topic tells you how to build a Component using Tanzu Supply Chain.
+This topic tells you how to add a stage to a `SupplyChain` resource.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-## Prerequisite
+## Prerequisites
 
-- Ensure that you created a SupplyChain by following the tutorial [Build your first SupplyChain](./my-first-supply-chain.hbs.md).
-- Ensure that you created a Component by following the tutorial [Build your first Component](./my-first-component.hbs.md).
+You must have:
 
-## Add a stage to an existing Supplychain
+- A `SupplyChain` resource. For how to build one, see
+  [Build your first SupplyChain](my-first-supply-chain.hbs.md).
+- A Component. For how to build one, see [Build your first Component](my-first-component.hbs.md).
 
->**Important** This is recommended only if this SupplyChain has not been deployed to clusters used by developers. If it is in use by developers with existing running workloads, this option is discouraged. Instead, you should create a new SupplyChain with an updated version in the name, for example, `MavenAppBuildv2`. Creating a new version of the SupplyChain with every breaking Workload API change provides developers with a migration path and a chance to test their app on the new version of the SupplyChain.
+## Add a stage to an existing `SupplyChain`
 
-Let's add our `maven-unit-tester` Component to the `MavenAppBuildv1` SupplyChain.
+This section describes how to add a stage to an existing `SupplyChain` resource if the `SupplyChain`
+resource has not been deployed to clusters used by developers.
 
-We can do that by adding the following yaml snippet between the `source-git-provider` and `buildpack-build` stage in our `MavenAppBuildv1` SupplyChain:
+> **Important** If the `SupplyChain` resource is in use by developers with existing running
+> workloads, do not add a stage. Instead, create a new `SupplyChain` resource with an updated version
+> in the name, such as `MavenAppBuildv2`.
+>
+> Creating a new `SupplyChain` resource with every breaking Workload API change provides developers
+> with a migration path and a chance to test their app on the new `SupplyChain` resource.
 
-```
-     - componentRef:
-         name: maven-unit-tester-1.0.0
-       name: unit-testing
-```
+To add a stage:
 
-and then run the following command to update the Supplychain:
-```
-NAMESPACE=mysupplychains make install
-```
+1. Add a Component to the `SupplyChain` resource by adding the following YAML snippet between
+   `source-git-provider` and the `buildpack-build` stage in your `SupplyChain` resource:
+
+    ```yaml
+         - componentRef:
+             name: COMPONENT-NAME
+           name: unit-testing
+    ```
+
+    Where `COMPONENT-NAME` is the component name. For example, `maven-unit-tester-1.0.0`.
+
+1. Update the `SupplyChain` resource by running:
+
+   ```console
+   NAMESPACE=mysupplychains make install
+   ```
 
 ## Useful links
 

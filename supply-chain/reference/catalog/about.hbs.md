@@ -377,28 +377,28 @@ spec:
 ```
 
 ---
-# kaniko-build
+## kaniko-build
 
 Version: 1.0.0
 
-## Description
+### Description
 
 Builds an app with kaniko
 
-## Inputs
+### Inputs
 
 | Name   | Type                                 |
 |--------|--------------------------------------|
 | source | [source](output-types.hbs.md#source) |
 | git    | [git](output-types.hbs.md#git)       |
 
-## Outputs
+### Outputs
 
 | Name  | Type                               |
 |-------|------------------------------------|
 | image | [image](output-types.hbs.md#image) |
 
-## Config
+### Config
 
 ```yaml
 spec:

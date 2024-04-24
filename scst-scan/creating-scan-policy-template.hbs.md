@@ -3,10 +3,11 @@
 This topic tells you how to enable policy enforcement in a supply chain with Supply Chain Security
 Tools (SCST) - Scan 2.0.
 
-Policy enforcement is not inbuilt in SCST - Scan 2.0. It can be achieved by creating a
-`ClusterImageTemplate` that stamps out a Tekton `TaskRun` that evaluates the vulnerabilities
-and enforces the policy set. A sample of the task run and cluster image template
-are provided in this topic.
+Policy enforcement is not inbuilt in SCST - Scan 2.0 and is not included in any of the out of the box
+supply chains. A custom supply chain needs to be created to enable policy enforcement.
+It can be achieved by creating a `ClusterImageTemplate` that stamps out a Tekton `TaskRun` that
+evaluates the vulnerabilities and enforces the policy set. A sample of the task run and cluster
+image template are provided in this topic.
 
 ## Prerequisites for the task run
 
@@ -22,7 +23,7 @@ Complete the following steps:
     ACCESS-TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o yaml | yq .data.token | base64 -d)
     ```
 
-1. Create a secret `metadata-store-access-token`.
+1. Create a secret `metadata-store-access-token` in the developer namespace.
 
     ```yaml
     kind: Secret
@@ -39,7 +40,7 @@ Complete the following steps:
     MDS_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"" | base64 -d)
     ```
 
-1. Create a secret `metadata-store-cert`:
+1. Create a secret `metadata-store-cert` in the developer namespace:
 
     ```yaml
     kind: Secret
@@ -68,7 +69,7 @@ kind: TaskRun
 metadata:
   name: enforce-policy
 spec:
-  serviceAccountName: scanner
+  serviceAccountName: tap-images-read-sa # A service account in the developer namespace that can read TAP images.
   taskSpec:  
     steps:
     - name: enforce-policy
@@ -249,7 +250,7 @@ spec:
         ... <supply chain continues>
     ```
 
-1. Create a workload to trigger the supply chain.
+1. Create a workload in the developer namespace to trigger the supply chain.
 
     ```yaml
     apiVersion: carto.run/v1alpha1

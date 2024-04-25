@@ -49,7 +49,11 @@ Before using the extension, you need follow the next steps:
 
 ## <a id="using-the-extension"></a> Use the extension
 
-To use the VS Code extension:
+You can use the VS Code extension to generate a project and to export your accelerator configuration.
+
+### <a id="generate-project"></a> Generate a project
+
+To use the VS Code extension to generate a project:
 
 1. Click the Tanzu Application Accelerator extension icon in the Activity Bar to explore the defined accelerators.
 
@@ -61,9 +65,9 @@ To use the VS Code extension:
 
 1. Review your settings and click **Generate Project**.
 
-## <a id="export-options"></a> Export accelerator configuration options
+### <a id="export-options"></a> Export accelerator configuration options
 
-For faster iteration while writing accelerators, the IDE extensions enable you to export the accelerator
+For faster iteration while writing accelerators, the IDE extension enables you to export the accelerator
 options you set under **Configure Accelerators** as a JSON file. You can use this file to generate your
 project again from the CLI.
 
@@ -77,7 +81,7 @@ To export your options using the VS Code extension:
 1. On the **Review and Generate** page, export the options you configured by clicking **Export Options**
    before clicking **Generating Project**.
 
-    ![The Review and Generate page with the Export Options button highlighted](../images/export-options-vscode.png)
+    ![The Review and Generate page with the Export Options button highlighted.](../images/export-options-vscode.png)
 
 1. Choose a location to save the JSON file.
 

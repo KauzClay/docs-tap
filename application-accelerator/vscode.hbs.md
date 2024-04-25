@@ -81,7 +81,7 @@ To export your options using the VS Code extension:
 1. On the **Review and Generate** page, export the options you configured by clicking **Export Options**
    before clicking **Generating Project**.
 
-    ![The Review and Generate page with the Export Options button highlighted.](../images/export-options-vscode.png)
+    ![The Review and Generate page with the Export Options button highlighted.](images/export-options-vscode.png)
 
 1. Choose a location to save the JSON file.
 

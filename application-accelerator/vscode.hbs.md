@@ -61,6 +61,25 @@ To use the VS Code extension:
 
 1. Review your settings and click **Generate Project**.
 
+## <a id="export-options"></a> Export accelerator configuration options
+
+For faster iteration while writing accelerators, the IDE extensions enable you to export the accelerator
+options you set under **Configure Accelerators** as a JSON file.
+
+To export your options using the VS Code extension:
+
+1. Select the accelerator that you want to use.
+
+1. On the under **Configure Accelerators** page, use the form to configure the accelerator with your
+   options and click **Next**.
+
+1. On the **Review and Generate** page, export the options you configured by clicking **Export Options**
+   before clicking **Generating Project**.
+
+    ![The Review and Generate page with the Export Options button highlighted](../images/export-options-vscode.png)
+
+1. Choose a location to save the JSON file.
+
 ## <a id="fqdn-tap-gui-url"></a> Retrieve the URL for the Tanzu Developer Portal
 
 If you have access to the Tanzu Application Platform cluster that is running Tanzu Developer Portal,

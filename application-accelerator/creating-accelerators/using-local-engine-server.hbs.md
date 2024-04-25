@@ -10,8 +10,8 @@ files. This enables you to verify that the accelerator provides the defined opti
 the correct set of files.
 
 With the local engine server, you can serve your accelerators with their fragments on `localhost`,
-including any changes you have locally. You can use the VS Code Tanzu App Accelerator extension or the
-Tanzu CLI Accelerator plug-in to generate new projects based on these local files.
+including any changes you have locally. You can use the Visual Studio Code (VS Code) Tanzu App Accelerator extension
+or the Tanzu CLI Accelerator plug-in to generate new projects based on these local files.
 After you are satisfied with the new or modified accelerators and fragments, you can commit them to
 a Git repository and then publish them to a cluster to give others access.
 
@@ -77,7 +77,7 @@ To install the local engine server:
           │   ├── ...
     ```
 
-  For more examples, see [application-accelerator-samples](https://github.com/vmware-tanzu/application-accelerator-samples) in GitHub.
+    For more examples, see [application-accelerator-samples](https://github.com/vmware-tanzu/application-accelerator-samples) in GitHub.
 
     - **For macOS and Linux:** Set the environment variable, for example:
 
@@ -106,22 +106,23 @@ To use the local engine server:
 
     - **For the VS Code Tanzu App Accelerator extension:**
 
-      There is a new setting under **Tanzu Application Accelerator**. If you select the
-      **Use Local Server instead of Developer Portal** check box, the extension shows available
-      accelerators from the local engine server that you started.
-      You can use them in the same way that you use accelerators loaded from Tanzu Developer Portal.
+      Under **Settings** > **Extensions** > **Tanzu Application Accelerator**, select the
+      **Use Local Server instead of Developer Portal** check box.
+      The extension can then show accelerators from the local engine server that you started.
+      Use them in the same way that you use accelerators loaded from Tanzu Developer Portal.
+      For more information, see [Use the extension](../vscode.hbs.md#using-the-extension).
 
    - **For the Tanzu Application Accelerator plug-in for IntelliJ:**
 
-      There is a new setting under **IntelliJ IDEA** > **Preferences** > **Tools** > **Tanzu Application Accelerator**.
-      If you select the **Use Local Server instead of Developer Portal** check box, the plug-in shows available
-      accelerators from the local engine server that you started.
-      You can use them in the same way that you use accelerators loaded from Tanzu Developer Portal.
+      Under **IntelliJ IDEA** > **Preferences** > **Tools** > **Tanzu Application Accelerator**,
+      select the **Use Local Server instead of Developer Portal** check box.
+      The plug-in can then show accelerators from the local engine server that you started.
+      Use them in the same way that you use accelerators loaded from Tanzu Developer Portal.
+      For more information, see [Use the plug-in](../intellij.hbs.md#intellij-using-the-plugin).
 
     - **For the Tanzu CLI Accelerator plug-in:**
 
-      The `list`, `get`, and `generate` commands now have a `--local-server` flag to use instead of
-      `--server-url`.
+      For the `list`, `get`, and `generate` commands, use the `--local-server` flag instead of `--server-url`.
 
 ## <a id="export-options"></a>Appendix A: Export options using IDE extensions
 

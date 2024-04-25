@@ -48,11 +48,11 @@ Tanzu Developer Portal, run the following command to determine the fully-qualifi
 
 ## <a id="intellij-using-the-plugin"></a> Use the plug-in
 
-After adding the Tanzu Developer Portal URL, you can explore the defined accelerators:
+To use the IntelliJ plug-in:
 
-1. Select **New Project**, then select **Tanzu Application Accelerator**.
+1. To explore the defined accelerators, select **New Project**, then select **Tanzu Application Accelerator**.
 
-   ![Select New Project.](../images/app-accelerator/intellij/app-accelerators-intellij-new-project.png)
+   ![The IntelliJ UI with the New Project button highlighted.](../images/app-accelerator/intellij/app-accelerators-intellij-new-project.png)
 
    ![Tanzu Application Accelerator New Project wizard is open.](../images/app-accelerator/intellij/app-accelerators-intellij-accelerator-list.png)
 

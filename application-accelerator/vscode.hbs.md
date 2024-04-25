@@ -49,25 +49,28 @@ Before using the extension, you need follow the next steps:
 
 ## <a id="using-the-extension"></a> Use the extension
 
-After adding the `Tap Gui Url` you can explore the defined accelerators
-accessing the Application Accelerator extension icon:
+To use the VS Code extension:
 
-![The explorer panel is open, the TIMELINE drop-down is selected, and the Demo Types icon is highlighted.](../images/app-accelerators-vscode-icon.png)
+1. Click the Tanzu Application Accelerator extension icon in the Activity Bar to explore the defined accelerators.
 
-Choose any of the defined accelerators, fill the options and click  the `generate project`
+    ![In the VS Code Activity Bar, the Tanzu Application Accelerator icon is highlighted.](../images/app-accelerators-vscode-icon.png)
 
-![The accelerator tab is open to the Hello Fun accelerator form. The text boxes display example text and the Generate Project button is highlighted.](../images/app-accelerators-vscode-form.png)
+1. Choose any of the defined accelerators, fill in the options under **Configure Accelerator**, and click **Next**.
+
+    ![The Tanzu Java Restful Web App accelerator form. The text boxes display example text.](../images/app-accelerators-vscode-form.png)
+
+1. Review your settings and click **Generate Project**.
 
 ## <a id="fqdn-tap-gui-url"></a> Retrieve the URL for the Tanzu Developer Portal
 
-If you have access to the Tanzu Application Platform cluster that is running the Tanzu Application
-Platform GUI, you can run the following command to determine the fully-qualified domain name:
+If you have access to the Tanzu Application Platform cluster that is running Tanzu Developer Portal,
+run the following command to determine the fully-qualified domain name:
 
 ```console
 kubectl get httpproxy tap-gui -n tap-gui
 ```
 
-With an expected response of something similar to:
+Example output:
 
 ```console
 NAME      FQDN                                      TLS SECRET     STATUS   STATUS DESCRIPTION

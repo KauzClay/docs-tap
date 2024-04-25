@@ -88,6 +88,7 @@ The following table describes the resource limit changes that are required for c
 | App SSO/App SSO Controller | 20&nbsp;m/500&nbsp;m | **512&nbsp;Mi/2&nbsp;Gi** | n/a| No | Yes | Yes| `tap-values.yaml` |
 | Tekton | n/a | n/a | Update default timeout for Tekton pipeline | Yes | No | Yes| `tap-values.yaml` |
 | App Scanning | n/a | n/a | Update `maxConcurrentScan` to 100 | Yes | No | No | `tap-values.yaml` |
+| SpringBoot Conventions | n/a | n/a | Update `livenessProbe` | No | Yes | Yes | `tap-values.yaml` |
 
 - CPU is measured in millicores. m = millicore. 1000 millicores = 1 vCPU.
 - Memory is measured in Mebibyte and Gibibyte. Mi = Mebibyte. Gi = Gibibyte
@@ -573,3 +574,21 @@ app_scanning:
 ```
 
 For more information, see [Supply Chain Security Tools - Scan 2.0](scst-scan/scan-2-0.hbs.md).
+
+### Spring Boot Conventions
+
+The default resource limits are:
+
+```console
+springboot_conventions:
+  livenessProbe:
+    initialDelaySeconds: 0
+```
+
+Edit `values.yaml` to scale resource limits:
+
+```console
+springboot_conventions:
+  livenessProbe:
+    initialDelaySeconds: 45
+```

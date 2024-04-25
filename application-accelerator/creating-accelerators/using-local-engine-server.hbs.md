@@ -108,6 +108,7 @@ To use the local engine server:
 
       Under **Settings** > **Extensions** > **Tanzu Application Accelerator**, select the
       **Use Local Server instead of Developer Portal** check box.
+
       The extension can then show accelerators from the local engine server that you started.
       Use them in the same way that you use accelerators loaded from Tanzu Developer Portal.
       For more information, see [Use the extension](../vscode.hbs.md#using-the-extension).
@@ -116,6 +117,7 @@ To use the local engine server:
 
       Under **IntelliJ IDEA** > **Preferences** > **Tools** > **Tanzu Application Accelerator**,
       select the **Use Local Server instead of Developer Portal** check box.
+
       The plug-in can then show accelerators from the local engine server that you started.
       Use them in the same way that you use accelerators loaded from Tanzu Developer Portal.
       For more information, see [Use the plug-in](../intellij.hbs.md#intellij-using-the-plugin).

@@ -122,3 +122,15 @@ To use the local engine server:
 
       The `list`, `get`, and `generate` commands now have a `--local-server` flag to use instead of
       `--server-url`.
+
+## <a id="export-options"></a>Appendix A: Export options using IDE extensions
+
+For a faster iteration while writing accelerators, the IDE extensions comes with a feature to export
+the options as JSON file
+
+### Visual Studio Code
+
+For the Visual Studio Code extension, the options can be exported using the button `Export Options`
+The button appears at the end of the form before generating the project
+
+![Export Options](../images/export-options-vscode.png)

@@ -25,7 +25,7 @@ To install the local engine server:
 
 1. Select your Tanzu Application Platform version from the release drop-down menu.
 
-1. From the list of resources, select the file group named `Application Accelerator Engine Server-v1.8.1`.
+1. From the list of resources, select the file group named `Application Accelerator Engine Server-v1.9.0`.
    It contains four different ZIP archives,
   `macos-aarch64`, `macos-amd64`, `windows`, and `linux`. Download the ZIP file for your operating
   system and architecture.

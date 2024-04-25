@@ -64,7 +64,8 @@ To use the VS Code extension:
 ## <a id="export-options"></a> Export accelerator configuration options
 
 For faster iteration while writing accelerators, the IDE extensions enable you to export the accelerator
-options you set under **Configure Accelerators** as a JSON file.
+options you set under **Configure Accelerators** as a JSON file. You can use this file to generate your
+project again from the CLI.
 
 To export your options using the VS Code extension:
 

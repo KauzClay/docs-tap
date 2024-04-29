@@ -3,11 +3,13 @@
 This topic tells you how to enable policy enforcement in a supply chain with Supply Chain Security
 Tools (SCST) - Scan 2.0.
 
-Policy enforcement is not inbuilt in SCST - Scan 2.0 and is not included in any of the out of the box
-supply chains. A custom supply chain needs to be created to enable policy enforcement.
-It can be achieved by creating a `ClusterImageTemplate` that stamps out a Tekton `TaskRun` that
-evaluates the vulnerabilities and enforces the policy set. A sample of the task run and cluster
-image template are provided in this topic.
+Policy enforcement is **not** inbuilt in SCST - Scan 2.0 and is **not** included in any of the
+out of the box supply chains. A custom supply chain needs to be created to enable policy enforcement.
+Follow steps [here](../scc/authoring-supply-chains.hbs.md) to author a new supply chain.
+
+A policy can be enforced in a supply chain by creating a `ClusterImageTemplate` that stamps out a
+Tekton `TaskRun` that evaluates the vulnerabilities and enforces the policy set. A sample of
+the task run and cluster image template are provided in this topic.
 
 ## Prerequisites for the task run
 
@@ -54,14 +56,38 @@ Complete the following steps:
 
 ## Task run sample that enforces policy
 
-The sample task run waits until the vulnerability data is available for the image. When the data is
-available, the vulnerabilities are aggregated by severity. The task run succeeds or fails based on
-the policy `GATE` set.
+The _sample_ task run provided below waits until the vulnerability data is available for the image.
+When the data is available, the vulnerabilities are aggregated by severity. The task run succeeds or
+fails based on the policy `GATE` set.
 
-For example, if the `GATE` is set to `high`, the task run fails if it finds high or critical
+The sample task run has a few environment variables/properties that need to updated:
+
+- GATE: _Environment variable_ Variable that sets the threshold for severity in the policy.
+Accepted values: low, medium, high or critical
+For example: If the `GATE` is set to `high`, the task run fails if it finds high or critical
 vulnerabilities for the image.
-
 If the `GATE` is set to `none`, no policy is enforced.
+
+- METADATA_STORE_URL: _Environment variable_ The url to reach metadata store.
+In a single cluster deployment, the value would be `metadata-store-app.metadata-store.svc.cluster.local:8443`.
+In a multi cluster deployment, the value would be `metadata-store.<view-cluster-ingress-domain>`.
+
+- IMAGE: _Environment variable_ The image that was built and scanned in the
+previous steps of the supply chain. This should substituted using template `#@ data.values.image`
+while embedding the task run in the `ClusterImageTemplate`. Templating this value will allow it be
+passed through the supply chain.
+
+- spec.serviceAccountName: _Property_ This service account in the developer namespace should have
+access to read TAP images. This will be used by the TaskRun to pull images for its execution steps.
+
+- spec.taskSpec.steps[_].image: _Property_ Any image that contains `curl` and `jq` commands.
+
+- spec.taskSpec.steps[_].env[_].name['ACCESS_TOKEN'].valueFrom.secretKeyRef.name: _Property_ Name of
+the secret that contains the MDS read access token.
+
+- spec.taskSpec.volumes[_].name: _Property_ Name of the secret that contains the MDS cert.
+
+>**Note:** The below task run is a sample. It needs to updated while embedding in `ClusterImageTemplate`
 
 ```yaml
 apiVersion: tekton.dev/v1
@@ -69,11 +95,11 @@ kind: TaskRun
 metadata:
   name: enforce-policy
 spec:
-  serviceAccountName: tap-images-read-sa # A service account in the developer namespace that can read TAP images.
+  serviceAccountName: <sa-that-can-read-tap-images> # A service account in the developer namespace that can read TAP images.
   taskSpec:  
     steps:
     - name: enforce-policy
-      image: dev.local:5000/taskrun-image:latest # A task run image that contains curl and jq
+      image: <task-run-image-with-curl-and-jq> # A task run image that contains curl and jq
       script: |
         if [ ${GATE} -eq "none" ]; then
             exit 0
@@ -81,7 +107,7 @@ spec:
 
         IMAGE_DIGEST=$(echo ${IMAGE} | cut -d "@" -f 2)
         while true; do
-          response_code=$(curl -k https://$METADATA_STORE_DOMAIN:$METADATA_STORE_PORT/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
+          response_code=$(curl https://$METADATA_STORE_URL/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
           if [ $response_code -eq 200 ]; then
             echo "Vulnerabilities data is available in AMR"
             break
@@ -119,12 +145,10 @@ spec:
       env:
       - name: GATE
         value: "critical" # Policy enforcement gate
-      - name: METADATA_STORE_DOMAIN
-        value: "metadata-store-app.metadata-store.svc.cluster.local"
+      - name: METADATA_STORE_URL
+        value: <metadata-store-url>
       - name: IMAGE
-        value: "image@sha256:digest"
-      - name: METADATA_STORE_PORT
-        value: "8443"
+        value: <image-with-digest-that-was-scanned> # Image that was scanned. Should be templated
       - name: ACCESS_TOKEN # Access token from the secret is set as an environment variable
         valueFrom:
           secretKeyRef:
@@ -139,9 +163,10 @@ spec:
         secretName: metadata-store-cert
 ```
 
-## Include the policy ClusterImageTemplate in a supply chain
+## Include the policy ClusterImageTemplate in the newly authored supply chain
 
-1. Embed the sample task run in a `ClusterImageTemplate`.
+1. Embed the updated task run in a `ClusterImageTemplate`. Ensure to set correct/desired values for
+environment variables and properties mentioned in the previous [step](#task-run-sample-that-enforces-policy).
 
     ```yaml
     #@ load("@ytt:data", "data")
@@ -171,60 +196,23 @@ spec:
         metadata:
           name: enforce-policy
         spec:
-          serviceAccountName: scanner
-          taskSpec:  
-            steps:
-            - name: enforce-policy
-              image: dev.local:5000/taskrun-image:latest
-              script: |
-              ....
-                IMAGE_DIGEST=$(echo ${IMAGE} | cut -d "@" -f 2)
-              ....
-              env:
-              ...
-              - name: IMAGE
-                value: #@ data.values.image # <------ template the image so that it can flow through the supply chain
-              ....
+            ....
     ```
 
-1. Plug in the created `ClusterImageTemplate` after the scan step in the supply chain.
+1. Plug in the created `ClusterImageTemplate` after the scan step in the newly created supply chain.
 
-    ```yaml
+Below example shows where to plug in the policy template in the supply chain.
+
+  ```yaml
     ---
     apiVersion: carto.run/v1alpha1
     kind: ClusterSupplyChain
     metadata:
-      name: scanning-image-scan-to-url
+      name: <custom-supply-chain-name>
     spec:
-      selectorMatchExpressions:
-        - key: 'apps.tanzu.vmware.com/workload-type'
-          operator: In
-          values:
-          - web
-          - server
-          - worker
-      selectorMatchFields:
-        - key: spec.image
-          operator: Exists
-
-      params:
-        - name: image_scanning_service_account_publisher
-          value: scanner
-        - name: image_scanning_service_account_scanner
-          default: report-publisher
-        - name: image_scanning_workspace_size
-          default: 4Gi
-
+      .... # previous steps
       resources:
-      - name: image-provider
-        templateRef:
-          kind: ClusterImageTemplate
-          name: image-provider-template
-        params:
-          - name: serviceAccount
-            default: scanner
-
-      - name: image-scanner
+      - name: image-scanner # <----------- scan step in the supply chain
         templateRef:
           kind: ClusterImageTemplate
           name: image-vulnerability-scan-trivy
@@ -237,17 +225,14 @@ spec:
           - resource: image-provider
             name: image
 
-      - name: policy # policy cluster image template
+      - name: policy # <------------------- insert policy cluster image template after scanner
         templateRef:
           kind: ClusterImageTemplate
           name: scan-policy-template
-        params:
-          - name: serviceAccount
-            default: scanner
         images:
         - resource: image-scanner
           name: image
-        ... <supply chain continues>
+        ... # <supply chain continues>
     ```
 
 1. Create a workload in the developer namespace to trigger the supply chain.

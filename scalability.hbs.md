@@ -592,3 +592,9 @@ springboot_conventions:
   livenessProbe:
     initialDelaySeconds: 45
 ```
+
+## kube-dns resource limit changes for GKE clusters
+
+Default memory limit for kube-dns pods are set 210Mi, it is recommended to set it to 1Gi.
+
+This can be achieved via creating [custom kube-dns](https://cloud.google.com/kubernetes-engine/docs/how-to/custom-kube-dns)

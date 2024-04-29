@@ -2,11 +2,11 @@
 
 This topic describes the best practices required to build and deploy workloads at scale.
 
-## Sample application reference
+## <a id="sample-app-ref"></a> Sample application reference
 
 The following sections describe the configuration of the different-size applications used to derive scalability best practices.
 
-### Small
+### <a id="small"></a> Small
 
 This is the simplest configuration and consists of the following services and workloads:
 
@@ -17,21 +17,21 @@ This is the simplest configuration and consists of the following services and wo
 - UI workload
 - 3 Node RabbitMQ cluster
 
-### Medium
+### <a id="medium"></a> Medium
 
 This includes all of the services of the small-size application and the following services and workloads:
 
 - Notify workload
 - Persistent Database, MySQL or Postgres
 
-### Large
+### <a id="large"></a> Large
 
 This includes all of the services of the medium size application and the following services and workloads:
 
 - Crawler Service
 - Redis
 
-## Application Configuration
+## <a id="app-config"></a> Application Configuration
 
 The following section describes the application configuration used to derive the
 scalability best practices.
@@ -53,7 +53,7 @@ scalability best practices.
 |**Medium** | 700m - 1000m |4-6&nbsp;GB| NA |6|4 |
 |**Large** | 1000m - 1500m |6-8&nbsp;GB| NA |7|4 |
 
-## Scale configuration for workload deployments
+## <a id="scale-config"></a> Scale configuration for workload deployments
 
 This section describes cluster sizes for deploying a 1K workload.
 
@@ -67,7 +67,7 @@ Node configuration: 4 vCPUs, 16&nbsp;GB RAM, 120&nbsp;GB Disk size
 |**Large** | | 17 | 17 | 17 | 17 |
 |**No. of Nodes** |90 | 60 | 135 | 135 | 135 |
 
-## Best Practices
+## <a id="best-practices"></a> Best Practices
 
 The following table describes the resource limit changes that are required for components to support the scale configuration described in the previous table.
 
@@ -99,11 +99,11 @@ the pod is allocated in a node where the requested limit is available.
 
 \* Only when there is an issue with scan pods getting deleted before Cartographer can process it
 
-## Example resource limit changes
+## <a id="examples"></a> Example resource limit changes
 
 The following section provides examples of the changes required to the default limits to achieve scalability:
 
-### Cartographer
+### <a id="cartographer"></a> Cartographer
 
 The default Cartographer concurrency limits are:
 
@@ -166,7 +166,7 @@ cartographer:
         memory: 1G
 ```
 
-### Cartographer Conventions
+### <a id="carto-conventions"></a> Cartographer Conventions
 
 The default resource limits are:
 
@@ -189,7 +189,7 @@ cartographer_conventions:
        memory: 1.8Gi
 ```
 
-### Scan-link-controller
+### <a id="scan-link-controller"></a> Scan-link-controller
 
 The default resource limits are:
 
@@ -216,7 +216,7 @@ scanning:
       memory: 1Gi
 ```
 
-### AMR Observer
+### <a id="amr-observer"></a> AMR Observer
 
 The default resource limits are:
 
@@ -241,7 +241,7 @@ amr:
     app_req_memory: 2Gi
 ```
 
-### kpack-controller in Tanzu Build Service
+### <a id="kpack-controller"></a> kpack-controller in Tanzu Build Service
 
 The default resource limits are:
 
@@ -268,7 +268,7 @@ buildservice:
          cpu: 20m
 ```
 
-### Namespace Provisioner
+### <a id="namespace-provisioner"></a> Namespace Provisioner
 
 The default resource limits are:
 
@@ -296,7 +296,7 @@ namespace_provisioner:
         memory: 500Mi
 ```
 
-### Cloud Native Runtimes Knative Serving
+### <a id="cnr-knative-serving"></a> Cloud Native Runtimes Knative Serving
 
 The default resource limits are:
 
@@ -324,7 +324,7 @@ cnrs:
       memory: 1Gi
 ```
 
-### net-contour controller
+### <a id="net-contour-controller"></a> net-contour controller
 
 Change deployment type from Daemonset to Deployment.
 
@@ -362,7 +362,7 @@ cnrs:
       memory: 512Mi
 ```
 
-### Autoscaler
+### <a id="autoscaler"></a> Autoscaler
 
 The default resource limits are:
 
@@ -390,7 +390,7 @@ cnrs:
       memory: 2Gi
 ```
 
-### Activator
+### <a id="activator"></a> Activator
 
 The default resource limits are:
 
@@ -418,7 +418,7 @@ cnrs:
       memory: 5Gi
 ```
 
-### Tanzu Application Platform Telemetry
+### <a id="tap-telemetry"></a> Tanzu Application Platform Telemetry
 
 The default resource limits are:
 
@@ -439,7 +439,7 @@ tap_telemetry:
   limit_memory: 2Gi
 ```
 
-### Application Single Sign-On
+### <a id="app-sso"></a> Application Single Sign-On
 
 The default resource limits are:
 
@@ -464,7 +464,7 @@ appsso:
       memory: 512Mi
 ```
 
-### Services Toolkit Controller
+### <a id="svc-toolkit-controller"></a> Services Toolkit Controller
 
 The default resource limits are:
 
@@ -492,7 +492,7 @@ services_toolkit:
         memory: "1.5Gi"
 ```
 
-### Services Toolkit Resource Claims API Server
+### <a id="svc-toolkit-rc-api-server"></a> Services Toolkit Resource Claims API Server
 
 The default resource limits are:
 
@@ -520,7 +520,7 @@ services_toolkit:
         memory: "1.5Gi"
 ```
 
-### FluxCD Source Controller
+### <a id="fluxcd-source-controller"></a> FluxCD Source Controller
 
 The default resource limits are:
 
@@ -537,7 +537,7 @@ resources:
 To change the resource limits for FluxCD Source controller, follow the procedure in
 [Configure resource Limits](fluxcd-source-controller/install.hbs.md#resource-limits).
 
-### Tekton Pipeline default timeout
+### <a id="tekton-pipeline"></a> Tekton Pipeline default timeout
 
 The default resource limits are:
 
@@ -555,7 +555,7 @@ tekton_pipelines:
     timeout_minutes: "120"
 ```
 
-### App Scanning maximum concurrent scan (Scan 2.0)
+### <a id="app-scanning"></a> App Scanning maximum concurrent scan (Scan 2.0)
 
 The default resource limits are:
 
@@ -575,7 +575,7 @@ app_scanning:
 
 For more information, see [Supply Chain Security Tools - Scan 2.0](scst-scan/scan-2-0.hbs.md).
 
-### Spring Boot Conventions
+### <a id="spring-boot-conventions"></a> Spring Boot Conventions
 
 The default resource limits are:
 
@@ -593,8 +593,7 @@ springboot_conventions:
     initialDelaySeconds: 45
 ```
 
-## kube-dns resource limit changes for GKE clusters
+## <a id="kube-dns"></a> kube-dns resource limit changes for GKE clusters
 
-Default memory limit for kube-dns pods are set 210Mi, it is recommended to set it to 1Gi.
-
-This can be achieved via creating [custom kube-dns](https://cloud.google.com/kubernetes-engine/docs/how-to/custom-kube-dns)
+The default memory limit for kube-dns pods is set to 210&nbsp;Mi. VMware recommends that you set it to 1&nbsp;Gi.
+For instructions, see the [GKE documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/custom-kube-dns).

@@ -9,7 +9,7 @@
 - [Installation](install-intro.hbs.md)
   - [Introduction](install-intro.hbs.md)
   - [Prerequisites and planning](prerequisites.hbs.md)
-      - [Prerequisites and planning](prerequisites.hbs.md)
+      - [Prerequisites](prerequisites.hbs.md)
       - [Kubernetes version support](k8s-matrix.hbs.md)
       - [Open source component versions](component-versions.hbs.md)
   - [Install Tanzu CLI](install-tanzu-cli.hbs.md)

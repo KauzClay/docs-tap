@@ -99,7 +99,9 @@ This release has the following known issues, listed by component and area.
 
 ### <a id='1-10-0-components'></a> v1.10.0 Component versions
 
-The following table lists the supported component versions for this Tanzu Application Platform release.
+The following table lists the Tanzu Application Platform package versions included with this release.
+For open source component versions in this Tanzu Application Platform release, see
+[Open source component versions](component-versions.hbs.md).
 
 | Component Name                                     | Version |
 | -------------------------------------------------- | ------- |

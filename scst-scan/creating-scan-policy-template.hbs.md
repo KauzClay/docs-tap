@@ -3,29 +3,29 @@
 This topic tells you how to enable policy enforcement in a supply chain with Supply Chain Security
 Tools (SCST) - Scan 2.0.
 
-Policy enforcement is **not** inbuilt in SCST - Scan 2.0 and is **not** included in any of the
-out of the box supply chains. A custom supply chain needs to be created to enable policy enforcement.
-Follow steps [here](../scc/authoring-supply-chains.hbs.md) to author a new supply chain.
+Policy enforcement is not built into SCST - Scan 2.0 and is not in any of the Out of the Box supply
+chains. You must [author a custom supply chain](../scc/authoring-supply-chains.hbs.md) to enable
+policy enforcement.
 
-A policy can be enforced in a supply chain by creating a `ClusterImageTemplate` that stamps out a
-Tekton `TaskRun` that evaluates the vulnerabilities and enforces the policy set. A sample of
-the task run and cluster image template are provided in this topic.
+You can enforce a policy in a supply chain by creating a `ClusterImageTemplate` that uses a Tekton
+`TaskRun` to evaluate the vulnerabilities and enforce the set policy. This topic provides a sample
+`TaskRun` and a sample `ClusterImageTemplate` for you to edit.
 
-## Prerequisites for the task run
+## <a id="prepare"></a> Prepare for the `TaskRun`
 
-The `TaskRun` queries the metadata store to get the list of vulnerabilities for the image.
-To authenticate with the MDS (Metadata Store) API, an accessToken and certificate are needed.
-Complete the following steps:
+The `TaskRun` queries the Metadata Store to get the list of vulnerabilities for the image.
+Authenticate with the Metadata Store API by obtaining an access token and a certificate:
 
-1. Build an image that contains `curl` and `jq`. This image is used by the task run.
+1. Build an image that contains `curl` and `jq` for the `TaskRun` to use.
 
-1. Get the access token from MDS:
+1. Get the access token from the Metadata Store by running:
 
-    ```console
-    ACCESS-TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o yaml | yq .data.token | base64 -d)
-    ```
+   ```console
+   ACCESS-TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o yaml \
+   | yq .data.token | base64 -d)
+   ```
 
-1. Create a secret `metadata-store-access-token` in the developer namespace.
+1. Create a secret `metadata-store-access-token` in the developer namespace:
 
     ```yaml
     kind: Secret
@@ -33,14 +33,17 @@ Complete the following steps:
     metadata:
       name: metadata-store-access-token
     stringData:
-      accessToken: <ACCESS-TOKEN>
+      accessToken: ACCESS-TOKEN
     ```
 
-1. Get the CA certificate from MDS:
+    Where `ACCESS-TOKEN` is the access token
 
-    ```console
-    MDS_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"" | base64 -d)
-    ```
+1. Get the Certificate Authority (CA) certificate from the Metadata Store by running:
+
+   ```console
+   MDS_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"" \
+   | base64 -d)
+   ```
 
 1. Create a secret `metadata-store-cert` in the developer namespace:
 
@@ -51,43 +54,18 @@ Complete the following steps:
       name: metadata-store-cert
     stringData:
       caCrt: |
-        <MDS_CA_CERT>
+        METADATA-STORE-CA-CERT
     ```
 
-## Task run sample that enforces policy
+    Where `METADATA-STORE-CA-CERT` is the Metadata Store CA certificate
 
-The _sample_ task run provided below waits until the vulnerability data is available for the image.
-When the data is available, the vulnerabilities are aggregated by severity. The task run succeeds or
-fails based on the policy `GATE` set.
+## <a id="task-run-sample"></a> Edit the `TaskRun` sample to enforce the policy
 
-The sample task run has a few environment variables/properties that need to updated:
+The following sample `TaskRun` waits until the vulnerability data is available for the image. When
+the data is available, the vulnerabilities are aggregated by severity. The policy that `GATE` sets
+determines whether `TaskRun` succeeds or fails.
 
-- GATE: _Environment variable_ Variable that sets the threshold for severity in the policy.
-Accepted values: low, medium, high or critical
-For example: If the `GATE` is set to `high`, the task run fails if it finds high or critical
-vulnerabilities for the image.
-If the `GATE` is set to `none`, no policy is enforced.
-
-- METADATA_STORE_URL: _Environment variable_ The url to reach metadata store.
-In a single cluster deployment, the value would be `metadata-store-app.metadata-store.svc.cluster.local:8443`.
-In a multi cluster deployment, the value would be `metadata-store.<view-cluster-ingress-domain>`.
-
-- IMAGE: _Environment variable_ The image that was built and scanned in the
-previous steps of the supply chain. This should substituted using template `#@ data.values.image`
-while embedding the task run in the `ClusterImageTemplate`. Templating this value will allow it be
-passed through the supply chain.
-
-- spec.serviceAccountName: _Property_ This service account in the developer namespace should have
-access to read TAP images. This will be used by the TaskRun to pull images for its execution steps.
-
-- spec.taskSpec.steps[_].image: _Property_ Any image that contains `curl` and `jq` commands.
-
-- spec.taskSpec.steps[_].env[_].name['ACCESS_TOKEN'].valueFrom.secretKeyRef.name: _Property_ Name of
-the secret that contains the MDS read access token.
-
-- spec.taskSpec.volumes[_].name: _Property_ Name of the secret that contains the MDS cert.
-
->**Note:** The below task run is a sample. It needs to updated while embedding in `ClusterImageTemplate`
+Edit the sample for your needs:
 
 ```yaml
 apiVersion: tekton.dev/v1
@@ -95,11 +73,11 @@ kind: TaskRun
 metadata:
   name: enforce-policy
 spec:
-  serviceAccountName: <sa-that-can-read-tap-images> # A service account in the developer namespace that can read TAP images.
-  taskSpec:  
+  serviceAccountName: SERVICE-ACCOUNT-THAT-CAN-READ-TAP-IMAGES # A service account in the developer namespace that can read Tanzu Application Platform images.
+  taskSpec:
     steps:
     - name: enforce-policy
-      image: <task-run-image-with-curl-and-jq> # A task run image that contains curl and jq
+      image: TASK-RUN-IMAGE-WITH-CURL-AND-JQ # A TaskRun image that contains curl and jq
       script: |
         if [ ${GATE} -eq "none" ]; then
             exit 0
@@ -107,7 +85,7 @@ spec:
 
         IMAGE_DIGEST=$(echo ${IMAGE} | cut -d "@" -f 2)
         while true; do
-          response_code=$(curl https://$METADATA_STORE_URL/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
+          response_code=$(curl https://$METADATA-STORE-URL/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
           if [ $response_code -eq 200 ]; then
             echo "Vulnerabilities data is available in AMR"
             break
@@ -145,28 +123,58 @@ spec:
       env:
       - name: GATE
         value: "critical" # Policy enforcement gate
-      - name: METADATA_STORE_URL
-        value: <metadata-store-url>
+      - name: METADATA-STORE-URL-NAME
+        value: METADATA-STORE-URL-VALUE
       - name: IMAGE
-        value: <image-with-digest-that-was-scanned> # Image that was scanned. Should be templated
-      - name: ACCESS_TOKEN # Access token from the secret is set as an environment variable
+        value: IMAGE-WITH-DIGEST-THAT-WAS-SCANNED # Image that was scanned and will be templated
+      - name: ACCESS_TOKEN # The access token from the secret is set as an environment variable
         valueFrom:
           secretKeyRef:
-            name: metadata-store-access-token
+            name: METADATA-STORE-ACCESS-TOKEN
             key: accessToken
       volumeMounts:
       - name: cert
         mountPath: /var/cert
     volumes:
-    - name: cert # Cert from MDS is mounted as a file to the task run
+    - name: SECRET-CONTAINING-METADATA-STORE-CERT # The certificate from the Metadata Store is mounted as a file to the TaskRun
       secret:
         secretName: metadata-store-cert
 ```
 
-## Include the policy ClusterImageTemplate in the newly authored supply chain
+Where:
 
-1. Embed the updated task run in a `ClusterImageTemplate`. Ensure to set correct/desired values for
-environment variables and properties mentioned in the previous [step](#task-run-sample-that-enforces-policy).
+- `GATE` is an environment variable that sets the threshold for severity in the policy. The accepted
+  values are `low`, `medium`, `high`, and `critical`. For example, if the `GATE` is set to `high`
+  then the `TaskRun` fails if it finds `high` or `critical` vulnerabilities for the image. If the
+  `GATE` is set to `none`, no policy is enforced.
+
+- `METADATA-STORE-URL-VALUE` is the URL for reaching the Metadata Store.
+  In a single-cluster deployment, the value is `metadata-store-app.metadata-store.svc.cluster.local:8443`.
+  In a multicluster deployment, the value is `metadata-store.VIEW-CLUSTER-INGRESS-DOMAIN`.
+
+- `IMAGE-WITH-DIGEST-THAT-WAS-SCANNED` is the image that was built and scanned in the previous
+  steps of the supply chain. The environment variable value is set to `#@ data.values.image` while
+  embedding the `TaskRun` in the `ClusterImageTemplate`. Template this value to enable it be passed
+  through the supply chain.
+
+- `SERVICE-ACCOUNT-THAT-CAN-READ-TAP-IMAGES` is a service account in the developer namespace that
+  has access to read Tanzu Application Platform images. `TaskRun` uses this service account to pull
+  images for its execution steps.
+
+- `TASK-RUN-IMAGE-WITH-CURL-AND-JQ` is any image that contains `curl` and `jq` commands.
+
+- `METADATA-STORE-ACCESS-TOKEN` is the secret that contains the Metadata Store read access token.
+
+- `SECRET-CONTAINING-METADATA-STORE-CERT` is the name of the secret that contains the Metadata Store
+  certificate.
+
+## <a id="inc-the-policy"></a> Include the policy `ClusterImageTemplate` in the newly authored supply chain
+
+To include the policy `ClusterImageTemplate` in the newly authored supply chain:
+
+1. Embed the updated `TaskRun` in a `ClusterImageTemplate` by setting the values for
+   environment variables and properties you used when
+   [editing the TaskRun sample to enforce the policy](#task-run-sample):
 
     ```yaml
     #@ load("@ytt:data", "data")
@@ -200,15 +208,14 @@ environment variables and properties mentioned in the previous [step](#task-run-
     ```
 
 1. Plug in the created `ClusterImageTemplate` after the scan step in the newly created supply chain.
+   The following example shows where to plug in the policy template in the supply chain.
 
-Below example shows where to plug in the policy template in the supply chain.
-
-  ```yaml
+    ```yaml
     ---
     apiVersion: carto.run/v1alpha1
     kind: ClusterSupplyChain
     metadata:
-      name: <custom-supply-chain-name>
+      name: CUSTOM-SUPPLY-CHAIN-NAME
     spec:
       .... # previous steps
       resources:
@@ -232,10 +239,10 @@ Below example shows where to plug in the policy template in the supply chain.
         images:
         - resource: image-scanner
           name: image
-        ... # <supply chain continues>
+        ... # supply chain continues
     ```
 
-1. Create a workload in the developer namespace to trigger the supply chain.
+1. Create a workload in the developer namespace to trigger the supply chain:
 
     ```yaml
     apiVersion: carto.run/v1alpha1

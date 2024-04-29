@@ -1,15 +1,15 @@
-# Build your first Component
+# Build your first component
 
-This topic tells you how to use Tanzu Supply Chain to build a Component.
+This topic tells you how to use Tanzu Supply Chain to build a component.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-## Prerequisite
+## <a id="prepare"></a> Prepare
 
-You must have a `SupplyChain` resource. For how to build one, see
+Build a `SupplyChain` resource if you do not already have one. For how to build one, see
 [Build your first SupplyChain](my-first-supply-chain.hbs.md).
 
-## Getting started
+## <a id="get-started"></a> Get started
 
 In [Build your first Supply Chain](my-first-supply-chain.hbs.md), you built a `SupplyChain` resource
 that retrieves the source code from a Git repository, and builds and packages it as a Carvel package.
@@ -40,7 +40,7 @@ Example:
 ...
 ```
 
-## Create a Tekton `Pipeline`
+## <a id="create-tekton-pipeline"></a> Create a Tekton `Pipeline`
 
 The first step for creating a `Component` resource is to make a Tekton `Pipeline` resource that
 includes the logic the component uses. In this case, `maven-unit-tester`:
@@ -166,14 +166,13 @@ To create a Tekton `Pipeline`:
             workspaces:
               - name: store
                 workspace: shared-data
-
     ```
 
-1. Add the version of the pipeline in the name of the YAML file as well as the name of the pipeline.
+1. Add the version of the pipeline in the name of the YAML file and the name of the pipeline.
    This enables you to create new versions of the pipelines without interfering with the old one.
 
 1. Store the `Pipeline` resource in the `pipelines` directory created by the CLI as
-   `maven-unit-tester-1.0.0.yaml`, as seen in the following YAML:
+   `maven-unit-tester-1.0.0.yaml`, as shown in the following YAML:
 
     ```yaml
     ---
@@ -271,7 +270,7 @@ To create a Tekton `Pipeline`:
 
     ```
 
-## Create a `SupplyChain` `Component`
+## <a id="create-component"></a> Create a `SupplyChain` `Component`
 
 The section describes how to write a `Component` manifest that defines the following:
 
@@ -283,10 +282,10 @@ The section describes how to write a `Component` manifest that defines the follo
 - `Inputs`, which is a list of named `Outputs` from a previous stage in a `SupplyChain` resource that
   the current `Component` resource depends on.
 
-- `Outputs`, which are named outputs from this component that can be used by another `Component`
-  resource as `Inputs`.
+- `Outputs`, which are named outputs from this component another `Component` resource can use as
+  `Inputs`.
 
-- The Pipeline Run Definition section, which defines the work done by this component.
+- The Pipeline Run Definition section, which defines the work performed by this component.
   `spec.pipelineRun` is used to create a Tekton `PipelineRun` and has many similarities.
 
 1. Define the `Component` resource configuration as shown in the following YAML:
@@ -352,7 +351,6 @@ The section describes how to write a `Component` manifest that defines the follo
                         resources:
                             requests:
                                 storage: 1Gi
-
     ```
 
 1. Store the `Component` resource in the `components` directory created by the CLI as
@@ -408,10 +406,10 @@ The section describes how to write a `Component` manifest that defines the follo
                                 storage: 1Gi
     ```
 
-## Install the component
+## <a id="install-component"></a> Install the component
 
 You can now use the `make install` target created by the `tanzu supplychain` CLI to install the new
-`Component` and `Pipeline` resources to see if they reconcile successfully.
+`Component` and `Pipeline` resources to see if they reconcile.
 
 Install the component by running:
 
@@ -419,14 +417,14 @@ Install the component by running:
 NAMESPACE=mysupplychains make install
 ```
 
-This command also brings up any errors that Tekton throws.
+This command also displays any errors that Tekton throws.
 
-## Next Steps
+## <a id="next-steps"></a> Next Steps
 
 Add your new `Component` to a `SupplyChain`. For instructions, see
 [Add stages to your Supply Chain](add-stages-supply-chain.hbs.md).
 
-## Useful links
+## <a id="useful-links"></a> Useful links
 
 - [Component API Reference](../../reference/api/component.hbs.md)
 - [Component Catalog](../../reference/catalog/about.hbs.md)

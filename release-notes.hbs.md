@@ -101,7 +101,7 @@ This release has the following known issues, listed by component and area.
 
 The following table lists the Tanzu Application Platform package versions included with this release.
 For open source component versions in this Tanzu Application Platform release, see
-[Open source component versions](component-versions.hbs.md).
+[Open source component versions](oss-component-versions.hbs.md).
 
 | Component Name                                     | Version |
 | -------------------------------------------------- | ------- |

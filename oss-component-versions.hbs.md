@@ -5,27 +5,27 @@ This topic contains the open source component versions for Tanzu Application Pla
 
 | OSS Release Name                           | Release Version |
 | ------------------------------------------ | --------------- |
-| Grype Vulnerability Scanner (Scan v1)      |                 |
-| Trivy Vulnerability Scanner Scan (Scan v2) |                 |
-| Sigstore Policy Controller                 |                 |
-| Knative Serving                            |                 |
-| Cartographer Convention                    |                 |
-| External Secrets Operator                  |                 |
-| Flux CD Source Controller                  |                 |
-| Source Controller                          |                 |
-| Tekton Pipelines                           |                 |
 | Backstage                                  |                 |
-| Tilt                                       |                 |
+| Cartographer Convention                    |                 |
+| cert injection webhook                     |                 |
 | cert-manager                               |                 |
 | contour                                    |                 |
 | crossplane                                 |                 |
+| External Secrets Operator                  |                 |
+| Flux CD Source Controller                  |                 |
+| Grype Vulnerability Scanner (Scan v1)      |                 |
+| Kafka by Bitnami (unmanaged)               |                 |
+| Knative Serving                            |                 |
+| kpack                                      |                 |
+| MongoDB by Bitnami (unmanaged)             |                 |
 | MySQL by Bitnami (unmanaged)               |                 |
+| Paketo Syft Buildpack                      |                 |
 | Postgres by Bitnami (unmanaged)            |                 |
 | RabbitMQ by Bitnami (unmanaged)            |                 |
 | Redis by Bitnami (unmanaged)               |                 |
-| MongoDB by Bitnami (unmanaged)             |                 |
-| Kafka by Bitnami (unmanaged)               |                 |
 | Service Bindings                           |                 |
-| kpack                                      |                 |
-| cert injection webhook                     |                 |
-| Paketo Syft Buildpack                      |                 |
+| Sigstore Policy Controller                 |                 |
+| Source Controller                          |                 |
+| Tekton Pipelines                           |                 |
+| Tilt                                       |                 |
+| Trivy Vulnerability Scanner Scan (Scan v2) |                 |

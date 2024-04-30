@@ -846,7 +846,6 @@
               - [WorkloadRun](supply-chain/reference/api/workloadrun.hbs.md)
               - [Statuses and Conditions](supply-chain/reference/api/statuses.hbs.md)
               - [Duck type resources](supply-chain/reference/api/duck-types.hbs.md)
-      - [Known Issues](./supply-chain/known-issues.hbs.md)
     - [Tekton Pipelines](tekton/tekton-about.hbs.md)
         - [Tekton overview](tekton/tekton-about.hbs.md)
         - [Install Tekton Pipelines](tekton/install-tekton.hbs.md)

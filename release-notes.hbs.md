@@ -91,9 +91,21 @@ The following issues, listed by component and area, are resolved in this release
 
 This release has the following known issues, listed by component and area.
 
-#### <a id='1-10-0-COMPONENT-NAME-ki'></a> v1.10.0 Known issues: COMPONENT-NAME
+#### <a id='1-10-0-supply-chain-ki'></a> v1.10.0 Known issues: Supply Chain
 
-- Known issue description with link to workaround.
+- Components cannot have more than one resumption defined. When there are multiple resumptions,
+  `WorkloadRuns` are not correctly created after resumptions trigger changes. The current workaround
+  is to assess all triggers in a single resumption.
+
+- Tanzu Supply Chain currently does not include support for Red Hat OpenShift. This means
+  you cannot individually install components for Tanzu Supply Chain and Managed Resource Controller.
+  You also cannot install the Authoring profile that includes those components as standard. Support
+  for Red Hat OpenShift is planned for a later release.
+
+- Tanzu Supply Chain currently does not include support for CA certificates in
+  the Out of the Box components. However, you can edit the components to support CA certificates and
+  use them to construct a new Supply Chain. Support for CA certificates as standard is planned for
+  future versions of Tanzu Supply Chain.
 
 ---
 

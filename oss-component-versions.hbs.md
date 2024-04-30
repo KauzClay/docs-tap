@@ -1,6 +1,7 @@
 # Open source component versions
 
-This topic contains the open source component versions for Tanzu Application Platform v{{ vars.url_version }}.
+This topic contains the open source component versions for Tanzu Application Platform v{{ vars.url_version }}
+(commonly known as TAP).
 
 | OSS Release Name                           | Release Version |
 | ------------------------------------------ | --------------- |

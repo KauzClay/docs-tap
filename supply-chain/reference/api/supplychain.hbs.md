@@ -190,7 +190,7 @@ Each stage has a `name`, which is shown to the user in the CLI and UI.
 Each stage also has a `componentRef` with a single field `name`.
 `componentRef.Name` refers to the name of a Tanzu Supply Chain [Component] resource.
 Currently, [Component] must exist in the same namespace as the `SupplyChain`. For more information,
-see the Tanzu Supply Chain [known issues](release-notes.hbs.md#1-10-0-supply-chain-ki).
+see the Tanzu Supply Chain [known issues](../../../release-notes.hbs.md#1-10-0-supply-chain-ki).
 
 The supply chain returns an error if a component expects an input that has not been output by a
 previous stage.

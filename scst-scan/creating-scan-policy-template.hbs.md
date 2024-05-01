@@ -7,8 +7,8 @@ Policy enforcement is not built into SCST - Scan 2.0 and is not in any of the Ou
 chains. You must [author a custom supply chain](../scc/authoring-supply-chains.hbs.md) to enable
 policy enforcement.
 
-You can enforce a policy in a supply chain by creating a `ClusterImageTemplate` that uses a Tekton
-`TaskRun` to evaluate the vulnerabilities and enforce the set policy. This topic provides a sample
+To enforce a policy in a supply chain you need `ClusterImageTemplate` that uses a Tekton
+`TaskRun` to evaluate the vulnerabilities and enforces the set policy. This topic provides a sample
 `TaskRun` and a sample `ClusterImageTemplate` for you to edit.
 
 ## <a id="prepare"></a> Prepare for the `TaskRun`
@@ -25,7 +25,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
    | yq .data.token | base64 -d)
    ```
 
-1. Create a secret `metadata-store-access-token` in the developer namespace:
+1. Create a secret `metadata-store-access-token-secret.yaml` that contains the access token:
 
     ```yaml
     kind: Secret
@@ -45,7 +45,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
    | base64 -d)
    ```
 
-1. Create a secret `metadata-store-cert` in the developer namespace:
+1. Create a secret `metadata-store-cert-secret.yaml` the contains the certificate:
 
     ```yaml
     kind: Secret
@@ -59,11 +59,18 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
 
     Where `METADATA-STORE-CA-CERT` is the Metadata Store CA certificate
 
+1. Apply the created secrets in the developer namespace:
+
+    ```console
+    kubectl apply -f metadata-store-access-token-secret.yaml -n DEVELOPER-NAMESPACE
+    kubectl apply -f metadata-store-cert-secret.yaml -n DEVELOPER-NAMESPACE
+    ```
+
 ## <a id="task-run-sample"></a> Edit the `TaskRun` sample to enforce the policy
 
-The following sample `TaskRun` waits until the vulnerability data is available for the image. When
-the data is available, the vulnerabilities are aggregated by severity. The policy that `GATE` sets
-determines whether `TaskRun` succeeds or fails.
+The following sample `TaskRun` waits until the vulnerability data is available for the image in
+the Metadata Store. When the data is available, the vulnerabilities are aggregated by severity.
+The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
 
 Edit the sample for your needs:
 
@@ -71,19 +78,22 @@ Edit the sample for your needs:
 apiVersion: tekton.dev/v1
 kind: TaskRun
 metadata:
-  name: enforce-policy
+  generateName: enforce-policy-task-run-
 spec:
-  serviceAccountName: SERVICE-ACCOUNT-THAT-CAN-READ-TAP-IMAGES # A service account in the developer namespace that can read Tanzu Application Platform images.
+  serviceAccountName: SERVICE-ACCOUNT-THAT-CAN-READ-TAP-IMAGES
   taskSpec:
+    params:
+    - name: image
+      value: IMAGE-WITH-DIGEST-THAT-WAS-SCANNED
     steps:
     - name: enforce-policy
-      image: TASK-RUN-IMAGE-WITH-CURL-AND-JQ # A TaskRun image that contains curl and jq
+      image: TASK-RUN-IMAGE-WITH-CURL-AND-JQ
       script: |
         if [ ${GATE} -eq "none" ]; then
             exit 0
         fi
 
-        IMAGE_DIGEST=$(echo ${IMAGE} | cut -d "@" -f 2)
+        IMAGE_DIGEST=$(echo $(params.image) | cut -d "@" -f 2)
         while true; do
           response_code=$(curl https://$METADATA-STORE-URL/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
           if [ $response_code -eq 200 ]; then
@@ -122,12 +132,10 @@ spec:
         fi
       env:
       - name: GATE
-        value: "critical" # Policy enforcement gate
+        value: "critical"
       - name: METADATA-STORE-URL-NAME
         value: METADATA-STORE-URL-VALUE
-      - name: IMAGE
-        value: IMAGE-WITH-DIGEST-THAT-WAS-SCANNED # Image that was scanned and will be templated
-      - name: ACCESS_TOKEN # The access token from the secret is set as an environment variable
+      - name: ACCESS_TOKEN
         valueFrom:
           secretKeyRef:
             name: METADATA-STORE-ACCESS-TOKEN
@@ -136,7 +144,7 @@ spec:
       - name: cert
         mountPath: /var/cert
     volumes:
-    - name: SECRET-CONTAINING-METADATA-STORE-CERT # The certificate from the Metadata Store is mounted as a file to the TaskRun
+    - name: SECRET-CONTAINING-METADATA-STORE-CERT
       secret:
         secretName: metadata-store-cert
 ```
@@ -146,7 +154,7 @@ Where:
 - `GATE` is an environment variable that sets the threshold for severity in the policy. The accepted
   values are `low`, `medium`, `high`, and `critical`. For example, if the `GATE` is set to `high`
   then the `TaskRun` fails if it finds `high` or `critical` vulnerabilities for the image. If the
-  `GATE` is set to `none`, no policy is enforced.
+  `GATE` is set to `none`, no policy is enforced and the TaskRun succeeds.
 
 - `METADATA-STORE-URL-VALUE` is the URL for reaching the Metadata Store.
   In a single-cluster deployment, the value is `metadata-store-app.metadata-store.svc.cluster.local:8443`.
@@ -172,8 +180,8 @@ Where:
 
 To include the policy `ClusterImageTemplate` in the newly authored supply chain:
 
-1. Embed the updated `TaskRun` in a `ClusterImageTemplate` by setting the values for
-   environment variables and properties you used when
+1. Create `policy-cluster-image-template.yaml` by embedding the updated `TaskRun` in a `ClusterImageTemplate`.
+   Setting the values for environment variables and properties you used when
    [editing the TaskRun sample to enforce the policy](#task-run-sample):
 
     ```yaml
@@ -184,7 +192,7 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
     metadata:
       name: scan-policy-template
     spec:
-      imagePath: .status.compliantArtifact.registry.image
+      imagePath: spec.params[?(@.name=="image")].value
       healthRule:
         multiMatch:
           healthy:
@@ -207,8 +215,10 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
             ....
     ```
 
-1. Plug in the created `ClusterImageTemplate` after the scan step in the newly created supply chain.
-   The following example shows where to plug in the policy template in the supply chain.
+1. Create a new supply chain `custom-supply-chain.yaml` following the [authoring supply chain docs](../scc/authoring-supply-chains.hbs.md).
+   The vulnerability data that the policy step queries MDS for is generated by the scan step. Therefore the policy
+   step should be _after_ the scan step and should take the image produced by the scan step as input image.
+   Any step that needs an image as an input can be placed after the policy step.
 
     ```yaml
     ---
@@ -217,9 +227,9 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
     metadata:
       name: CUSTOM-SUPPLY-CHAIN-NAME
     spec:
-      .... # previous steps
       resources:
-      - name: image-scanner # <----------- scan step in the supply chain
+      .... # previous steps
+      - name: image-scanner
         templateRef:
           kind: ClusterImageTemplate
           name: image-vulnerability-scan-trivy
@@ -232,7 +242,7 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
           - resource: image-provider
             name: image
 
-      - name: policy # <------------------- insert policy cluster image template after scanner
+      - name: policy
         templateRef:
           kind: ClusterImageTemplate
           name: scan-policy-template
@@ -242,17 +252,22 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
         ... # supply chain continues
     ```
 
-1. Create a workload in the developer namespace to trigger the supply chain:
+## <a id="apply-generated-yamls"></a> Apply the template, supply chain and workload
 
-    ```yaml
-    apiVersion: carto.run/v1alpha1
-    kind: Workload
-    metadata:
-      labels:
-        app.kubernetes.io/part-of: test-policy
-        apps.tanzu.vmware.com/workload-type: web
-      name: test-policy
-      namespace: app-scanning
-    spec:
-      image: image@sha256:digest
+1. Apply the generated `ClusterImageTemplate` and `ClusterSupplyChain`
+
+    ```console
+    kubectl apply -f policy-cluster-image-template.yaml
+    kubectl apply -f custom-supply-chain.yaml
     ```
+
+1. Create a workload in the developer namespace that can trigger the supply chain.
+See [these steps](../scc/authoring-supply-chains.hbs.md#own-sup-chain) for more information about
+selectors and how to use them with custom supply chain.
+
+## <a id="troubleshooting-policy"></a> Troubleshooting
+
+1. If the policy is still waiting to find the vulnerabilities data for the image in MDS, check to see
+if the observer is healthy/running. The observer should also have registered the controller to monitor
+`ImageVulnerabilityScan` kind. Follow [troubleshooting docs](../scst-store/amr/troubleshooting.hbs.md)
+for observer to resolve any issues.

@@ -168,6 +168,11 @@ the workload must be updated to point at your Tekton pipeline.
 
 ## <a id="install-OOTB-test-scan"></a>Install OOTB Supply Chain with Testing and Scanning
 
+> **Note** These steps are for SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
+Platform v1.10 and later. Tanzu Application Platform v1.10 documentation continues to describe Scan 1.0
+procedures, however VMware recommends using SCST - Scan 2.0 as SCST - Scan 1.0 will be removed 
+in a future version and SCST - Scan 2.0 will be the default.  For more information, see [SCST - Scan versions](../scst-scan/overview.hbs.md#scst-scan-feat).
+
 To install OOTB Supply Chain with Testing and Scanning, you must install the Scan Controller
 and the Grype scanner.
 
@@ -178,7 +183,7 @@ column in the [Language and Framework Support Table](../about-package-profiles.h
 
 To install OOTB Supply Chain with Testing and Scanning:
 
-> **Note** The OOTB Supply Chain with Testing and Scanning capability has been changed to opt-in and
+> **Note** The source code scanning capability in the OOTB Supply Chain with Testing and Scanning has been changed to opt-in and
 > is skipped by default starting in Tanzu Application Platform v1.6.
 > For more information, see [Scan Types](../scst-scan/scan-types.hbs.md).
 

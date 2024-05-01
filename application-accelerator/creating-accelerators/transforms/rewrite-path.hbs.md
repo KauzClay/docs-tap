@@ -90,7 +90,7 @@ It's common to define pipelines that perform a `Chain` of transformations
 on a subset of files, typically selected by `Include/Exclude`:
 
 ```yaml
-- include: "**/*.java"
+- include: ["**/*.java"]
 - chain:
     - # do something here
     - # and then here

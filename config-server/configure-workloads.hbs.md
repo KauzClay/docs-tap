@@ -54,10 +54,10 @@ Using a ResourceClaim
       namespace: cook
     spec:
       ref:
-	apiVersion: config-server.spring.tanzu.vmware.com/v1alpha1
-	kind: ConfigServer
-	name: cook-server
-	namespace: cook
+        apiVersion: config-server.spring.tanzu.vmware.com/v1alpha1
+        kind: ConfigServer
+        name: cook-server
+        namespace: cook
     ```
 
     In kubectl, create the `ResourceClaim` by running:
@@ -77,7 +77,7 @@ tanzu service resource-claim get MY-CLAIM-NAME --namespace MY-NAMESPACE
 or by running:
 
 ```console
-kubectl get resourceclaim MY-CLAIM-NAME --namespace MY-NAMESPACE --output yaml
+kubectl get resourceclaim cook --namespace cook --output yaml
 ```
 
 ## <a id="inspect"></a> Use Config Server for workload configuration
@@ -115,39 +115,37 @@ To use Config Server in workloads:
       name: cook-workload
       namespace: cook
       annotations:
-	kapp.k14s.io/change-rule.sa: "delete before deleting workloads-sa"
-	kapp.k14s.io/change-group: "workload"
+        kapp.k14s.io/change-rule.sa: "delete before deleting workloads-sa"
+        kapp.k14s.io/change-group: "workload"
       labels:
-	apps.tanzu.vmware.com/workload-type: web
-	app.kubernetes.io/part-of: cook
+        apps.tanzu.vmware.com/workload-type: web
+        app.kubernetes.io/part-of: cook
     spec:
       build:
-	env:
-	  - name: BP_JVM_VERSION
-	    value: "17"
-	  - name: BP_GRADLE_BUILD_ARGUMENTS
-	    value: "--no-daemon clean bootJar"
+        env:
+          - name: BP_JVM_VERSION
+            value: "17"
+          - name: BP_GRADLE_BUILD_ARGUMENTS
+            value: "--no-daemon clean bootJar"
       params:
-	- name: annotations
-	  value:
-	    autoscaling.knative.dev/minScale: "1"
+        - name: annotations
+          value:
+            autoscaling.knative.dev/minScale: "1"
       env:
-	- name: SPRING_PROFILES_ACTIVE
-	  value: "development"
+        - name: SPRING_PROFILES_ACTIVE
+          value: "development"
       serviceClaims:
-	- name: cook
-	  ref:
-	    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-	    kind: ResourceClaim
-	    name: cook
+        - name: cook
+          ref:
+            apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+            kind: ResourceClaim
+            name: cook
       source:
-	git:
-	  url: https://github.com/spring-cloud-services-samples/cook
-	  ref:
-	    #! TODO: We can switch back to 'main' branch when 'Tanzu Java Buildpack' v9.16.1 is released which should include 'Tanzu Buildpack for Spring Boot' v5.29.1 
-	    #! see: https://github.com/pivotal-cf/tanzu-java/releases
-	    #! see: https://github.com/pivotal-cf/tanzu-spring-boot/releases/tag/v5.29.1
-	    branch: kvmw/update
+        git:
+          url: https://github.com/spring-cloud-services-samples/cook
+          ref:
+            #! TODO: We can switch back to 'main' branch when 'Tanzu Java Buildpack' for 1.10
+            branch: kvmw/update
     ```
 
 2. Create the workloads. For example, for the cook application you run:

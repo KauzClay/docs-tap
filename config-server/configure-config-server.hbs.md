@@ -135,7 +135,7 @@ To create a `ConfigServer` resource for using the Spring Cloud Services [cook](h
    For example:
 
    ```console
-   $ kubectl describe configserver cook-server
+   $ kubectl describe configserver cook-server --namespace cook
     Name:         cook-server
     Namespace:    cook
     API Version:  config-server.spring.tanzu.vmware.com/v1alpha1

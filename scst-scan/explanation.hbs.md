@@ -2,13 +2,7 @@
 
 This topic describes the specifications and custom resources you can use with Supply Chain Security Tools (SCST) - Scan.
 
-> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
-> Platform v1.10 and later. However, in Tanzu Application Platform v1.10 SCST - Scan 1.0 is still the
-> default in Supply Chain with Testing.
-> For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
-> VMware recommends using SCST - Scan 2.0 because SCST - Scan 2.0 will replace SCST - Scan 1.0 as the
-> default in future versions. For more information, see
-> [SCST - Scan versions](overview.hbs.md#scst-scan-feat).
+{{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 With the Scan Controller and Grype Scanner installed
 the following Custom Resource Definitions (CRDs) are now available:

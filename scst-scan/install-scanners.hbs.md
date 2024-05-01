@@ -2,13 +2,7 @@
 
 This topic describes how you can install scanners to work with Supply Chain Security Tools - Scan from the Tanzu Application Platform package repository.
 
-> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
-> Platform v1.10 and later. However, in Tanzu Application Platform v1.10 SCST - Scan 1.0 is still the
-> default in Supply Chain with Testing.
-> For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
-> VMware recommends using SCST - Scan 2.0 because SCST - Scan 2.0 will replace SCST - Scan 1.0 as the
-> default in future versions. For more information, see
-> [SCST - Scan versions](overview.hbs.md#scst-scan-feat).
+{{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 Follow the instructions in this topic to install a scanner other than the out of the box Grype Scanner with SCST - Scan.
 

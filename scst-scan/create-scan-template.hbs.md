@@ -1,12 +1,14 @@
 # Create a ScanTemplate with Supply Chain Security Tools - Scan
 
-> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in
-Tanzu Application Platform v1.10 and later. In Tanzu Application Platform v1.10, SCST - Scan 1.0 is
-still the default in Supply Chain with Testing. For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
-VMware recommends using SCST - Scan 2.0 as SCST - Scan 1.0 will be removed in a future version and
-SCST - Scan 2.0 will be the default. For more information, see [SCST - Scan versions](./overview.hbs.md).
+This topic describes how to create a ScanTemplate with Supply Chain Security Tools (SCST) - Scan.
 
-This topic describes how to create a ScanTemplate with Supply Chain Security Tools - Scan.
+> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
+> Platform v1.10 and later. However, in Tanzu Application Platform v1.10 SCST - Scan 1.0 is still the
+> default in Supply Chain with Testing.
+> For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
+> VMware recommends using SCST - Scan 2.0 because SCST - Scan 2.0 will replace SCST - Scan 1.0 as the
+> default in future versions. For more information, see
+> [SCST - Scan versions](overview.hbs.md#scst-scan-feat).
 
 ## Overview
 
@@ -29,7 +31,7 @@ subset of fields from the output model:
 
 ```yaml
 fetch:
-  git: 
+  git:
     url:
     revision:
     path:
@@ -76,18 +78,18 @@ apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
 kind: ScanTemplate
 spec:
     template: # a core/v1 PodSpec
-      # Here are list volumes mounted for writing to or 
+      # Here are list volumes mounted for writing to or
       # reading from during different stages of the scan
       volumes:
-        # required the results of different scan stages 
-        # should be saved in files digestible by the scan 
+        # required the results of different scan stages
+        # should be saved in files digestible by the scan
         # controller in this volume
         - name: workspace
         emptyDir: { }
-      # different steps required for a scanning can be staged 
-      # in sequential stages through initContainers. 
+      # different steps required for a scanning can be staged
+      # in sequential stages through initContainers.
       initContainers:
-      # Summary container will take results of initContainers 
+      # Summary container will take results of initContainers
       # and will let Controller to update Scan CR status.
       containers:
         - name: summary

@@ -2,11 +2,13 @@
 
 This topic describes how you can use an example output to troubleshoot your Rego file for SCST - Scan. You use a Rego file in a scan policy custom resource. See [Enforce compliance policy using Open Policy Agent](./policies.hbs.md).
 
-> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in
-Tanzu Application Platform v1.10 and later. In Tanzu Application Platform v1.10, SCST - Scan 1.0 is
-still the default in Supply Chain with Testing. For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
-VMware recommends using SCST - Scan 2.0 as SCST - Scan 1.0 will be removed in a future version and
-SCST - Scan 2.0 will be the default. For more information, see [SCST - Scan versions](./overview.hbs.md).
+> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
+> Platform v1.10 and later. However, in Tanzu Application Platform v1.10 SCST - Scan 1.0 is still the
+> default in Supply Chain with Testing.
+> For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
+> VMware recommends using SCST - Scan 2.0 because SCST - Scan 2.0 will replace SCST - Scan 1.0 as the
+> default in future versions. For more information, see
+> [SCST - Scan versions](overview.hbs.md#scst-scan-feat).
 
 For information about how to write Rego, see [Open Policy Agent documentation](https://www.openpolicyagent.org/docs/latest/policy-language/).
 
@@ -16,7 +18,7 @@ Use the [Rego Playground](https://play.openpolicyagent.org/), to evaluate your R
 
 ### <a id="sample-input-cyclonedx"></a> Sample input in CycloneDX's XML re-encoded as JSON format
 
-The following is an example scan custom resource output in CycloneDX's XML structure re-encoded as JSON. This example output contains CVEs at low, medium, high, and critical severities. 
+The following is an example scan custom resource output in CycloneDX's XML structure re-encoded as JSON. This example output contains CVEs at low, medium, high, and critical severities.
 
 To troubleshoot using this example output:
 
@@ -189,7 +191,7 @@ The example in this section is a modified scan custom resource input, in  `.spdx
 To troubleshoot using this example output:
 
 1. Paste your Rego file and the example input into the [Rego Playground](https://play.openpolicyagent.org/).
-2. Evaluate your Rego file against the output and verify that your Rego file detects the intended CVEs. See this Rego [example](https://play.openpolicyagent.org/p/gp0fUfaxOC). 
+2. Evaluate your Rego file against the output and verify that your Rego file detects the intended CVEs. See this Rego [example](https://play.openpolicyagent.org/p/gp0fUfaxOC).
 
 ```json
 {

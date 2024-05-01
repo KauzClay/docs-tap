@@ -2,11 +2,13 @@
 
 This example describes how you can perform a scan against an image located in a private registry for SCST - Scan.
 
-> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in
-Tanzu Application Platform v1.10 and later. In Tanzu Application Platform v1.10, SCST - Scan 1.0 is
-still the default in Supply Chain with Testing. For more information, see [Add testing and scanning to your application](../../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
-VMware recommends using SCST - Scan 2.0 as SCST - Scan 1.0 will be removed in a future version and
-SCST - Scan 2.0 will be the default. For more information, see [SCST - Scan versions](./overview.hbs.md).
+> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
+> Platform v1.10 and later. However, in Tanzu Application Platform v1.10 SCST - Scan 1.0 is still the
+> default in Supply Chain with Testing.
+> For more information, see [Add testing and scanning to your application](../../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
+> VMware recommends using SCST - Scan 2.0 because SCST - Scan 2.0 will replace SCST - Scan 1.0 as the
+> default in future versions. For more information, see
+> [SCST - Scan versions](../overview.hbs.md#scst-scan-feat).
 
 ## <a id="define-resources"></a>Define the resources
 
@@ -29,9 +31,9 @@ SCST - Scan 2.0 will be the default. For more information, see [SCST - Scan vers
   - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that is created.
   - `DEV-NAMESPACE` is the developer namespace where the scanner is installed.
   - `YOUR-REGISTRY-SERVER` is the registry server you want to use.
-  - `YOUR-NAME` is the name associated with the secret. 
-  - `YOUR-PASSWORD` is the password associated with the secret. 
-  - `YOUR-EMAIL` is the email associated with the secret. 
+  - `YOUR-NAME` is the name associated with the secret.
+  - `YOUR-PASSWORD` is the password associated with the secret.
+  - `YOUR-EMAIL` is the email associated with the secret.
 
 1. Update the `tap-values.yaml` file to include the name of secret created earlier.
 

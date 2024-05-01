@@ -2,19 +2,22 @@
 
 This topic gives you an overview of use cases, features, and CVEs for Supply Chain Security Tools (SCST) - Scan 1.0
 
-> **Note** SCST - Scan 1.0 is deprecated in
-Tanzu Application Platform v1.10 and later. In Tanzu Application Platform v1.10, SCST - Scan 1.0 is
-still the default in Supply Chain with Testing. For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
-VMware recommends using SCST - Scan 2.0 as SCST - Scan 1.0 will be removed in a future version and
-SCST - Scan 2.0 will be the default. For more information, see [SCST - Scan versions](./overview.hbs.md), and [Enable SCST - Scan 2.0 for default Test and Scan supply chains](./integrate-app-scanning.hbs.md).
+> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
+> Platform v1.10 and later. However, in Tanzu Application Platform v1.10 SCST - Scan 1.0 is still the
+> default in Supply Chain with Testing.
+> For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
+> VMware recommends using SCST - Scan 2.0 because SCST - Scan 2.0 will replace SCST - Scan 1.0 as the
+> default in future versions. For more information, see
+> [SCST - Scan versions](overview.hbs.md#scst-scan-feat) and
+> [Enable SCST - Scan 2.0 for default Test and Scan supply chains](integrate-app-scanning.hbs.md).
 
 ## <a id="overview"></a>Overview
 
-With Supply Chain Security Tools - Scan, you can build and deploy 
-secure, trusted software that complies with your corporate security requirements. 
-Supply Chain Security Tools (SCST) - Scan provides scanning and gatekeeping capabilities 
-that Application and DevSecOps teams can incorporate early in their path to 
-production as it is a known industry best practice for reducing security risk 
+With Supply Chain Security Tools - Scan, you can build and deploy
+secure, trusted software that complies with your corporate security requirements.
+Supply Chain Security Tools (SCST) - Scan provides scanning and gatekeeping capabilities
+that Application and DevSecOps teams can incorporate early in their path to
+production as it is a known industry best practice for reducing security risk
 and ensuring more efficient remediation.
 
 ## <a id="use-cases"></a>Language support
@@ -42,15 +45,15 @@ The following SCST - Scan features enable the [Use cases](#use-cases):
 
 ## <a id="scst-scan-note"></a>A Note on Vulnerability Scanners
 
-Although vulnerability scanning is an important practice in DevSecOps and 
-the benefits of it are widely recognized and accepted, 
-remember that there are limits present that impact its efficacy. 
+Although vulnerability scanning is an important practice in DevSecOps and
+the benefits of it are widely recognized and accepted,
+remember that there are limits present that impact its efficacy.
 The following examples illustrate the limits that are prevalent in most scanners today:
 
 #### <a id="missed-cves"></a>Missed CVEs
 
-One limit of all vulnerability scanners is that there is 
-no one tool that can find 100% of all CVEs, which means there is always a risk 
+One limit of all vulnerability scanners is that there is
+no one tool that can find 100% of all CVEs, which means there is always a risk
 that a missed CVE can be exploited. Some reasons for missed CVEs include:
 
 - The scanner does not detect the vulnerability because it is recently discovered and the CVE databases that the scanner checks against are not updated yet.
@@ -62,9 +65,9 @@ that a missed CVE can be exploited. Some reasons for missed CVEs include:
 
 #### <a id="false-positives"></a>False positives
 
-Vulnerability scanners cannot always access the information to accurately identify whether a CVE exists. 
-This often leads to an influx of false positives where the tool mistakenly flags something as a vulnerability when it isn’t. 
-Unless a user is specialized in security or is deeply familiar with what is deemed to be a vulnerable component by the scanner, 
+Vulnerability scanners cannot always access the information to accurately identify whether a CVE exists.
+This often leads to an influx of false positives where the tool mistakenly flags something as a vulnerability when it isn’t.
+Unless a user is specialized in security or is deeply familiar with what is deemed to be a vulnerable component by the scanner,
 assessing and determining false positives becomes a challenging and time-consuming activity. Some reasons for a false positive flag include:
 
 - A component might be misidentified due to similar names.
@@ -76,21 +79,21 @@ assessing and determining false positives becomes a challenging and time-consumi
 
 So what can you do to protect yourselves and your software?
 
-Although vulnerability scanning is not a perfect solution, it is an essential part 
-of the process for keeping your organization secure. 
-You can take the following measures to maximize the benefits while minimizing 
+Although vulnerability scanning is not a perfect solution, it is an essential part
+of the process for keeping your organization secure.
+You can take the following measures to maximize the benefits while minimizing
 the impact of the limits:
 
 - Scan more continuously and comprehensively to identify and remediate zero-day vulnerabilities quicker. You can achieve comprehensive scanning by:
 
-    - scanning earlier in the development cycle to ensure that you can address issues more efficiently and do not delay a release. 
+    - scanning earlier in the development cycle to ensure that you can address issues more efficiently and do not delay a release.
     Tanzu Application Platform includes security practices such as source and container image vulnerability scanning earlier in the path to production for application teams.
     - scanning any base images in use. Tanzu Application Platform image scanning can recognize and scan the OS packages from a base image.
     - scanning running software in test, stage, and production environments at a regular cadence.
-    - generating accurate provenance at any level so that scanners have a complete picture of the dependencies to scan. 
-    This is where a software bill of materials (SBoM) comes into play. To help you automate this process, VMware Tanzu Build Service, 
-    leveraging Cloud Native Buildpacks, generates an SBoM for buildpack-based projects. 
-    Because this SBoM is generated during the image building stage, it is more accurate and complete than one generated earlier or later in the release life cycle. 
+    - generating accurate provenance at any level so that scanners have a complete picture of the dependencies to scan.
+    This is where a software bill of materials (SBoM) comes into play. To help you automate this process, VMware Tanzu Build Service,
+    leveraging Cloud Native Buildpacks, generates an SBoM for buildpack-based projects.
+    Because this SBoM is generated during the image building stage, it is more accurate and complete than one generated earlier or later in the release life cycle.
     This is because it can highlight dependencies introduced at the time of build that might introduce potential for compromise.
 - Scan by using multiple scanners to maximize CVE coverage.
 - Practice keeping your dependencies up-to-date.

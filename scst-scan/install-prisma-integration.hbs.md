@@ -2,11 +2,13 @@
 
 This topic describes prerequisites you must complete to install SCST - Scan (Prisma) from the VMware package repository.
 
-> **Note** This component is part of SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in
-Tanzu Application Platform v1.10 and later. In Tanzu Application Platform v1.10, SCST - Scan 1.0 is
-still the default in Supply Chain with Testing. For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
-VMware recommends using SCST - Scan 2.0 as SCST - Scan 1.0 will be removed in a future version and
-SCST - Scan 2.0 will be the default. For more information, see [SCST - Scan versions](./overview.hbs.md).
+> **Note** This topic uses SCST - Scan 1.0. SCST - Scan 1.0 is deprecated in Tanzu Application
+> Platform v1.10 and later. However, in Tanzu Application Platform v1.10 SCST - Scan 1.0 is still the
+> default in Supply Chain with Testing.
+> For more information, see [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md#add-testing-and-scanning-to-your-application).
+> VMware recommends using SCST - Scan 2.0 because SCST - Scan 2.0 will replace SCST - Scan 1.0 as the
+> default in future versions. For more information, see
+> [SCST - Scan versions](overview.hbs.md#scst-scan-feat).
 
 <br>
 
@@ -27,12 +29,12 @@ Use the latest version returned in place of the sample version in this topic. Fo
 
 ```console
 imgpkg tag list -i projects.registry.vmware.com/tanzu_practice/tap-scanners-package/prisma-repo-scanning-bundle | sort -V
-0.1.4-alpha.11  
-0.1.4-alpha.12  
-0.1.4-alpha.15  
-0.1.5-alpha.11  
-0.1.5-alpha.12  
-0.1.5-alpha.13  
+0.1.4-alpha.11
+0.1.4-alpha.12
+0.1.4-alpha.15
+0.1.5-alpha.11
+0.1.5-alpha.12
+0.1.5-alpha.13
 ```
 
 ## Relocate images to a registry
@@ -136,7 +138,7 @@ VMware recommends installing the Prisma Scanner objects in the existing `tap-ins
 
 ## Prepare the Prisma Scanner configuration
 
-Before installing the Prisma scanner, you must create the configuration and a Kubernetes secret that contains credentials to access Prisma Cloud. 
+Before installing the Prisma scanner, you must create the configuration and a Kubernetes secret that contains credentials to access Prisma Cloud.
 
 ### Obtain Console URL and Access Keys and Token
 
@@ -145,7 +147,7 @@ The Prisma Scanner supports two methods of authentication:
 1) Basic Authentication with API Key and Secret
 2) Token Based Authentication
 
-The steps to configure both are outlined to allow you to decide which option you use. 
+The steps to configure both are outlined to allow you to decide which option you use.
 
 >**Note** The token method issued by Prisma Cloud has a expiration of 1 hour, so it requires frequent refreshing.
 
@@ -155,7 +157,7 @@ To obtain your Prisma Compute Console URL and Access Keys and Token. See [Access
 
 #### Access key and secret authentication
 
-To create a Prisma secret, use the following instructions. 
+To create a Prisma secret, use the following instructions.
 
 1. Create a Prisma secret YAML file and insert the base64 encoded Prisma API token into the `prisma_token`:
 
@@ -171,7 +173,7 @@ To create a Prisma secret, use the following instructions.
     ```
 
    Where:
-   
+
    - `PRISMA-ACCESS-KEY-SECRET` is the name of your Prisma token secret.
    - `APP-NAME` is the namespace you want to use.
    - `BASE64-PRISMA-ACCESS-KEY-ID` is your base64 encoded Prisma Access Key ID.
@@ -231,7 +233,7 @@ The `values.yaml` file is slightly different for each configuration.
     ```
 
    Where:
- 
+
    - `PRISMA-TOKEN-SECRET` is the name of your Prisma token secret.
    - `APP-NAME` is the namespace you want to use.
    - `BASE64-PRISMA-API-TOKEN` is the name of your base64 encoded Prisma API token.
@@ -290,7 +292,7 @@ installed unless it is explicitly excluded.
 
 In order to find your CA secret name and authentication token secret name as needed for your values.yaml when installing Prisma Scanner you must look at the configuration of a prior installed scanner in the same namespace as it already exists.
 
-For information about how the scanner was likely initially created, see [Set up multicluster Supply Chain Security Tools (SCST) - Store](../scst-store/multicluster-setup.hbs.md) 
+For information about how the scanner was likely initially created, see [Set up multicluster Supply Chain Security Tools (SCST) - Store](../scst-store/multicluster-setup.hbs.md)
 
 An example `values.yaml` when there are other scanners already installed in the same `dev-namespace` where the Prisma Scanner is installed:
 ```yaml
@@ -383,9 +385,9 @@ metadata:
 spec:
   regoFile: |
     package main
-    
+
     import future.keywords.in
-    
+
     deny[msg] {
       vulnerabilityAndComplianceScanResults := {e | e := input.bom.metadata.properties.property[_]}
       some result in vulnerabilityAndComplianceScanResults

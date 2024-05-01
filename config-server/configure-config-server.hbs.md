@@ -7,7 +7,7 @@ This topic tells you about options when creating a `ConfigServer` resource.
 Examine the available parameters when creating a `ConfigServer` resource by running:
 
 ```console
-kubectl explain config-server.spring.tanzu.vmware.com.spec
+kubectl explain configserver.spec
 ```
 
 For example:
@@ -37,6 +37,64 @@ FIELDS:
      TLS configuration for the config server
 ```
 
+Here is a second example describing the git configuration fields:
+
+```console
+kubectl explain configserver.spec.backends.git
+```
+
+For example:
+
+```console
+$ kubectl explain configserver.spec.backends.git 
+KIND:     ConfigServer
+VERSION:  config-server.spring.tanzu.vmware.com/v1alpha1
+
+RESOURCE: git <Object>
+
+DESCRIPTION:
+     Git backend configuration
+
+FIELDS:
+   basicAuth	<Object>
+     For HTTP/S addresses, the credentials used to access the Git repository if
+     protected by HTTP Basic authentication. Optional.
+
+   defaultLabel	<string>
+     The default label used if a request is received without a label. Optional:
+     Defaults to main.
+
+   paths	<[]string>
+     A list of patterns used to search for configuration-containing
+     subdirectories in the Git repository. Optional.
+
+   proxy	<Object>
+     The Proxy configuration for the Git repository. Optional.
+
+   skipTLSVerify	<boolean>
+     For HTTPS addresses, whether to skip validation of the SSL certificate on
+     the Git repository's server. Optional: Defaults to false.
+
+   ssh	<Object>
+     For SSH addresses, the credentials used to access the Git repository if
+     protected by SSH. Optional.
+
+   timeout	<integer>
+     Number of seconds that the config server will wait to acquire a connection
+     to the Git repository. Optional: Defaults to 5 seconds.
+
+   ttl	<integer>
+     Number of seconds to wait before updating the repository clone from Git
+     repository, when a client requests configuration. Optional: Defaults to 0
+     seconds. Default value (0) means the repository clone is updated every time
+     a client requests configuration. Negative value means the repository clone
+     will not be updated, after it is cloned.
+
+   uri	<string> -required-
+     The HTTP/S or SSH address of the Git repository.
+
+```
+
 ## <a id="create-configserver"></a> Create a ConfigServer resource
 
 To create a `ConfigServer` resource for using the Spring Cloud Services [cook](https://github.com/spring-cloud-services-samples/cook)
@@ -54,10 +112,10 @@ To create a `ConfigServer` resource for using the Spring Cloud Services [cook](h
     spec:
       replicas: 1
       tls:
-	activated: true
+        activated: true
       backends:
-	- git:
-	    uri: https://github.com/spring-cloud-services-samples/cook-config
+        - git:
+          uri: https://github.com/spring-cloud-services-samples/cook-config
     ```
 
 1. Save the YAML definition as `configserver.yaml`.

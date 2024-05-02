@@ -1,9 +1,9 @@
-# Install Config Server
+# Install Enterprise Config Server
 
-This topic tells you how to install Config Server from the Tanzu Application Platform
+This topic tells you how to install Enterprise Config Server from the Tanzu Application Platform
 (commonly known as TAP) package repository.
 
-## <a id='prereqs'></a> Prerequisites
+## <a id='prepare'></a> Prepare
 
 Before installing Config Server, you must:
 
@@ -26,10 +26,10 @@ To install Config Server on a compliant Kubernetes cluster:
    $ tanzu package available list config-server.spring.tanzu.vmware.com --namespace tap-install
 
      NAME                                   VERSION  RELEASED-AT
-     config-server.spring.tanzu.vmware.com  1.0.0    2024-04-29 11:33:42 -0500 CDT  
+     config-server.spring.tanzu.vmware.com  1.0.0    2024-04-29 11:33:42 -0500 CDT
    ```
 
-2. Install the package by running:
+1. Install the package by running:
 
    ```console
    tanzu package install config-server \
@@ -59,10 +59,10 @@ To install Config Server on a compliant Kubernetes cluster:
     Added installed package 'config-server'
    ```
 
-   > **Note** Because there are no customization options at this time, there is no need to include a
+   > **Note** Because there are no customization options at this time, you need not include a
    > `--values-file` option.
 
-3. Verify that you installed the package by running:
+1. Verify that you installed the package by running:
 
    ```console
    tanzu package installed get config-server -n tap-install

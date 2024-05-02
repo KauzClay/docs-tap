@@ -180,6 +180,11 @@ The following issues, listed by component and area, are resolved in this release
   - Fixed the issue where the RRV plug-in was displaying error messages for resources that did not
     exist on a cluster.
 
+#### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
+
+- Runtime Resource View Plugin:
+  - Fixed the issue where RRV plugin was querying for resources across all namespaces despite the presence of a backstage namespace annotation on the entity. 
+  - Fixed the issue where RRV plugin was displaying error messages for resources that didn't exist on a cluster. 
 ---
 
 ### <a id='1-10-0-known-issues'></a> v1.10.0 Known issues

@@ -154,7 +154,7 @@ To use Config Server in workloads:
    tanzu apps workload create -f cook-workload.yaml --yes
    ```
 
-3. From the Tanzu CLI, retrieve the ingress route associated with the greeter application by running:
+3. From the Tanzu CLI, retrieve the ingress route associated with the cook application by running:
 
    ```console
    tanzu apps workload get cook-workload
@@ -174,14 +174,14 @@ To use Config Server in workloads:
    To see logs: "tanzu apps workload tail cook-workload --timestamp --since 1h"
    ```
 
-   Where `https://cook-workload.cook.tap` is the accessible ingress route to the greeter application
+   Where `https://cook-workload.cook.tap` is the accessible ingress route to the cook application
 
 4. Visit [ROUTE]/restaurant, where [ROUTE] is the ingress route you just retrieved.
 The “special” of the day will be taken from the configuration repository and the value of cook.special.
 
 ## <a id="exec-jar-file-app"></a> (Optional) Use Config Server with an executable JAR file application
 
-In the greeting application example, `BP_GRADLE_BUILD_ARGUMENTS` is set to include the `bootJar`
+In the cook application example, `BP_GRADLE_BUILD_ARGUMENTS` is set to include the `bootJar`
 task in addition to the default Gradle build arguments. This setting is necessary for this example
 base because the `build.gradle` file contains a `jar` section, and the Spring Boot buildpack will
 not inject the `spring-cloud-bindings` library into the application if it is an executable JAR file.
@@ -189,7 +189,7 @@ not inject the `spring-cloud-bindings` library into the application if it is an 
 `spring-cloud-bindings` is required to process the `serviceClaim` into properties that tell the
 discovery client how to find the Config Server.
 
-To use Service Registry with an executable JAR file application, you must explicitly include [spring-cloud-bindings v2.0.3](https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-bindings/2.0.3)
+To use Config Server with an executable JAR file application, you must explicitly include [spring-cloud-bindings v2.0.3](https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-bindings/2.0.3)
 or later and set the `org.springframework.cloud.bindings.boot.enable=true` system property as
 described in the
 [library README file](https://github.com/spring-cloud/spring-cloud-bindings#spring-boot-configuration)

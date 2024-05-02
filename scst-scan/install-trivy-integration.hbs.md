@@ -2,12 +2,9 @@
 
 This topic describes how you can install SCST - Scan (Trivy) from the VMware package repository.
 
-{{> 'partials/scst-scan/scan-1-0-deprecation' }}
-<br>
-
->**Important** This integration is in Alpha, which means that it is still in active
->development by the Tanzu Practice Global Tech Team and might be subject to
->change at any point. Users might encounter unexpected behavior.
+> **Important** This integration is in Alpha, which means that it is still in active development by
+> the Tanzu Practice Global Tech Team and might be subject to change at any point. Users might
+> encounter unexpected behavior.
 
 ## <a id='verify'></a> Verify the latest alpha package version
 
@@ -50,6 +47,8 @@ For example, given the output above, if you are using TAP 1.4, use `0.1.4-alpha.
 
 VMware recommends relocating the images from VMware Tanzu Network registry to
 your own container image registry before installing.
+
+{{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 Trivy is in the Alpha development phase, is not packaged as part of
 the Tanzu Application Platform package, and is hosted on the VMware Project

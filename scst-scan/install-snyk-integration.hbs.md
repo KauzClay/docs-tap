@@ -2,13 +2,14 @@
 
 This topic describes the prerequisites you must complete to install Supply Chain Security Tools - Scan (Snyk Scanner) from the Tanzu Application Platform package repository.
 
+> **Important** Snyk's image scanning capability is in beta. Snyk might only return a partial list
+> of CVEs when scanning Buildpack images.
+
+## <a id="prereqs"></a> Prepare the Snyk Scanner configuration
+
+To prepare the Snyk Scanner configuration, follow these steps.
+
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
-
-<br>
-
->**Important** Snyk's image scanning capability is in beta. Snyk might only return a partial list of CVEs when scanning Buildpack images.
-
-## <a id="prerecs"></a> Prepare the Snyk Scanner configuration
 
 1. Obtain a Snyk API Token from the [Snyk documentation](https://docs.snyk.io/snyk-cli/authenticate-the-cli-with-your-account).
 

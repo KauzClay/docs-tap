@@ -2,14 +2,9 @@
 
 This topic describes prerequisites you must complete to install SCST - Scan (Prisma) from the VMware package repository.
 
-{{> 'partials/scst-scan/scan-1-0-deprecation' }}
-
-<br>
-
-
->**Important** This integration is in Alpha, which means that it is still in active
->development by the Tanzu Practices Global Tech Team and might be subject to
->change at any point. Users might encounter unexpected behavior.
+> **Caution** This integration is in Alpha, which means that it is still in active development by
+> the Tanzu Practices Global Tech Team and might be subject to change at any point. You might
+> encounter unexpected behavior.
 
 ## Verify the latest alpha package version
 
@@ -33,16 +28,18 @@ imgpkg tag list -i projects.registry.vmware.com/tanzu_practice/tap-scanners-pack
 
 ## Relocate images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to
-your own container image registry before installing. The Prisma Scanner is in
-the Alpha development phase, and not packaged as part of Tanzu Application
-Platform. It is hosted on the VMware Project Repository instead of
-VMware Tanzu Network. If you relocated the Tanzu Application Platform
-images, you can also relocate the Prisma Scanner package. If you don’t relocate
-the images, the Prisma Scanner installation depends on VMware Tanzu Network for
-continued operation, and VMware Tanzu Network offers no uptime guarantees. The
-option to skip relocation is documented for evaluation and proof-of-concept
-only.
+VMware recommends relocating the images from VMware Tanzu Network registry to your own container
+image registry before installing.
+
+{{> 'partials/scst-scan/scan-1-0-deprecation' }}
+
+The Prisma Scanner is in the Alpha development phase, and not
+packaged as part of Tanzu Application Platform. It is hosted on the VMware Project Repository
+instead of VMware Tanzu Network. If you relocated the Tanzu Application Platform images, you can
+also relocate the Prisma Scanner package. If you don’t relocate the images, the Prisma Scanner
+installation depends on VMware Tanzu Network for continued operation, and VMware Tanzu Network
+offers no uptime guarantees. The option to skip relocation is documented for evaluation and
+proof-of-concept only.
 
 For information about supported registries, see each registry's documentation.
 

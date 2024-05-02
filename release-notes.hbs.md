@@ -45,7 +45,6 @@ This release includes the following changes, listed by component and area.
     - MongoDB to v15.1.1
     - Kafka to v28.0.1
 
-- Removes the dependency on the `services-toolkit.tanzu.vmware.com` package.
 
 #### <a id='1-10-0-crossplane'></a> v1.10.0 Features: Crossplane
 

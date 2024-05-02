@@ -6,7 +6,7 @@ running Spring Boot applications to connect to Config Server resources.
 ## <a id='prepare'></a> Prepare
 
 Create a `ConfigServer` resource. For instructions, see
-[Create ConfigServer resources](configure-config-server.hbs.md).
+[Create ConfigServer resources](create-configserver-resources.hbs.md).
 
 ## <a id="claim-creds"></a> Claim credentials
 

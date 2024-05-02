@@ -106,7 +106,7 @@ Configuration options:
 
 ## <a id='amr-graphql'></a> AMR GraphQL
 
-- `amr.graphql.auth.kubernetes_service_accounts``
+- `amr.graphql.auth.kubernetes_service_accounts`
   - `.enable`
     - Default: true
     - Enable authentication for artifact metadata repository GraphQL server. By default it is set to true.

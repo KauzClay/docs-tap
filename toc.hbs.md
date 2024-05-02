@@ -435,7 +435,6 @@
       - [Install Config Server](config-server/install-config-server.hbs.md)
       - [Create ConfigServer resources](config-server/create-configserver-resources.hbs.md)
       - [Configure workloads to use Enterprise Config Server](config-server/configure-workloads.hbs.md)
-      - [Configure ]()
     - [External Secrets Operator](external-secrets/about-external-secrets-operator.hbs.md)
       - [External Secrets Operator overview](external-secrets/about-external-secrets-operator.hbs.md)
       - [Install External Secrets Operator](external-secrets/install-external-secrets-operator.hbs.md)

@@ -81,10 +81,10 @@ metadata:
   generateName: enforce-policy-task-run-
 spec:
   serviceAccountName: SERVICE-ACCOUNT-THAT-CAN-READ-TAP-IMAGES
-  taskSpec:
-    params:
+  params:
     - name: image
       value: IMAGE-WITH-DIGEST-THAT-WAS-SCANNED
+  taskSpec:
     steps:
     - name: enforce-policy
       image: TASK-RUN-IMAGE-WITH-CURL-AND-JQ
@@ -95,7 +95,7 @@ spec:
 
         IMAGE_DIGEST=$(echo $(params.image) | cut -d "@" -f 2)
         while true; do
-          response_code=$(curl https://$METADATA-STORE-URL/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
+          response_code=$(curl https://$METADATA_STORE_URL/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
           if [ $response_code -eq 200 ]; then
             echo "Vulnerabilities data is available in AMR"
             break
@@ -133,7 +133,7 @@ spec:
       env:
       - name: GATE
         value: "critical"
-      - name: METADATA-STORE-URL-NAME
+      - name: METADATA_STORE_URL
         value: METADATA-STORE-URL-VALUE
       - name: ACCESS_TOKEN
         valueFrom:
@@ -144,9 +144,9 @@ spec:
       - name: cert
         mountPath: /var/cert
     volumes:
-    - name: SECRET-CONTAINING-METADATA-STORE-CERT
+    - name: cert
       secret:
-        secretName: metadata-store-cert
+        secretName: SECRET-CONTAINING-METADATA-STORE-CERT
 ```
 
 Where:

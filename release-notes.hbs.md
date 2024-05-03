@@ -116,9 +116,10 @@ The following issues, listed by component and area, are resolved in this release
 - Fixed an issue in which the Services Toolkit controller manager deleted Carvel SecretExport resources
   that it did not own.
 
-#### <a id='1-10-0-ssc-ui-ri'></a> v1.10.0 Resolved issues: Supply Chain UI
+#### <a id='1-10-0-supply-chain-ri'></a> v1.10.0 Resolved issues: Supply Chain
 
-- Performance issues in Supply Chain UI where the workloads page and workload details page would take long time to load are resolved
+- Fixed performance issues in the Supply Chain UI that caused the Workloads page and Workload
+  Details page to load slowly.
 
 #### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
 
@@ -150,9 +151,8 @@ This release has the following known issues, listed by component and area.
   use them to construct a new Supply Chain. Support for CA certificates as standard is planned for
   future versions of Tanzu Supply Chain.
 
-#### <a id='1-10-0-ssc-ui-ki'></a> v1.10.0 Known issues: Supply Chain UI
-
-- In workload details page, Config writer step takes >20 sec to load when 150+ workloads are visualized in the Supply Chain UI.
+- In the Workload Details page, the config writer step takes longer than 20 seconds to load when
+  more than 149 workloads are displayed in the Supply Chain UI.
 
 ---
 

@@ -146,9 +146,10 @@ To use Config Server for workload configuration:
         git:
           url: https://github.com/spring-cloud-services-samples/cook
           ref:
-            #! TODO: We can switch back to 'main' branch when 'Tanzu Java Buildpack' for 1.10
             branch: kvmw/update
     ```
+
+    <!-- TODO: For spec.source.git.url.ref we can switch back to 'main' branch when 'Tanzu Java Buildpack' for 1.10 -->
 
 1. Create the workloads by running:
 

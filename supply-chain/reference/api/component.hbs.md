@@ -44,48 +44,53 @@ the component to operate.
 
 `spec.config` is an array of objects. Each object has three fields:
 
-- `path:` describes the path in the workload where this configuration is appended/merged. It must start with `spec.`
-- `schema` defines a property. Must be valid OpenAPIV3 Schema. See the [Kubernetes](https://kubernetes.io/docs/home/) and [OpenAPIV3](https://swagger.io/specification/) documentation.
-- `required`: determines whether the property referenced by `path` should be marked as required.
+- `path` describes the path in the workload where this configuration is appended or merged. It must
+  start with `spec.`
+- `schema` defines a property. It must be a valid OpenAPI v3 schema. For more information, see the
+  [Kubernetes documentation](https://kubernetes.io/docs/home/) and the
+  [OpenAPI documentation](https://swagger.io/specification/).
+- `required` determines whether the property that `path` references is marked as required.
 
-> **Note** properties can be marked as required using the `required` field in the `spec.config` array. Child properties can separately be marked as required in the `schema`.
+> **Note** Use the `required` field in the `spec.config` array to mark properties as required. You
+> can mark child properties separately in the `schema`.
 
 #### Example
 
 Given the following `Component` `spec.config`:
 
 ```yaml
-  config:
-    - path: spec.source.git
-      schema:
-        type: object
-        description: |
-          Fill this object in if you want your source to come from git.
-          The tag, commit and branch fields are mutually exclusive,
-          use only one.
-        properties:
-          tag:
-            description: A git tag ref to watch for new source
-            type: string
-          commit:
-            description: A git commit sha to use
-            type: string
-          branch:
-            description: A git branch ref to watch for new source
-            type: string
-          url:
-            description: The url to the git source repository
-            type: string
-        required:
-          - url
-    - path: spec.image
-      required: true
-      schema:
-        type: string
-        description: Repository where the image is published.
+config:
+  - path: spec.source.git
+    schema:
+      type: object
+      description: |
+        Fill this object in if you want your source to come from Git.
+        The tag, commit, and branch fields are mutually exclusive.
+        Use only one.
+      properties:
+        tag:
+          description: A Git tag ref to watch for a new source
+          type: string
+        commit:
+          description: A Git commit SHA to use
+          type: string
+        branch:
+          description: A Git branch reference to watch for a new source
+          type: string
+        url:
+          description: The URL to the Git source repository
+          type: string
+      required:
+        - url
+  - path: spec.image
+    required: true
+    schema:
+      type: string
+      description: Repository where the image is published
 ```
 
-A `SupplyChain` that includes the `Component` will define workload `spec` as follows in the `CustomResourceDefinition`:
+A `SupplyChain` that includes the `Component` defines the workload `spec` as follows in the
+`CustomResourceDefinition`:
 
 ```yaml
 properties:
@@ -94,26 +99,26 @@ properties:
     properties:
       image:
         type: string
-        description: Repository where the image is published.
+        description: Repository where the image is published
       source:
         type: object
         description: |
-          Fill this object in if you want your source to come from git.
-          The tag, commit and branch fields are mutually exclusive,
-          use only one.
+          Fill this object in if you want your source to come from Git.
+          The tag, commit, and branch fields are mutually exclusive.
+          Use only one.
         properties:
           branch:
             type: string
-            description: A git branch ref to watch for new source
+            description: A Git branch reference to watch for a new source
           commit:
             type: string
-            description: A git commit sha to use
+            description: A Git commit SHA to use
           tag:
             type: string
-            description: A git tag ref to watch for new source
+            description: A Git tag reference to watch for a new source
           url:
             type: string
-            description: The url to the git source repository
+            description: The URL to the Git source repository
         required:
         - url
     required:

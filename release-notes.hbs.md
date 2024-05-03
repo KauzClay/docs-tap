@@ -16,7 +16,10 @@ This release includes the following platform-wide enhancements.
 
 #### <a id='1-10-0-new-components'></a> New components
 
-- [COMPONENT-NAME-AND-LINK-TO-DOCS](): Component description.
+- [Enterprise Config Server](config-server/overview.hbs.md): Enterprise Config Server is an
+  externalized configuration server based on the open-source Spring Cloud Config project. Config
+  Server provides a centralized server for delivering external configuration properties to an
+  application, and a central source for managing this configuration across deployment environments.
 
 ---
 

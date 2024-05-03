@@ -172,6 +172,11 @@ The following issues, listed by component and area, are resolved in this release
   Tools (SCST) - Scan 2.0 with a `ClusterImageTemplate` for templates other than the default Trivy
   template.
 
+#### <a id='1-10-0-supply-chain-ri'></a> v1.10.0 Resolved issues: Supply Chain
+
+- Fixed performance issues in the Supply Chain UI that caused the Workloads page and Workload
+  Details page to load slowly.
+
 #### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
 
 - **Runtime Resource View plug-in:**

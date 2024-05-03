@@ -16,7 +16,10 @@ This release includes the following platform-wide enhancements.
 
 #### <a id='1-10-0-new-components'></a> New components
 
-- [COMPONENT-NAME-AND-LINK-TO-DOCS](): Component description.
+- [Enterprise Config Server](config-server/overview.hbs.md): Enterprise Config Server is an
+  externalized configuration server based on the open-source Spring Cloud Config project. Config
+  Server provides a centralized server for delivering external configuration properties to an
+  application, and a central source for managing this configuration across deployment environments.
 
 ---
 
@@ -116,6 +119,14 @@ The following issues, listed by component and area, are resolved in this release
 #### <a id='1-10-0-ssc-ui-ri'></a> v1.10.0 Resolved issues: Supply Chain UI
 
 - Performance issues in Supply Chain UI where the workloads page and workload details page would take long time to load are resolved
+
+#### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
+
+- **Runtime Resource View plug-in:**
+  - Fixed the issue where the RRV plug-in was querying for resources across all namespaces despite
+    the presence of a Backstage namespace annotation on the entity.
+  - Fixed the issue where the RRV plug-in was displaying error messages for resources that did not
+    exist on a cluster.
 
 ---
 

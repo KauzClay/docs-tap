@@ -185,6 +185,11 @@ The following issues, listed by component and area, are resolved in this release
   - Fixed the issue where the RRV plug-in was displaying error messages for resources that did not
     exist on a cluster.
 
+#### <a id='1-10-0-supply-chain-ri'></a> v1.10.0 Resolved issues: Supply Chain
+
+- Fixed performance issues in the Supply Chain UI that caused the Workloads page and Workload
+  Details page to load slowly.
+
 #### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
 
 - Runtime Resource View Plugin:
@@ -214,26 +219,6 @@ This release has the following known issues, listed by component and area.
 
 - In the Workload Details page, the config writer step takes longer than 20 seconds to load when
   more than 149 workloads are displayed in the Supply Chain UI.
-
-#### <a id='1-10-0-scst-scan-2-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Scan 2.0
-
-- As of v1.10, when installing the Tanzu Application Platform Build profile or Full profile, Supply
-  Chain Security Tools (SCST) - Scan 2.0 is also installed on the cluster. If you installed SCST -
-  Scan 2.0 manually in an earlier Tanzu Application Platform version, uninstall SCST - Scan 2.0
-  before upgrading to v1.10 to avoid conflict.
-
-#### <a id='1-10-0-scst-store-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Store
-
-- When `observer.deploy_through_tmc` is `true`, properties are auto-configured for Tanzu Mission
-  Control (TMC). This causes the `MultiClusterPropertyCollector` resource to overwrite existing
-  Tanzu Application Platform values for Observer.
-
-  When using Let's Encrypt ACME issuers, the resultant Kubernetes secret resource does
-  not contain a `ca.crt` property. Therefore, when the `MultiClusterPropertyCollector` resource
-  creates the Observer package configuration values secret, the required `ca_cert_data` is empty.
-
-  To work around this issue, add the Certificate Authority (CA) Certificate to the
-  `shared.ca_cert_data` key in the Tanzu Application Platform installation values.
 
 ---
 

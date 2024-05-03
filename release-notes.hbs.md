@@ -123,7 +123,10 @@ The following issues, listed by component and area, are resolved in this release
 
 #### <a id='1-10-0-scst-scan-2-ri'></a> v1.10.0 Resolved issues: Supply Chain Security Tools - Scan 2.0
 
-- Fixed an issue causing the value for the scanning image be overwritten with an incorrect default value for `ootb_supply_chain_testing_scanning.image_scanner_cli.image` when using Supply Chain Security Tools (SCST) - Scan 2.0 with a ClusterImageTemplate for templates other than the default trivy template.
+- Fixed an issue that overwrote the scanning-image value with a wrong default value for
+  `ootb_supply_chain_testing_scanning.image_scanner_cli.image` when using Supply Chain Security
+  Tools (SCST) - Scan 2.0 with a `ClusterImageTemplate` for templates other than the default Trivy
+  template.
 
 #### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
 

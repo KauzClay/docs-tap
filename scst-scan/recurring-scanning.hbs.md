@@ -32,7 +32,7 @@ your supply chain.
 
 ## <a id="recurring-scanning-setup"></a>Set up recurring scanning
 
-To set up recurring scanning, you must create a `RecurringImageVulnerabilityScan`. This defines:
+Unlike scans that occur as part of the software supply chain, scans invoked by recurring scanning run as a centralized scan job in a single namespace, and gathers images from all namespaces.  To set up recurring scanning, you must create a `RecurringImageVulnerabilityScan`, which defines:
 
 - The interval in which to scan container images in crontab format.
 - How far back (in days) of images created using the supply chain to scan.
@@ -45,16 +45,17 @@ To set up recurring scanning, you must create a `RecurringImageVulnerabilityScan
 Before you define your `RecurringImageVulnerabilityScan` template, you must have:
 
 - A repository created on an OCI compliant registry that scan results are pushed to.
-- A service account that can push an OCI artifact to the results repository.
+- A namespace to create the recurring scan template in.  This is where all the recurring scan jobs will run.
+- A service account within the namespace that can push an OCI artifact to the results repository.
 - Credentials for any registry the scanner must pull images from to scan.
 
 Recurring scanning uses the SCST - Scan 2.0 component, which is in the `Full` and `Build Profiles`.
 
-> **Note** Pay special attention to the service accounts, and credentials that are needed.
-If you only use recurring scanning for images built in your supply chain, VMware recommends you
-use Namespace Provisioner to create a namespace, which automatically creates the service accounts and
-secrets needed. The examples in this topic use a namespace created by Namespace Provisioner. For more
-information, see [Namespace Provisioner](..//namespace-provisioner/about.hbs.md).
+> **Note** Pay special attention to the service accounts and credentials that are needed.
+For a simplified setup of the namespace, VMware recommends you use Namespace Provisioner to 
+create a namespace, which automatically creates the service accounts and secrets needed for 
+for images created by supply chains. The examples in this topic use a namespace created by 
+Namespace Provisioner. For more information, see [Namespace Provisioner](..//namespace-provisioner/about.hbs.md).
 
 ### <a id="example-template"></a>Example RecurringImageVulnerabilityScan template
 

@@ -156,12 +156,12 @@ you can populate them using templates.
 
 The available references for templating are:
 
-| reference                                     | source                                                                                         | examples                                                   |
+| Reference                                     | Source                                                                                         | Examples                                                   |
 |-----------------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | `$(workload.spec...)` (deprecated)            | The workload spec                                                                              | `$(workload.spec.source.git.url)`                          |
 | `$(workload.metadata...)`                     | The workload metadata                                                                          | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
 | `$(config.spec...)`                           | `config.spec` is derived from `workload.spec`, unless modified by `supplychain.spec.overrides` | `$(config.spec.source.git.url)`                            |
-| `$(inputs.<input-name>.[url\|digest])`        | An input url or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
+| `$(inputs.<input-name>.[url\|digest])`        | An input URL or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
 | `$(resumptions.<resumption-name>.results...)` | A [resumption](#specresumptions) result                                                        | `$(resumptions.check-source.results.sha)`                  |
 
 #### Example
@@ -232,12 +232,12 @@ you can populate them using templates.
 
 The available references for templating references are:
 
-| reference                              | source                                                                                         | examples                                                   |
+| Reference                              | Source                                                                                         | Examples                                                   |
 |----------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | `$(workload.spec...)` (deprecated)     | The workload spec                                                                              | `$(workload.spec.source.git.url)`                          |
 | `$(workload.metadata...)`              | The workload metadata                                                                          | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
 | `$(config.spec...)`                    | `config.spec` is derived from `workload.spec`, unless modified by `supplychain.spec.overrides` | `$(config.spec.source.git.url)`                            |
-| `$(inputs.<input-name>.[url\|digest])` | An input url or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
+| `$(inputs.<input-name>.[url\|digest])` | An input URL or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
 
 #### Example
 

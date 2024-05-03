@@ -42,14 +42,17 @@ spec:
 `spec.config` defines the configuration in a workload (`spec` of the workload) that is required for
 the component to operate.
 
-`spec.config` is an array with three fields:
+`spec.config` is an array of objects. Each object has three fields:
 
-- `path:` describes the path in the workload where this configuration is appended/merged. It must
-  start with `spec.`
-- `schema` and `required` define a property. See the (Kubernetes)[https://kubernetes.io/docs/home/]
-  documentation.
+- `path:` describes the path in the workload where this configuration is appended/merged. It must start with `spec.`
+- `schema` defines a property. Must be valid OpenAPIV3 Schema. See the [Kubernetes](https://kubernetes.io/docs/home/) and [OpenAPIV3](https://swagger.io/specification/) documentation.
+- `required`: determines whether the property referenced by `path` should be marked as required.
+
+> **Note** properties can be marked as required using the `required` field in the `spec.config` array. Child properties can separately be marked as required in the `schema`.
 
 #### Example
+
+Given the following `Component` `spec.config`:
 
 ```yaml
   config:
@@ -75,6 +78,46 @@ the component to operate.
             type: string
         required:
           - url
+    - path: spec.image
+      required: true
+      schema:
+        type: string
+        description: Repository where the image is published.
+```
+
+A `SupplyChain` that includes the `Component` will define workload `spec` as follows in the `CustomResourceDefinition`:
+
+```yaml
+properties:
+  spec:
+    type: object
+    properties:
+      image:
+        type: string
+        description: Repository where the image is published.
+      source:
+        type: object
+        description: |
+          Fill this object in if you want your source to come from git.
+          The tag, commit and branch fields are mutually exclusive,
+          use only one.
+        properties:
+          branch:
+            type: string
+            description: A git branch ref to watch for new source
+          commit:
+            type: string
+            description: A git commit sha to use
+          tag:
+            type: string
+            description: A git tag ref to watch for new source
+          url:
+            type: string
+            description: The url to the git source repository
+        required:
+        - url
+    required:
+    - image
 ```
 
 ### `spec.inputs`

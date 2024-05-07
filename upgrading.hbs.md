@@ -27,6 +27,7 @@ Before you upgrade Tanzu Application Platform:
 - Note that this upgrade will update all workloads and pods that are using service bindings. This is done automatically after upgrading to 1.7 or later and requires no user action.
 - All pods with service bindings are recreated concurrently at the time of the upgrade. You must have sufficient Kubernetes resources in your clusters to support the pod rollout.
 - If you manually created a secret to configure the Metadata Store CA Certificate for Supply Chain Security Tools (SCST) - Scan, you must configure this certificate in Tanzu Application Platform values file before upgrading. For more information, see [v1.9.0 Breaking changes: Supply Chain Security Tools - Scan](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.9/tap/release-notes.html#v190-breaking-changes-3).
+- Beginning from version 1.10 when installing Tanzu Application Platform for the build and full profiles, by default Supply Chain Security Tools (SCST) - Scan 2.0 is also installed into cluster. Therefore if in a previous version of Tanzu Application Platform the component Scan 2.0 was installed manually, upgrading from that version to 1.10 may cause conflict. It is recommended that prior to upgrading to version 1.10 the instance of SCST - Scan 2.0 be uninstalled manually. By providing appropriate values during the upgrade the component SCST - Scan 2.0 will be available anew.
 
 ## <a id="add-new-package-repo"></a> Update the new package repository
 

@@ -53,7 +53,7 @@ DORA plug-in. Support for more metrics is planned for later DORA plug-in version
 | Change Failure Rate   | Yes                                                                     |
 | Mean Time to Recovery | No                                                                      |
 
-## <a id="use-dora-plug-in"></a> Viewing the DORA metrics for a component
+## <a id="use-dora-plug-in"></a> View the DORA metrics for a component
 
 To view the DORA metrics for a component:
 
@@ -74,40 +74,40 @@ in the last 7 days. Two filtering options are available from drop-down menus:
 For more information about location configuration, see
 [Configure Artifact Metadata Repository](../../scst-store/amr/configuration.hbs.md).
 
-There is an information tooltip for each metric that provides the user with a brief description of
-that metric and how it is calculated. For more information about each calculation,
-please see the [DORA metrics calculations](#dora-metrics-calc) section.
+There is an information tooltip for each metric that provides you with a brief description of that
+metric and how it is calculated. For more information about each calculation, see the
+[DORA metrics calculations](#dora-metrics-calc) section later in the topic.
 
 ### <a id="dora-metric-graphs"></a> Historical graphs
 
 DORA graphs display trends of each metric over time.
 
-The Lead Time graph displays the average time taken for a code change to go from a
-commit to a running container in daily bars. The trend line illustrates the average lead time for
-deployments made in the last 7 days.
+The Lead Time graph displays the average time taken for a code change to go from a commit to a
+running container in daily bars. The trend line illustrates the average lead time for deployments
+made in the last 7 days.
 
-The Deployment Frequency graph displays the frequency of code changes deployed,
+The Deployment Frequency graph displays the frequency of code changes deployed. The frequency is
 depicted in daily bars and a corresponding 7-day moving average trend line.
 
 The Change Failure Rate graph displays the percentage of changes that failed to deploy successfully
 in daily bars. The trend line illustrates the average failure rate for deployments made in the last
 7 days.
 
-Tanzu workloads have a correlation ID that groups all the artifacts together. The "out of the box"
+Tanzu workloads have a correlation ID that groups all the artifacts together. The Out of the Box
 (OOTB) supply chains automatically apply the `"apps.tanzu.vmware.com/correlationid"` annotation to
 all Kubernetes resources created with the workload's correlation ID.
 
 The default correlation ID is constructed from the source resource created from the workload. For
 example, the correlation ID for a workload that defines its source as a Git repository might look
-like `"https://github.com/<org>/<repo>?sub_path=<subPath>"`, where:
+like `"https://github.com/ORG-NAME/REPO-NAME?sub_path=SUB-PATH"`, where:
 
-- `https://github.com/<org>/<repo>` is the URL of the Git respository containing the source code
-  for the workload, and
-- `<subPath>` is the path to the source code within the Git repository.
+- `https://github.com/ORG-NAME/REPO-NAME` is the URL of the Git repository containing the source code
+  for the workload
+- `SUB-PATH` is the path to the source code within the Git repository
 
-Application Operators can specify a custom correlation ID by setting the
+Application operators can specify a custom correlation ID by setting the
 `"apps.tanzu.vmware.com/correlationid"` annotation on the workload to the desired string. This
-value will then be propagated to all resources created by the supply chain.
+value is then propagated to all resources created by the supply chain.
 
 ## <a id="dora-metric-calc"></a> DORA metrics calculations
 
@@ -115,22 +115,20 @@ For the Deployment Frequency metric, a deployment is considered to be the first 
 scheduled for each distinct image built from a code change. The metric is displayed in terms of
 deployments per week.
 
-For the Lead Time metric, the lead time for a change is calculated as the period between when a
-code change is made and the first time that a pod is scheduled for any image built from the change.
-The metric is displayed in the largest time unit that results in a value of at least one.
+For the Lead Time metric, the lead time for a change is calculated as the period between when code
+is changed and the first time that a pod is scheduled for any image built from the change. The
+metric is displayed in the largest time unit that is a value of at least one.
 
-For the Change Failure Rate metric, a failure is considered to have happened if 2 (or more) pod
-terminations are detected for an image built from a code change within 10 minutes of the first
-time that a pod was scheduled to run that image. The metric is displayed as a percentage of the
-total number of deployments. Note that the minimum number of terminations and the period of time
-during which terminations are included in the failure calculation are configurable by the
-platform operator. See the [DORA metrics configuration](#dora-metrics-config) section for more
-details.
+For the Change Failure Rate metric, a failure is defined as 2 or more pod terminations detected for
+an image built from a code change within 10 minutes of the first time that a pod was scheduled to
+run that image. The metric is displayed as a percentage of the total number of deployments. A
+platform operator can configure the minimum number of terminations and the period of time during
+which terminations are included in the failure calculation.
 
 ## <a id="dora-metric-config"></a> DORA metrics configuration
 
-The following is an example DORA metrics configuration, located under the dora key in the Tanzu
-Application Platform values file:
+This Tanzu Application Platform values file extract shows an example DORA metrics configuration
+beneath the `dora` key:
 
 ```yaml
 dora:
@@ -139,14 +137,9 @@ dora:
     terminationInterval: 10
 ```
 
-Configuration options:
+The configuration options are:
 
-- `dora.changeFailureRate.terminationCount`
-  - Default: 2
-  - The minimum number of pod terminations detected for a given change to be considered to
-    have failed to deploy successfully.
-
-- `dora.changeFailureRate.terminationInterval`
-  - Default: 10
-  - The period in minutes during which time pod terminations are considered when determining if a
-    change has failed to deploy successfully.
+| Property                                     | Default Value | Description                                                                                                                 |
+|----------------------------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `dora.changeFailureRate.terminationCount`    | 2             | The minimum number of pod terminations detected for a code-change to count as a failed deployment                           |
+| `dora.changeFailureRate.terminationInterval` | 10            | The period in minutes during which pod terminations are counted for determining whether a code-change deployment has failed |

@@ -350,3 +350,46 @@ Use this procedure to increase the memory limit:
   ```
 
 For information about the package customization, see [Customize your package installation](../../docs-tap/customize-package-installation.hbs.md).
+
+## <a id="failed-to-call-webhook"></a> Failed to call webhook - x509: certificate signed by unknown authority
+
+### Symptoms
+
++ You see an error similar to the following when processing a Workload with a "config-provider" step:
+
+    ```
+    message: >-unable to apply object [workload-name] for resource [config-provider] in supply chain [source-test-scan-to-url]: create: Internal error occurred: failed calling webhook "podintents.conventions.carto.run": failed to call webhook: Post "https://cartographer-conventions-webhook-service.cartographer-system.svc:443/mutate-conventions-carto-run-v1alpha1-podintent?timeout=10s":x509: certificate signed by unknown authority 
+    ```
+
+### Cause
+
+It is possible that the CA certificate used to secure TLS communications to the Cartographer Conventions webhook pod have fallen out-of-sync between the running webhook pod
+and the certificate configured by the MutatingWebhookConfiguration and ValidatingWebhookConfiguration resources.
+
+### Solution
+
++ You need to force Cert Manager to recreate the certificates and ensure that they are in sync across the different places they are used.
+
++ Delete the Cartographer Conventions webhook configurations:
+
+    ```
+    kubectl delete mutatingwebhookconfiguration cartographer-conventions-mutating-webhook-configuration -n conventions-system
+    kubectl delete validatingwebhookconfiguration cartographer-conventions-validating-webhook-configuration -n conventions-system
+    ```
+
++ The two webhook configurations will be recreated but their `caBundle` fields may be empty.  If they are empty then it is possible that Cert Manager is hung.  If that is the case then force the Cert Manager deployments to restart:
+
+    ```
+    kubectl rollout restart deployment cert-manager -n cert-manager
+    kubectl rollout restart deployment cert-manager-cainjector -n cert-manager
+    kubectl rollout restart deployment cert-manager-webhook -n cert-manager
+    ```
+
++ Force the Cartographer Conventions deployment to restart to pick up any new certificates:
+
+    ```
+    kubectl rollout restart deployment cartographer-conventions-controller-manager -n conventions-system
+    ```
+
++ Try recreating the workload.
+

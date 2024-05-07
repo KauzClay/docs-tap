@@ -161,14 +161,12 @@ This release has the following known issues, listed by component and area.
 - In the Workload Details page, the config writer step takes longer than 20 seconds to load when
   more than 149 workloads are displayed in the Supply Chain UI.
 
-#### <a id='1-10-0-supply-chain-security-tools-scan-2-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Scan 2.0
+#### <a id='1-10-0-scst-scan-2-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Scan 2.0
 
-- Beginning from version 1.10 when installing Tanzu Application Platform for the build and full profiles,
-  by default Supply Chain Security Tools (SCST) - Scan 2.0 is also installed into cluster. Therefore if in
-  a previous version of Tanzu Application Platform the component Scan 2.0 was installed manually, upgrading
-  from that version to 1.10 may cause conflict. It is recommended that prior to upgrading to version 1.10 the
-  instance of SCST - Scan 2.0 be uninstalled manually. By providing appropriate values during the upgrade the
-  component SCST - Scan 2.0 will be available anew.
+- As of v1.10, when installing the Tanzu Application Platform Build profile or Full profile, Supply
+  Chain Security Tools (SCST) - Scan 2.0 is also installed on the cluster. If you installed SCST -
+  Scan 2.0 manually in an earlier Tanzu Application Platform version, uninstall SCST - Scan 2.0
+  before upgrading to v1.10 to avoid conflict.
 
 ---
 

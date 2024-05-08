@@ -67,7 +67,7 @@ Configuration options:
   - Default: `http://amr-cloudevent-handler.metadata-store.svc.cluster.local:80`
   - The URL of the AMR CloudEvent Handler endpoint.
   - On the view or full Tanzu Application Platform profile cluster, obtain the AMR CloudEvent Handler ingress address to configure this property:
-    
+
     ```console
     kubectl -n metadata-store get httpproxies.projectcontour.io amr-cloudevent-handler-ingress -o jsonpath='{.spec.virtualhost.fqdn}'
     ```
@@ -96,8 +96,11 @@ Configuration options:
 
 - `amr.observer.deployed_through_tmc`
   - Default: `null`
-  - Tanzu Application Platform multicluster deployment happens through Tanzu Mission Control when you set `deployed_through_tmc` to true.
-  - When deploying with TMC, existing Observer package configuration values will be overwritten by the `MultiClusterPropertyCollector`. This is a [Known Issue](./known-issues.hbs.md#tanzu-mission-control) for AMR Observer and TMC.
+  - Tanzu Application Platform multicluster deployment happens through Tanzu Mission Control when
+    you set `deployed_through_tmc` to true.
+  - When deploying with TMC, `MultiClusterPropertyCollector` overwrites existing Observer package
+    configuration values. This is a [known issue](known-issues.hbs.md#tanzu-mission-control) for AMR
+    Observer and TMC.
 
 - `amr.observer.max_concurrent_reconciles`
   - Configure maximum concurrent reconciles for controllers.

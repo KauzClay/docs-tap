@@ -168,6 +168,19 @@ This release has the following known issues, listed by component and area.
   Scan 2.0 manually in an earlier Tanzu Application Platform version, uninstall SCST - Scan 2.0
   before upgrading to v1.10 to avoid conflict.
 
+#### <a id='1-10-0-scst-store-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Store
+
+- When `observer.deploy_through_tmc` is `true`, properties are auto-configured for Tanzu Mission
+  Control (TMC). This causes the `MultiClusterPropertyCollector` resource to overwrite existing
+  Tanzu Application Platform values for Observer.
+
+  When using Let's Encrypt ACME self-signed issuers, the resultant Kubernetes secret resource does
+  not contain a `ca.crt` property. Therefore, when the `MultiClusterPropertyCollector` resource
+  creates the Observer package configuration values secret, the required `ca_cert_data` is empty.
+
+  To work around this issue, add the Certificate Authority (CA) Certificate to the
+  `shared.ca_cert_data` key in the Tanzu Application Platform installation values.
+
 ---
 
 ### <a id='1-10-0-components'></a> v1.10.0 Component versions

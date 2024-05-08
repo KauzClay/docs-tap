@@ -97,6 +97,7 @@ Configuration options:
 - `amr.observer.deployed_through_tmc`
   - Default: `null`
   - Tanzu Application Platform multicluster deployment happens through Tanzu Mission Control when you set `deployed_through_tmc` to true.
+  - When deploying with TMC, existing Observer package configuration values will be overwritten by the `MultiClusterPropertyCollector`. This is a [Known Issue](./known-issues.hbs.md#tanzu-mission-control) for AMR Observer and TMC.
 
 - `amr.observer.max_concurrent_reconciles`
   - Configure maximum concurrent reconciles for controllers.

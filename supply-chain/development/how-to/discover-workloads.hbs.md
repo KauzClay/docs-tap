@@ -1,4 +1,4 @@
-# Work with Workloads
+# Work with workloads
 
 This topic tells you how to work with workloads when using Tanzu Supply Chain.
 
@@ -6,19 +6,19 @@ This topic tells you how to work with workloads when using Tanzu Supply Chain.
 
 This topic explains how to:
 
-- Find the kinds of Workloads you can use
-- Create and delete a Workload
-- Observe runs of your Workloads
+- Find the kinds of workloads you can use
+- Create and delete a workload
+- Observe runs of your workloads
 
-## Find the kinds of Workloads you can use
+## <a id="find-kinds-workloads"></a> Find the kinds of workloads you can use
 
-Use the Tanzu Workload CLI plug-in to discover available `Workload` kinds. Run:
+Use the Tanzu Workload CLI plug-in to see available `Workload` kinds by running:
 
 ```console
 tanzu workload kinds list
 ```
 
-Example output:
+Example:
 
 ```console
 KIND                        VERSION   DESCRIPTION
@@ -29,259 +29,291 @@ buildworkerapps.vmware.com  v1        Creates a background worker app deployed a
 🔎 To generate a workload for one of these kinds, use 'tanzu workload generate'
 ```
 
-## Create and delete a Workload
+## <a id="create-and-delete"></a> Create and delete a workload
 
-In this section, you will:
+In this section you:
 
-- Generate a Workload manifest
-- Create a Workload
-- Apply a Workload
-- Delete a Workload
+- Generate a workload manifest
+- Create a workload
+- Apply a workload
+- Delete a workload
 
-### Generate a Workload manifest
+### <a id="gen-workload-manifest"></a> Generate a workload manifest
 
-1. Generate a `Workload` manifest with default configuration:
+To generate a workload manifest:
 
-    ```console
-    tanzu workload generate my-web-app --kind buildwebapps.vmware.com
-    ```
+1. Generate a `Workload` manifest with default configuration by running:
 
-    Example output:
+   ```console
+   tanzu workload generate APP-NAME --kind buildwebapps.vmware.com
+   ```
 
-    ```console
-    apiVersion: vmware.com/v1
-    kind: BuildWebApp
-    metadata:
-      name: my-web-app
-    spec:
-      source:
-        #! Use this object to retrieve source from a git repository.
-        #! The tag, commit, and, branch fields are mutually exclusive, use only one.
-        #! Required
-        git:
-          #! A git branch ref to watch for new source
-          branch: ""
-          #! A git commit sha to use
-          commit: ""
-          #! A git tag ref to watch for new source
-          tag: ""
-          #! The url to the git source repository
-          #! Required
-          url: ""
-        #! path inside the source to build from (build has no access to paths above the subPath)
-        subPath: ""
-    ...
-    #! other configuration
-    ```
+   Where `APP-NAME` is the name of the app. For example, `my-web-app`.
+
+   Example:
+
+   ```console
+   apiVersion: vmware.com/v1
+   kind: BuildWebApp
+   metadata:
+     name: my-web-app
+   spec:
+     source:
+       #! Use this object to retrieve source from a git repository.
+       #! The tag, commit, and, branch fields are mutually exclusive, use only one.
+       #! Required
+       git:
+         #! A git branch ref to watch for new source
+         branch: ""
+         #! A git commit sha to use
+         commit: ""
+         #! A git tag ref to watch for new source
+         tag: ""
+         #! The url to the git source repository
+         #! Required
+         url: ""
+       #! path inside the source to build from (build has no access to paths above the subPath)
+       subPath: ""
+   ...
+   #! other configuration
+   ```
 
 1. Store the `Workload` manifest in a file for use by the `tanzu workload create`,
-`tanzu workload apply`, and `tanzu workload get` commands. Pipe the output into a `workload.yaml`
-file:
+   `tanzu workload apply`, and `tanzu workload get` commands, and pipe the output into a `workload.yaml`
+   file, by running:
 
-    ```console
-    tanzu workload generate my-web-app --kind buildwebapps.vmware.com > workload.yaml
-    ```
+   ```console
+   tanzu workload generate APP-NAME --kind buildwebapps.vmware.com > workload.yaml
+   ```
 
-### Create a Workload
+   Where `APP-NAME` is the name of the app. For example, `my-web-app`.
 
-1. Create a `Workload` on the cluster from a manifest. Run:
+### <a id="create-workload"></a> Create a workload
 
-    ```console
-    tanzu workload create --file workload.yaml --namespace build
-    ```
+To create a workload:
 
-    Example output:
+1. Create a `Workload` on the cluster from a manifest by running:
 
-    ```console
-    Creating workload:
-          1 + |---
-          2 + |apiVersion: vmware.com/v1
-          3 + |kind: BuildWebApp
-          4 + |metadata:
-          5 + |  name: my-web-app
-          6 + |  namespace: build
-          7 + |spec:
-          8 + |  source:
-          9 + |    git:
-        10 + |      branch: ""
-        11 + |      commit: ""
-        12 + |      tag: ""
-        13 + |      url: ""
-        14 + |    subPath: ""
-        15 + |  ...
-    Create workload my-web-app from workload.yaml? [yN]: y
-    Successfully created workload my-web-app
-    ```
+   ```console
+   tanzu workload create --file workload.yaml --namespace build
+   ```
 
-1. Override the `Workload` name provided in the manifest by providing a name as an argument:
+   Example:
 
-    ```console
-    tanzu workload create my-web-app-2 --file workload.yaml --namespace build
-    ```
+   ```console
+   Creating workload:
+         1 + |---
+         2 + |apiVersion: vmware.com/v1
+         3 + |kind: BuildWebApp
+         4 + |metadata:
+         5 + |  name: my-web-app
+         6 + |  namespace: build
+         7 + |spec:
+         8 + |  source:
+         9 + |    git:
+       10 + |      branch: ""
+       11 + |      commit: ""
+       12 + |      tag: ""
+       13 + |      url: ""
+       14 + |    subPath: ""
+       15 + |  ...
+   Create workload my-web-app from workload.yaml? [yN]: y
+   Successfully created workload my-web-app
+   ```
 
-### Apply a Workload
+1. Override the `Workload` name provided in the manifest by running:
+
+   ```console
+   tanzu workload create NAME --file workload.yaml --namespace build
+   ```
+
+   Where `NAME` is a name to serve as an argument for the manifest. For example, `my-web-app-2`.
+
+### <a id="apply-workload"></a> Apply a workload
+
+To apply a workload:
 
 1. The `tanzu workload create` command is only used to create a `Workload` that does not already
-exist. To update an existing `Workload`, use `tanzu workload apply`. Apply a `Workload` manifest to
-the cluster:
+   exist. To update an existing `Workload`, use `tanzu workload apply`. Apply a `Workload` manifest
+   to the cluster by running:
 
-    ```console
-    tanzu workload apply --file workload.yaml --namespace build
-    ```
+   ```console
+   tanzu workload apply --file workload.yaml --namespace build
+   ```
 
-    Example output:
+   Example:
 
-    ```console
-    Creating workload:
-          1 + |---
-          2 + |apiVersion: vmware.com/v1
-          3 + |kind: BuildWebApp
-          4 + |metadata:
-          5 + |  name: my-web-app
-          6 + |  namespace: build
-          7 + |spec:
-          8 + |  source:
-          9 + |    git:
-        10 + |      branch: ""
-        11 + |      commit: ""
-        12 + |      tag: ""
-        13 + |      url: ""
-        14 + |    subPath: ""
-        15 + |  ...
-    Create workload my-web-app from workload.yaml? [yN]: y
-    Successfully created workload my-web-app
-    ```
+   ```console
+   Creating workload:
+         1 + |---
+         2 + |apiVersion: vmware.com/v1
+         3 + |kind: BuildWebApp
+         4 + |metadata:
+         5 + |  name: my-web-app
+         6 + |  namespace: build
+         7 + |spec:
+         8 + |  source:
+         9 + |    git:
+       10 + |      branch: ""
+       11 + |      commit: ""
+       12 + |      tag: ""
+       13 + |      url: ""
+       14 + |    subPath: ""
+       15 + |  ...
+   Create workload my-web-app from workload.yaml? [yN]: y
+   Successfully created workload my-web-app
+   ```
 
-1. Override the `Workload` name provided in the manifest by providing a name as an argument:
+1. Override the `Workload` name provided in the manifest by running:
 
-    ```console
-    tanzu workload apply my-web-app-2 --file workload.yaml --namespace build
-    ```
+   ```console
+   tanzu workload apply NAME --file workload.yaml --namespace build
+   ```
 
-### Delete a Workload
+   Where `NAME` is a name to serve as an argument for the manifest. For example, `my-web-app-2`.
 
-Delete a `Workload` by name within a namespace.
+### <a id="delete-workload"></a> Delete a workload
+
+Delete a `Workload` by name within a namespace by running:
 
 ```console
 tanzu workload delete --file /tmp/workload.yaml --namespace build
 ```
 
-Example output:
+Example:
 
 ```console
 Really delete the workload my-web-app of kind buildwebapps.vmware.com from the build namespace? [yN]: y
 Successfully deleted workload my-web-app
 ```
 
->**Note** Deleting a `Workload` prevents new builds while preserving built images in the registry.
+> **Note** Deleting a `Workload` prevents new builds while preserving built images in the registry.
 
-## Observe the Runs of your Workload
+## <a id="observe-runs"></a> Observe the runs of your workload
 
-Use the Tanzu Workload CLI plug-in to observe `Workloads` and their `WorkloadRuns`.
+Use the Tanzu Workload CLI plug-in to observe `Workloads` and their `WorkloadRuns`:
 
-1. Lists all `Workloads` on the cluster:
+1. List all workloads on the cluster by running:
 
-    ```console
-    tanzu workload list --namespace build
-    ```
+   ```console
+   tanzu workload list --namespace build
+   ```
 
-    Example output:
+   Example:
 
-    ```console
-    Listing workloads from the build namespace
+   ```console
+   Listing workloads from the build namespace
 
-      NAME        KIND                     VERSION  AGE
-      my-web-app  buildwebapps.vmware.com  v1       6m54s
-    ```
+     NAME        KIND                     VERSION  AGE
+     my-web-app  buildwebapps.vmware.com  v1       6m54s
+   ```
 
-1. Get the details of the specified `Workload` within a namespace:
+1. Get the details of the specified `Workload` within a namespace by running:
 
-    ```console
-    $ tanzu workload get my-web-app --namespace build
-    Overview
-      name:       my-web-app
-      kind:       buildwebapps.vmware.com/my-web-app
-      namespace:  build
-      age:        17s
+   ```console
+   tanzu workload get APP-NAME --namespace build
+   ```
 
-    Runs:
-      ID                    STATUS   DURATION  AGE
-      my-web-app-run-lxwrm  Running  0s        17s
-    ```
+   Where `APP-NAME` is the application name. For example, `my-web-app`.
 
-1. Get the Workload output as YAML or JSON for programmatic use:
+   Example:
 
-    ```console
-    $ tanzu workload get my-web-app --namespace build -o yaml
-    ---
-    apiVersion: vmware.com/v1
-    kind: BuildWebApp
-    metadata:
-      name: my-web-app
-      namespace: build
-    spec:
-      ...
-    ```
+   ```console
+   $ tanzu workload get my-web-app --namespace build
+   Overview
+     name:       my-web-app
+     kind:       buildwebapps.vmware.com/my-web-app
+     namespace:  build
+     age:        17s
 
-1. Get the details of the specified Workload Run within a namespace:
+   Runs:
+     ID                    STATUS   DURATION  AGE
+     my-web-app-run-lxwrm  Running  0s        17s
+   ```
 
-    ```console
-    tanzu workload run get my-web-app-run-lxwrm -n build --show-details
-    ```
+1. Get the workload output as YAML for programmatic use by running:
 
-    Example output:
+   ```console
+   tanzu workload get APP-NAME --namespace build -o yaml
+   ```
 
-    ```console
-    Overview
-      name:        my-web-app
-      kind:        buildwebapps.vmware.com/my-web-app
-      run id:      buildwebappruns.vmware.com/my-web-app-run-lxwrm
-      status:      Running
-      namespace:   build
-      age:         39s
+   Where `APP-NAME` is the application name. For example, `my-web-app`.
 
-    Spec
-          1 + |---
-          2 + |apiVersion: vmware.com/v1
-          3 + |kind: BuildWebApp
-          4 + |metadata:
-          5 + |  name: my-web-app
-          6 + |  namespace: build
-          7 + |spec:
-          8 + |...
+   Example:
 
-    Stages
-        ├─ source-git-provider
-        │  ├─ check-source - Success
-        │  │  ├─ Duration: 6s
-        │  │  └─ Results
-        │  │     ├─ message: using git-branch: main
-        │  │     ├─ sha: <image SHA>
-        │  │     └─ url: <image URL>
-        │  └─ pipeline - Success
-        │     ├─ Duration: 1m38s
-        │     └─ Results
-        │        ├─ url: <image URL>
-        │        └─ digest: <image SHA>
-        ├─ buildpack-build
-        │  ├─ check-builders - Success
-        │  │  ├─ Duration: 5s
-        │  │  └─ Results
-        │  │     ├─ builder-image: <image URL>
-        │  │     ├─ message: Builders resolved
-        │  │     └─ run-image: <image URL>
-        │  └─ pipeline - Success
-        │     ├─ Duration: 50s
-        │     └─ Results
-        │        ├─ url: <image URL>
-        │        └─ digest: <image SHA>
-        ├─ conventions
-        │  └─ pipeline - Running
-        │     └─ Duration: 53.693499s
-        ├─ app-config-web
-        │  └─ pipeline - Not Started
-        ├─ carvel-package
-        │  └─ pipeline - Not Started
-        └─ git-writer-pr
+   ```console
+   $ tanzu workload get my-web-app --namespace build -o yaml
+   ---
+   apiVersion: vmware.com/v1
+   kind: BuildWebApp
+   metadata:
+     name: my-web-app
+     namespace: build
+   spec:
+     ...
+   ```
+
+1. Get the details of the specified workload run within a namespace by running:
+
+   ```console
+   tanzu workload run get APP-NAME-run-lxwrm -n build --show-details
+   ```
+
+   Where `APP-NAME` is the application name. For example, `my-web-app`.
+
+   Example:
+
+   ```console
+   Overview
+     name:        my-web-app
+     kind:        buildwebapps.vmware.com/my-web-app
+     run id:      buildwebappruns.vmware.com/my-web-app-run-lxwrm
+     status:      Running
+     namespace:   build
+     age:         39s
+
+   Spec
+         1 + |---
+         2 + |apiVersion: vmware.com/v1
+         3 + |kind: BuildWebApp
+         4 + |metadata:
+         5 + |  name: my-web-app
+         6 + |  namespace: build
+         7 + |spec:
+         8 + |...
+
+   Stages
+       ├─ source-git-provider
+       │  ├─ check-source - Success
+       │  │  ├─ Duration: 6s
+       │  │  └─ Results
+       │  │     ├─ message: using git-branch: main
+       │  │     ├─ sha: <image SHA>
+       │  │     └─ url: <image URL>
+       │  └─ pipeline - Success
+       │     ├─ Duration: 1m38s
+       │     └─ Results
+       │        ├─ url: <image URL>
+       │        └─ digest: <image SHA>
+       ├─ buildpack-build
+       │  ├─ check-builders - Success
+       │  │  ├─ Duration: 5s
+       │  │  └─ Results
+       │  │     ├─ builder-image: <image URL>
+       │  │     ├─ message: Builders resolved
+       │  │     └─ run-image: <image URL>
+       │  └─ pipeline - Success
+       │     ├─ Duration: 50s
+       │     └─ Results
+       │        ├─ url: <image URL>
+       │        └─ digest: <image SHA>
+       ├─ conventions
+       │  └─ pipeline - Running
+       │     └─ Duration: 53.693499s
+       ├─ app-config-web
+       │  └─ pipeline - Not Started
+       ├─ carvel-package
+       │  └─ pipeline - Not Started
+       └─ git-writer-pr
           └─ pipeline - Not Started
-    ```
+   ```

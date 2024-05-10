@@ -58,7 +58,7 @@ This guide will only use 1 workload cluster, though the steps can be repeated as
   c. `extraConfigs.serviceType` = `ClusterIP`
   d. For more advanced configurations, such as `dataNetwork`, consult the [TKG and NSX ALB documentation](TODO where to link to).
 
-3. On the management cluster, create a workload cluster configuraiton file with the following contents:
+3. On the management cluster, create a workload cluster configuration file with the following contents:
    
    ```
    # These are required for this guide

@@ -816,7 +816,7 @@
               - [Security Model overview](./supply-chain/platform-engineering/explanation/security-model.hbs.md)
       - [Developing software with Supply Chain](./supply-chain/development/about.hbs.md)
           - [Tutorials](supply-chain/development/tutorials/about.hbs.md)
-              - [Deploy your first Workload](./supply-chain/development/tutorials/deploy-your-first-workload.hbs.md)
+              - [Deploy your first workload](./supply-chain/development/tutorials/deploy-your-first-workload.hbs.md)
           - [How To](./supply-chain/development/how-to/about.hbs.md)
               - [Install the Tanzu Workload CLI plug-in](./supply-chain/development/how-to/install-the-cli.hbs.md)
               - [Work with Workloads](./supply-chain/development/how-to/discover-workloads.hbs.md)

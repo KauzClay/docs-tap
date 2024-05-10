@@ -26,7 +26,6 @@ This integration allows you to use NSX ALB to handle L7 traffic to TAP Web Workl
 * GatewayAPI V1 CRDs (comes with TKGm 2.5.1+)
 * AKO 1.12+ (comes with TKGm)
 * A domain which Web Workloads will be available under. This document will use `DOMAIN` to represent this value.
-//* A DNS Profile created in the AVI controller with your domain *.DOMAIN
 
 ### Configuring TKGm to use NSX ALB as Load Balancer Implementation for All Clusters
 

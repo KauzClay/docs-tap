@@ -235,7 +235,7 @@ If you wish to make your Web Workloads available over HTTPS using a wildcard cer
 
 ```yaml
 ---
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: tanzu-avi-gateway

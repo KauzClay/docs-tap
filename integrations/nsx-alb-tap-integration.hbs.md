@@ -97,7 +97,7 @@ metadata:
 spec:
   controllerName: "ako.vmware.com/avi-lb"
 ---
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: tanzu-avi-gateway

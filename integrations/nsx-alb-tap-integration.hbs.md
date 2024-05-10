@@ -116,7 +116,7 @@ spec:
 
 Where `DOMAIN` is the `DOMAIN` listed in the prerequisites.
 
->**Note**: If you create this Gateway resource as part of a Kapp App or Package, you must include rebase rules so that the listeners can be updated freely. We do not want Kapp-controller re-reconciling and wiping away any changes that TAP has programmed into the listeners.
+>**Note**: If you create this Gateway resource as part of a kapp App or Package, you must include rebase rules so that the listeners can be updated freely. We do not want kapp-controller reconciling the Gateway resource and wiping away any changes that TAP has programmed into the listeners.
 
 ### Installing and Configuring TAP on the Workload Cluster
 Still targeting the workload cluster, it is time to install TAP.

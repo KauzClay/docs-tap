@@ -255,10 +255,9 @@ spec:
      allowedRoutes:
        namespaces:
          from: All
-
-#! Where DOMAIN is whatever DOMAIN you expect to configure for TAP (i.e. bigbiz.com)
-
 ```
+
+Where `DOMAIN` is `DOMAIN` listed in the prerequisites.
 
 Additionally, you will need to update your `tap-values.yaml` with this additional CNR configuration:
 
@@ -281,12 +280,13 @@ Web Workloads can be used as NSX ALB GSLB Services under the following requireme
       * The GSLB Service must have the FQDN `foo.bar.baz`
 
 
-Under these conditions, you can enable GSLB in your AVI environment [TODO](Link to AVI docs on doing this), which involves:
+Under these conditions, you can enable GSLB in your AVI environment.
+[The NSX ALB docs include instructions for setting up a GSLB Site](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/22.1/GSLB_Guide/GUID-C1E8D6E2-6753-4955-9511-847A36724B0F.html), which involves:
 * Creating a DNS virtual service
 * Enabling GSLB on leader sites
 * Adding follower sites
 * Makes sure the domain matches the DOMAIN used to configure your TAP install
 
-Assuming your GSLB sites are configured, you can create a GSLB Service.
+Assuming your GSLB sites are configured, you can [create a GSLB Service](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/22.1/GSLB_Guide/GUID-67110CB8-2548-4F71-A234-4F24B2F02AC9.html).
 
 For each site, add a pool and select the corresponding VirtualService for the Avi Gateway on the workload cluster.

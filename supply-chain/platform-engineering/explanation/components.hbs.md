@@ -5,28 +5,29 @@ For reference information, see [Component API](../../reference/api/component.hbs
 
 {{> 'partials/supply-chain/beta-banner' }}
 
+
 ![core-concepts-component.jpg](./images/core-concepts-component.jpg)
 
-Components encapsulate the work to be done in composable and reusable pieces.
+Components encapsulate the work to be performed in composable and reusable pieces.
 Components are analogous to steps, stages, jobs, and tasks in other CI/CD offerings.
-Components are unique from other CI/CD offerings in three distinct ways:
+Components are different to other CI/CD offerings in three distinct ways:
 
-1. Component configuration requirements are declared, static, and enforced.
-  The configuration is used to build a `Workload` resource that is strongly-typed and well-documented.
+- Component configuration requirements are declared, static, and enforced. The configuration is used
+  to build a `Workload` resource that is strongly-typed and well-documented.
 
-2. Components are observed by users through a strict error-reporting API.
+- Components are observed by users through a strict error-reporting API.
 
-3. Components can exhibit re-entrant behavior. If you define a resumption for a component, the
-   resumption can trigger new workload runs. This keeps the stored information about the component
-   in transient dependencies within the component. For more information, see [Resumptions](resumptions.hbs.md).
+- Components can exhibit reentrant behavior. If you define a resumption for a component, the
+  resumption can trigger new workload runs. This keeps the stored information about the component in
+  transient dependencies within the component. For more information, see [Resumptions](resumptions.hbs.md).
 
 These design constraints exist to:
 
-1. Simplify the end-user experience: Provides a single, well-defined API and a way of mitigating
-   errors if they arise.
+- Simplify the end-user experience by providing a single, well-defined API and a way of mitigating
+  errors if they arise.
 
-2. Simplify the authoring experience: Requires minimal Kubernetes experience to construct
-   supply chains that meet your organization's needs.
+- Simplify the authoring experience by requiring only minimal Kubernetes experience to construct
+  supply chains that meet your organization's needs.
 
 <!--
 [SupplyChain]: ./supply-chains.hbs.md

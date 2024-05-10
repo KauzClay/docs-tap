@@ -1,15 +1,15 @@
-# Configure TAP and VMware NSX Advanced Load Balancer to Support L7 Routing to Web Workloads
+# Configure TAP and VMware NSX Advanced Load Balancer to Support L7 Routing to `web` Workloads
 
-This topic tells you how to configure the Tanzu Application Platform (TAP) with VMware NSX Advanced Load Balancer (NSX ALB, formerly known as Avi Networks) to support Web Workloads.
+This topic tells you how to configure the Tanzu Application Platform (TAP) with VMware NSX Advanced Load Balancer (NSX ALB, formerly known as Avi Networks) to support `web` workloads.
 
 For information about VMware NSX Advanced Load Balancer, see the [VMware NSX Advanced Load Balancer documentation](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/index.html).
 
 ## Overview
-This integration allows you to use NSX ALB to handle L7 traffic to TAP Web Workloads on a TAP Run Cluster. Unlike normal TAP behavior, or in the [NSX ALB L4 setup](../cloud-native-runtimes/how-to-guides/avi-cnr-integration.hbs.md), Contour’s Envoy is no longer part of the data path for cluster-external traffic. Instead, cluster-external traffic will travel from NSX ALB Service Engines directly to Web Workload pods on the cluster.
+This integration allows you to use NSX ALB to handle L7 traffic to TAP `web` workloads on a TAP Run Cluster. Unlike normal TAP behavior, or in the [NSX ALB L4 setup](../cloud-native-runtimes/how-to-guides/avi-cnr-integration.hbs.md), Contour’s Envoy is no longer part of the data path for cluster-external traffic. Instead, cluster-external traffic will travel from NSX ALB Service Engines directly to Web Workload pods on the cluster.
 
->**Note**: Contour and Envoy are still used for handling cluster-local traffic to Web Workloads.
+>**Note**: Contour and Envoy are still used for handling cluster-local traffic to `web` workloads.
 
->**Note**: The integration with NSX ALB is only for Web Workloads; support for Server Workloads is not available in TAP at this time.
+>**Note**: The integration with NSX ALB is only for `web` workloads; support for Server Workloads is not available in TAP at this time.
 
 >**Note**: Certain features of Cloud Native Runtimes are not supported in this integration, including scale-to-zero and Knative DomainMappings.
 
@@ -25,7 +25,7 @@ This integration allows you to use NSX ALB to handle L7 traffic to TAP Web Workl
 * TKGm 2.5.1+
 * GatewayAPI V1 CRDs (comes with TKGm 2.5.1+)
 * AKO 1.12+ (comes with TKGm)
-* A domain which Web Workloads will be available under. This document will use `DOMAIN` to represent this value.
+* A domain which `web` workloads will be available under. This document will use `DOMAIN` to represent this value.
 
 ### Configuring TKGm to use NSX ALB as Load Balancer Implementation for All Clusters
 
@@ -219,7 +219,7 @@ After doing this, you may need to roll the Contour pods in the tanzu-system-ingr
 
 ## Validation
 
-At this point, your workload cluster should be configured to use NSX ALB as the ingress provider for Web Workloads.
+At this point, your workload cluster should be configured to use NSX ALB as the ingress provider for `web` workloads.
 
 You should now be able [verify CNRS is configured correctly with a simple Knative Service](../cloud-native-runtimes/how-to-guides/app-operators/verifying-serving.hbs.md).
 
@@ -231,7 +231,7 @@ The remainder of this document will go into more advanced configurations of this
 
 ### Using a Default TLS Secret
 
-If you wish to make your Web Workloads available over HTTPS using a wildcard certificate, you can modify your Avi Gateway to supply a default TLS Certificate as a Secret, like this
+If you wish to make your `web` workloads available over HTTPS using a wildcard certificate, you can modify your Avi Gateway to supply a default TLS Certificate as a Secret, like this
 
 ```yaml
 ---
@@ -269,12 +269,12 @@ cnrs:
 
 ### GSLB Configuration
 
-Web Workloads can be used as NSX ALB GSLB Services under the following requirements:
+`web` workloads can be used as NSX ALB GSLB Services under the following requirements:
 * Each TAP Run cluster that will be part of the GSLB should be configured identically
    * Crucially, each cluster must use the same DOMAIN
 * The GSLB domain must be the same as the DOMAIN on each of the clusters
-* Web Workloads intended to be part of the same GSLB service must be deployed in the same namespace across clusters.
-* The GSLB FQDN must match the FQDN of the Web Workloads. Example:
+* `web` workloads intended to be part of the same GSLB service must be deployed in the same namespace across clusters.
+* The GSLB FQDN must match the FQDN of the `web` workloads. Example:
    * Given Web Workload foo deployed in namespace bar on clusters A and B, with a Domain of `baz`:
       * Each Web Workload will have an FQDN of `foo.bar.baz`
       * The GSLB Service must have the FQDN `foo.bar.baz`

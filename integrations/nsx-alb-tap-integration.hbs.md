@@ -9,7 +9,7 @@ This integration allows you to use NSX ALB to handle L7 traffic to TAP Web Workl
 
 >**Note**: Contour and Envoy are still used for handling cluster-local traffic to Web Workloads.
 
->**Note**: This integration is only for Web Workloads. Support for Server Workloads is not available in TAP at this time.
+>**Note**: The integration with NSX ALB is only for Web Workloads; support for Server Workloads is not available in TAP at this time.
 
 >**Note**: Certain features of Cloud Native Runtimes are not supported in this integration, including scale-to-zero and Knative DomainMappings.
 

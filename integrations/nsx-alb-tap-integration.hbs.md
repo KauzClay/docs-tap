@@ -90,7 +90,7 @@ Make sure you are targeting the workload cluster, and create the following:
 
 ```yaml
 ---
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
   name: avi-lb #! this may be created automatically when AKO is configured

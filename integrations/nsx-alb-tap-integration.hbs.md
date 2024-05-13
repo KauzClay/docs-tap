@@ -153,6 +153,7 @@ profile: run
 ...
 cnrs:
   default_ingress_provider: gateway-api
+  domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
   gateway_api:
     external:
       class: avi-lb
@@ -180,6 +181,45 @@ package_overlays:
 >**Note**: The objects referenced in `cnrs.gateway_api.internal` do not exist yet. You will create them in the next step.
 
 Using the values file you just created, proceed to [install TAP Run](../install-online/intro.hbs.md).
+
+#### Domain Configuration with CNR and NSX ALB
+
+By default, CNR will create FQDNs for Knative Services following the pattern `{{.Name}}.{{.Namespace}}.{{.Domain}}`.
+
+However, in our example CNRs config above, we set `cnrs.domain_template = "{{.Name}}-{{.Namespace}}.{{.Domain}}`.
+
+This is because currently, Avi Kubernetes Operator (AKO) only supports wildcard domains in the Gateway listener to a depth of 1.
+
+For example, given a Gateway with a listener for `*.foo.com`, it will match `app.foo.com`, but not `app.ns.foo.com`.
+
+If you wish to use the default Knative FQDN pattern, you must create a wildcard listener for each namespace you intend on deploying `web` workloads to. For example, the following will accept `web` workloads in `ns1` and `ns2`, but not `ns3`:
+
+```yaml
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: tanzu-avi-gateway
+  namespace: avi-system
+spec:
+  gatewayClassName: avi-lb
+  listeners:
+   - name: http
+     protocol: HTTP
+     hostname: '*.ns1.DOMAIN'
+     port: 80
+     allowedRoutes:
+       namespaces:
+         from: All
+   - name: http
+     protocol: HTTP
+     hostname: '*.ns2.DOMAIN'
+     port: 80
+     allowedRoutes:
+       namespaces:
+         from: All
+```
+
 
 ### Creating the Gateway Resources for Contour
 

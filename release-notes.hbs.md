@@ -75,6 +75,30 @@ This release includes the following changes, listed by component and area.
     To prevent instances being recreated, you can set the Bitnami package values to `shared_namespace=""`
     and `claim_namespace=False`, which was the previous default.
 
+### <a id='fluxcd-sc-bc'></a> v1.10.0 Breaking changes: FluxCD Source Controller
+
+- FluxCD Source Controller updated the `GitRepository` API from `v1beta2` to `v1`.
+  The controller accepts resources with API versions `v1beta1` and `v1beta2`, saving them as `v1`.
+
+    **Unsupported fields for the `GitRepository` API:**
+
+    - `spec.gitImplementation` is deprecated.
+    `GitImplementation` defines the Git client library implementation.
+    `go-git` is the default and only supported implementation. `libgit2`
+    is no longer supported.
+    - `spec.accessFrom` is deprecated. `AccessFrom`, which defines an Access
+    Control List for enabling cross-namespace references to this object, was never
+    implemented.
+    - `status.contentConfigChecksum` is deprecated in favor of the explicit fields
+    defined in the observed artifact content config within the status.
+    - `status.artifact.checksum` is deprecated in favor of `status.artifact.digest`.
+    - `status.url` is deprecated in favor of `status.artifact.url`.
+
+    **Unsupported fields for the `OCIRepository` API:**
+
+    - `status.contentConfigChecksum` is deprecated in favor of the explicit fields
+      defined in the observed artifact content config within the status.
+
 #### <a id='service-registry-bc'></a> v1.10.0 Breaking changes: Service Registry
 
 - Mutual transport later security (mTLS) between Eureka peers and clients are now deactivated by
@@ -257,6 +281,33 @@ For open source component versions in this Tanzu Application Platform release, s
 The following features, listed by component, are deprecated.
 Deprecated features remain on this list until they are retired from Tanzu Application Platform.
 
+### <a id='cnrs-deprecations'></a> Cloud Native Runtimes deprecations
+
+- **`default_tls_secret` config option**: After changes in this release, this config option is moved
+  to `contour.default_tls_secret`. `default_tls_secret` is marked for removal in Cloud Native Runtimes v2.7.
+  In the meantime, both options are supported, and `contour.default_tls_secret` takes precedence over
+  `default_tls_secret`.
+
+- **`ingress.[internal/external].namespace` config options**: After changes in this release, these
+  config options are moved to `contour.[internal/external].namespace`.
+  `ingress.[internal/external].namespace` is marked for removal in Cloud Native Runtimes v2.7.
+  In the meantime, both options are supported, and `contour.[internal/external].namespace` takes
+  precedence over `ingress.[internal/external].namespace`.
+
+### <a id='svc-toolkit-deprecations'></a> Services Toolkit deprecations
+
+- The following APIs are deprecated and are marked for removal in Tanzu Application Platform v1.11:
+  - `clusterexampleusages.services.apps.tanzu.vmware.com/v1alpha1`
+  - `clusterresources.services.apps.tanzu.vmware.com/v1alpha1`
+
+### <a id="sc-deprecations"></a> Source Controller deprecations
+
+- The Source Controller `ImageRepository` API is deprecated and is marked for
+  removal. Use the `OCIRepository` API instead.
+  The Flux Source Controller installation includes the `OCIRepository` API.
+  For more information about the `OCIRepository` API, see the
+  [Flux documentation](https://fluxcd.io/flux/components/source/ocirepositories/).
+
 ### <a id='scst-scan-deprecations'></a> Supply Chain Security Tools - Scan 1.0 deprecation
 
 - SCST - Scan 1.0 is deprecated, but it remains the documented default option for online
@@ -264,13 +315,7 @@ Deprecated features remain on this list until they are retired from Tanzu Applic
   1.0 will be removed in a future Tanzu Application Platform version.
   For more information, see [SCST - Scan versions](scst-scan/overview.hbs.md#scst-scan-feat).
 
-- Deprecation description including the release when the feature will be removed.
+### <a id="tekton-deprecations"></a> Tekton Pipelines deprecations
 
-### <a id='svcs-toolkit-deprecations'></a> Services Toolkit deprecations
-
-- The following APIs are deprecated and are marked for removal in Tanzu Application Platform v1.11:
-  - clusterexampleusages.services.apps.tanzu.vmware.com/v1alpha1
-  - clusterresources.services.apps.tanzu.vmware.com/v1alpha1
-
-
----
+- Tekton `ClusterTask` is deprecated and marked for removal. Use the `Task` API instead.
+  For more information, see the [Tekton documentation](https://tekton.dev/docs/pipelines/deprecations/).

@@ -39,20 +39,21 @@ FIELDS:
 
 To create a `EurekaServer` resource:
 
-1. Create a `EurekaServer` resource with two replicas and enabled mTLS by using the following YAML definition:
+1. Create a `EurekaServer` resource with two replicas and enabled mutual transport layer security
+   (mTLS) by using the following YAML definition:
 
-   ```yaml
-   ---
-   apiVersion: service-registry.spring.apps.tanzu.vmware.com/v1alpha1
-   kind: EurekaServer
-   metadata:
-     name: eurekaserver-sample
-     namespace: my-apps
-   spec:
-     replicas: 2
-     tls:
-       activated: true
-   ```
+    ```yaml
+    ---
+    apiVersion: service-registry.spring.apps.tanzu.vmware.com/v1alpha1
+    kind: EurekaServer
+    metadata:
+      name: eurekaserver-sample
+      namespace: my-apps
+    spec:
+      replicas: 2
+      tls:
+        activated: true
+    ```
 
 1. Save the YAML definition as `eurekaserver.yaml`.
 

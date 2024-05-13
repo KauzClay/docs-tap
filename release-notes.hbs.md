@@ -77,11 +77,13 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='service-registry-bc'></a> v1.10.0 Breaking changes: Service Registry
 
-- Mutual TLS between eureka peers and clients are now by default deactivated.
-  mTLS can be activated using `tls` flag in `EurekaServer` spec.
+- Mutual transport later security (mTLS) between Eureka peers and clients are now deactivated by
+  default. You can activate mTLS by using the `tls` flag in the `EurekaServer` specification. Update
+  existing instances with `tls: { activated: true }` to continue with mTLS activated.
+  For more information, see
+  [Create a EurekaServer resource](service-registry/configure-eureka-servers.hbs.md#create-eurekaserver).
 
-    Existing instances should be updated with `tls: { activated: true }` to continue with mTLS activated.
----
+----------------------------------------------------------------------------------------------------
 
 ### <a id='1-10-0-security-fixes'></a> v1.10.0 Security fixes
 

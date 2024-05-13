@@ -5,6 +5,7 @@ For reference information, see [Workload CRD](../../reference/api/workload.hbs.m
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-![core-concepts-workloads.jpg](./images/core-concepts-workloads.jpg)
 
-The SupplyChain resource defines the Workload custom resource definition (CRD).
+![core-concepts-workloads.jpg](images/core-concepts-workloads.jpg)
+
+The `SupplyChain` resource defines the `Workload` custom resource definition (CRD).

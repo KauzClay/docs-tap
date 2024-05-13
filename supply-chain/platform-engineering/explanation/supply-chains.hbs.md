@@ -1,4 +1,4 @@
-# Overview of `SupplyChain`
+# Overview of SupplyChain
 
 This topic tells you about the `SupplyChain` primitive in Tanzu Supply Chain. The `SupplyChain`
 primitive unifies the Tanzu Supply Chain operation. For reference information, see

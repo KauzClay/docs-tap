@@ -1,4 +1,4 @@
-# Overview of `WorkloadRun`
+# Overview of WorkloadRun
 
 This topic tells you about the `WorkloadRun` resource in Tanzu Supply Chain.
 For reference information, see [WorkloadRun CRD](../../reference/api/workloadrun.hbs.md).

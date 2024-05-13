@@ -75,7 +75,7 @@ This release includes the following changes, listed by component and area.
     To prevent instances being recreated, you can set the Bitnami package values to `shared_namespace=""`
     and `claim_namespace=False`, which was the previous default.
 
-### <a id='fluxcd-sc-bc'></a> v1.10.0 Breaking changes: FluxCD Source Controller
+#### <a id='fluxcd-sc-bc'></a> v1.10.0 Breaking changes: FluxCD Source Controller
 
 - FluxCD Source Controller updated the `GitRepository` API from `v1beta2` to `v1`.
   The controller accepts resources with API versions `v1beta1` and `v1beta2`, saving them as `v1`.

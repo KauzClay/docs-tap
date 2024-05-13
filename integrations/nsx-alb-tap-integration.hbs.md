@@ -137,8 +137,6 @@ stringData:
      #@overlay/match missing_ok=True
      enable-scale-to-zero: "false"
      #@overlay/match missing_ok=True
-     min-scale: "1"
-     #@overlay/match missing_ok=True
      target-burst-capacity: "0" #! needed until Avi supports backend header manipulation
 ```
 

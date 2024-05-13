@@ -75,6 +75,12 @@ This release includes the following changes, listed by component and area.
     To prevent instances being recreated, you can set the Bitnami package values to `shared_namespace=""`
     and `claim_namespace=False`, which was the previous default.
 
+#### <a id='service-registry-bc'></a> v1.10.0 Breaking changes: Service Registry
+
+- Mutual TLS between eureka peers and clients are now by default deactivated.
+  mTLS can be activated using `tls` flag in `EurekaServer` spec.
+
+    Existing instances should be updated with `tls: { activated: true }` to continue with mTLS activated.
 ---
 
 ### <a id='1-10-0-security-fixes'></a> v1.10.0 Security fixes

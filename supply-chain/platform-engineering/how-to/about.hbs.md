@@ -1,23 +1,23 @@
-# How to Guides for Platform Engineers
+# How-to guides for platform engineers
 
-This section contains how to guides for platform engineers using Tanzu Supply Chain.
+This section contains Tanzu Supply Chain how-to guides for platform engineers.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
 In this section:
 
-## How to Guides: Installing Tanzu Supply Chain
+## How-to guides: Installing Tanzu Supply Chain
 
-- [Installing Tanzu Supply Chain](./installing-supply-chain/about.hbs.md)
+- [Installing Tanzu Supply Chain](installing-supply-chain/about.hbs.md)
 
-## How to Guides: SupplyChain Authoring
+## How-to guides: `SupplyChain` authoring
 
-- [Construct a Supply Chain using the CLI](./supply-chain-authoring/construct-with-cli.hbs.md)
+- [Construct a Supply Chain using the CLI](supply-chain-authoring/construct-with-cli.hbs.md)
 
-## How to Guides: Deploying and Managing SupplyChains
+## How-to guides: Deploying and managing `SupplyChain` resources
 
-- [GitOps Managed SupplyChains](./deploying-supply-chains/gitops-managed.hbs.md)
+- [GitOps Managed SupplyChains](deploying-supply-chains/gitops-managed.hbs.md)
 
-## How to Guides: Starter SupplyChains
+## How-to guides: Starter `SupplyChain` resources
 
-- [Create starter SupplyChains](./starter-supply-chains.hbs.md)
+- [Create starter SupplyChains](starter-supply-chains.hbs.md)

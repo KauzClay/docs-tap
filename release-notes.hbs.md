@@ -206,7 +206,7 @@ This release has the following known issues, listed by component and area.
   Control (TMC). This causes the `MultiClusterPropertyCollector` resource to overwrite existing
   Tanzu Application Platform values for Observer.
 
-  When using Let's Encrypt ACME self-signed issuers, the resultant Kubernetes secret resource does
+  When using Let's Encrypt ACME issuers, the resultant Kubernetes secret resource does
   not contain a `ca.crt` property. Therefore, when the `MultiClusterPropertyCollector` resource
   creates the Observer package configuration values secret, the required `ca_cert_data` is empty.
 

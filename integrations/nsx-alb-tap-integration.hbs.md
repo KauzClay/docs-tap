@@ -1,96 +1,121 @@
-# BETA: Configure TAP and VMware NSX Advanced Load Balancer to Support L7 Routing to `web` Workloads
+# (Beta) Configure Tanzu Application Platform and VMware NSX Advanced Load Balancer to support L7 routing to web workloads
 
-This topic tells you how to configure the Tanzu Application Platform (TAP) with VMware NSX Advanced Load Balancer (NSX ALB, formerly known as Avi Networks) to support `web` workloads.
+This topic tells you how to configure the Tanzu Application Platform (commonly known as TAP) with
+VMware NSX Advanced Load Balancer (NSX ALB, formerly known as Avi Networks) to support `web`
+workloads.
 
-For information about VMware NSX Advanced Load Balancer, see the [VMware NSX Advanced Load Balancer documentation](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/index.html).
+For information about VMware NSX Advanced Load Balancer, see the
+[VMware NSX Advanced Load Balancer documentation](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/index.html).
 
-## Overview
-This integration allows you to use NSX ALB to handle L7 traffic to TAP `web` workloads on a TAP Run Cluster. Unlike normal TAP behavior, or in the [NSX ALB L4 setup](../cloud-native-runtimes/how-to-guides/avi-cnr-integration.hbs.md), Contour’s Envoy is no longer part of the data path for cluster-external traffic. Instead, cluster-external traffic will travel from NSX ALB Service Engines directly to Web Workload pods on the cluster.
+## <a id="overview"></a> Overview
 
->**Note**: Contour and Envoy are still used for handling cluster-local traffic to `web` workloads.
+This integration enables you to use NSX ALB to handle L7 traffic to Tanzu Application Platform `web`
+workloads on a Tanzu Application Platform Run cluster.
 
->**Note**: The integration with NSX ALB is only for `web` workloads; support for Server Workloads is not available in TAP at this time.
+Unlike normal Tanzu Application Platform behavior, or in the
+[NSX ALB L4 setup](../cloud-native-runtimes/how-to-guides/avi-cnr-integration.hbs.md),
+the Contour Envoy is no longer part of the data path for cluster-external traffic. Instead,
+cluster-external traffic travels from NSX ALB Service Engines directly to Web Workload pods on
+the cluster.
 
->**Note**: Certain features of Cloud Native Runtimes are not supported in this integration, including scale-to-zero and Knative DomainMappings.
+Contour and Envoy are still used for handling cluster-local traffic to `web` workloads.
 
->**Note**: This integration is only available on TKGm clusters currently.
+The integration with NSX ALB is only for `web` workloads. Support for Server Workloads is not
+available in Tanzu Application Platform at this time.
 
->**Warning**: This integration involves changing your ingress provider. We do not support no-downtime upgrades/switches to this configuration. It is recommended to start from a new/fresh environment.
+Certain features of Cloud Native Runtimes are not supported in this integration, including
+scale-to-zero and Knative DomainMappings.
 
->**Warning**: The current Avi Controller may drop traffic when unexpected bursts occur. There is an anticipated Avi Beta release in June 2024 that will address this. This page will be updated when it becomes available.
+This integration is only available on TKGm clusters currently.
 
-## Prerequisites
+> **Caution** This integration involves changing your ingress provider. We do not support
+> no-downtime upgrades/switches to this configuration. It is recommended to start from a new/fresh
+> environment.
+>
+> The current Avi Controller may drop traffic when unexpected bursts occur. There is an
+> anticipated Avi Beta release in June 2024 that will address this. > This page will be updated when
+> it becomes available.
 
-* AVI Enterprise License
-* AVI Controller 22.1+
-* TKGm 2.5.1+
-* GatewayAPI V1 CRDs (comes with TKGm 2.5.1+)
-* AKO 1.12+ (comes with TKGm)
-* A domain which `web` workloads will be available under. This document will use `DOMAIN` to represent this value.
+## <a id="prepare"></a> Prepare
 
-### Configuring TKGm to use NSX ALB as Load Balancer Implementation for All Clusters
+- AVI Enterprise License
+- AVI Controller v22.1 and later
+- TKGm v2.5.1 and later
+- GatewayAPI V1 CRDs (comes with TKGm v2.5.1 and later)
+- AKO v1.12 and later (comes with TKGm)
+- A domain that `web` workloads will be available under. This topic uses `DOMAIN` to represent this
+  value.
 
-Before installing TAP, the TKGm environment must be configured to use NSX ALB.
+### <a id="config-tkgm"></a> Configure TKGm to use NSX ALB as Load Balancer implementation for all clusters
 
+Before installing Tanzu Application Platform, the TKGm environment must be configured to use NSX ALB.
 
-#### Management Cluster Setup
+#### <a id="set-up-clstr-mngmnt"></a> Set up cluster management
 
-Follow the [Basic Setup step in these TKGm docs](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.5/tkg-deploy-mc/mgmt-reqs-network-nsx-alb-service.html#basic-setup-configure-nsx-alb-as-load-balancer-implementation-for-all-clusters-0) to get a TKGm management cluster configured to use NSX ALB.
+Follow the [Basic Setup step in these TKGm docs](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.5/tkg-deploy-mc/mgmt-reqs-network-nsx-alb-service.html#basic-setup-configure-nsx-alb-as-load-balancer-implementation-for-all-clusters-0)
+to get a TKGm management cluster configured to use NSX ALB.
 
-#### Workload Cluster Creation
+#### <a id="crt-for-wrkld-clstr"></a> Create `ServiceEngineGroup` and `AKODeploymentConfig`
 
 For each workload cluster, you must create:
-1. A ServiceEngineGroup in the Avi Controller.
-2. An AKODeploymentConfig (ADC) on the management cluster.
 
+- A `ServiceEngineGroup` in the Avi Controller
+- An `AKODeploymentConfig` (ADC) on the management cluster
 
-For convenience, consider following a consistent naming pattern. This doc uses:
-* Cluster Name: `wlN` where `N` is a number
-* ServiceEngineGroup name: `wlN-SEG`
-* ADC file name: `wlN-adc`
+For convenience, consider following a consistent naming pattern. This topic uses:
 
-This guide will only use 1 workload cluster, though the steps can be repeated as necessary.
+- Cluster Name: `wlN` where `N` is a number
+- ServiceEngineGroup name: `wlN-SEG`
+- ADC file name: `wlN-adc`
 
-1. Create the ServiceEngineGroup named `wl0-SEG` (see [here](https://docs.vmware.com/en/VMware-Avi-Load-Balancer/30.2/Configuration-Guide/GUID-127D2E27-A75B-40E5-8F58-E12B6E57DC5D.html) for instructions).
-  
-2. On the management cluster, create the ADC named `wl0-adc`. You can use the `install-ako-for-all` ADC (found on the management cluster by default) as a baseline. Make sure your new ADC has the following field set:
-  a. `clusterSelector.matchLabels` = `cluster-type: wl0-gateway-clusterip`
-  b. `extraConfigs.featureGates.GatewayAPI` = `true`
-  c. `extraConfigs.serviceType` = `ClusterIP`
+This topic uses only one workload cluster, but the steps can be repeated as necessary.
 
-3. On the management cluster, create a workload cluster configuration file with the following contents:
-   
-   ```
-   # These are required for this guide
-   CLUSTER_NAME: wl0
-   AVI_LABELS: '{"cluster-type": "wl0-gateway-clusterip"}'
+1. Create the `ServiceEngineGroup` named `wl0-SEG`. For instructions, see the
+   [Avi Load Balancer documentation](https://docs.vmware.com/en/VMware-Avi-Load-Balancer/30.2/Configuration-Guide/GUID-127D2E27-A75B-40E5-8F58-E12B6E57DC5D.html).
 
-   # These values may be updated depending on your preferences
-   CLUSTER_PLAN: dev
-   CNI: antrea
-   INFRASTRUCTURE_PROVIDER: vsphere
-   KUBERNETES_VERSION: v1.28.7+vmware.1
-   OS_ARCH: amd64
-   OS_NAME: ubuntu
-   OS_VERSION: '22.04'
-   ```
+1. On the management cluster, create the ADC named `wl0-adc`. You can use the `install-ako-for-all`
+   ADC (found on the management cluster by default) as a baseline. Make sure your new ADC has the
+   following field set:
 
-## Configuring the Workload Cluster
+   - `clusterSelector.matchLabels` = `cluster-type: wl0-gateway-clusterip`
+   - `extraConfigs.featureGates.GatewayAPI` = `true`
+   - `extraConfigs.serviceType` = `ClusterIP`
 
-The rest of this guide will be done on the workload cluster. If you have multiple workload clusters, these steps need to be done on each of them.
+1. On the management cluster, create a workload cluster configuration file with the following content:
 
-### Creating the AVI Gateway API Resources on the Workload Cluster
+    ```yaml
+    # These are required for this guide
+    CLUSTER_NAME: wl0
+    AVI_LABELS: '{"cluster-type": "wl0-gateway-clusterip"}'
 
-Now that AKO is configured to reconcile GatewayAPI resources, you need to create a `Gateway` and `GatewayClass` for AVI on your workload cluster.
+    # These values may be updated depending on your preferences
+    CLUSTER_PLAN: dev
+    CNI: antrea
+    INFRASTRUCTURE_PROVIDER: vsphere
+    KUBERNETES_VERSION: v1.28.7+vmware.1
+    OS_ARCH: amd64
+    OS_NAME: ubuntu
+    OS_VERSION: '22.04'
+    ```
 
+## <a id="config-for-wrkld-clstr"></a> Configure the workload cluster
+
+The rest of this guide will be done on the workload cluster. If you have multiple workload clusters,
+these steps need to be done on each of them.
+
+### <a id="crt-rsrcs-wrkld-clstr"></a> Create the AVI Gateway API resources on the workload cluster
+
+Now that AKO is configured to reconcile GatewayAPI resources, you need to create a `Gateway` and
+`GatewayClass` for AVI on your workload cluster.
 
 Make sure you are targeting the workload cluster, and check the following:
 
-```
+```console
 kubectl get gatewayclass
 ```
 
-If there is a GatewayClass on the cluster already, you don't need to create one. Otherwise, create the following:
+If there is a `GatewayClass` on the cluster already, you don't need to create one. Otherwise, create
+the following:
 
 ```yaml
 ---
@@ -120,10 +145,14 @@ spec:
 
 Where `DOMAIN` is the `DOMAIN` listed in the prerequisites.
 
->**Note**: If you create this Gateway resource as part of a kapp App or Package, you must include rebase rules so that the listeners can be updated freely. We do not want kapp-controller reconciling the Gateway resource and wiping away any changes that TAP has programmed into the listeners.
+> **Note** If you create this Gateway resource as part of a kapp App or Package, you must include
+> rebase rules so that the listeners can be updated freely. We do not want kapp-controller
+> reconciling the Gateway resource and wiping away any changes that Tanzu Application Platform has
+> programmed into the listeners.
 
-### Installing and Configuring TAP on the Workload Cluster
-Still targeting the workload cluster, it is time to install TAP.
+### <a id="instll-cnfg-tap-clstr"></a> Install and configure Tanzu Application Platform on the workload cluster
+
+Still targeting the workload cluster, it is time to install Tanzu Application Platform.
 
 First, we need to create an overlay for the `cnrs` package:
 
@@ -146,7 +175,9 @@ stringData:
 
 Apply this to the cluster.
 
-Next, create a `tap-values.yaml` file with the following content. You may configure other TAP components as you wish here as well, this example only shows the necessary bits for this integration:
+Next, create a `tap-values.yaml` file with the following content. You may configure other Tanzu
+Application Platform components as you wish here as well, this example only shows the necessary bits
+for this integration:
 
 ```yaml
 shared:
@@ -157,7 +188,7 @@ profile: run
 cnrs:
   default_ingress_provider: gateway-api
   domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
-  ingress_issuer: "" 
+  ingress_issuer: ""
   gateway_api:
     external:
       class: avi-lb
@@ -178,24 +209,29 @@ package_overlays:
 - name: cnrs
   secrets:
   - name: cnr-disable-scale-to-zero
-
 ```
 
->**Note**: The objects referenced in `cnrs.gateway_api.internal` do not exist yet. You will create them in the next step.
+The objects referenced in `cnrs.gateway_api.internal` do not exist yet. You will create them in the
+next step.
 
-Using the values file you just created, proceed to [install TAP Run](../install-online/intro.hbs.md).
+Using the values file you just created, proceed to
+[install Tanzu Application Platform Run](../install-online/intro.hbs.md).
 
-#### Domain Configuration with CNR and NSX ALB
+#### <a id="cnfg-dmn-cnr-nsx-alb"></a> Configure the domain with CNR and NSX ALB
 
 By default, CNR will create FQDNs for Knative Services following the pattern `{{.Name}}.{{.Namespace}}.{{.Domain}}`.
 
 However, in our example CNRs config above, we set `cnrs.domain_template = "{{.Name}}-{{.Namespace}}.{{.Domain}}`.
 
-This is because currently, Avi Kubernetes Operator (AKO) only supports wildcard domains in the Gateway listener to a depth of 1.
+This is because currently, Avi Kubernetes Operator (AKO) only supports wildcard domains in the
+Gateway listener to a depth of 1.
 
-For example, given a Gateway with a listener for `*.foo.com`, it will match `app.foo.com`, but not `app.ns.foo.com`.
+For example, given a Gateway with a listener for `*.foo.com`, it will match `app.foo.com`, but not
+`app.ns.foo.com`.
 
-If you wish to use the default Knative FQDN pattern, you must create a wildcard listener for each namespace you intend on deploying `web` workloads to. For example, the following will accept `web` workloads in `ns1` and `ns2`, but not `ns3`:
+If you wish to use the default Knative FQDN pattern, you must create a wildcard listener for each
+namespace you intend on deploying `web` workloads to. For example, the following will accept `web`
+workloads in `ns1` and `ns2`, but not `ns3`:
 
 ```yaml
 ---
@@ -223,11 +259,14 @@ spec:
          from: All
 ```
 
->**Warning**: When using wildcard listeners, be careful not to have nested wildcard patterns. For example, if you add a listener with hostname `*.DOMAIN` and `*.ns1.DOMAIN`, routes with the domain `*.ns1.DOMAIN` will not be accepted by the AVI controller.
+> **Caution** When using wildcard listeners, be careful not to have nested wildcard patterns. For
+> example, if you add a listener with hostname `*.DOMAIN` and `*.ns1.DOMAIN`, routes with the domain
+> `*.ns1.DOMAIN` will not be accepted by the AVI controller.
 
-### Creating the Gateway Resources for Contour
+### <a id="crt-gtwy-rsrcs-for-cntr"></a> Create the Gateway resources for Contour
 
-Now that TAP is installed on your Run Cluster, and Contour is running on the cluster, create the Gateway resources for Contour:
+Now that Tanzu Application Platform is installed on your Run Cluster, and Contour is running on the
+cluster, create the Gateway resources for Contour:
 
 ```yaml
 ---
@@ -254,26 +293,32 @@ spec:
           from: All
 ```
 
-After doing this, you may need to restart the Contour pods in the tanzu-system-ingress namespace for this Gateway to get picked up.
+After doing this, you may need to restart the Contour pods in the `tanzu-system-ingress` namespace for
+this Gateway to get picked up.
 
->**Note**: Though we need to create a GatewayClass for the Gateway to reference, Contour doesn’t reconcile the GatewayClass resource when supporting GatewayAPI in Static mode. The status will remain in an Unknown state, that is okay.
+> **Note** Though we need to create a GatewayClass for the Gateway to reference, Contour doesn’t
+> reconcile the GatewayClass resource when supporting GatewayAPI in Static mode. The status will
+> remain in an Unknown state, that is okay.
 
+## <a id="validate"></a> Validate
 
-## Validation
+At this point, your workload cluster should be configured to use NSX ALB as the ingress provider for
+`web` workloads.
 
-At this point, your workload cluster should be configured to use NSX ALB as the ingress provider for `web` workloads.
+You should now be able
+[verify CNRS is configured correctly with a simple Knative Service](../cloud-native-runtimes/how-to-guides/app-operators/verifying-serving.hbs.md).
 
-You should now be able [verify CNRS is configured correctly with a simple Knative Service](../cloud-native-runtimes/how-to-guides/app-operators/verifying-serving.hbs.md).
+## <a id="advncd-config"></a> Advanced Configuration
 
-## Advanced Configurations
+The remainder of this topic goes into more advanced configurations of this integration.
 
-The remainder of this document will go into more advanced configurations of this integration.
+### <a id="use-dflt-tls-scrt"></a> Use a default TLS secret
 
-### Using a Default TLS Secret
+If you wish to make your `web` workloads available over HTTPS using a wildcard certificate, you can
+modify your Avi Gateway to supply a default TLS Certificate as a Secret.
 
-If you wish to make your `web` workloads available over HTTPS using a wildcard certificate, you can modify your Avi Gateway to supply a default TLS Certificate as a Secret.
-
-First, [create a secret](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_secret_tls/) in the `avi-system` namespace that holds your certificate.
+First, [create a secret](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_secret_tls/)
+in the `avi-system` namespace that holds your certificate.
 
 This example assumes the secret is named `defaultTLSSecret`:
 
@@ -311,27 +356,33 @@ cnrs:
   default_external_scheme: "https"
 ```
 
-### GSLB Configuration
+### <a id="config-gslb"></a> Configure GSLB
 
 `web` workloads can be used as NSX ALB GSLB Services under the following requirements:
-* Each TAP Run cluster that will be part of the GSLB should be configured identically
-   * Crucially, each cluster must use the same `DOMAIN`
-* The GSLB domain must be the same as the `DOMAIN` on each of the clusters
-* `web` workloads intended to be part of the same GSLB service must be deployed in the same namespace across clusters.
-* The GSLB FQDN must match the FQDN of the `web` workloads. Example:
-   * Given Web Workload `foo` deployed in namespace `bar` on clusters A and B, with a Domain of `baz`:
-      * Each Web Workload will have an FQDN of `foo.bar.baz`
-      * The GSLB Service must have the FQDN `foo.bar.baz`
 
+- Each Tanzu Application Platform Run cluster that will be part of the GSLB should be configured
+  identically
+  - Crucially, each cluster must use the same `DOMAIN`
+- The GSLB domain must be the same as the `DOMAIN` on each of the clusters
+- `web` workloads intended to be part of the same GSLB service must be deployed in the same
+  namespace across clusters.
+- The GSLB FQDN must match the FQDN of the `web` workloads. Example:
+  - Given Web Workload `foo` deployed in namespace `bar` on clusters A and B, with a Domain of `baz`:
+    - Each Web Workload will have an FQDN of `foo.bar.baz`
+    - The GSLB Service must have the FQDN `foo.bar.baz`
 
 Under these conditions, you can enable GSLB in your AVI environment.
 [The NSX ALB docs include instructions for setting up a GSLB Site](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/22.1/GSLB_Guide/GUID-C1E8D6E2-6753-4955-9511-847A36724B0F.html), which involves:
-* Creating a DNS virtual service
-* Enabling GSLB on leader sites
-* Adding follower sites
 
-For each site, ensure the domain matches the `DOMAIN` used to configure your TAP install.
+- Creating a DNS virtual service
+- Enabling GSLB on leader sites
+- Adding follower sites
 
-Assuming your GSLB sites are configured, you can [create a GSLB Service](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/22.1/GSLB_Guide/GUID-67110CB8-2548-4F71-A234-4F24B2F02AC9.html).
+For each site, ensure that the domain matches the `DOMAIN` used to configure your Tanzu Application
+Platform installation.
 
-For each site, add a pool and select the corresponding VirtualService for the Avi Gateway on the workload cluster.
+Assuming your GSLB sites are configured, you can
+[create a GSLB Service](https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/22.1/GSLB_Guide/GUID-67110CB8-2548-4F71-A234-4F24B2F02AC9.html).
+
+For each site, add a pool and select the corresponding `VirtualService` for the Avi Gateway on the
+workload cluster.

@@ -23,7 +23,6 @@ This integration allows you to use NSX ALB to handle L7 traffic to TAP `web` wor
 
 * AVI Enterprise License
 * AVI Controller 22.1+
-  * TODO: fill in with Beta release of AVI
 * TKGm 2.5.1+
 * GatewayAPI V1 CRDs (comes with TKGm 2.5.1+)
 * AKO 1.12+ (comes with TKGm)

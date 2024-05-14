@@ -135,6 +135,7 @@
   - [Set up Tanzu Service Mesh](integrations/tsm-tap-integration.hbs.md)
   - [Use external observability tools](integrations/external-observability-tools.hbs.md)
   - [Use a Grafana dashboard for Tanzu Application Platform observability](integrations/grafana-dashboard.hbs.md)
+  - [(Beta) Configure Tanzu Application Platform and VMware NSX Advanced Load Balancer to support L7 routing to web workloads](integrations/nsx-alb-tap-integration.hbs.md)
 - [Workloads](workloads/workload-types.hbs.md)
   - [Workload types](workloads/workload-types.hbs.md)
   - [Use web workloads](workloads/web.hbs.md)

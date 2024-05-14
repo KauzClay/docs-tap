@@ -224,6 +224,8 @@ spec:
          from: All
 ```
 
+>**Warning**: When using wildcard listeners, be careful not to have nested wildcard patterns. For example, if you add a listener with hostname `*.DOMAIN` and `*.ns1.DOMAIN`, routes with the domain `*.ns1.DOMAIN` will not be accepted by the AVI controller.
+
 ### Creating the Gateway Resources for Contour
 
 Now that TAP is installed on your Run Cluster, and Contour is running on the cluster, create the Gateway resources for Contour:

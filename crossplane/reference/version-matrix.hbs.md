@@ -20,23 +20,35 @@ The following table has the component versions for the Crossplane package.
   <tbody>
     <tr>
       <td>Crossplane package</td>
-      <td>0.5.0</td>
+      <td>0.6.0</td>
     </tr>
     <tr>
-      <td>UXP</td>
-      <td>1.15.0-up.1</td>
-    </tr>
-    <tr>
-      <td>Upbound Crossplane</td>
-      <td>1.15.0-up.1</td>
+      <td>Upbound Crossplane (UXP)</td>
+      <td>1.15.2-up.1</td>
     </tr>
     <tr>
       <td>provider-helm</td>
-      <td>0.15.0</td>
+      <td>0.17.0</td>
     </tr>
     <tr>
       <td>provider-kubernetes</td>
       <td>0.12.1</td>
+    </tr>
+    <tr>
+      <td>function-patch-and-transform</td>
+      <td>0.4.0</td>
+    </tr>
+    <tr>
+      <td>function-environment-configs</td>
+      <td>0.0.5</td>
+    </tr>
+    <tr>
+      <td>function-servicebinding-decorator</td>
+      <td>fecb956b</td>
+    </tr>
+    <tr>
+      <td>function-claim-namespace-environment-setter</td>
+      <td>dcc9ffc6</td>
     </tr>
   </tbody>
 </table>

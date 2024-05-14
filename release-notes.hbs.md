@@ -48,6 +48,10 @@ This release includes the following changes, listed by component and area.
     - MongoDB to v15.1.1
     - Kafka to v28.0.1
 
+#### <a id='1-10-0-cnr'></a> v1.10.0 Features: Cloud Native Runtimes
+
+- Configuring CORS policy is now supported. See [Configure CORS policy for Cloud Native Runtimes](cloud-native-rruntimes/how-to-guides/cors-policy.hbs.md) for details.
+- BETA - L7 Routing to web workloads with TKGm and NSX ALB is now available for BETA usage. See [Configure TAP and VMware NSX Advanced Load Balancer to Support L7 Routing](integrations/nsx-alb-tap-integrations.hbs.md) for details.
 
 #### <a id='1-10-0-crossplane'></a> v1.10.0 Features: Crossplane
 

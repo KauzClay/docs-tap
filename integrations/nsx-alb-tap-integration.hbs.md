@@ -187,7 +187,7 @@ profile: run
 ...
 cnrs:
   default_ingress_provider: gateway-api
-  domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
+  domain_template: "\{{.Name}}-\{{.Namespace}}.\{{.Domain}}"
   ingress_issuer: ""
   gateway_api:
     external:
@@ -219,9 +219,9 @@ Using the values file you just created, proceed to
 
 #### <a id="cnfg-dmn-cnr-nsx-alb"></a> Configure the domain with CNR and NSX ALB
 
-By default, CNR will create FQDNs for Knative Services following the pattern `{{.Name}}.{{.Namespace}}.{{.Domain}}`.
+By default, CNR will create FQDNs for Knative Services following the pattern `\{{.Name}}.\{{.Namespace}}.\{{.Domain}}`.
 
-However, in our example CNRs config above, we set `cnrs.domain_template = "{{.Name}}-{{.Namespace}}.{{.Domain}}`.
+However, in our example CNRs config above, we set `cnrs.domain_template = "\{{.Name}}-\{{.Namespace}}.\{{.Domain}}`.
 
 This is because currently, Avi Kubernetes Operator (AKO) only supports wildcard domains in the
 Gateway listener to a depth of 1.

@@ -13,20 +13,14 @@ by [Combo](combo.md).
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```yaml
-type: Include
-patterns: [<ant pattern>]
-condition: <SpEL expression>
+```go
+Include(<SpEL expression>)
 ```
 
 ## <a id="examples"></a>Examples
 
-```yaml
-type: Chain
-transformations:
-  - type: Include
-    patterns: ["**/*.yaml"]
-  - type: # At this point, only yaml files are affected
+```go
+ Include("**/*.yaml")
 ```
 
 ![Diagram showing an include transform.](images/include.svg)

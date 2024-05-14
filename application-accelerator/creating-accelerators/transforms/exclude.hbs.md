@@ -11,20 +11,14 @@ by [Combo](combo.md).
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```yaml
-type: Exclude
-patterns: [<ant pattern>]
-condition: <SpEL expression>
+```go
+Exclude(<SpEL expression>)
 ```
 
 ## <a id="examples"></a>Examples
 
-```yaml
-type: Chain
-transformations:
-  - type: Exclude
-    patterns: ["**/secret/**"]
-  - type: # At this point, no file matching **/secret/** is affected.
+```go
+Exclude({"**/secret/**"})
 ```
 
 ![Diagram showing an exclude transform.](images/exclude.svg)

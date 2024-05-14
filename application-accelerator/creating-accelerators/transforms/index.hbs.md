@@ -7,7 +7,6 @@ transforms in Tanzu Application Platform (commonly known as TAP).
 
 You can use:
 
-- [Combo](combo.md) as a shortcut notation for many common operations. It combines the behaviors of many of the other transforms.
 - [Include](include.md) to select files to operate on.
 - [Exclude](exclude.md) to select files to operate on.
 - [Merge](merge.md) to work on subsets of inputs and to gather the results at the end.

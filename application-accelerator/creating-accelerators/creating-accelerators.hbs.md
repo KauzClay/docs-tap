@@ -10,13 +10,13 @@ projects that by default follow the standards defined in your accelerators.
 The following prerequisites are required to create an accelerator:
 
 - Application Accelerator is installed. For information about installing Application Accelerator,
-    see [Installing Application Accelerator for VMware Tanzu](../install-app-acc.md).
+  see [Installing Application Accelerator for VMware Tanzu](../install-app-acc.md).
 - You can access Tanzu Developer Portal from a browser or use the Application
-    Accelerator extension for VS Code.
+  Accelerator extension for VS Code.
   - For more information about Tanzu Developer Portal, see
     [Overview of Tanzu Developer Portal](../../tap-gui/about.hbs.md).
   - For more information about Application Accelerator extension for VS Code, see
-    [Application Accelerator  Visual Studio Code extension](../vscode.md).
+    [Application Accelerator Visual Studio Code extension](../vscode.md).
 - kubectl is installed and authenticated with admin rights for your target cluster.
 
 ## <a id="creating-acc-get-started"></a>Getting started
@@ -35,17 +35,17 @@ Use the following procedure to create an accelerator based on this Git repositor
 
 3. Add the following content to the `accelerator.yaml` file:
 
-    ```yaml
-    accelerator:
-      displayName: Simple Accelerator
-      description: Contains just a README
-      iconUrl: https://images.freecreatives.com/wp-content/uploads/2015/05/smiley-559124_640.jpg
-      tags:
-      - simple
-      - getting-started
-    ```
+   ```yaml
+   accelerator:
+     displayName: Simple Accelerator
+     description: Contains just a README
+     iconUrl: https://images.freecreatives.com/wp-content/uploads/2015/05/smiley-559124_640.jpg
+     tags:
+       - simple
+       - getting-started
+   ```
 
-    Feel free to use a different icon if it uses a reachable URL.
+   Feel free to use a different icon if it uses a reachable URL.
 
 4. Add the new `accelerator.yaml` file, commit this change and push to your Git repository.
 
@@ -53,42 +53,42 @@ Use the following procedure to create an accelerator based on this Git repositor
 
 1. To publish your new accelerator, run:
 
-    ```console
-    tanzu accelerator create simple --git-repository ${GIT_REPOSITORY_URL} --git-branch ${GIT_REPOSITORY_BRANCH}
-    ```
+   ```console
+   tanzu accelerator create simple --git-repository ${GIT_REPOSITORY_URL} --git-branch ${GIT_REPOSITORY_BRANCH}
+   ```
 
-    Where:
+   Where:
 
-    - `GIT-REPOSITORY-URL` is the URL for your Git repository where the accelerator is located.
-    - `GIT-REPOSITORY-BRANCH` is the name of the branch where you pushed the new `accelerator.yaml` file.
+   - `GIT-REPOSITORY-URL` is the URL for your Git repository where the accelerator is located.
+   - `GIT-REPOSITORY-BRANCH` is the name of the branch where you pushed the new `accelerator.yaml` file.
 
 2. Refresh Tanzu Developer Portal or the Application Accelerator extension in VS Code to
    reveal the newly published accelerator. It might take a few seconds to refresh the catalog and
    add an entry for your new accelerator.
 
-    ![Screenshot showing the new Simple Accelerator included in Tanzu Developer Portal.](../images/new-accelerator-deployed-v1-1.png)
+   ![Screenshot showing the new Simple Accelerator included in Tanzu Developer Portal.](../images/new-accelerator-deployed-v1-1.png)
 
 Alternatively, use the Tanzu CLI to create a separate manifest file and apply it to
 the cluster.
 
-1. Create a `simple-manifest.yaml` file and add the following content, filling in with your Git
-repository and branch values.
+1.  Create a `simple-manifest.yaml` file and add the following content, filling in with your Git
+    repository and branch values.
 
-    ```yaml
-    apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
-    kind: Accelerator
-    metadata:
-      name: simple
-      namespace: accelerator-system
-    spec:
-      git:
-        url: YOUR-GIT-REPOSITORY-URL
-        ref:
-          branch: YOUR-GIT-BRANCH
-    ```
+        ```yaml
+        apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+        kind: Accelerator
+        metadata:
+          name: simple
+          namespace: accelerator-system
+        spec:
+          git:
+            url: YOUR-GIT-REPOSITORY-URL
+            ref:
+              branch: YOUR-GIT-BRANCH
+        ```
 
-2. To apply the `simple-manifest.yaml`, run this command in your terminal in the directory where you
-   created this file:
+2.  To apply the `simple-manifest.yaml`, run this command in your terminal in the directory where you
+    created this file:
 
     ```console
     tanzu accelerator apply -f simple-manifest.yaml
@@ -129,40 +129,26 @@ accelerator:
       text: Java 17
     defaultValue: "11"
     required: true
+```
 
-engine:
-  merge:
-    - include: [ "pom.xml" ]
-      chain:
-      - type: ReplaceText
-        regex:
-          pattern: "<java.version>.*<"
-          with: "'<java.version>' + #javaVersion + '<'"
-    - include: [ "build.gradle" ]
-      chain:
-      - type: ReplaceText
-        regex:
-          pattern: "sourceCompatibility = .*"
-          with: "'sourceCompatibility = ''' + #javaVersion + ''''"
-    - include: [ "config/workload.yaml" ]
-      chain:
-      - type: ReplaceText
-        condition: "#javaVersion == '17'"
-        substitutions:
-          - text: "spec:"
-            with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"
+```go
+engine {
+  Include({"pom.xml"}).ReplaceText({pattern: "<java.version>.*<", with:  `<java.version>#{#javaVersion}<'`}})
+  Include({"build.gradle"}).ReplaceText({{pattern: "sourceCompatibility = .*", with:  `sourceCompatibility = #{#javaVersion}`}})
+  Include({"config/workload.yaml"}).ReplaceText({{pattern: "spec: ", with:  "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"}})
+}
 ```
 
 This fragment contributes the following to any accelerator that imports it:
 
 1. An option named `javaVersion` with three choices `Java 8`, `Java 11`, and `Java 17`
 2. Three `ReplaceText` transforms:
-    - If the accelerator has a `pom.xml` file, then what is specified for `<java.version>` is
-      replaced with the chosen version.
-    - If the accelerator has a `build.gradle` file, then what is specified for `sourceCompatibility`
-      is replaced with the chosen version.
-    - If the accelerator has a `config/workload.yaml` file, and the user selected "Java 17" then a
-      build environment entry of BP_JVM_VERSION is inserted into the `spec:` section.
+   - If the accelerator has a `pom.xml` file, then what is specified for `<java.version>` is
+     replaced with the chosen version.
+   - If the accelerator has a `build.gradle` file, then what is specified for `sourceCompatibility`
+     is replaced with the chosen version.
+   - If the accelerator has a `config/workload.yaml` file, and the user selected "Java 17" then a
+     build environment entry of BP_JVM_VERSION is inserted into the `spec:` section.
 
 ## <a id="deploy-accelerator-frags"></a>Deploying accelerator fragments
 
@@ -196,7 +182,7 @@ To create the fragment, save the above manifest in a `java-version.yaml` file) a
 tanzu accelerator apply -f ./java-version.yaml
 ```
 
->**Note** The `accelerator apply` command can be used to apply both Accelerator and Fragment resources.
+> **Note** The `accelerator apply` command can be used to apply both Accelerator and Fragment resources.
 
 To avoid having to create a separate manifest file, run:
 

@@ -24,7 +24,6 @@ accelerator:
     - Java
     - Spring
     - Function
-
   # options are parameters that can affect how the accelerator behaves.
   # The purpose of the options section is
   #   - to list all applicable options
@@ -91,90 +90,67 @@ accelerator:
           text: Maven (pom.xml)
         - value: Gradle
           text: Gradle (build.gradle)
+```
 
-# The 'engine' section describes how to take the files from the accelerator
-# repo root folder and 'transform' them into the contents of a generated project / zip.
-# transformation operate on the files as a set and can do things like:
-# - filtering the set of files (i.e. removing / keeping only files that match certain criteria)
-# - changing the contents of a file (e.g. replacing some strings in them)
-# - renaming or moving files (changing the paths of the files)
-engine:
-  # this is the 'global' transformation node. It produces the final set of
-  # files to be zipped and returned from the accelerator.
-  # As input it receives all the files from the accelerator repo root.
+## Accelerator.axl
 
-  # The properties in this node dictate how this set of files is
-  # transformed into a final set of files to zip up as the accelerator
-  # result.
+The accelerator.axl file describes how to take the files from the accelerator
+repo root folder and 'transform' them into the contents of a generated project / zip.
+transformation operate on the files as a set and can do things like:
 
-  include:
-    ["**/*.md", "**/*.xml", "**/*.gradle", "**/*.java"]
-    # This globally defined `include` filters the set of files
-    # retaining only those matching a given list of path patterns.
-    # This can ensure that only files in the repo matching the list of
-    # patterns will be seen / considered by the accelerator.
+- filtering the set of files (i.e. removing / keeping only files that match certain criteria)
+- changing the contents of a file (e.g. replacing some strings in them)
+- renaming or moving files (changing the paths of the files)
 
-  exclude:
-    ["**/secret/**"]
-    # This globally defined `exclude` further restricts what files are considered.
-    # This example ensures files in any directory called `secret` are never considered.
+```go
+ // this is the 'global' transform. It produces the final set of
+ // files to be zipped and returned from the accelerator.
+ // As input it receives all the files from the accelerator repo root.
+engine {
 
-  # Under 'let' you can define additional variables and assign them values
-  # These 'derived symbols' function much like options, but instead of
-  # being supplied from a UI widget, they are computed by the accelerator itself.
-  let:
-    - name: includePoms # name of a symbol, must be camelCase
-      expression:
-        "#buildType == 'Maven'" # <- SpEL expression given as a string. You must take care to use
-        # proper quotes to avoid yaml treating '#' as starting a comment.
-    - name: includeGradle
-      expression: "#buildType == 'Gradle'"
-  merge: # This merge section executes each of its children 'in parallel'.
-    # Each child receives a copy of the current set of input files.
-    # (i.e. the files that are remaining after considering the `include` and `exclude`.
-    # Each of the children thus produces a set of files.
-    # Merge then combines all the files from all the children, as if by overlaying them on top of each other
-    # in the same directory. If more than one child produces a file with the same path,
-    # this 'conflict' is resolved by dropping the file contents from the earlier child
-    # and keeping only the later one.
-    # merge child 1: this child node wants to contribute 'gradle' files to the final result
-    - condition:
-        "#includeGradle" # this child is deactivated if the Gradle option was not selected by the user
-        # A deactivated child doesn't contribute anything to the final result.
-      include: ["*.gradle"] # this child only focusses on gradle files (ignoring all other files)
-    # merge child 2: this child wants to contribute 'pom' files to the final result
-    - condition: "#includePoms"
-      include: ["pom.xml"]
-    # merge child 3: this child wants to contribute Java code and README.md to the final result
-    - include: ["**/*.java", "README.md"]
-      # Using: chain you can specify additional transformations to be applied to the set
-      # of files produced by this child (i.e. the `ReplaceText` below is only applied to .java files and README.md)
-      chain:
-        - type: ReplaceText
-          substitutions:
-            - text: "Hello World!"
-              with: "#greeting"
-  chain:
-    # Globally specified chain, works like the one `from merge child 3`. But because it is global, it
-    # applies transformation to all files globally.
-    #
-    # The chain has a list of child transformations. These transformation are applied after everything else
-    # in the same node (here we are in the 'global node').
-    #
-    # The children in a chain are applied sequentially.
-    - type: RewritePath
-      regex: (.*)simpleboot(.*)
-      rewriteTo: "#g1 + #packageName + #g2" # SpEL expression. You can use '#g1' and '#g2' to reference 'match groups'
-    - type: ReplaceText
-      substitutions:
-        - text: simpleboot
-          with: "#packageName"
-  onConflict:
-    Fail # other values are `UseFirst`, `UseLast`, or `Append`
-    # when merging (or really any operation) produces multiple files at the same path
-    # this defines how that conflict is handled.
-    # Fail: raise an error when conflict happens
-    # UseFirst: keep the contents of the first file
-    # UseLast: keep the contents of the last file
-    # Append: keep both as by using `cat <first-file> <second-file>`).
+ // 'let' defines additional variables and assign them values
+ // These 'derived symbols' function much like options, but instead of
+ // being supplied from a UI widget, they are computed by the accelerator itself.
+ let includePoms = "#buildType == 'Maven'",
+     includeGradle =  "#buildType == 'Gradle'"  in {
+     // This defined `include` filters the set of files
+     // retaining only those matching a given list of path patterns.
+     // This can ensure that only files in the repo matching the list of
+     // patterns will be seen / considered by the accelerator.
+     Include({"**/*.md" , "**/*.xml" , "**/*.gradle" , "**/*.java"})
+     // This defined `exclude` further restricts what files are considered.
+     // This example ensures files in any directory called `secret` are never considered.
+     Exclude({"**/secret/**"})
+     // This merge section executes each of its children 'in parallel'.
+     // Each child receives a copy of the current set of input files.
+     // (i.e. the files that are remaining after considering the `include` and `exclude`.
+     // Each of the children thus produces a set of files.
+     // Merge then combines all the files from all the children, as if by overlaying them on top of each other
+     // in the same directory. If more than one child produces a file with the same path,
+     // this 'conflict' is resolved by dropping the file contents from the earlier child
+     // and keeping only the later one.
+     // merge child 1: this child node wants to contribute 'gradle' files to the final result
+     if (includeGradle) {
+       Include({"*.gradle"})
+     }
+     // merge child 2: this child wants to contribute 'pom' files to the final result
+     + if (includePoms) {
+       Include({"pom.xml"})
+     }
+     // merge child 3: this child wants to contribute Java code and README.md to the final result
+     // Using the dot operator it ensures that the substitions are done first before merging the file set
+     + Include({"**/*.java", "README.md"}).ReplaceText(substitions: {{text: "Hello World!", with: #greeting}})
+     // other values are `UseFirst`, `UseLast`, or `Append`
+     // when merging (or really any operation) produces multiple files at the same path
+     // this defines how that conflict is handled.
+     // Fail: raise an error when conflict happens
+     // UseFirst: keep the contents of the first file
+     // UseLast: keep the contents of the last file
+     // Append: keep both as by using `cat <first-file> <second-file>`).
+     UniquePath(Fail)
+     RewritePath("(.*)simpleboot(.*)", #g1 + #packageName + #g2)
+     ReplaceText({{text: "simpleboot", with: #packageName}})
+ }
+
+}
 ```

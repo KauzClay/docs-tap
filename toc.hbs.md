@@ -215,7 +215,6 @@
             - [Use fragments in Application Accelerator](application-accelerator/creating-accelerators/composition.hbs.md)
             - [Transform reference](application-accelerator/creating-accelerators/transforms/index.hbs.md)
                 - [Overview](application-accelerator/creating-accelerators/transforms/index.hbs.md)
-                - [Combo](application-accelerator/creating-accelerators/transforms/combo.hbs.md)
                 - [Include](application-accelerator/creating-accelerators/transforms/include.hbs.md)
                 - [Exclude](application-accelerator/creating-accelerators/transforms/exclude.hbs.md)
                 - [Merge](application-accelerator/creating-accelerators/transforms/merge.hbs.md)

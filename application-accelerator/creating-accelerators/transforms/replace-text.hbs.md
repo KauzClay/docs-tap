@@ -18,27 +18,16 @@ You can use `ReplaceText` transform in one of two ways:
 
 Syntax reference for replacing several literal text tokens:
 
-```yaml
-type: ReplaceText
-substitutions:
-  - text: STRING
-    with: SPEL-EXPRESSION
-  - text: STRING
-    with: SPEL-EXPRESSION
-  - ..
-condition: SPEL-EXPRESSION
+```go
+ReplaceText({text: "Regex",with: "replacement"})
 ```
 
 Syntax reference for defining the replacement behavior using a _single_ regular expression:
 
-Regex is used to match the entire document. To match on a per line basis, enable multiline mode by including `(?m)` in the regex.
+Pattern is used to match the entire document. To match on a per line basis, enable multiline mode by including `(?m)` in the regex.
 
-```yaml
-type: ReplaceText
-regex:
-  pattern: REGULAR-EXPRESSION
-  with: SPEL-EXPRESSION
-condition: SPEL-EXPRESSION
+```go
+ReplaceText({pattern: "REGULAR-EXPRESSION",with: SPEL-EXPRESSION})
 ```
 
 In both cases, the SpEL expression can use the special `#files` helper object.
@@ -58,13 +47,9 @@ See the following examples using The `ReplaceText` transform.
 Replacing the hardcoded string `"hello-world-app"` with the value of variable `#artifactId`
 in all `.md`, `.xml`, and `.yaml` files.
 
-```yaml
-include: ['**/*.md', '**/*.xml', '**/*.yaml']
-chain:
-  - type: ReplaceText
-    substitutions:
-      - text: "hello-world-app"
-        with: "#artifactId"
+```go
+Include({"**/*.md", "**/*.xml", "**/*.yaml"})
+ReplaceText({text: "hello-world-app", with: #artifactId})
 ```
 
 ![Diagram showing a ReplaceText transform.](images/replace-text1.svg)
@@ -74,15 +59,10 @@ chain:
 Replacing the hardcoded string `"hello-world-app"` with the value of variable `#artifactId` in the
 `README-fr.md` and `README-de.md` files, which are encoded using the `ISO-8859-1` charset:
 
-```yaml
-include: ['README-fr.md', 'README-de.md']
-chain:
-  - type: UseEncoding
-    encoding: 'ISO-8859-1'
-  - type: ReplaceText
-    substitutions:
-      - text: "hello-world-app"
-        with: "#artifactId"
+```go
+Include({"README-fr.md", "README-de.md"})
+UseEncoding("ISO-8859-1")
+ReplaceText({text: "hello-world-app", with: #artifactId})
 ```
 
 ### <a id="example3"></a>Example 3
@@ -90,13 +70,9 @@ chain:
 Similar to the preceding example, but making sure the value appears as kebab case,
 while the entered `#artifactId` is using camel case:
 
-```yaml
-include: ['**/*.md', '**/*.xml', '**/*.yaml']
-chain:
-  - type: ReplaceText
-    substitutions:
-      - text: "hello-world-app"
-        with: "#camel2Kebab(#artifactId)"
+```go
+Include({"**/*.md", "**/*.xml", "**/*.yaml"})
+ReplaceText({text: "hello-world-app", with: #camel2Kebab(#artifactId)})
 ```
 
 ### <a id="example4"></a>Example 4
@@ -104,13 +80,9 @@ chain:
 Replacing the hardcoded string `"REPLACE-ME"` with the contents of
 file named after the value of the `#platform` option in `README.md`:
 
-```yaml
-include: ['README.md']
-chain:
-  - type: ReplaceText
-    substitutions:
-      - text: "REPLACE-ME"
-        with: "#files.contentsOf('snippets/install-' + #platform + '.md')"
+```go
+Include:({"README.md"})
+ReplaceText({text: "REPLACE-ME", with: #files.contentsOf("snippets/install-" + #platform + ".md")})
 ```
 
 ### <a id="example5"></a>Example 5
@@ -119,15 +91,11 @@ Replacing all occurrences of `apple` or `orange`, singular or plural,
 with the value of the accelerator option `#vegetable`, for example `'banana'`,
 keeping the trailing `'s'` when there was one.
 
-```yaml
-include: ['README.md']
-chain:
-  - type: ReplaceText
-    regex:
-      pattern: "(apple|orange)(s)?"
-      # This constructs a SpEL string containing eg 'banana$2' where $2
-      # refers to the second capturing group (the optional 's')
-      with: "#vegetable + '$2'"
+```go
+Include({"README.md"})
+// This constructs a SpEL string containing eg 'banana$2' where $2
+// refers to the second capturing group (the optional 's')
+ReplaceText({pattern: "(apple|orange)(s)?", with: #vegetable + "$2"})
 ```
 
 ## See also

@@ -7,7 +7,7 @@ primitive unifies the Tanzu Supply Chain operation. For reference information, s
 {{> 'partials/supply-chain/beta-banner' }}
 
 
-![core-concepts-supplychains.jpg](./images/core-concepts-supplychains.jpg)
+![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](./images/core-concepts-supplychains.jpg)
 
 ## <a id="stages"></a> `SupplyChain` describes a process with stages
 

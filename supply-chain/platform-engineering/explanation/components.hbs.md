@@ -6,7 +6,7 @@ For reference information, see [Component API](../../reference/api/component.hbs
 {{> 'partials/supply-chain/beta-banner' }}
 
 
-![core-concepts-component.jpg](./images/core-concepts-component.jpg)
+![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](./images/core-concepts-component.jpg)
 
 Components encapsulate the work to be performed in composable and reusable pieces.
 Components are analogous to steps, stages, jobs, and tasks in other CI/CD offerings.

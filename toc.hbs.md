@@ -388,6 +388,7 @@
             - [Customize Cloud Native Runtimes](./cloud-native-runtimes/how-to-guides/customizing-cnrs.hbs.md)
             - [Configure External DNS](./cloud-native-runtimes/how-to-guides/external_dns.hbs.md)
             - [Use Existing TLS Certificate with Cloud Native Runtimes](./cloud-native-runtimes/how-to-guides/knative-default-tls.hbs.md)
+            - [Configure CORS policy for Cloud Native Runtimes](./cloud-native-runtimes/how-to-guides/cors-policy.hbs.md)
             - [Observability](./cloud-native-runtimes/how-to-guides/observability.hbs.md)
             - [Configuring Cloud Native Runtimes with Tanzu Service Mesh](./cloud-native-runtimes/how-to-guides/tsm-cnr-integration.hbs.md)
             - [Troubleshooting](./cloud-native-runtimes/how-to-guides/troubleshooting.hbs.md)

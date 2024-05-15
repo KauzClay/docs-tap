@@ -13,3 +13,4 @@ This topic lists the how-to guides available for Cloud Native Runtimes (CNRs):
 - [Configuring Cloud Native Runtimes with Tanzu Service Mesh](./tsm-cnr-integration.hbs.md)
 - [Troubleshooting Cloud Native Runtimes](./troubleshooting.hbs.md)
 - [Use your existing TLS Certificate for Cloud Native Runtimes](./knative-default-tls.hbs.md)
+- [Configure CORS policy for Cloud Native Runtimes](./cors-policy.hbs.md)

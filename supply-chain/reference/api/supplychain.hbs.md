@@ -80,6 +80,51 @@ spec:
       - path: spec.registry.server
         value: "YOUR-REGISTRY-SERVER"
 ```
+### `spec.defines`
+
+The `spec.defines` object defines the `Workload` custom resource definition (CRD).
+
+`spec.defines.group` (**required**) is used to fill in the `group` field in the
+[CustomResourceDefinitionSpec].
+
+`spec.defines.group` is the classic domain-formatted group of any Kubernetes object.
+Use your organization's top level domain, or a departmental domain.
+
+`spec.defines.kind` (**required**) is the name of the resource in CamelCase.
+
+`spec.defines.plural` (**required**) is typically the plural down-cased form of the kind.
+It must be all lowercase.
+
+**Recommendation:** pluralize the name after the version, e.g: `WebAppV1` becomes `webappv1s`
+
+`spec.defines.singular` is optional and defaults to the lowercase of `kind`, for example `ServerAppv1`
+becomes `serverappv1`.
+
+`spec.defines.shortnames` is a list and defaults to empty. Use this to specify an array of aliases
+for your kind. These are great to simplify `kubectl` commands.
+
+#### `spec.defines.categories`
+
+`spec.defines.categories` is a list and defaults to empty. `spec.defines.categories` specify a
+collection term for a group of kinds, so that `kubectl get <category>` returns instances of all
+kinds in the category.
+
+### Example
+
+```console
+spec:
+  defines: # Describes the workload
+    kind: HostedApp
+    pluralName: hostedapps
+    group: example.com
+    version: v1alpha1
+    categories:
+      - apps    # `kubectl get apps` would include this kind 
+                # and others with the same category.
+    shortnames:
+      - hosted1
+      - ha1     # `kubectl get ha1 -A` would show all instance of this kind
+```
 
 ### `spec.description`
 
@@ -96,82 +141,6 @@ serverappv2.example.com   v1alpha1    12m   Server application supply chain
 **Recommendation:** embed complete documentation in the description.
 
 The description field supports multi-line Plain text or Markdown.
-
-### `spec.defines`
-
-The `spec.defines` object defines the `Workload` custom resource definition (CRD).
-
-#### `spec.defines.group`
-
-`spec.defines.group` (**required**) is used to fill in the `group` field in the
-[CustomResourceDefinitionSpec].
-
-`spec.defines.group` is the classic domain-formatted group of any Kubernetes object.
-Use your organization's top level domain, or a departmental domain.
-
-#### `spec.defines.kind`
-
-`spec.defines.kind` (**required**) is the name of the resource in CamelCase.
-
-#### `spec.defines.plural`
-
-`spec.defines.plural` (**required**) is typically the plural down-cased form of the kind.
-It must be all lowercase.
-
-**Recommendation:** pluralize the name after the version, e.g: `WebAppV1` becomes `webappv1s`
-
-#### `spec.defines.singular`
-
-`spec.defines.singular` is optional and defaults to the lowercase of `kind`, for example `ServerAppv1`
-becomes `serverappv1`.
-
-#### `spec.defines.shortnames`
-
-`spec.defines.shortnames` is a list and defaults to empty. Use this to specify an array of aliases
-for your kind. These are great to simplify `kubectl` commands.
-
-##### Example
-
-```console
-kind: ServerAppV1
-plural: serverappv1s
-shortnames:
-  - serverapp1
-  - sa1
-```
-
-#### `spec.defines.categories`
-
-`spec.defines.categories` is a list and defaults to empty. `spec.defines.categories` specify a
-collection term for a group of kinds, so that `kubectl get <category>` returns instances of all
-kinds in the category.
-
-##### Example
-
-Using `kubectl get apps` would include this kind in the listing
-
-```console
-kind: ServerAppV1
-plural: serverappv1s
-categories:
-  - apps
-```
-
-#### Complete Example
-
-```console
-spec:
-  defines: # Describes the workload
-    kind: HostedApp
-    pluralName: hostedapps
-    group: example.com
-    version: v1alpha1
-    categories:
-      - apps
-    shortnames:
-      - hosted1
-      - ha1
-```
 
 ### `spec.stages[]`
 

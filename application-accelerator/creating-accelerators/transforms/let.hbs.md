@@ -13,7 +13,7 @@ those existing variables won't be accessible.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```go
+```
 let aVar = "a" in {
 
 }
@@ -24,14 +24,11 @@ let aVar = "a" in {
 The `Let` adds variables to the new scope by computation of
 [SpEL expressions](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions).
 
-```go
-engine {
-  let aVar = true in {
-    if(aVar) {
-      T1()
-    }
-  }
+```
+let <var> = <SpEL Expression> [, <var> = <SpEL Expression>]* in {
+  ...
 }
+
 
 ```
 

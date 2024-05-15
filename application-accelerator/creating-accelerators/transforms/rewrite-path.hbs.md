@@ -6,8 +6,8 @@ The `RewritePath` transform allows you to change the name and path of files with
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```go
-RewritePath({regex: "Regex", rewriteTo: <SpEL Expression>, matchOrFail:<boolean>})
+```
+RewritePath(regex: <Regex>, rewriteTo: <SpEL Expression>, matchOrFail:<boolean>)
 ```
 
 For each input file, `RewritePath` attempts to match its `path` by using
@@ -53,8 +53,8 @@ See the following examples using the `RewritePath` transform.
 
 The following moves all files from `src/main/java` to `sub-module/src/main/java`:
 
-```go
-RewritePath({regex: "src/main/java/(.*)", rewriteTo: "sub-module/src/main/java" + #g1})
+```
+RewritePath(regex: "src/main/java/(.*)", rewriteTo: "sub-module/src/main/java" + #g1)
 ```
 
 ![Diagram showing a RewritePath transform.](images/rewrite-path.svg)
@@ -64,16 +64,16 @@ RewritePath({regex: "src/main/java/(.*)", rewriteTo: "sub-module/src/main/java" 
 The following flattens all files found inside the `sub-path` directory and its subdirectories,
 and puts them into the `flattened` folder:
 
-```go
-RewritePath({regex: "sub-path/(.*/)*(?<filename>[^/]+)", rewriteTo: "flattened" + #filename})
+```
+RewritePath(regex: "sub-path/(.*/)*(?<filename>[^/]+)", rewriteTo: "flattened" + #filename)
 ```
 
 ### <a id="example3"></a>Example 3
 
 The following turns all paths into lowercase:
 
-```go
-RewritePath({rewriteTo: #g0.toLowerCase()})
+```
+RewritePath(rewriteTo: #g0.toLowerCase())
 ```
 
 ## <a id='interaction-chain-include'></a>Interaction with Chain and Include
@@ -81,7 +81,7 @@ RewritePath({rewriteTo: #g0.toLowerCase()})
 It's common to define pipelines that perform a `Chain` of transformations
 on a subset of files, typically selected by `Include/Exclude`:
 
-```go
+```
 Include({"**/*.java"})
 T1()
 T2()

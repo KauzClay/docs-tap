@@ -8,19 +8,17 @@ The contents of files, and any of their other characteristics, are unaffected.
 
 `Include` is a basic building block seldom used as is, which
 makes sense if composed inside a [Chain](chain.md) or a [Merge](merge.md).
-It is often more convenient to leverage the shorthand notation offered
-by [Combo](combo.md).
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```go
-Include(<SpEL expression>)
+```
+Include(<list of strings>)
 ```
 
 ## <a id="examples"></a>Examples
 
-```go
- Include("**/*.yaml")
+```
+ Include({"**/*.yaml"})
 ```
 
 ![Diagram showing an include transform.](images/include.svg)
@@ -28,4 +26,3 @@ Include(<SpEL expression>)
 ## See also
 
 - [Exclude](exclude.md)
-- [Combo](combo.md)

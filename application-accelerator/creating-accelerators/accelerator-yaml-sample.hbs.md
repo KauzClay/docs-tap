@@ -95,7 +95,7 @@ accelerator:
 ## Accelerator.axl
 
 The accelerator.axl file describes how to take the files from the accelerator
-repo root folder and 'transform' them into the contents of a generated project / zip.
+repo root folder and 'transform' them into the contents of a generated project.
 transformation operate on the files as a set and can do things like:
 
 - filtering the set of files (i.e. removing / keeping only files that match certain criteria)
@@ -146,7 +146,7 @@ engine {
      // Fail: raise an error when conflict happens
      // UseFirst: keep the contents of the first file
      // UseLast: keep the contents of the last file
-     // Append: keep both as by using `cat <first-file> <second-file>`).
+     // Append: keep both as by using `cat <first-file> > <second-file>`).
      UniquePath(Fail)
      RewritePath("(.*)simpleboot(.*)", #g1 + #packageName + #g2)
      ReplaceText({{text: "simpleboot", with: #packageName}})

@@ -27,16 +27,6 @@ metadata:
 
 ## Spec
 
-### `spec.description`
-
-`spec.description` describes the component's purpose.
-You will see this description in `tanzu workload run list`.
-
-```yaml
-spec:
-  description: Gets the latest source and stores it in an OCI Image
-```
-
 ### <a id='spec-config'></a>`spec.config`
 
 `spec.config` defines the configuration in a workload (`spec` of the workload) that is required for
@@ -44,10 +34,11 @@ the component to operate.
 
 `spec.config` is an array with three fields:
 
-- `path:` describes the path in the workload where this configuration is appended/merged. It must
+- `path` describes the path in the workload where this configuration is appended/merged. It must
   start with `spec.`
-- `schema` and `required` define a property. See the (Kubernetes)[https://kubernetes.io/docs/home/]
+- `schema` defines the property. See the (Kubernetes)[https://kubernetes.io/docs/home/]
   documentation.
+- `required` is a boolean that defaults to `false`. If set to true, the field defined by `path:` is required.
 
 #### Example
 
@@ -75,6 +66,21 @@ the component to operate.
             type: string
         required:
           - url
+    - path: spec.source.subPath
+      required: true    # makes subPath a required field
+      schema:
+        type: string
+        description: the subPath of the repo to monitor for changes
+```
+
+### `spec.description`
+
+`spec.description` describes the component's purpose.
+You will see this description in `tanzu workload run list`.
+
+```yaml
+spec:
+  description: Gets the latest source and stores it in an OCI Image
 ```
 
 ### `spec.inputs`

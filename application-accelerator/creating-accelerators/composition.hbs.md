@@ -4,7 +4,7 @@ This topic tells you how to use fragments in Application Accelerator.
 
 ## <a id="composition-intro"></a> Introduction
 
-Despite their benefits, writing and maintaining, accelerators can become repetitive and
+Despite their benefits, writing and maintaining accelerators can become repetitive and
 verbose as new accelerators are added. Some create a project different from the next
 with similar aspects, requiring some form of copy-paste.
 
@@ -16,7 +16,7 @@ that allows the re-use of parts of an accelerator, called **fragments**.
 A **fragment** looks exactly the same as an accelerator:
 
 - It is made of a set of files.
-- It contains an `accelerator.yaml` descriptor with options, declarations, and a root transform.
+- It contains an `accelerator.yaml` descriptor with options, declarations, and an `accelerator.axl` file that describes its root transform.
 
 There are differences however. Namely:
 
@@ -51,8 +51,6 @@ accelerator:
   imports:
     - name: my-first-fragment
     - name: another-fragment
-engine:
-  ...
 ```
 
 The effect of importing a fragment this way is twofold:
@@ -88,8 +86,6 @@ accelerator:
   imports:
     - name: my-first-fragment
     - name: another-fragment
-engine:
-  ...
 ```
 
 All the metadata about options (type, default value, description, choices if applicable, _etc._) come
@@ -148,8 +144,6 @@ accelerator:
 
         - name: SomeOtherType
           as: ADifferentName
-engine:
-  ...
 ```
 
 As shown earlier, the `imports` section calls a list of fragments to import. By default,
@@ -223,15 +217,15 @@ option _depend on_ another option, as in the following example:
             value: workload
 ```
 
-This plays well with the use of `condition`, as in the following example:
+This plays well with the use of `if`, as in the following example:
 
-```yaml
-...
-engine:
+```
+engine {
   ...
-    type: InvokeFragment
-    condition: "#deploymentType == 'workload'"
-    reference: tap-initialize```
+  if (#deploymentType == 'workload') {
+    InvokeFragment('tap-initialize')
+  }
+  ...
 ```
 
 ## <a id="cli-fragments"></a> Discovering fragments using Tanzu CLI accelerator plug-in

@@ -85,6 +85,10 @@ spec:
 
 ### `spec.inputs`
 
+The inputs this component requires.
+This component cannot be added to a supply chain unless a prior stage exposes the name and type as
+and output.
+
 ```yaml
   inputs:
     - name: source

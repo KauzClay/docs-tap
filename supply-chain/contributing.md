@@ -43,7 +43,9 @@ For example,
 
 ## Diagrams
 
-* [Miro Board](https://miro.com/app/board/uXjVNvc1o0E=/)
+The Spark boards are exported from Miro. They will need restyling since they no longer match.
+
+* [Spark Board](https://lucid.app/lucidspark/9b937249-2925-444a-b938-cdc87ca63ebc/edit?view_items=xRgMARDgDguVA&invitationId=inv_ff75f9dc-d1e8-4ef6-93b0-65e959e8a0db)
 
 ## Tanzu Supply Chain Doc Automation Description
 
@@ -55,32 +57,20 @@ What does this page describe: Provides descriptions for components provided by t
 Other pages: [Output Types](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/supply-chain-reference-catalog-output-types.html), while the content of this page is manually created, the Catalog of Tanzu
 Supply Chain Components page links to this page.
 
-### Platform Engineer User Experience
-
-- PE installs the authoring profile when they want to author supply chains. This provides components that PE can use when authoring supply chains.
-- PE uses the CLI to see a catalog of installed components. `tanzu supply-chain component list`
-- PE uses the CLI to see detail of the component, including documentation. `tanzu supply-chain <component>  get or describe`
-- While PE is authoring supply chains, they can see details about each component.
-In the CLI there will be links to the vmware.doc docs page that has the component descriptions.
-
-### Component Description
-
-Each component has the following fields that provide descriptions of the component.
-
-Component Fields:
-
-- **Name**
-- **Version**
-- **Description** -  (multiline string) (potentially could make this a multiline string that has markdown). Some of the descriptions can be long and might require some templated headings underneath to accommodate the full scope.
-- **Inputs** - List of objects, usually just 1
-- **Outputs** - List of objects, usually just 1
-- **Config**: A yaml sample that shows what inputs this component accepts in terms of configuration from the workload. The yaml has inline documentation and this is based on OpenAPI Spec V3 -  a swagger doc format. What inputs this component accepts in terms of configuration from the workload.
-
 ### Automation Description
 
-Custom binary tool created by Rasheed reads the component field descriptions and generates md, the md is then manually added to a markdown file and a doc PR is raised.
+The component's description can now be pulled verbatim from an installed component with a command like:
 
-Aim is to have as little ‘clean up as possible’ required for the auto generated md.
-Future plan is that this markdown will appear at the bottom of the component.
+```shell
+kubectl get component -n sonarqube-catalog sonarqube-sast-scan-1.0.0 -oyaml | yq .status.docs -r
+```
 
-Future plan: When a component is updated, the ‘doc automation tool’ reads the component, generates the md, automatically generates a doc PR.  But at the moment the steps to copy the md and raise the PR are manual.
+## How to describe the APIs
+
+Top level sections usually broken into
+* Metadata
+* Spec
+* Status
+
+Subsections, especially in Spec and Status are alphabetical to make finding them easier, even if the topics _feel_ out of sequence.
+Tend to focus on each sections meaning, where children fields can be further subheadings or generalized in examples. 

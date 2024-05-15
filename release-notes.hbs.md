@@ -50,8 +50,12 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-10-0-cnr'></a> v1.10.0 Features: Cloud Native Runtimes
 
-- Configuring CORS policy is now supported. See [Configure CORS policy for Cloud Native Runtimes](cloud-native-rruntimes/how-to-guides/cors-policy.hbs.md) for details.
-- BETA - L7 Routing to web workloads with TKGm and NSX ALB is now available for BETA usage. See [Configure TAP and VMware NSX Advanced Load Balancer to Support L7 Routing](integrations/nsx-alb-tap-integrations.hbs.md) for details.
+- Configuring CORS policy is now supported.
+
+  <!-- See [Configure CORS policy for Cloud Native Runtimes](cloud-native-runtimes/how-to-guides/cors-policy.hbs.md) for details. This topic does not exist right now.-->
+
+- L7 Routing to web workloads with TKGm and NSX ALB is now available. For more information, see
+  [(Beta) Configure Tanzu Application Platform and VMware NSX Advanced Load Balancer to support L7 routing to web workloads](integrations/nsx-alb-tap-integration.hbs.md).
 
 #### <a id='1-10-0-crossplane'></a> v1.10.0 Features: Crossplane
 

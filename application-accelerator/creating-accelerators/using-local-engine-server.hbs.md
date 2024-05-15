@@ -126,3 +126,22 @@ To use the local engine server:
 
       For the `list`, `get`, and `generate` commands, use the `--local-server` flag instead of `--server-url`.
 
+## <a id="test-script-local-engine-server"></a>Create tests scripts using the local engine server to test accelerators
+
+You can create a test suite by creating `options.json` files and `assertions.sh` scripts in a directory structure for each accelerator to test. It could look like the following for the `spring-cloud-serverless` accelerator:
+
+```
+.
+├── spring-cloud-serverless-k8s
+│   ├── assertions.sh
+│   └── options.json
+└── spring-cloud-serverless-tap
+    ├── assertions.sh
+    └── options.json
+```
+
+The `options.json` file can be created using the Tanzu App Accelerator IDE extensions. There is an "Export Options" that can be used to export the option values selected for the accelerator.
+
+The `assertions.sh` file should be a BASH script that checks the content of the generated project.
+
+You can take a look at the [sample test suite available in the Accelerator Samples Repo](https://github.com/vmware-tanzu/application-accelerator-samples/tree/main/local-test-suite-example).

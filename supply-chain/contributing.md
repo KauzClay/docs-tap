@@ -74,3 +74,10 @@ Top level sections usually broken into
 
 Subsections, especially in Spec and Status are alphabetical to make finding them easier, even if the topics _feel_ out of sequence.
 Tend to focus on each sections meaning, where children fields can be further subheadings or generalized in examples. 
+
+### Reading the current spec from a live cluster
+
+I find `kubectl explain components.supply-chain.apps.tanzu.vmware.com.spec --recursive=true` very helpful for getting
+the latest structure when updating the API.
+
+

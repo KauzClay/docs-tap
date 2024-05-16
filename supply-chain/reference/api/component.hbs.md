@@ -36,7 +36,7 @@ the component to operate.
 
 - `path` describes the path in the workload where this configuration is appended/merged. It must
   start with `spec.`
-- `schema` defines the property. See the (Kubernetes)[https://kubernetes.io/docs/home/]
+- `schema` defines the property. See the [Kubernetes](https://kubernetes.io/docs/home/)
   documentation.
 - `required` is a boolean that defaults to `false`. If set to true, the field defined by `path:` is required.
 

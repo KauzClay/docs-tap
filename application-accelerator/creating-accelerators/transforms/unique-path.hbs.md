@@ -28,5 +28,3 @@ UniquePath(Append)
 
 - `UniquePath` uses a [Conflict Resolution](conflict-resolution.md) strategy to decide
   what to do when several input files use the same `path`.
-- [Combo](combo.md) implicitly embeds a `UniquePath` after the [Merge](merge.md) defined by
-  its `merge` property.

@@ -27,6 +27,12 @@ This release includes the following platform-wide enhancements.
 
 This release includes the following changes, listed by component and area.
 
+#### <a id='1-10-0-app-accelerator'></a> v1.10.0 Features: Application Accelerator
+
+- Provides an improved accelerator syntax and suthoring experience with a new Domain Specific Language (DSL) for authoring accelerators.
+- Provides a Language Server in the local engine server that is used by the VS Code extension for syntax highlighting and code completion for accelerator authors using the new DSL.
+- Adds a Spring Secure Resource Server sample accelerator, which provides a Multi-service demo application with Vue.js frontends backed by a secured Spring resource server.
+
 #### <a id='1-10-0-aws-services'></a> v1.10.0 Features: AWS Services
 
 - Sets the default CompositionUpdatePolicy on Compositions to `Manual`. Previously, the default was `Automatic`.

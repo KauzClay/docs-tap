@@ -74,6 +74,21 @@ go to the review step.
 
 5. Click `Next` to download the project. If the project is downloaded successfully, the `Create` button is enabled and you can now create and open the project.
 
+## <a id="export-options-intellij"></a> Export accelerator configuration options
+
+For faster iteration while writing accelerators, you can export the accelerator options in the
+**Review and Generate Step** to a JSON file. You can use this file to generate your project again from the CLI.
+
+To export your options:
+
+1. Select the accelerator that you want to use in the new project wizard described above, and configure it in the following **Options Step**
+
+1. In the **Preview and Generate Step**, towards the bottom there is a field called **Export Options**.
+
+1. Enter a file name and click the **Export** button to select a location to save the file.
+
+  ![Export Options](../images/app-accelerator/intellij/export-options-intellij.png)
+
 ## <a id="fqdn-tap-gui-url"></a> Retrieving the URL for the Tanzu Developer Portal
 
 If you have access to the Tanzu Application Platform cluster that is running the Tanzu Application
@@ -153,3 +168,22 @@ To uninstall the VMware Tanzu Application Accelerator plug-in for IntelliJ:
 1. Open the **Preferences** pane and go to **Plugins**.
 2. Select the extension, click the gear icon, and click **Uninstall**.
 3. Restart IntelliJ.
+
+## <a id="known-issues-intellij"></a>Known Issues
+
+When creating a Java project using the Accelerator new project wizard in IntelliJ, it may sometimes not build correctly when first opened. 
+
+This is particularly the case for Maven projects. When the newly created project is opened for the first time, a pop-up dialogue may appear in the bottom right side of IntelliJ asking to **Load Maven Project**.
+
+  ![Load Maven Project](../images/app-accelerator/intellij/load-maven-project-intellij.png)
+
+Click **Load Maven Project** and wait until the project builds. 
+
+If this does not fix the issue, another possible workaround is to delete
+the .idea folder and *.iml file, and the reopen the project.
+
+  ![Delete IDEA files](../images/app-accelerator/intellij/delete-idea-files.png)
+
+
+
+

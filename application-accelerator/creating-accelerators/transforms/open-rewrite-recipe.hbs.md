@@ -22,12 +22,7 @@ The following Open Rewrite Recipes are supported:
 ## <a id="syntax-ref"></a>Syntax reference
 
 ```yaml
-type: OpenRewriteRecipe
-recipe: <string>                  # Full qualified classname of the recipe
-options:
-  <string>: <SpEL expression>      # Keys and values depend on the class of the recipe
-  <string>: <SpEL expression>      # Refer to the documentation of said recipe
-  ...
+OpenRewriteRecipe(<SpEL expression>)
 ```
 
 ## <a id="example"></a>Example

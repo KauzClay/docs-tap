@@ -67,13 +67,16 @@ To install the local engine server:
       ├── accelerators
       │   └── hello-world
       │       ├── accelerator.yaml
+      │       ├── accelerator.axxl
       │       ├── ...
       └── fragments
           ├── build-wrapper-maven
           │   ├── accelerator.yaml
+          │   ├── accelerator.axl
           │   ├── ...
           ├── java-version
           │   ├── accelerator.yaml
+          │   ├── accelerator.axl
           │   ├── ...
     ```
 

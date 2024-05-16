@@ -215,22 +215,21 @@
             - [Use fragments in Application Accelerator](application-accelerator/creating-accelerators/composition.hbs.md)
             - [Transform reference](application-accelerator/creating-accelerators/transforms/index.hbs.md)
                 - [Overview](application-accelerator/creating-accelerators/transforms/index.hbs.md)
-                - [Combo](application-accelerator/creating-accelerators/transforms/combo.hbs.md)
                 - [Include](application-accelerator/creating-accelerators/transforms/include.hbs.md)
                 - [Exclude](application-accelerator/creating-accelerators/transforms/exclude.hbs.md)
                 - [Merge](application-accelerator/creating-accelerators/transforms/merge.hbs.md)
                 - [Chain](application-accelerator/creating-accelerators/transforms/chain.hbs.md)
                 - [Let](application-accelerator/creating-accelerators/transforms/let.hbs.md)
-                - [Loop](application-accelerator/creating-accelerators/transforms/loop.hbs.md)
+                <!-- - [Loop](application-accelerator/creating-accelerators/transforms/loop.hbs.md) -->
                 - [InvokeFragment](application-accelerator/creating-accelerators/transforms/invoke-fragment.hbs.md)
                 - [ReplaceText](application-accelerator/creating-accelerators/transforms/replace-text.hbs.md)
                 - [RewritePath](application-accelerator/creating-accelerators/transforms/rewrite-path.hbs.md)
-                - [OpenRewriteRecipe](application-accelerator/creating-accelerators/transforms/open-rewrite-recipe.hbs.md)
-                - [YTT](application-accelerator/creating-accelerators/transforms/ytt.hbs.md)
+                <!-- - [OpenRewriteRecipe](application-accelerator/creating-accelerators/transforms/open-rewrite-recipe.hbs.md) -->
+                <!-- - [YTT](application-accelerator/creating-accelerators/transforms/ytt.hbs.md) -->
                 - [UseEncoding](application-accelerator/creating-accelerators/transforms/use-encoding.hbs.md)
                 - [UniquePath](application-accelerator/creating-accelerators/transforms/unique-path.hbs.md)
                 - [Conflict resolution](application-accelerator/creating-accelerators/transforms/conflict-resolution.hbs.md)
-                - [Provenance transform](application-accelerator/creating-accelerators/transforms/provenance.hbs.md)
+                <!-- - [Provenance transform](application-accelerator/creating-accelerators/transforms/provenance.hbs.md) -->
             - [Use SpEL with Application Accelerator](application-accelerator/creating-accelerators/spel-samples.hbs.md)
             - [Application Accelerator custom resource definition](application-accelerator/creating-accelerators/accelerator-crd.hbs.md)
             - [Use a local Application Accelerator engine server](application-accelerator/creating-accelerators/using-local-engine-server.hbs.md)

@@ -7,14 +7,10 @@ allowing re-use across accelerators.
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```yaml
-type: InvokeFragment
-reference: <imported-fragment>
-let:  # See Let
-  - name: <string>
-    expression: <SpEL expression>
-  ...
-anchor: [<file path>]
+```
+engine{
+  InvokeFragment(<fragment name>)
+}
 ```
 
 ## <a id="behavior"></a>Behavior
@@ -23,9 +19,8 @@ Assuming some fragment `my-fragment` has been imported in the accelerator
 (thus exposing the options it defines as options of the current accelerator),
 the following construct invokes `my-fragment`:
 
-```yaml
-type: InvokeFragment
-reference: my-fragment
+```
+InvokeFragment('my-fragment')
 ```
 
 This passes all input files (depending where this invocation sits in the "tree") to
@@ -86,15 +81,14 @@ accelerator:
       dataType: number
   imports:
     - name: my-fragment
-
-engine:
-  merge:
-    - include: ["..."]
-    - ...
-    - chain:
-        - include: ["**/pom.xml"]
-        - type: InvokeFragment
-          reference: my-fragment
+```
+### accelerator.axl
+```
+engine {
+  Include({'...'})
+  T2()
+  InvokeFragment('my-fragment')
+}
 ```
 
 Assuming `my-fragment` is defined as follows:
@@ -129,17 +123,15 @@ accelerator:
       dataType: number
       defaultValue: 2
 
-engine:
-  merge:
-    - include: ["..."]
-    - ...
-    - chain:
-        - include: ["**/pom.xml"]
-        - chain:
-          - include: ["**/*.xml"]
-          - type: SomeTransform
-            ...
 
+```
+
+### accelerator.axl
+```
+engine {
+  Include({"...", "**/pom.xml". "**/*.xml"})
+  T1()
+}
 ```
 
 Now you can imagine some scenarios to better clarify all configuration properties.
@@ -149,25 +141,19 @@ the fragment, but twice the value provided for `someOption`.
 The `InvokeFragment` block can be rewritten as follows:
 
 ```yaml
-    type: InvokeFragment
-    reference: my-fragment
-    let:
-      - name: indentationLevel
-        value: '2 * #someOption'
+let indententationLevel in {
+  InvokeFragment('my-fragment')
+}
 ```
 
 Finally, if the invocation in the accelerator looks like this:
 
-```yaml
-engine:
-  merge:
-    - include: ["..."]
-    - ...
-    - chain:
-        - include: ["**/README.md"]
-        - type: InvokeFragment
-          reference: my-fragment
-
+```
+engine {
+  Include("...")
+  + Include("**/README.md")
+  + InvokeFragment('my-fragment')
+}
 ```
 
 Then there is zero visible effect, because this is

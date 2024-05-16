@@ -8,26 +8,46 @@ The `Chain` transform uses function composition to produce its final output.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```yaml
-type: Chain
-transformations:
-  - <transform>
-  - <transform>
-  - <transform>
-  - ...
-applyTo: [<ant pattern>]
-condition: <SpEL expression>
+```
+engine {
+  T1()
+  T2()
+  T3()
+}
 ```
 
 ## <a id="behavior"></a>Behavior
 
 A chain of **T1** then **T2** then **T3** first applies transform **T1**.
 It then applies **T2** to the output of **T1**, and finally applies **T3** to
-the output of that.  In other words, **T3** to **T2** to **T1**.
+the output of that. In other words, **T3** to **T2** to **T1**.
 
-An empty chain acts as function identity.
+## <a id="dot-notation"></a>Dot notation
 
-If the optional `applyTo` property is set, then the chained transformations are only
-applied to files with paths that match the `applyTo` patterns. Files with paths that don't match
-are left untouched and merged back with the other results to form the final result of the
-`Chain` transform.
+```
+engine {
+  T1().T2().T3()
+}
+```
+
+## <a id="behavior-dot-notation"></a>Behavior
+
+A chain of **T1** then **T2** then **T3** first applies transform **T1**.
+It then applies **T2** to the output of **T1**, and finally applies **T3** to
+the output of that. In other words, **T3** to **T2** to **T1**.
+
+The dot notation is included to add the concept of operator priority, this concept
+can be used better when a merge is included in the chain of transforms.
+
+Check the following chain
+
+```
+engine {
+  T1()
+  + T2()
+  + T3().T4()
+}
+```
+
+In the previous chain, the T3().T4() will be resolved first before processing the
+declared merges as the transforms are using the dot notation

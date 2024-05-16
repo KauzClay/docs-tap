@@ -8,7 +8,7 @@ By default, Knative deployments are allocated a predefined amount of CPU and
 memory. These default allocations support general use cases, but you might
 adjust the allocations for the following reasons:
 
-- **Performance Optimization**: Customize resource allocations to help fine-tune 
+- **Performance Optimization**: Customize resource allocations to help fine-tune
   the load for specific workloads to improve response times and throughput.
 - **Cost Efficiency**: Customize resources to avoid over-provisioning or
   under-provisioning and verify efficient resource use.
@@ -16,11 +16,11 @@ adjust the allocations for the following reasons:
   from consuming excessive resources and increase the stability of the entire
   cluster.
 
-You can tailor the memory and CPU of Knative system controllers by using the CNRs `resource_management` config option.
+You can tailor the memory and CPU of Knative system controllers by using the Cloud Native Runtimes `resource_management` config option.
 
 ## <a id='update-resources'></a> Configuring memory and cpu requests and limits for Knative Serving resources
 
-To configure the memory and CPU allocation for the deployments in the `knative-serving` namespace, you must specify the `resource_management` config option on CNRs. You can only configure the following deployments:
+To configure the memory and CPU allocation for the deployments in the `knative-serving` namespace, you must specify the `resource_management` config option on Cloud Native Runtimes. You can only configure the following deployments:
 
 - `activator`
 - `autoscaler`
@@ -71,7 +71,7 @@ Where:
 
 > **Note** You can provide any of the resource units supported by Kubernetes as explained in the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes).
 
-After updating CNRs, get the deployment information to confirm the `activator` deployment updated:
+After updating Cloud Native Runtimes, get the deployment information to confirm the `activator` deployment updated:
 
 ```console
 kubectl get deployment activator -n knative-serving -o=jsonpath='{.spec.template.spec.containers[?(@.name=="activator")].resources}'

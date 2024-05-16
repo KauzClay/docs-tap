@@ -1,6 +1,6 @@
 # Verify Your Installation
 
-This topic tells you how to verify your Cloud Native Runtimes, commonly known as CNRs, installation.
+This topic tells you how to verify your Cloud Native Runtimes, commonly known as Cloud Native Runtimes, installation.
 You can verify that your Cloud Native Runtimes installation was successful by testing Knative Serving.
 
 ## <a id='prerecs'></a> Prerequisites
@@ -9,8 +9,8 @@ You can verify that your Cloud Native Runtimes installation was successful by te
    >**Note** This step covers configuring a namespace to run Knative services.
    >If you rely on a SupplyChain to deploy Knative services into your cluster,
    >skip this step because namespace configuration is covered when
-   >developer namespaces are set up to use installed packages. 
-   >For more information, see [Set up developer namespaces to use your installed packages](../../../install-online/set-up-namespaces.hbs.md). 
+   >developer namespaces are set up to use installed packages.
+   >For more information, see [Set up developer namespaces to use your installed packages](../../../install-online/set-up-namespaces.hbs.md).
    >Otherwise, you must complete the following steps for each namespace where you create Knative services.
 
     ```console

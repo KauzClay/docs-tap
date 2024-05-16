@@ -10,13 +10,13 @@ This topic focuses on using a wildcard certificate for your domain. For example,
 
 However, in Tanzu Application Platform, the default URL pattern for Web Workloads, for example, Knative Services, is `\{{.Name}}.\{{.Namespace}}.\{{.Domain}}`.
 
-The wildcard certificate mentioned earlier does not apply to these URLs. To address this, this topic describes how to configure CNRs (Cloud Native Runtimes) so that Web Workload URLs also fit the wildcard domain.
+The wildcard certificate mentioned earlier does not apply to these URLs. To address this, this topic describes how to configure Cloud Native Runtimes so that Web Workload URLs also fit the wildcard domain.
 
 You can keep the default URL pattern if your `DOMAIN` includes the namespace where Web Workloads are deployed.
 
 ## <a id="prereqs"></a>Prerequisites
 
-The following are required before proceeding with the configuration: 
+The following are required before proceeding with the configuration:
 
 - An EKS cluster.
 - The Contour package installed on the cluster, either as part of Tanzu Application Platform or from the standalone component installation. For more information, see [Install Contour](install.hbs.md).
@@ -25,7 +25,7 @@ The following are required before proceeding with the configuration:
 
 ## <a id="create-tls"></a> Create a TLS certificate in ACM
 
-Create a public TLS certificate for `*.DOMAIN` by using AWS Certificate Manager (ACM). 
+Create a public TLS certificate for `*.DOMAIN` by using AWS Certificate Manager (ACM).
 For more information, see the [AWS documentation](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html).
 
 >**Important** Record the `ARN` of the created certificate, which is required in the following steps.
@@ -67,7 +67,7 @@ Follow these steps to configure your Tanzu Application Platform:
     shared:
       ingress_issuer: ""
       ingress_domain: DOMAIN
-    
+
     tap_gui:
       app_config:
         app:
@@ -77,12 +77,12 @@ Follow these steps to configure your Tanzu Application Platform:
           reading:
             allow:
             - host: "*.DOMAIN"
-    
+
     cnrs:
       default_external_scheme: "https"
       ingress_issuer: ""
       domain_template: "\{{.Name}}-\{{.Namespace}}.\{{.Domain}}"
-    
+
     contour:
       infrastructure_provider: aws
       envoy:
@@ -92,7 +92,7 @@ Follow these steps to configure your Tanzu Application Platform:
           annotations:
             service.beta.kubernetes.io/aws-load-balancer-ssl-cert: ARN
             service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-    
+
     package_overlays:
     - name: contour
       secrets:

@@ -11,7 +11,7 @@ tanzu package available get tap.tanzu.vmware.com/$TAP_VERSION --values-schema --
 > For example, to find the keys for Cloud Native Runtimes, you must first identify
 > the version of the package with `tanzu package installed list -n tap-install`,
 > which lists all the installed packages versions. Then run the command
-> `tanzu package available get -n tap-install cnrs.tanzu.vmware.com/CNRS-VERSION --values-schema`
+> `tanzu package available get -n tap-install cnrs.tanzu.vmware.com/CNR-VERSION --values-schema`
 > by using the package version listed for Cloud Native Runtimes.
 
 ```yaml
@@ -23,7 +23,7 @@ shared:
 
 # ...
 
-# For example, CNRs specific values go under its name.
+# For example, Cloud Native Runtimes specific values go under its name.
 cnrs:
   provider: local
 

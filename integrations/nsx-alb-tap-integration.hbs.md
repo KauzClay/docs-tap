@@ -215,10 +215,10 @@ While still targeting the workload cluster, it is time to install Tanzu Applicat
 1. Using the values file you just created, follow the steps in
    [Install Tanzu Application Platform (online)](../install-online/intro.hbs.md).
 
-#### <a id="cnfg-dmn-cnr-nsx-alb"></a> Configure the domain with CNR and NSX ALB
+#### <a id="cnfg-dmn-cnr-nsx-alb"></a> Configure the domain with Cloud Native Runtimes and NSX ALB
 
-By default, CNR creates FQDNs for Knative Services that are in the pattern
-`\{{.Name}}.\{{.Namespace}}.\{{.Domain}}`. However, in this example CNRs configuration, you set
+By default, Cloud Native Runtimes creates FQDNs for Knative Services that are in the pattern
+`\{{.Name}}.\{{.Namespace}}.\{{.Domain}}`. However, in this example Cloud Native Runtimes configuration, you set
 `cnrs.domain_template = "\{{.Name}}-\{{.Namespace}}.\{{.Domain}}`.
 
 You do this because Avi Kubernetes Operator (AKO) currently supports only wildcard domains in the
@@ -300,7 +300,7 @@ for this Gateway to be detected.
 
 ## <a id="verify"></a> Verify Knative Serving for Cloud Native Runtimes
 
-If you [verify that CNR is configured correctly with a simple Knative Service](../cloud-native-runtimes/how-to-guides/app-operators/verifying-serving.hbs.md),
+If you [verify that Cloud Native Runtimes is configured correctly with a simple Knative Service](../cloud-native-runtimes/how-to-guides/app-operators/verifying-serving.hbs.md),
 your workload cluster is now configured to use NSX ALB as the ingress provider for `web` workloads.
 
 ## <a id="advncd-config"></a> Advanced Configuration
@@ -342,7 +342,7 @@ Gateway to supply a default TLS Certificate as a secret.
 
     Where `DOMAIN` is `DOMAIN` listed in the prerequisites.
 
-1. Update `tap-values.yaml` with this additional CNR configuration:
+1. Update `tap-values.yaml` with this additional Cloud Native Runtimes configuration:
 
     ```yaml
     cnrs:

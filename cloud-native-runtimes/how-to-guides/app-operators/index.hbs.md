@@ -6,8 +6,8 @@ This topic outlines topics related to installing, updating, and uninstalling Clo
 
 The following topics are related to app operator tasks:
 
-- [Install CNRs on TAP without a Profile](./install.hbs.md)
+- [Install Cloud Native Runtimes on Tanzu Application Platform without a Profile](./install.hbs.md)
 - [Manage Knative Serving Resources](./resource_management.hbs.md)
-- [Uninstall CNRs](./uninstall.hbs.md)
-- [Upgrade CNRs](./upgrade.hbs.md)
-- [Verify CNRs Installation](./verify-installation.hbs.md)
+- [Uninstall Cloud Native Runtimes](./uninstall.hbs.md)
+- [Upgrade Cloud Native Runtimes](./upgrade.hbs.md)
+- [Verify Cloud Native Runtimes Installation](./verify-installation.hbs.md)

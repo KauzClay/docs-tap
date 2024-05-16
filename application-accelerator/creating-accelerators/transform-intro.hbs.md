@@ -60,7 +60,7 @@ Transforms can also operate on the contents of a file, instead of merely selecti
 For example:
   ```
   engine {
-    ReplaceText(substitutions: {{text: "hello-fun", with: #artifactId }})
+    ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
   }
   ```
 
@@ -92,7 +92,7 @@ refer to the [Transforms reference](transforms/index.hbs.md).
 From the preceding examples, you can see that transforms such as `ReplaceText`
 and `Include` are too primitive to be useful by themselves. They are meant to be the building blocks of more complex accelerators.
 
-To combine transforms, Application Accelerators rely on two operators called `Chain` and `Merge`. 
+To combine transforms, Application Accelerators rely on two operators called `Chain` and `Merge`.
 These operators are recursive in the sense that they compose a number of child transforms to create
 a more complex transform. This allows building arbitrarily deep and complex trees of
 nested transform definitions.
@@ -118,7 +118,7 @@ by transform `B`:
 ```
 engine {
   Include(patterns: {'**/*.java'})
-  ReplaceText(substitutions: {{text: "hello-fun", with: #artifactId }})
+  ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
 }
 ```
 
@@ -132,7 +132,7 @@ For example:
   ```
   engine {
     Include(patterns: {'**/pom.xml'})
-    ReplaceText(substitutions: {{text: "hello-fun", with: #artifactId }})
+    ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
   }
   ```
 
@@ -146,7 +146,7 @@ You might be tempted to write something such as:
   ```
   engine {
     Include(patterns: {'**/pom.xml'})
-    ReplaceText(substitutions: {{text: "hello-fun", with: #artifactId }})
+    ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
     Include(patterns: {'**/*.java'})
   }
   ```
@@ -158,7 +158,7 @@ are fed to the next transform in the chain. The second include only retains `.ja
 
 This is where `Merge` comes in. A `Merge` takes the outputs of several transforms executed independently
 on the same input sourceset and combines or merges them together into a single sourceset.
-The way to write merges in the DSL syntax is to use the `+` operator, symbolizing the union 
+The way to write merges in the DSL syntax is to use the `+` operator, symbolizing the union
 of the result sets:
 
 
@@ -169,8 +169,8 @@ For example:
   engine {
     {
       Include(patterns: {'**/pom.xml'})
-      ReplaceText(substitutions: {{text: "hello-fun", with: #artifactId }})
-    }  
+      ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
+    }
     + Include(patterns: {'**/*.java'})
   }
   ```
@@ -195,11 +195,11 @@ sequentially:
 ```
 engine {
   applyTo('**/pom.xml') {
-    ReplaceText(substitutions: {{text: "hello-fun", with: #artifactId }})
+    ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
   }
   applyTo('**/*.java') {
-    OpenRewriteRecipe('org.openrewrite.java.ChangePackage', 
-      { oldPackageName: 'com.acme', 
+    OpenRewriteRecipe('org.openrewrite.java.ChangePackage',
+      { oldPackageName: 'com.acme',
       newPackageName: #companyPkg }
     )
   }
@@ -219,7 +219,7 @@ Transforms (or sequences of transforms) can be wrapped inside an `if()` construc
   engine {
     if (#k8sConfig == 'k8s-resource-simple') {
       Include({"kubernetes/app/*.yaml"})
-      ReplaceText({{text: 'hello-fun', with: #artifactId}})
+      ReplaceText(\{{text: 'hello-fun', with: #artifactId}})
     }
   }
   ```
@@ -299,7 +299,7 @@ path. For example:
     UniquePath(strategy: Append)
   }
   ```
-  
+
 
 The result of the above transform is that all `.md` files are gathered up and concatenated into a
 single file at path `docs/README.md`. Another possible resolution strategy is to keep
@@ -343,7 +343,7 @@ For example:
   ```
 
 In this example, `README.md` from the first child of `merge` comes
-before `DEPLOYMENT.md` from the second child of `merge`. 
+before `DEPLOYMENT.md` from the second child of `merge`.
 
 ## <a id="conclusion"></a>Next steps
 

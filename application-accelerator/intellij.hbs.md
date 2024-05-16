@@ -71,11 +71,7 @@ To use the IntelliJ plug-in to generate a project:
 
     > **Note** You can leave the values blank if you do not require a repository.
 
-    ![Git repository creation.](../images/app-accelerator/intellij/app-accelerators-intellij-git-repo-creation.png)
-
 1. Click **Next** to go to the review step.
-
-    ![Review page is open.](../images/app-accelerator/intellij/app-accelerators-intellij-review.png)
 
 1. Click **Next** to download the project.
 
@@ -94,9 +90,9 @@ To export your options using the IntelliJ extension:
 
 1. In the **Review and Generate Step**, enter a filename into the **Export Options** text box.
 
-1. Click **Export**, then select a location to save the file.
-
     ![The export options field.](../images/app-accelerator/intellij/export-options-intellij.png)
+
+1. Click **Export**, then select a location to save the file.
 
 ## <a id="fqdn-tap-gui-url"></a> Retrieving the URL for the Tanzu Developer Portal
 

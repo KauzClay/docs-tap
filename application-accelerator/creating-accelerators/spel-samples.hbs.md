@@ -20,7 +20,7 @@ options:
 ```
 engine {
   Include({"some/file.txt"})
-  ReplaceText(substitutions: {{text: 'bar', with: #foo}})
+  ReplaceText(substitutions: \{{text: 'bar', with: #foo}})
 }
 ```
 
@@ -58,7 +58,7 @@ options:
 engine {
   if (#numbers == 'first') {
     Include({"some/file.txt"})
-    ReplaceText({{text: "bar", with: #foo}})
+    ReplaceText(\{{text: "bar", with: #foo}})
   }
 }
 ```
@@ -104,7 +104,7 @@ options:
 engine {
   if (#foo.matches('[a-z]+Z\d+')) {
     Include({"some/file.txt"})
-    ReplaceText({{text: "bar", with: #foo}})
+    ReplaceText(\{{text: "bar", with: #foo}})
   }
 }
 ```
@@ -134,6 +134,6 @@ accelerator:
 
 ```
 engine {
-  ReplaceText({{text: recipe, with: ' * ' + T(java.lang.String).join('\n * ', #meals)  }})  
+  ReplaceText(\{{text: recipe, with: ' * ' + T(java.lang.String).join('\n * ', #meals)  }})
 }
 ```

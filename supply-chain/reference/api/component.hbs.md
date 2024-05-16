@@ -95,6 +95,50 @@ and output.
       type: source
 ```
 
+### `spec.outputs`
+
+The outputs this component emits. Outputs are references to an artifact located at the `url`.
+
+URL string `json:"url,omitempty"`
+```yaml
+  outputs:
+    - name: source
+      type: source
+      digest: <cryptographic hash>
+      url: <location of output artifact>
+```
+
+#### `spec.outputs[].digest`
+
+Digest of this output. If not provided, defaults to `$(pipeline.results.digest)`.
+
+Use a template replacement to describe where the digest originates from, in either the
+pipeline or resumption. Eg: `$(resumption.results.commitId)` or `$(pipeline.results.shasum)` etc...
+
+This digest should be a [cryptographic hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) 
+so that operators of the supply chain can be assured that the value correlates to the data in the artifact at the
+`url`. It's also important that you describe how the digest is formed, so that it can
+be verified at a later date should the authenticity of the artifact need to be checked.
+
+#### `spec.outputs[].url`
+
+The URL that holds the artifact of this output. If not provided, defaults to `$(pipeline.results.url)`.
+
+Use a template replacement to describe where the URL originates from, typically in the
+pipeline. Eg: `$pipeline.results.buildURL`.
+
+The storage of the resource at this url should match in all instances of this `output.type`, including any
+expected `accepts-*` headers etc.
+
+#### Example
+```yaml
+  outputs:
+    - name: source
+      type: source
+      digest: $(resumption.results.commitId)
+      url: $(pipeline.results.buildURL)
+```
+
 ### `spec.pipelineRun`
 
 The `spec.pipelineRun` section defines the work done by this component.
@@ -148,13 +192,6 @@ spec:
                 storage: 1Gi
 ```
 
-### `spec.outputs`
-
-```yaml
-  outputs:
-    - name: source
-      type: source
-```
 
 ### `spec.resumptions[]`
 

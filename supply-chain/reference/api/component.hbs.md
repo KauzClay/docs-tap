@@ -142,18 +142,8 @@ expected `accepts-*` headers etc.
 ### `spec.pipelineRun`
 
 The `spec.pipelineRun` section defines the work done by this component.
-`spec.pipelineRun` is used to create a [Tekton PipelineRun] and has many similarities.
+`spec.pipelineRun` is used by Tanzu Supply Chain to create a [Tekton PipelineRun] and has many similarities.
 
-#### `spec.pipelineRun.pipelineRef`
-
-The `spec.pipelineRun.pipelineRef` is required, and it has one field `name` that must refer to the
-`metadata.name` of a [Tekton Pipeline] that resides in the same namespace as the `Component` and
-`SupplyChain`.
-
-#### `spec.pipelineRun.workspaces`
-
-If you need to define workspaces to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.workspaces`.
-This field is an array of workspace definitions, and is identical to the Tekton Workspaces specification.
 
 #### `spec.pipelineRun.params`
 
@@ -162,12 +152,34 @@ you can populate them using templates.
 
 The available references for templating are:
 
-| reference                                     | source                                  | examples                                                   |
-|-----------------------------------------------|-----------------------------------------|------------------------------------------------------------|
-| `$(workload.spec...)`                         | The workload spec                       | `$(workload.spec.source.git.url)`                          |
-| `$(workload.metadata...)`                     | The workload metadata                   | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
-| `$(inputs.<input-name>.[url\|digest])`        | An input url or digest                  | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
-| `$(resumptions.<resumption-name>.results...)` | A [resumption](#specresumptions) result | `$(resumptions.check-source.results.sha)`                  |
+| reference                                     | source                                           | examples                                                   |
+|-----------------------------------------------|--------------------------------------------------|------------------------------------------------------------|
+| `$(config.spec...)`                           | References to the [config](#spec-config)         | `$(config.spec.source.git.url)`                            |
+| `$(workload.spec...)`                         | The same as `$(config.spec)...` - **Deprecated** | `$(workload.spec.source.git.url)`                          |
+| `$(workload.metadata...)`                     | The workload metadata                            | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
+| `$(inputs.<input-name>.[url\|digest])`        | An input url or digest                           | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
+| `$(resumptions.<resumption-name>.results...)` | A [resumption](#specresumptions) result          | `$(resumptions.check-source.results.sha)`                  |
+
+#### `spec.pipelineRun.pipelineRef`
+
+The `spec.pipelineRun.pipelineRef` is required, and it has one field `name` that must refer to the
+`metadata.name` of a [Tekton Pipeline] that resides in the same namespace as the `Component` and
+`SupplyChain`.
+
+
+### `spec.pipelineRun.taskRunSpecs`
+If you need to define taskRunSpecs to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.taskRunSpecs`.
+This is identical to the Tekton PipelineRun `taskRunSpecs` specification.
+
+### `spec.pipelineRun.taskRunTemplates`
+If you need to define taskRunTemplates to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.taskRunTemplates`.
+This is identical to the Tekton PipelineRun `taskRunTemplates` specification.
+
+#### `spec.pipelineRun.workspaces`
+
+If you need to define workspaces to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.workspaces`.
+This field is an array of workspace definitions, and is identical to the Tekton Workspaces specification.
+
 
 #### Example
 

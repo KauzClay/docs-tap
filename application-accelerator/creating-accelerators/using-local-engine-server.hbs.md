@@ -126,22 +126,31 @@ To use the local engine server:
 
       For the `list`, `get`, and `generate` commands, use the `--local-server` flag instead of `--server-url`.
 
-## <a id="test-script-local-engine-server"></a>Create tests scripts using the local engine server to test accelerators
+## <a id="test-script"></a> Create a test script using the local engine server to test accelerators
 
-You can create a test suite by creating `options.json` files and `assertions.sh` scripts in a directory structure for each accelerator to test. It could look like the following for the `spring-cloud-serverless` accelerator:
+To create a test suite for your accelerator:
 
-```
-.
-├── spring-cloud-serverless-k8s
-│   ├── assertions.sh
-│   └── options.json
-└── spring-cloud-serverless-tap
-    ├── assertions.sh
-    └── options.json
-```
+1. Create an `options.json` file using **Export Options** in the Tanzu App Accelerator IDE extensions
+   to export the option values selected for the accelerator.
+   For instructions for VS Code, see [Export accelerator configuration options](../vscode.hbs.md#export-options).
+   <!-- what about intellij? -->
 
-The `options.json` file can be created using the Tanzu App Accelerator IDE extensions. There is an "Export Options" that can be used to export the option values selected for the accelerator.
+1. Create an `assertions.sh` file that contains a BASH script that checks the content of the generated project.
 
-The `assertions.sh` file should be a BASH script that checks the content of the generated project.
+1. Organize your `options.json` files and `assertions.sh` scripts into a directory structure for each
+   accelerator to test.
 
-You can take a look at the [sample test suite available in the Accelerator Samples Repo](https://github.com/vmware-tanzu/application-accelerator-samples/tree/main/local-test-suite-example).
+    The following is an example directory structure for the `spring-cloud-serverless` accelerator:
+
+    ```console
+    .
+    ├── spring-cloud-serverless-k8s
+    │   ├── assertions.sh
+    │   └── options.json
+    └── spring-cloud-serverless-tap
+        ├── assertions.sh
+        └── options.json
+    ```
+
+For an example test suite, see [application-accelerator-samples](https://github.com/vmware-tanzu/application-accelerator-samples/tree/main/local-test-suite-example)
+in GitHub.

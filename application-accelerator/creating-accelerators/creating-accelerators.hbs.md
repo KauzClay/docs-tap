@@ -134,8 +134,8 @@ accelerator:
 ```go
 engine {
   Include({"pom.xml"}).ReplaceText({pattern: "<java.version>.*<", with:  `<java.version>#{#javaVersion}<'`}})
-  Include({"build.gradle"}).ReplaceText({{pattern: "sourceCompatibility = .*", with:  `sourceCompatibility = #{#javaVersion}`}})
-  Include({"config/workload.yaml"}).ReplaceText({{pattern: "spec: ", with:  "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"}})
+  Include({"build.gradle"}).ReplaceText(\{{pattern: "sourceCompatibility = .*", with:  `sourceCompatibility = #{#javaVersion}`}})
+  Include({"config/workload.yaml"}).ReplaceText(\{{pattern: "spec: ", with:  "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"}})
 }
 ```
 

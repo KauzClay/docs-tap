@@ -139,7 +139,7 @@ engine {
      }
      // merge child 3: this child wants to contribute Java code and README.md to the final result
      // Using the dot operator it ensures that the substitions are done first before merging the file set
-     + Include({"**/*.java", "README.md"}).ReplaceText(substitions: {{text: "Hello World!", with: #greeting}})
+     + Include({"**/*.java", "README.md"}).ReplaceText(substitions: \{{text: "Hello World!", with: #greeting}})
      // other values are `UseFirst`, `UseLast`, or `Append`
      // when merging (or really any operation) produces multiple files at the same path
      // this defines how that conflict is handled.
@@ -149,7 +149,7 @@ engine {
      // Append: keep both as by using `cat <first-file> > <second-file>`).
      UniquePath(Fail)
      RewritePath("(.*)simpleboot(.*)", #g1 + #packageName + #g2)
-     ReplaceText({{text: "simpleboot", with: #packageName}})
+     ReplaceText(\{{text: "simpleboot", with: #packageName}})
  }
 
 }

@@ -292,10 +292,10 @@ engine {
       + if (includePoms) {
         Include({"pom.xml"})
       }
-      + Include({"**/*.java", "README.md"}).ReplaceText(substitions: {{text: "Hello World!", with: #greeting}})
+      + Include({"**/*.java", "README.md"}).ReplaceText(substitions: \{{text: "Hello World!", with: #greeting}})
       UniquePath(Fail)
       RewritePath("(.*)simpleboot(.*)", #g1 + #packageName + #g2)
-      ReplaceText({{text: "simpleboot", with: #packageName}})
+      ReplaceText(\{{text: "simpleboot", with: #packageName}})
   }
 
 }
@@ -330,10 +330,10 @@ If more than one child produces a file with the same path, the transform resolve
 dropping the file contents from the earlier child and keeping the contents from the later child.
 
 `UniquePath` specifies how conflict is handled when an operation, such as merging, produces
-multiple files at the same path: 
-  - `Fail` raises an error when there is a conflict. 
-  - `UseFirst` keeps the contents of the first file. 
-  - `UseLast` keeps the contents of the last file. 
+multiple files at the same path:
+  - `Fail` raises an error when there is a conflict.
+  - `UseFirst` keeps the contents of the first file.
+  - `UseLast` keeps the contents of the last file.
   - `Append` keeps both by using `cat <first-file> <second-file>`.
 
 

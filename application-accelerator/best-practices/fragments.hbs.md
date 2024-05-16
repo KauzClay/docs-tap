@@ -68,6 +68,7 @@ file of the generated application skeleton or append a section to the host’s R
 Fragments might require the use of versioning. For example, if accelerator `acc-1` imports fragment
 `frag`, and accelerator `acc-2` also uses fragment `frag`, then care must be taken in the contract
 that the fragment exposes. Changing its behavior for the benefit of `acc-1` might break its use in `acc-2`.
+
 To resolve this, you can track the versions of the fragment and document with numbers when there is an
 incompatible change.
 VMware recommends that you use [semantic versioning](https://semver.org/) to track the contract for fragments.

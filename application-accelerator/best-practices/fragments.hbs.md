@@ -63,7 +63,7 @@ supported, the README file must include this information.
 - If a fragment must provide additional documentation to end users, it can either be added to a README-X
 file of the generated application skeleton or append a section to the host’s README.
 
-## <a id="versioning"></a> About versioning
+## <a id="versioning"></a> Versioning
 
 Fragments might require the use of versioning. For example, if accelerator `acc-1` imports fragment
 `frag`, and accelerator `acc-2` also uses fragment `frag`, then care must be taken in the contract

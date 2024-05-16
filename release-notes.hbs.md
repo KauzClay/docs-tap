@@ -66,6 +66,10 @@ This release includes the following changes, listed by component and area.
 
 - Updates [provider-helm](https://github.com/crossplane-contrib/provider-helm) to v0.17.0.
 
+#### <a id='1-10-0-java-buildpacks'></a> v1.10.0 Features: Java Buildpack supports CDS
+
+- Introduces latest Spring Boot 3.3 optimization: CDS. Just adding an environment variable to the build section of your Spring Boot 3.3 workload, your app will start ~1.5x faster and will consume ~20% less memory. Lean everything about this optimization in the [Tanzu Java Buildpacks documentation](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-java-java-buildpack.html#optimizations).
+
 ---
 
 ### <a id='1-10-0-breaking-changes'></a> v1.10.0 Breaking changes

@@ -132,8 +132,10 @@ To create a test suite for your accelerator:
 
 1. Create an `options.json` file using **Export Options** in the Tanzu App Accelerator IDE extensions
    to export the option values selected for the accelerator.
-   For instructions for VS Code, see [Export accelerator configuration options](../vscode.hbs.md#export-options).
-   <!-- what about intellij? -->
+
+    - For instructions for VS Code, see [Export accelerator configuration options (VS Code)](../vscode.hbs.md#export-options).
+    - For instructions for IntelliJ, see [Export accelerator configuration options (IntelliJ)](../intellij.hbs.md#export-options).
+
 
 1. Create an `assertions.sh` file that contains a BASH script that checks the content of the generated project.
 

@@ -173,22 +173,3 @@ To uninstall the VMware Tanzu Application Accelerator plug-in for IntelliJ:
 1. Open the **Preferences** pane and go to **Plugins**.
 2. Select the extension, click the gear icon, and click **Uninstall**.
 3. Restart IntelliJ.
-
-## <a id="known-issues-intellij"></a>Known Issues
-
-When creating a Java project using the Accelerator new project wizard in IntelliJ, it may sometimes not build correctly when first opened.
-
-This is particularly the case for Maven projects. When the newly created project is opened for the first time, a pop-up dialogue may appear in the bottom right side of IntelliJ asking to **Load Maven Project**.
-
-  ![Load Maven Project](../images/app-accelerator/intellij/load-maven-project-intellij.png)
-
-Click **Load Maven Project** and wait until the project builds.
-
-If this does not fix the issue, another possible workaround is to delete
-the .idea folder and *.iml file, and the reopen the project.
-
-  ![Delete IDEA files](../images/app-accelerator/intellij/delete-idea-files.png)
-
-
-
-

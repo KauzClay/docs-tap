@@ -192,6 +192,16 @@ The following issues, listed by component and area, are resolved in this release
 
 This release has the following known issues, listed by component and area.
 
+#### <a id='1-10-0-supply-chain-ki'></a> v1.10.0 Known issues: Application Accelerator
+
+- When you create a Java project using the accelerator new project wizard in IntelliJ, it might not
+  build correctly when first opened.
+
+  This issue mostly occurs in Maven projects. When you open the new project for the first time,
+  a dialog box might appear in the bottom right side of IntelliJ asking you to **Load Maven Project**.
+
+  For a workaround, see [Troubleshoot Application Accelerator](./application-accelerator/troubleshooting.hbs.md#project-build-failure).
+
 #### <a id='1-10-0-supply-chain-ki'></a> v1.10.0 Known issues: Supply Chain
 
 - Components cannot have more than one resumption defined. When there are multiple resumptions,

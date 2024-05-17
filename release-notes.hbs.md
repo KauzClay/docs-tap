@@ -327,6 +327,23 @@ Deprecated features remain on this list until they are retired from Tanzu Applic
   1.0 will be removed in a future Tanzu Application Platform version.
   For more information, see [SCST - Scan versions](scst-scan/overview.hbs.md#scst-scan-feat).
 
+### <a id='scst-store-deprecations'></a> Supply Chain Security Tools - Store deprecations
+
+- The [metadata-store (MDS)](./scst-store/mds-overview.hbs.md) component within SCST - Store is deprecated as of TAP 1.10.
+
+### <a id='scst-policy-deprecations'></a> Supply Chain Security Tools - Policy Controller deprecation
+
+- [Policy controller](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/scst-policy-overview.html) is deprecated in TAP 1.10.  [Tanzu Mission Control includes policy driven Kubernetes management](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-concepts/GUID-847414C9-EF54-44E5-BA62-C4895160CE1D.html) and is the recommended replacement. 
+
+### <a id='tanzu-cli-deprecations'></a> Tanzu CLI deprecations
+
+- The [Insight Plugin](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/cli-plugins-insight-cli-overview.html) for the Tanzu CLI is deprecated as of TAP 1.10.
+
+### <a id='tanzu-developer-portal-deprecations'></a> Tanzu Developer Portal deprecations
+
+- The [Tanzu Developer Portal Configurator](./tap-gui/configurator/about.hbs.md) is deprecated in TAP 1.10 and will be removed in TAP 1.11.
+https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/tap-gui-configurator-about.html
+
 ### <a id="tekton-deprecations"></a> Tekton Pipelines deprecations
 
 - Tekton `ClusterTask` is deprecated and marked for removal. Use the `Task` API instead.

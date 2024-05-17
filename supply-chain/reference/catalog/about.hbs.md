@@ -585,3 +585,59 @@ spec:
     active-keychains:
     service-account-publisher:
 ```
+
+---
+## sonarqube-sast-scan
+
+Version: 1.0.0
+
+### Description:
+Performs a SonarQube sast scan
+
+
+### Inputs
+
+| Name | Type |
+| --- | --- |
+| git | [git](./output-types.hbs.md#git) |
+
+### Outputs
+
+* _none_
+
+### Config
+
+```yaml
+spec:
+  source:
+    # This is used to retrieve source from a git repository.
+    # The tag, commit and branch fields are mutually exclusive, use only one.
+    # +required
+    git:
+      # A git branch ref to watch for new source
+      branch:
+      # A git commit sha to use
+      commit:
+      # A git tag ref to watch for new source
+      tag:
+      # The url to the git source repository
+      # +required
+      url:
+    # The sub path in the bundle to locate source code
+    subPath:
+  # SonarQube Scan configuration
+  sonarqube:
+    # SonarQube server url
+    # +required
+    sonar-host-url: 
+    # The project display name in the SonarQube server
+    # +required
+    sonar-project-name: 
+    # The project key defined in the SonarQube server
+    sonar-project-key: 
+    # SonarQube project token
+    # +required
+    sonar-token: 
+    # Path to the directory to scan from the source code root
+    sonar-project-base-dir: 
+```

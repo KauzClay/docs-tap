@@ -21,8 +21,8 @@ This release includes the following platform-wide enhancements.
   Server provides a centralized server for delivering external configuration properties to an
   application, and a central source for managing this configuration across deployment environments.
 
-- [SonarQube Scan Supply Chain component](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md):
-  SonarQube Scan Supply Chain Component is a component that can be added to a supply chain to perform Static Application Security Testing(SAST) scans
+- [SonarQube Scan Tanzu Supply Chain Component](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md):
+  SonarQube Scan Tanzu Supply Chain Component is a new component that can be added to a Tanzu Supply Chain to perform Static Application Security Testing(SAST) scans
   on the source code configured. This component is in alpha at this time, and only supports scanning for maven projects.
 
 ---
@@ -585,7 +585,6 @@ For open source component versions in this Tanzu Application Platform release, s
 | Service Registry                                   | 1.4.0                    |
 | Services Toolkit                                   | 0.15.0                   |
 | Snyk Scanner for SCST - Scan (beta)                | 1.3.0                    |
-| SonarQube Scan Supply Chain Component (alpha)      | 0.1.0                    |
 | Source Controller                                  | 0.9.1                    |
 | Spring Boot conventions                            | 1.10.0                   |
 | Spring Cloud Gateway                               | 2.2.4                    |

@@ -6,11 +6,8 @@ The `RewritePath` transform allows you to change the name and path of files with
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```yaml
-type: RewritePath
-regex: <string>
-rewriteTo: <SpEL expression>
-matchOrFail: <boolean>
+```
+RewritePath(regex: <Regex>, rewriteTo: <SpEL Expression>, matchOrFail:<boolean>)
 ```
 
 For each input file, `RewritePath` attempts to match its `path` by using
@@ -56,10 +53,8 @@ See the following examples using the `RewritePath` transform.
 
 The following moves all files from `src/main/java` to `sub-module/src/main/java`:
 
-```yaml
-type: RewritePath
-regex: src/main/java/(.*)
-rewriteTo: "'sub-module/src/main/java' + #g1"   # 'sub-module/' + #g0 works too
+```
+RewritePath(regex: "src/main/java/(.*)", rewriteTo: "sub-module/src/main/java" + #g1)
 ```
 
 ![Diagram showing a RewritePath transform.](images/rewrite-path.svg)
@@ -69,19 +64,16 @@ rewriteTo: "'sub-module/src/main/java' + #g1"   # 'sub-module/' + #g0 works too
 The following flattens all files found inside the `sub-path` directory and its subdirectories,
 and puts them into the `flattened` folder:
 
-```yaml
-type: RewritePath
-regex: sub-path/(.*/)*(?<filename>[^/]+)
-rewriteTo: "'flattened' + #filename"   # 'flattened' + #g2 would work too
+```
+RewritePath(regex: "sub-path/(.*/)*(?<filename>[^/]+)", rewriteTo: "flattened" + #filename)
 ```
 
 ### <a id="example3"></a>Example 3
 
 The following turns all paths into lowercase:
 
-```yaml
-type: RewritePath
-rewriteTo: "#g0.toLowerCase()"
+```
+RewritePath(rewriteTo: #g0.toLowerCase())
 ```
 
 ## <a id='interaction-chain-include'></a>Interaction with Chain and Include
@@ -89,11 +81,11 @@ rewriteTo: "#g0.toLowerCase()"
 It's common to define pipelines that perform a `Chain` of transformations
 on a subset of files, typically selected by `Include/Exclude`:
 
-```yaml
-- include: ["**/*.java"]
-- chain:
-    - # do something here
-    - # and then here
+```
+Include({"**/*.java"})
+T1()
+T2()
+T3()
 ```
 
 If one of the transformations in the chain is a `RewritePath` operation,

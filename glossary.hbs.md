@@ -240,6 +240,28 @@ Terms beginning with "D".
   </tbody>
 </table>
 
+## <a id="e"></a> E
+
+Terms beginning with "E".
+
+<table>
+  <thead>
+    <tr>
+        <th>Term</th>
+        <th>Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Enterprise Config Server</td>
+        <td>This is an externalized configuration server based on the open-source Spring Cloud Config
+        project. Config Server provides a centralized server for delivering external configuration
+        properties to an application, and a central source for managing this configuration across
+        deployment environments.</td>
+    </tr>
+  </tbody>
+</table>
+
 ## <a id="f"></a> F
 
 Terms beginning with "F".

@@ -1,12 +1,12 @@
 # Use SpEL with Application Accelerator
 
-This topic tells you about some common Spring Expression Language (SpEL) use cases for the `accelerator.yaml` file in Application Accelerator.
+This topic tells you about some common Spring Expression Language (SpEL) use cases in Application Accelerator.
 
 For more information, see [Spring Expression Language](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions) documentation.
 ## <a id="variables"></a>Variables
 
 You can reference all the values added as options in the `accelerator` section from the YAML file as
-variables in the `engine` section. You can access the value using the syntax
+variables in the `engine` section of `accelerator.axl`. You can access the value using the syntax
 `#<option name>`:
 
 ```yaml
@@ -15,13 +15,13 @@ options:
     dataType: string
     inputType: text
 ...
-engine:
-  - include: ["some/file.txt"]
-    chain:
-    - type: ReplaceText
-      substitutions:
-      - text: bar
-        with: "#foo"
+```
+
+```
+engine {
+  Include({"some/file.txt"})
+  ReplaceText(substitutions: \{{text: 'bar', with: #foo}})
+}
 ```
 
 This sample replaces every occurrence of the text `bar` in the file `some/file.txt`
@@ -52,20 +52,24 @@ options:
     - text: Seconf Option
       value: second
     defaultValue: first
-...
-engine:
-  - include: ["some/file.txt"]
-    condition: "#numbers == 'first'"
-    chain:
-    - type: ReplaceText
-      substitutions:
-      - text: bar
-        with: "#foo"
+```
+
+```
+engine {
+  if (#numbers == 'first') {
+    Include({"some/file.txt"})
+    ReplaceText(\{{text: "bar", with: #foo}})
+  }
+}
 ```
 
 This replaces the text only if the selected option is the first one.
 
 ## <a id="rewrite-path-concatentation"></a>Rewrite path concatenation
+
+[String templates](https://docs.spring.io/spring-framework/reference/core/expressions/language-ref/templating.html)
+are available in Application Accelerator using bacticks. Those are
+useful for example when using `RewritePath`:
 
 ```yaml
 options:
@@ -73,11 +77,13 @@ options:
     dataType: string
     inputType: text
 ...
-engine:
-  - include: ["some/file.txt"]
-    chain:
-    - type: RewritePath
-      rewriteTo: "'somewhere/' + #renameTo + '.txt'"
+```
+
+```
+engine {
+  Include({"some/file.txt"})
+  RewritePath(rewriteTo: `somewhere/#{#renameTo}.txt`)
+}
 ```
 
 ## <a id="regular-expressions"></a>Regular expressions
@@ -92,14 +98,15 @@ options:
     inputType: text
     defaultValue: abcZ123
 ...
-engine:
-  - include: ["some/file.txt"]
-    condition: "#foo.matches('[a-z]+Z\\d+')"
-    chain:
-    - type: ReplaceText
-      substitutions:
-      - text: bar
-        with: "#foo"
+```
+
+```
+engine {
+  if (#foo.matches('[a-z]+Z\d+')) {
+    Include({"some/file.txt"})
+    ReplaceText(\{{text: "bar", with: #foo}})
+  }
+}
 ```
 
 This example uses RegEx to match a string of letters that ends with a capital Z and any number of
@@ -123,9 +130,10 @@ accelerator:
         - value: chips
         - value: BLT
 ...
-engine:
-  type: ReplaceText
-  substitutions:
-  - text: recipe
-    with: "' * ' + T(java.lang.String).join('\n * ', #meals)"
+```
+
+```
+engine {
+  ReplaceText(\{{text: recipe, with: ' * ' + T(java.lang.String).join('\n * ', #meals)  }})
+}
 ```

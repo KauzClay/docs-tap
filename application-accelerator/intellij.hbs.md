@@ -48,31 +48,51 @@ Tanzu Developer Portal, run the following command to determine the fully-qualifi
 
 ## <a id="intellij-using-the-plugin"></a> Use the plug-in
 
-To use the IntelliJ plug-in:
+You can use the IntelliJ extension to generate a project and to export your accelerator configuration.
 
-1. To explore the defined accelerators, select **New Project**, then select **Tanzu Application Accelerator**.
+### <a id="generate-project"></a> Generate a project
+
+To use the IntelliJ plug-in to generate a project:
+
+1. To explore the defined accelerators, click **New Project**, then click **Tanzu Application Accelerator**.
 
    ![The IntelliJ UI with the New Project button highlighted.](../images/app-accelerator/intellij/app-accelerators-intellij-new-project.png)
 
    ![Tanzu Application Accelerator New Project wizard is open.](../images/app-accelerator/intellij/app-accelerators-intellij-accelerator-list.png)
 
-2. Choose one of the defined accelerators and configure the options.
+1. Choose one of the defined accelerators and configure the options.
 
    ![Options page is open.](../images/app-accelerator/intellij/app-accelerators-intellij-options.png)
 
-3. Click `Next` to go to the optional step `create git repository`.
+1. Click **Next**.
 
-   ![Review page is open.](../images/app-accelerator/intellij/app-accelerators-intellij-review.png)
+1. (Optional) Fill the text boxes required to create the Git repository. A personal access token from the Git
+   provider is required. This is stored in a secured location for future use.
 
-4. Fill the fields required to create the Git repository, a personal access token from the Git
-provider is required, this will be stored in a secured location for future use, click `Next` to
-go to the review step.
+    > **Note** You can leave the values blank if you do not require a repository.
 
-   ![Git repository creation.](../images/app-accelerator/intellij/app-accelerators-intellij-git-repo-creation.png)
+1. Click **Next** to go to the review step.
 
-   > Note: This is an optional step, the values can be left blank if a repository isn't required.
+1. Click **Next** to download the project.
 
-5. Click `Next` to download the project. If the project is downloaded successfully, the `Create` button is enabled and you can now create and open the project.
+    After the project has downloaded, the **Create** button is enabled. You can now create
+    and open the project.
+
+### <a id="export-options"></a> Export accelerator configuration options
+
+For faster iteration while writing accelerators, you can export the accelerator options in the
+**Review and Generate Step** to a JSON file. You can use this file to generate your project again from the CLI.
+
+To export your options using the IntelliJ extension:
+
+1. Select the accelerator that you want to use in the new project wizard described in
+   [Generate a project](#generate-project) earlier, and configure the options.
+
+1. In the **Review and Generate Step**, enter a filename into the **Export Options** text box.
+
+    ![The export options field.](../images/app-accelerator/intellij/export-options-intellij.png)
+
+1. Click **Export**, then select a location to save the file.
 
 ## <a id="fqdn-tap-gui-url"></a> Retrieving the URL for the Tanzu Developer Portal
 

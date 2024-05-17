@@ -6,4 +6,4 @@ This section contains tutorials for developers about how to use Tanzu Supply Cha
 
 In this section:
 
-- [Deploy your first Workload](./deploy-your-first-workload.hbs.md)
+- [Deploy your first workload](deploy-your-first-workload.hbs.md)

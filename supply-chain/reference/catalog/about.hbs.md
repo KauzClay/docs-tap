@@ -419,6 +419,46 @@ spec:
 ```
 
 ---
+## sonarqube-sast-scan
+
+Version: 1.0.0
+
+### Description
+
+The SonarQube Supply Chain component performs a Static Application Security Testing (SAST) scan by
+using the Maven CLI and the Sonar plug-in against the source input.
+
+### Inputs
+
+| Name   | Type                                   |
+|--------|----------------------------------------|
+| source | [source](./output-types.hbs.md#source) |
+
+### Outputs
+
+* _none_
+
+### Config
+
+```yaml
+spec:
+  sonarqube:
+    # This is the URL of the sonar server.
+    # +required
+    sonar-host-url:
+    # This is the path to the directory to scan from the repository root.
+    sonar-project-base-dir:
+    # This is the project key for the sonar project. If not set it will be the same as the project name.
+    sonar-project-key:
+    # This is the display name of the project in the sonar server.
+    # +required
+    sonar-project-name:
+    # This is the Sonarqube project token. See the Sonarqube documentation for more details: https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/.
+    # +required
+    sonar-token:
+```
+
+---
 ## source-git-provider
 
 Version: 1.0.0

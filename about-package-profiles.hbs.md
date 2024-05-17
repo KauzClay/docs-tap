@@ -142,6 +142,13 @@ a predefined group of packages.
   Tanzu CLI Apps plug-in, which rely on the Developer Conventions to edit the workload to enable
   inner loop capabilities.
 
+- **[Enterprise Config Server](config-server/overview.hbs.md)**
+
+  Enterprise Config Server is an externalized configuration server based on the open-source Spring
+  Cloud Config project. Config Server provides a centralized server for delivering external
+  configuration properties to an application, and a central source for managing this configuration
+  across deployment environments.
+
 - **[External Secrets Operator](external-secrets/about-external-secrets-operator.hbs.md)**
 
   The [External Secrets Operator](https://external-secrets.io) is a Kubernetes operator that integrates
@@ -576,6 +583,15 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Enterprise Config Server</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>&check;</td>
     </tr>
     <tr>
       <th scope="row">External Secrets Operator</th>

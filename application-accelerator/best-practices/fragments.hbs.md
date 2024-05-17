@@ -62,3 +62,20 @@ example, if the fragment supports Maven and Gradle as build tools but only Groov
 supported, the README file must include this information.
 - If a fragment must provide additional documentation to end users, it can either be added to a README-X
 file of the generated application skeleton or append a section to the host’s README.
+
+## <a id="versioning"></a> Versioning
+
+Fragments might require the use of versioning. For example, if accelerator `acc-1` imports fragment
+`frag`, and accelerator `acc-2` also uses fragment `frag`, then care must be taken in the contract
+that the fragment exposes. Changing its behavior for the benefit of `acc-1` might break its use in `acc-2`.
+
+To resolve this, you can track the versions of the fragment and document with numbers when there is an
+incompatible change.
+VMware recommends that you use [semantic versioning](https://semver.org/) to track the contract for fragments.
+
+To give you more flexibility with version control, Application Accelerator does not manage versioning.
+VMware recommends that you track the semantic version of fragments in the fragment name.
+For example, if fragment `frag` changes its contract in a way that is not compatible with previous
+accelerators that use it, it becomes `frag-v2` and is regarded as a different fragment.
+
+You can store fragment versions where you want, but version control systems such as Git are a good choice.

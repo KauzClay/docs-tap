@@ -216,11 +216,11 @@ To install Contour from the Tanzu Application Platform package repository withou
         to select a particular implementation.
 
         [Cloud Native Runtimes](#install-cnr) programs Contour HTTPRoutes are based on the
-        installed namespace. The default installation of CNR uses a single Contour to provide
+        installed namespace. The default installation of Cloud Native Runtimes uses a single Contour to provide
         internet-visible services. You can install a second Contour instance with service type
         `ClusterIP` if you want to expose some services to only the local cluster.
         The second instance must be installed in a separate namespace.
-        You must set the CNR value `ingress.internal.namespace` to point to this namespace.
+        You must set the Cloud Native Runtimes value `ingress.internal.namespace` to point to this namespace.
 
 6. Install the package by running:
 

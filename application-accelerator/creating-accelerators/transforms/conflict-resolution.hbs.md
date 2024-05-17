@@ -2,7 +2,7 @@
 
 This topic tells you how to resolve conflicts that Application Accelerator transforms in Tanzu Application Platform (commonly known as TAP) might produce.
 
-For example, if you're using [Merge](merge.md) (or [Combo](combo.md)'s `merge` syntax) or
+For example, if you're using [Merge](merge.md) or
 [RewritePath](rewrite-path.md), a transform can produce several files at the same `path`.
 The engine then must take an action: Should it keep the last file?
 Report an error? Concatenate the files together?
@@ -12,35 +12,18 @@ Report an error? Concatenate the files together?
 Conflicts can arise for a number of reasons.
 You can avoid or resolve them by configuring transforms with a conflict resolution. For example:
 
-- [Combo](combo.md) uses [UseLast](#available-strategies) by default, but you can configure it to do otherwise.
 - You can explicitly end a transform [Chain](chain.md) with a [UniquePath](unique-path.md), which
 by default uses [Fail](#available-strategies). This is customizable.
 
-### <a id="combo"></a>Combo
-
-```yaml
-type: Combo      # often omitted
-merge:
-  - <transform>
-  - <transform>
-  - <transform>
-chain:
-  - <transform>
-  - ...
-onConflict: <conflict resolution>  # defaults to 'UseLast'
-```
-
-![Diagram showing a combo transform with UseLast conflict resolution.](images/conflict-resolution1.svg)
 
 ### <a id="chain"></a>Chain
 
-```yaml
-type: Chain      # or implicitly using Combo
-transformations:
-  - <transform>
-  - <transform>
-  - type: UniquePath
-    strategy: <conflict resolution>  # defaults to 'Fail'
+```
+engine {
+  T1()
+  T2()
+  UniquePath(<conflict resolution>)
+}
 ```
 
 ![Diagram showing a chain transform with Fail conflict resolution.](images/conflict-resolution2.svg)
@@ -67,5 +50,4 @@ first appearing first.
 
 ## See also
 
-- [Combo](combo.md)
 - [UniquePath](unique-path.md)

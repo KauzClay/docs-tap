@@ -48,7 +48,7 @@ contour:
       type: LoadBalancer # (Optional) Defaults to LoadBalancer.
 
 cnrs:
-  domain_name: "TAP-ITERATE-CNRS-DOMAIN" # Optional if the shared.ingress_domain is provided.
+  domain_name: "TAP-ITERATE-CNR-DOMAIN" # Optional if the shared.ingress_domain is provided.
 
 appliveview_connector:
   backend:
@@ -84,7 +84,7 @@ Images are written to `SERVER-NAME/REPO-NAME/workload-name`. Examples:
     - Google Cloud Registry has the form `repository: "my-project/supply-chain"`.
 - `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies the Git credentials for the supply chain to fetch source code from. See [Git authentication](../../scc/git-auth.hbs.md) for more information.
 - `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies the Git credentials for the supply chain to push configuration to. See [Git authentication](../../scc/git-auth.hbs.md) for more information.
-- `TAP-ITERATE-CNRS-DOMAIN` is the iterate cluster CNRS domain.
+- `TAP-ITERATE-CNR-DOMAIN` is the iterate cluster Cloud Native Runtimes domain.
 - `VIEW-CLUSTER-INGRESS-DOMAIN` is the subdomain you setup on the View profile cluster. This matches the value key `appliveview.ingressDomain` or `shared.ingress_domain` on the view cluster. Include the default host name `appliveview.` ahead of the domain.
 - `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN), which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry uses this number to identify data that belongs to a particular customers and prepare usage reports. See the [Tanzu Kubernetes Grid documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kubernetes-grid-15/GUID-cluster-lifecycle-ceip.html#identify-the-entitlement-account-number-2) for more information about identifying the Entitlement Account Number.
 

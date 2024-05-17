@@ -6,25 +6,17 @@ The `Exclude` transform retains files based on their `path`, allowing all files 
 
 `Exclude` is a basic building block seldom used _as is_, which makes sense
 if composed inside a [Chain](chain.md) or a [Merge](merge.md).
-It is often more convenient to leverage the shorthand notation offered
-by [Combo](combo.md).
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```yaml
-type: Exclude
-patterns: [<ant pattern>]
-condition: <SpEL expression>
+```
+Exclude(<List of strings>)
 ```
 
 ## <a id="examples"></a>Examples
 
-```yaml
-type: Chain
-transformations:
-  - type: Exclude
-    patterns: ["**/secret/**"]
-  - type: # At this point, no file matching **/secret/** is affected.
+```
+Exclude({"**/secret/**"})
 ```
 
 ![Diagram showing an exclude transform.](images/exclude.svg)
@@ -32,4 +24,3 @@ transformations:
 ## See also
 
 - [Include](include.md)
-- [Combo](combo.md)

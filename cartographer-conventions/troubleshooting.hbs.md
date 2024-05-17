@@ -169,7 +169,7 @@ When a PodIntent is submitted:
 
 The errors are seen when a `workload` is created in a developer namespace where `imagePullSecrets` are not defined on the `default` serviceAccount or on the preferred serviceAccount.
 
-### Solution 
+### Solution
 
 Add the `imagePullSecrets` name to the default serviceAccount or the preferred serviceAccount.
 
@@ -184,14 +184,14 @@ imagePullSecrets:
   - name: registry-credentials # ensure this secret is defined
 secrets:
 - name: registry-credentials
-``` 
+```
 
-## <a id="oom-killed"></a> `OOMKilled` convention controller 
+## <a id="oom-killed"></a> `OOMKilled` convention controller
 
 ### Symptoms
 
-While processing workloads with large SBOM, the Cartographer Convention controller manager pod can 
-fail with the status `CrashLoopBackOff` or `OOMKilled`. 
+While processing workloads with large SBOM, the Cartographer Convention controller manager pod can
+fail with the status `CrashLoopBackOff` or `OOMKilled`.
 
 To work around this problem you can increase the memory limit to `512Mi` to fix the pod crash.
 
@@ -217,13 +217,13 @@ containerStatuses:
         reason: OOMKilled
         startedAt: "2023-11-06T21:02:10Z"
     name: manager
-``` 
+```
 
 ### Cause
 
 This error usually occurs when a `workload` image, built by the supply chain, contains a large SBOM.
-The default resource limit set during installation might not be large enough to process the 
-pod conventions which can lead to the controller pod crashing. 
+The default resource limit set during installation might not be large enough to process the
+pod conventions which can lead to the controller pod crashing.
 
 ### Solution
 
@@ -350,3 +350,55 @@ Use this procedure to increase the memory limit:
   ```
 
 For information about the package customization, see [Customize your package installation](../../docs-tap/customize-package-installation.hbs.md).
+
+## <a id="failed-to-call-webhook"></a> Failed to call webhook - x509: certificate signed by unknown authority
+
+### Symptom
+
+An error similar to the following appears when processing a workload with a `config-provider` step:
+
+```console
+message: >-unable to apply object [workload-name] for resource [config-provider] in supply chain \
+[source-test-scan-to-url]: create: Internal error occurred: failed calling webhook \
+"podintents.conventions.carto.run": failed to call webhook: Post \
+"https://cartographer-conventions-webhook-service.cartographer-system.svc:443/mutate-conventions-carto-run-v1alpha1-podintent?timeout=10s":x509: certificate signed by unknown authority
+```
+
+### Cause
+
+CA certificate used to secure TLS communications to the Cartographer Conventions webhook pod might
+have fallen out of sync between the running webhook pod and the certificate configured by the
+`MutatingWebhookConfiguration` and `ValidatingWebhookConfiguration` resources.
+
+### Solution
+
+Force `cert-manager` to re-create the certificates and ensure that they are in sync across the
+different places they are used:
+
+1. Delete the Cartographer Conventions webhook configurations by running:
+
+   ```console
+   kubectl delete mutatingwebhookconfiguration cartographer-conventions-mutating-webhook-configuration \
+   -n conventions-system
+   kubectl delete validatingwebhookconfiguration cartographer-conventions-validating-webhook-configuration \
+   -n conventions-system
+   ```
+
+1. The two webhook configurations are re-created, but their `caBundle` fields might be empty. If
+   the `caBundle` fields are empty then `cert-manager` might be failing. If `cert-manager` is failing,
+   force `cert-manager` deployments to restart by running:
+
+   ```console
+   kubectl rollout restart deployment cert-manager -n cert-manager
+   kubectl rollout restart deployment cert-manager-cainjector -n cert-manager
+   kubectl rollout restart deployment cert-manager-webhook -n cert-manager
+   ```
+
+1. Force the Cartographer Conventions deployment to restart and detect any new certificates by
+   running:
+
+   ```console
+   kubectl rollout restart deployment cartographer-conventions-controller-manager -n conventions-system
+   ```
+
+1. Re-create the workload.

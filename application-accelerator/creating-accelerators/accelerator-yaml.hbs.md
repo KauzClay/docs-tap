@@ -278,86 +278,50 @@ engine:
   type: YTT
 ```
 
-## <a id="engine"></a> Engine
+### <a id="accelerator-axl-example"></a> Accelerator.axl example
 
-The engine section describes how to take the files from the accelerator root directory and transform
-them into the contents of a generated project file.
+```go
+engine {
+  let includePoms = "#buildType == 'Maven'",
+      includeGradle =  "#buildType == 'Gradle'"  in {
+      Include({"**/*.md" , "**/*.xml" , "**/*.gradle" , "**/*.java"})
+      Exclude({"**/secret/**"})
+      if (includeGradle) {
+        Include({"*.gradle"})
+      }
+      + if (includePoms) {
+        Include({"pom.xml"})
+      }
+      + Include({"**/*.java", "README.md"}).ReplaceText(substitions: \{{text: "Hello World!", with: #greeting}})
+      UniquePath(Fail)
+      RewritePath("(.*)simpleboot(.*)", #g1 + #packageName + #g2)
+      ReplaceText(\{{text: "simpleboot", with: #packageName}})
+  }
 
-The YAML notation here defines what is called a transform.
-A transform is a function on a set of files. It uses a set of files as input.
-It produces a modified set of files as output derived from this input.
-
-Different types of transforms do different tasks:
-
-- Filtering the set of files: that is, removing, or keeping files that match certain criteria.
-- Changing the contents of files. For example, replacing some strings in the files.
-- Renaming or moving files: that is, changing the paths of the files.
-
-The notation also provides the composition operators `merge` and `chain`, which enable
-you to create more complex transforms by composing simpler transforms together.
-
-The following is an example of what is possible.
-To learn the notation, see [Introduction to transforms](transform-intro.md).
-
-### <a id="engine-example"></a> Engine example
-
-```yaml
-engine:
-  include:
-    ["**/*.md", "**/*.xml", "**/*.gradle", "**/*.java"]
-  exclude:
-    ["**/secret/**"]
-  let:
-    - name: includePoms
-      expression:
-        "#buildType == 'Maven'"
-    - name: includeGradle
-      expression: "#buildType == 'Gradle'"
-  merge:
-    - condition:
-        "#includeGradle"
-      include: ["*.gradle"]
-    - condition: "#includePoms"
-      include: ["pom.xml"]
-    - include: ["**/*.java", "README.md"]
-      chain:
-        - type: ReplaceText
-          substitutions:
-            - text: "Hello World!"
-              with: "#greeting"
-  chain:
-    - type: RewritePath
-      regex: (.*)simpleboot(.*)
-      rewriteTo: "#g1 + #packageName + #g2"
-    - type: ReplaceText
-      substitutions:
-        - text: simpleboot
-          with: "#packageName"
-  onConflict:
-    Fail
+}
 ```
 
-### <a id="engine-desc"></a> Engine notation descriptions
+### <a id="accelerator-axl-desc"></a> Acclerator.axl description
 
-This section describes the notations in the preceding example.
+This section explains the transforms used in the preceding example.
 
-`engine` is the global transformation node. It produces the final set of files to be zipped and
+`engine` is the global transform. It produces the final set of files to be zipped and
 returned from the accelerator. As input, it receives all the files from the accelerator repository
 root. The properties in this node dictate how this set of files is transformed into a final set of
 files zipped as the accelerator result.
 
-`engine.include` filters the set of files, retaining only those matching a list of path
+`Include` filters the set of files, retaining only those matching a list of path
 patterns. This ensures that that the accelerator only detects files in the repository that match the
 list of patterns.
 
-`engine.exclude` further restricts which files are detected. The example ensures files in any
+`Exclude` further restricts which files are detected. The example ensures files in any
 directory called `secret` are never detected.
 
-`engine.let` defines additional variables and assigns them values. These derived symbols function
+`let` defines additional variables and assigns them values. These derived symbols function
 such as options, but instead of being supplied from a UI widget, they are computed by the accelerator
 itself.
 
-`engine.merge` executes each of its children in parallel. Each child receives a copy of the current
+`+` executes each of its children in parallel. Each child receives a copy of the current
 set of input files. These are files remaining after applying the `include` and `exclude` filters.
 Each of the children therefore produces a set of files.
 All the files from all the children are then combined, as if overlaid on top of each other
@@ -365,19 +329,13 @@ in the same directory.
 If more than one child produces a file with the same path, the transform resolves the conflict by
 dropping the file contents from the earlier child and keeping the contents from the later child.
 
-`engine.merge.chain` specifies additional transformations to apply to the set of files produced by
-this child. In the example, `ReplaceText` is only applied to Java files and `README.md`.
-
-`engine.chain` applies transformation to all files globally. The chain has a list of child
-transformations. These transformations are applied after everything else in the same node.
-This is the global node. The children in a chain are applied sequentially.
-
-`engine.onConflict` specifies how conflict is handled when an operation, such as merging, produces
+`UniquePath` specifies how conflict is handled when an operation, such as merging, produces
 multiple files at the same path:
-    - `Fail` raises an error when there is a conflict.
-    - `UseFirst` keeps the contents of the first file.
-    - `UseLast` keeps the contents of the last file.
-    - `Append` keeps both by using `cat <first-file> <second-file>`.
+  - `Fail` raises an error when there is a conflict.
+  - `UseFirst` keeps the contents of the first file.
+  - `UseLast` keeps the contents of the last file.
+  - `Append` keeps both by using `cat <first-file> <second-file>`.
+
 
 ### <a id="advanced-accelerator-use"></a> Advanced accelerator use
 

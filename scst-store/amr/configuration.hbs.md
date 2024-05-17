@@ -67,7 +67,7 @@ Configuration options:
   - Default: `http://amr-cloudevent-handler.metadata-store.svc.cluster.local:80`
   - The URL of the AMR CloudEvent Handler endpoint.
   - On the view or full Tanzu Application Platform profile cluster, obtain the AMR CloudEvent Handler ingress address to configure this property:
-    
+
     ```console
     kubectl -n metadata-store get httpproxies.projectcontour.io amr-cloudevent-handler-ingress -o jsonpath='{.spec.virtualhost.fqdn}'
     ```
@@ -96,7 +96,11 @@ Configuration options:
 
 - `amr.observer.deployed_through_tmc`
   - Default: `null`
-  - Tanzu Application Platform multicluster deployment happens through Tanzu Mission Control when you set `deployed_through_tmc` to true.
+  - Tanzu Application Platform multicluster deployment happens through Tanzu Mission Control when
+    you set `deployed_through_tmc` to true.
+  - When deploying with TMC, `MultiClusterPropertyCollector` overwrites existing Observer package
+    configuration values. For the workaround, see the
+    [known issue](../../release-notes.hbs.md#1-10-0-scst-store-ki).
 
 - `amr.observer.max_concurrent_reconciles`
   - Configure maximum concurrent reconciles for controllers.
@@ -106,7 +110,7 @@ Configuration options:
 
 ## <a id='amr-graphql'></a> AMR GraphQL
 
-- `amr.graphql.auth.kubernetes_service_accounts``
+- `amr.graphql.auth.kubernetes_service_accounts`
   - `.enable`
     - Default: true
     - Enable authentication for artifact metadata repository GraphQL server. By default it is set to true.

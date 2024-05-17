@@ -32,38 +32,83 @@ metadata:
 `spec.config` defines the configuration in a workload (`spec` of the workload) that is required for
 the component to operate.
 
-`spec.config` is an array with three fields:
+`spec.config` is an array of objects. Each object has three fields:
 
-- `path` describes the path in the workload where this configuration is appended/merged. It must
+- `path` describes the path in the workload where this configuration is appended or merged. It must
   start with `spec.`
-- `schema` defines the property. See the [Kubernetes](https://kubernetes.io/docs/home/)
-  documentation.
-- `required` is a boolean that defaults to `false`. If set to true, the field defined by `path:` is required.
+- `schema` defines a property. It must be a valid OpenAPI v3 schema. For more information, see the
+  [Kubernetes documentation](https://kubernetes.io/docs/home/) and the
+  [OpenAPI documentation](https://swagger.io/specification/).
+- `required` determines whether the property that `path` references is marked as required.
+
+> **Note** Use the `required` field in the `spec.config` array to mark properties as required. You
+> can mark child properties separately in the `schema`.
 
 #### Example
 
+Given the following `Component` `spec.config`:
+
 ```yaml
-  config:
-    - path: spec.source.git
-      schema:
+config:
+  - path: spec.source.git
+    schema:
+      type: object
+      description: |
+        Fill this object in if you want your source to come from Git.
+        The tag, commit, and branch fields are mutually exclusive.
+        Use only one.
+      properties:
+        tag:
+          description: A Git tag ref to watch for a new source
+          type: string
+        commit:
+          description: A Git commit SHA to use
+          type: string
+        branch:
+          description: A Git branch reference to watch for a new source
+          type: string
+        url:
+          description: The URL to the Git source repository
+          type: string
+      required:
+        - url
+  - path: spec.image
+    required: true
+    schema:
+      type: string
+      description: Repository where the image is published
+```
+
+A `SupplyChain` that includes the `Component` defines the workload `spec` as follows in the
+`CustomResourceDefinition`:
+
+```yaml
+properties:
+  spec:
+    type: object
+    properties:
+      image:
+        type: string
+        description: Repository where the image is published
+      source:
         type: object
         description: |
-          Fill this object in if you want your source to come from git.
-          The tag, commit and branch fields are mutually exclusive,
-          use only one.
+          Fill this object in if you want your source to come from Git.
+          The tag, commit, and branch fields are mutually exclusive.
+          Use only one.
         properties:
-          tag:
-            description: A git tag ref to watch for new source
-            type: string
-          commit:
-            description: A git commit sha to use
-            type: string
           branch:
-            description: A git branch ref to watch for new source
             type: string
+            description: A Git branch reference to watch for a new source
+          commit:
+            type: string
+            description: A Git commit SHA to use
+          tag:
+            type: string
+            description: A Git tag reference to watch for a new source
           url:
-            description: The url to the git source repository
             type: string
+            description: The URL to the Git source repository
         required:
           - url
     - path: spec.source.subPath
@@ -180,6 +225,13 @@ This is identical to the Tekton PipelineRun `taskRunTemplates` specification.
 If you need to define workspaces to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.workspaces`.
 This field is an array of workspace definitions, and is identical to the Tekton Workspaces specification.
 
+| Reference                                     | Source                                                                                         | Examples                                                   |
+|-----------------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| `$(workload.spec...)` (deprecated)            | The workload spec                                                                              | `$(workload.spec.source.git.url)`                          |
+| `$(workload.metadata...)`                     | The workload metadata                                                                          | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
+| `$(config.spec...)`                           | `config.spec` is derived from `workload.spec`, unless modified by `supplychain.spec.overrides` | `$(config.spec.source.git.url)`                            |
+| `$(inputs.<input-name>.[url\|digest])`        | An input URL or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
+| `$(resumptions.<resumption-name>.results...)` | A [resumption](#specresumptions) result                                                        | `$(resumptions.check-source.results.sha)`                  |
 
 #### Example
 
@@ -190,7 +242,7 @@ spec:
       name: source
     params:
       - name: git-url
-        value: $(workload.spec.source.git.url)
+        value: $(config.spec.source.git.url)
       - name: sha
         value: $(resumptions.check-source.results.sha)
     workspaces:
@@ -242,11 +294,12 @@ you can populate them using templates.
 
 The available references for templating references are:
 
-| reference                              | source                 | examples                                                   |
-|----------------------------------------|------------------------|------------------------------------------------------------|
-| `$(workload.spec...)`                  | The workload spec      | `$(workload.spec.source.git.url)`                          |
-| `$(workload.metadata...)`              | The workload metadata  | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
-| `$(inputs.<input-name>.[url\|digest])` | An input url or digest | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
+| Reference                              | Source                                                                                         | Examples                                                   |
+|----------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| `$(workload.spec...)` (deprecated)     | The workload spec                                                                              | `$(workload.spec.source.git.url)`                          |
+| `$(workload.metadata...)`              | The workload metadata                                                                          | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
+| `$(config.spec...)`                    | `config.spec` is derived from `workload.spec`, unless modified by `supplychain.spec.overrides` | `$(config.spec.source.git.url)`                            |
+| `$(inputs.<input-name>.[url\|digest])` | An input URL or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
 
 #### Example
 
@@ -259,13 +312,13 @@ The available references for templating references are:
         name: check-source
       params:
         - name: git-branch
-          value: $(workload.spec.source.git.branch)
+          value: $(config.spec.source.git.branch)
         - name: git-url
-          value: $(workload.spec.source.git.url)
+          value: $(config.spec.source.git.url)
         - name: git-commit
-          value: $(workload.spec.source.git.commit)
+          value: $(config.spec.source.git.commit)
         - name: git-tag
-          value: $(workload.spec.source.git.tag)
+          value: $(config.spec.source.git.tag)
 ```
 
 ## Status

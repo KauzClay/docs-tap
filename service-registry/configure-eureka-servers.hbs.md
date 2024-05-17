@@ -30,13 +30,17 @@ FIELDS:
 
   replicas	<integer>
     Replica count for the EurekaServer StatefulSet
+
+  tls   <Object>
+    TLS configuration for the eureka server
 ```
 
 ## <a id="create-eurekaserver"></a> Create a EurekaServer resource
 
 To create a `EurekaServer` resource:
 
-1. Create a `EurekaServer` resource with two replicas by using the following YAML definition:
+1. Create a `EurekaServer` resource with two replicas and enabled mutual transport layer security
+   (mTLS) by using the following YAML definition:
 
     ```yaml
     ---
@@ -47,6 +51,8 @@ To create a `EurekaServer` resource:
       namespace: my-apps
     spec:
       replicas: 2
+      tls:
+        activated: true
     ```
 
 1. Save the YAML definition as `eurekaserver.yaml`.
@@ -81,6 +87,8 @@ To create a `EurekaServer` resource:
      UID:                 4dd60698-6332-43bf-a27d-cef610579c98
    Spec:
      Replicas:  2
+     Tls:
+       Activated: true
    Status:
      Binding:
        Name:  eureka-eurekaserver-client-binding-mvvlx

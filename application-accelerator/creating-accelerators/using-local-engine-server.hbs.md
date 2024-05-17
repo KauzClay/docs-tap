@@ -67,13 +67,16 @@ To install the local engine server:
       ├── accelerators
       │   └── hello-world
       │       ├── accelerator.yaml
+      │       ├── accelerator.axxl
       │       ├── ...
       └── fragments
           ├── build-wrapper-maven
           │   ├── accelerator.yaml
+          │   ├── accelerator.axl
           │   ├── ...
           ├── java-version
           │   ├── accelerator.yaml
+          │   ├── accelerator.axl
           │   ├── ...
     ```
 
@@ -126,3 +129,32 @@ To use the local engine server:
 
       For the `list`, `get`, and `generate` commands, use the `--local-server` flag instead of `--server-url`.
 
+## <a id="test-script"></a> Create a test suite for your accelerator
+
+To create a test suite to test your accelerator using the local engine server:
+
+1. Create an `options.json` file using **Export Options** in the Tanzu App Accelerator IDE extensions
+   to export the option values selected for the accelerator.
+
+    - For instructions for VS Code, see [Export accelerator configuration options (VS Code)](../vscode.hbs.md#export-options).
+    - For instructions for IntelliJ, see [Export accelerator configuration options (IntelliJ)](../intellij.hbs.md#export-options).
+
+1. Create an `assertions.sh` file that contains a BASH script that checks the content of the generated project.
+
+1. Organize your `options.json` files and `assertions.sh` scripts into a directory structure for each
+   accelerator to test.
+
+    The following is an example directory structure for the `spring-cloud-serverless` accelerator:
+
+    ```console
+    .
+    ├── spring-cloud-serverless-k8s
+    │   ├── assertions.sh
+    │   └── options.json
+    └── spring-cloud-serverless-tap
+        ├── assertions.sh
+        └── options.json
+    ```
+
+For an example test suite, see [application-accelerator-samples](https://github.com/vmware-tanzu/application-accelerator-samples/tree/main/local-test-suite-example)
+in GitHub.

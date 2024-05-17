@@ -48,7 +48,7 @@ the Tanzu Application Platform install.
 The following diagram and table provide a description of the supply chain and dependencies
 provided with Tanzu Application Platform.
 
-![The Source-to-URL chain: Watch Repo (Flux) to Build Image (TBS) to Apply Conventions to Deploy to Cluster (CNR).](../images/source-to-url-chain-new.png)
+![The Source-to-URL chain: Watch Repo (Flux) to Build Image (TBS) to Apply Conventions to Deploy to Cluster (CNRs).](../images/source-to-url-chain-new.png)
 
 <table>
   <thead>
@@ -109,7 +109,7 @@ provided with Tanzu Application Platform.
 The following diagram and table provide a description of the supply chain and dependencies
 provided with Tanzu Application Platform.
 
-![The Source-and-Test-to-URL chain: Watch Repo (Flux) to Test Code (Tekton) to Build Image (TBS) to Apply Conventions to Deploy to Cluster (CNR).](../images/source-and-test-to-url-chain-new.png)
+![The Source-and-Test-to-URL chain: Watch Repo (Flux) to Test Code (Tekton) to Build Image (TBS) to Apply Conventions to Deploy to Cluster (CNRs).](../images/source-and-test-to-url-chain-new.png)
 
 <table>
   <thead>
@@ -154,7 +154,7 @@ provided with Tanzu Application Platform.
 The following diagram and table provide a description of the supply chain and dependencies
 provided with Tanzu Application Platform.
 
-![The Source-and-Test-to-URL chain: Watch Repo (Flux) to Test Code (Tekton) to Build Image (TBS) to Apply Conventions to Deploy to Cluster (CNR).](../images/source-test-scan-to-url-new.png)
+![The Source-and-Test-to-URL chain: Watch Repo (Flux) to Test Code (Tekton) to Build Image (TBS) to Apply Conventions to Deploy to Cluster (CNRs).](../images/source-test-scan-to-url-new.png)
 
 <table>
   <thead>

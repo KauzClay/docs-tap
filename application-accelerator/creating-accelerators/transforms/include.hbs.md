@@ -8,25 +8,17 @@ The contents of files, and any of their other characteristics, are unaffected.
 
 `Include` is a basic building block seldom used as is, which
 makes sense if composed inside a [Chain](chain.md) or a [Merge](merge.md).
-It is often more convenient to leverage the shorthand notation offered
-by [Combo](combo.md).
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```yaml
-type: Include
-patterns: [<ant pattern>]
-condition: <SpEL expression>
+```
+Include(<list of strings>)
 ```
 
 ## <a id="examples"></a>Examples
 
-```yaml
-type: Chain
-transformations:
-  - type: Include
-    patterns: ["**/*.yaml"]
-  - type: # At this point, only yaml files are affected
+```
+ Include({"**/*.yaml"})
 ```
 
 ![Diagram showing an include transform.](images/include.svg)
@@ -34,4 +26,3 @@ transformations:
 ## See also
 
 - [Exclude](exclude.md)
-- [Combo](combo.md)

@@ -1,37 +1,40 @@
-# How to install the Tanzu Workload CLI Plug-in
+# Install the Tanzu Workload CLI plug-in
 
 This topic tells you how to install the Tanzu Workload CLI plug-in. Use this CLI plug-in to work
 with the workloads provided by platform engineering.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-This plug-in helps you discover workload kinds, deploy workloads, and monitor the workloads. The
+This plug-in enables you to see workload kinds, deploy workloads, and monitor the workloads. The
 Tanzu Supply Chain beta release does not include the installation of the Tanzu Workload CLI plug-in
-as part of the plug-in group. The Tanzu Workload CLI plug-in provides commands that allow a Developer to generate a `Workload` manifest, apply it to a cluster, and delete it from a cluster.
+as part of the plug-in group.
 
-## Prerequisites
+The Tanzu Workload CLI plug-in provides commands that enable a developer to generate a `Workload`
+manifest, apply it to a cluster, and delete it from a cluster.
 
-Ensure that you installed or updated the core Tanzu CLI. For more information, see
+## Prepare
+
+Install the latest version of the Tanzu CLI. For more information, see
 [Install Tanzu CLI](../../../install-tanzu-cli.hbs.md#install-cli).
 
 ## Install Tanzu Workload CLI plug-in
 
-1. Run:
+To install the Tanzu Workload CLI plug-in:
 
-    ```console
-    tanzu plugin install workload
-    ```
+1. Install the plug-in by running:
 
-1. Verify that the plug-in is installed correctly:
+   ```console
+   tanzu plugin install workload
+   ```
 
-    ```console
-    tanzu workload version
-    ```
+1. Verify that you installed the plug-in successfully by running:
 
-## Uninstall Tanzu Workload CLI plug-ins
+   ```console
+   tanzu workload version
+   ```
 
-Run:
-
-```console
-tanzu plugin delete workload
-```
+> **Note** If you need to uninstall the Tanzu Workload CLI plug-in, run:
+>
+> ```console
+> tanzu plugin delete workload
+> ```

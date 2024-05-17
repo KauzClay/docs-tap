@@ -326,25 +326,27 @@ Deprecated features remain on this list until they are retired from Tanzu Applic
   For more information about the `OCIRepository` API, see the
   [Flux documentation](https://fluxcd.io/flux/components/source/ocirepositories/).
 
-### <a id='scst-scan-deprecations'></a> Supply Chain Security Tools - Scan 1.0 deprecation
+### <a id='scst-scan-deprecations'></a> Supply Chain Security Tools - Scan v1.0 deprecation
 
-- SCST - Scan 1.0 is deprecated, but it remains the documented default option for online
-  installation. SCST - Scan 2.0 will be the default in Tanzu Application Platform v1.11. SCST - Scan
-  1.0 will be removed in a future Tanzu Application Platform version.
-  For more information, see [SCST - Scan versions](scst-scan/overview.hbs.md#scst-scan-feat).
+- SCST - Scan v1.0 is deprecated, but it remains the default option for online installation. SCST -
+  Scan v2.0 will be the default in Tanzu Application Platform v1.11. SCST - Scan v1.0 will be
+  removed in a future Tanzu Application Platform version. For more information, see
+  [SCST - Scan versions](scst-scan/overview.hbs.md#scst-scan-feat).
 
 ### <a id='scst-store-deprecations'></a> Supply Chain Security Tools - Store deprecations
 
-- The [metadata-store (MDS)](./scst-store/mds-overview.hbs.md) component within SCST - Store is deprecated as of TAP 1.10.
+- The [metadata-store (MDS)](scst-store/mds-overview.hbs.md) component within SCST - Store is
+  deprecated as of Tanzu Application Platform v1.10.
 
 ### <a id='tanzu-cli-deprecations'></a> Tanzu CLI deprecations
 
-- The [Insight Plugin](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/cli-plugins-insight-cli-overview.html) for the Tanzu CLI is deprecated as of TAP 1.10.
+- The [Tanzu Insight plug-in](cli-plugins/insight/cli-overview.hbs.md) for the Tanzu CLI is
+  deprecated as of Tanzu Application Platform v1.10.
 
-### <a id='tanzu-developer-portal-deprecations'></a> Tanzu Developer Portal deprecations
+### <a id='tdp-deprecations'></a> Tanzu Developer Portal deprecations
 
-- The [Tanzu Developer Portal Configurator](./tap-gui/configurator/about.hbs.md) is deprecated in TAP 1.10 and will be removed in TAP 1.11.
-https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/tap-gui-configurator-about.html
+- [Tanzu Developer Portal Configurator](tap-gui/configurator/about.hbs.md) is deprecated in Tanzu
+  Application Platform v1.10 and will be removed in v1.11.
 
 ### <a id="tekton-deprecations"></a> Tekton Pipelines deprecations
 

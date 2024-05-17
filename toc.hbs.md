@@ -635,7 +635,7 @@
             - [Observing](scst-scan/app-scanning-observing.hbs.md)
             - [Troubleshooting](scst-scan/app-scanning-troubleshooting.hbs.md)
         - [Tanzu Supply Chain SonarQube Scan component (alpha)](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md)
-            - [Overview](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md)
+            - [Overview of the SonarQube Scan component](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md)
             - [Install the SonarQube Scan component](scst-scan/tanzu-supply-chain/sonarqube-scan/install-sq-component.hbs.md)
             - [Create a supply chain that performs a SonarQube scan](scst-scan/tanzu-supply-chain/sonarqube-scan/create-supply-chain-with-sq.hbs.md)
             - [Create a workload from the supply chain](scst-scan/tanzu-supply-chain/sonarqube-scan/create-sq-supply-chain-workload.hbs.md)

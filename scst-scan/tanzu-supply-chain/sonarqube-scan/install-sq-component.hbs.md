@@ -6,8 +6,6 @@ SonarQube scan on.
 > **Note** The SonarQube Scan component is in the alpha stage and only supports Maven projects at
 > this time.
 
-## <a id="install-sonarqube-sc"></a> Install the SonarQube Scan component
-
 If you used the `authoring` profile, the SonarQube Scan component is installed by default. For more
 information, see
 [Install Tanzu Supply Chain with the authoring profile](../../../supply-chain/platform-engineering/how-to/installing-supply-chain/install-authoring-profile.hbs.md#tsc-packages).

@@ -114,8 +114,6 @@ Click **Load Maven Project** and wait until the project builds.
 
 If this does not fix the issue, delete the `.idea` folder and `*.iml` file and the reopen the project.
 
-![Screenshot that highlights the files to be deleted.](../images/app-accelerator/intellij/delete-idea-files.png)
-
 ## <a id="authorship-issues"></a> Accelerator authorship issues
 
 ### <a id="tips"></a>General tips

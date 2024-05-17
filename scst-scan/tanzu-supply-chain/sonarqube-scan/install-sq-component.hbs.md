@@ -1,7 +1,10 @@
-# Set up the SonarQube Scan component
+# Install the SonarQube Scan component (alpha)
 
 This topic tells you how to install the SonarQube Scan component and customize the image to run the
 SonarQube scan on.
+
+> **Note** The SonarQube Scan component is in the alpha stage and only supports Maven projects at
+> this time.
 
 ## <a id="install-sonarqube-sc"></a> Install the SonarQube Scan component
 

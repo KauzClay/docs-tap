@@ -22,8 +22,8 @@ The following table has the component versions for the Service Bindings package.
   </thead>
   <tbody>
     <tr>
-        <th>Service Bindings package version</th>
-        <th>0.12.0</th>
+        <td>Service Bindings package version</td>
+        <td>0.12.0</td>
     </tr>
     <tr>
         <td>Service Bindings runtime version</td>

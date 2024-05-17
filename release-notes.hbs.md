@@ -503,20 +503,29 @@ This release has the following known issues, listed by component and area.
 
 #### <a id='1-10-0-scanning-ki'></a> v1.10.0 Known issues: Scanning
 
-- When uninstalling v1.10, sometimes the scanning package uninstallation gets stuck due to a failed 
-  namespace deletion in the scanning package. The scanning package install would have an error like
-  this:
-  ```bash
-  Useful Error Message:  kapp: Error: Timed out waiting after 15m0s for resources: [namespace/metadata-store-secrets (v1) cluster]
-  ```
-  To workaround this issue, use `kubectl edit namespace/metadata-store-secrets` to remove the finalizer
-  present on the namespace, or add one if a finalizer is not already present.
-  ```yaml
-  spec:
-    finalizer:
-    - kubernetes
+When uninstalling Tanzu Application Platform v1.10, sometimes the removal of the scanning package
+gets stuck because of a failed namespace deletion in the scanning package. You might see the
+following error:
+
+```console
+Useful Error Message:  kapp: Error: Timed out waiting after 15m0s for resources: [namespace/metadata-store-secrets (v1) cluster]
+```
+
+To work around this issue, do one of the following actions:
+
+- Remove the finalizer present on the namespace by running:
+
+  ```console
+  kubectl edit namespace/metadata-store-secrets
   ```
 
+- Add a finalizer if a finalizer is not already present by adding the following YAML:
+
+    ```yaml
+    spec:
+      finalizer:
+      - kubernetes
+    ```
 
 ---
 

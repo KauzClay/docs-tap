@@ -107,132 +107,132 @@ The following section provides examples of the changes required to the default l
 
 The default Cartographer concurrency limits are:
 
-```console
+```yaml
 cartographer:
-  cartographer:
-    concurrency:
-      max_workloads: 2
-      max_deliveries: 2
-      max_runnables: 2
+  cartographer:
+    concurrency:
+      max_workloads: 2
+      max_deliveries: 2
+      max_runnables: 2
 ```
 
 Edit `values.yaml` to scale Cartographer concurrency limits. Configure the node with 4 vCPUs,
 16&nbsp;GB RAM, and 120&nbsp;GB disk size:
 
-```console
+```yaml
 cartographer:
-  cartographer:
-    concurrency:
-      max_workloads: 25
-      max_deliveries: 25
-      max_runnables: 25
+  cartographer:
+    concurrency:
+      max_workloads: 25
+      max_deliveries: 25
+      max_runnables: 25
 ```
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 1
-    memory: 1Gi
-  requests:
-    cpu: 500m
-    memory: 512Mi
+  limits:
+    cpu: 1
+    memory: 1Gi
+  requests:
+    cpu: 500m
+    memory: 512Mi
 ```
 
 Edit `values.yaml` to scale resource limit:
 
-```console
+```yaml
 # build-cluster
 cartographer:
-  cartographer:
-    resources:
-      limits:
-        cpu: 4
-        memory: 10Gi
-      requests:
-        cpu: 3
-        memory: 10Gi
+  cartographer:
+    resources:
+      limits:
+        cpu: 4
+        memory: 10Gi
+      requests:
+        cpu: 3
+        memory: 10Gi
 
 # run-cluster
 cartographer:
-  cartographer:
-    resources:
-      limits:
-        cpu: 4
-        memory: 2Gi
-      requests:
-        cpu: 3
-        memory: 1G
+  cartographer:
+    resources:
+      limits:
+        cpu: 4
+        memory: 2Gi
+      requests:
+        cpu: 3
+        memory: 1G
 ```
 
 ### <a id="carto-conventions"></a> Cartographer Conventions
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 100m
-    memory: 256Mi
-  requests:
-    cpu: 100m
-    memory: 20Mi
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 20Mi
 ```
 
 Edit `values.yaml` to scale resource limit:
 
-```console
+```yaml
 cartographer_conventions:
-   resources:
-     limits:
-       memory: 1.8Gi
+  resources:
+    limits:
+      memory: 1.8Gi
 ```
 
 ### <a id="scan-link-controller"></a> Scan-link-controller
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 250m
-    memory: 256Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 ```
 
 Edit `values.yaml` to scale resource limit:
 
-```console
+```yaml
 scanning:
-  resources:
-    limits:
-      cpu: 500m
-      memory: 3Gi
-    requests:
-      cpu: 200m
-      memory: 1Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 3Gi
+    requests:
+      cpu: 200m
+      memory: 1Gi
 ```
 
 ### <a id="amr-observer"></a> AMR Observer
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
   limits:
-    cpu:     500m
-    memory:  512Mi
+    cpu: 500m
+    memory: 512Mi
   requests:
-    cpu:      100m
-    memory:   256Mi
+    cpu: 100m
+    memory: 256Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 amr:
   observer:
     app_limit_cpu: 1000m
@@ -245,74 +245,74 @@ amr:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    memory: 1Gi
-  requests:
-    cpu: 20m
-    memory: 1Gi
+  limits:
+    memory: 1Gi
+  requests:
+    cpu: 20m
+    memory: 1Gi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 buildservice:
-  controller:
-    resources:
-      limits:
-         memory: 2Gi
-         cpu: 100m
+  controller:
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 100m
       requests:
-         memory: 1Gi
-         cpu: 20m
+        memory: 1Gi
+        cpu: 20m
 ```
 
 ### <a id="namespace-provisioner"></a> Namespace Provisioner
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 500m
-    memory: 100Mi
-  requests:
-    cpu: 100m
-    memory: 20Mi
+  limits:
+    cpu: 500m
+    memory: 100Mi
+  requests:
+    cpu: 100m
+    memory: 20Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 namespace_provisioner:
-  controller_resources:
-    resources:
-      limits:
-        cpu: 500m
-        memory: 2Gi
-      requests:
-        cpu: 100m
-        memory: 500Mi
+  controller_resources:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 500Mi
 ```
 
 ### <a id="cnr-knative-serving"></a> Cloud Native Runtimes Knative Serving
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 1
-    memory: 1000Mi
-  requests:
-    cpu: 100m
-    memory: 100Mi
+  limits:
+    cpu: 1
+    memory: 1000Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 cnrs:
   resource_management:
   - name: "controller"
@@ -328,29 +328,29 @@ cnrs:
 
 Change deployment type from Daemonset to Deployment.
 
-```console
+```yaml
 contour:
-  envoy:
-    workload:
-      type: Deployment
-      replicas: 3
+  envoy:
+    workload:
+      type: Deployment
+      replicas: 3
 ```
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 400m
-    memory: 400Mi
-  requests:
-    cpu: 40m
-    memory: 40Mi
+  limits:
+    cpu: 400m
+    memory: 400Mi
+  requests:
+    cpu: 40m
+    memory: 40Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 cnrs:
   resource_management:
   - name: "net-contour-controller"
@@ -366,19 +366,19 @@ cnrs:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 1
-    memory: 1000Mi
-  requests:
-    cpu: 100m
-    memory: 100Mi
+  limits:
+    cpu: 1
+    memory: 1000Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 cnrs:
   resource_management:
   - name: "autoscaler"
@@ -394,19 +394,19 @@ cnrs:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 1
-    memory: 600Mi
-  requests:
-    cpu: 300m
-    memory: 60Mi
+  limits:
+    cpu: 1
+    memory: 600Mi
+  requests:
+    cpu: 300m
+    memory: 60Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 cnrs:
   resource_management:
   - name: "activator"
@@ -422,19 +422,19 @@ cnrs:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 1
-    memory: 1000Mi
-  requests:
-    cpu: 100m
-    memory: 100Mi
+  limits:
+    cpu: 1
+    memory: 1000Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 tap_telemetry:
   limit_memory: 2Gi
 ```
@@ -443,19 +443,19 @@ tap_telemetry:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 500m
-    memory: 5000Mi
-  requests:
-    cpu: 20m
-    memory: 100Mi
+  limits:
+    cpu: 500m
+    memory: 5000Mi
+  requests:
+    cpu: 20m
+    memory: 100Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 appsso:
   resources:
     limits:
@@ -468,19 +468,19 @@ appsso:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 200m
-    memory: 500Mi
-  requests:
-    cpu: 100m
-    memory: 100Mi
+  limits:
+    cpu: 200m
+    memory: 500Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 services_toolkit:
   controller:
     resources:
@@ -496,19 +496,19 @@ services_toolkit:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
-  limits:
-    cpu: 120m
-    memory: 500Mi
-  requests:
-    cpu: 100m
-    memory: 100Mi
+  limits:
+    cpu: 120m
+    memory: 500Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 services_toolkit:
   resource_claims_apiserver:
     resources:
@@ -524,7 +524,7 @@ services_toolkit:
 
 The default resource limits are:
 
-```console
+```yaml
 resources:
   limits:
     cpu: 1000m
@@ -541,36 +541,36 @@ To change the resource limits for FluxCD Source controller, follow the procedure
 
 The default resource limits are:
 
-```console
+```yaml
 tekton_pipelines:
-  defaults:
-    timeout_minutes: "60"
+  defaults:
+    timeout_minutes: "60"
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 tekton_pipelines:
-  defaults:
-    timeout_minutes: "120"
+  defaults:
+    timeout_minutes: "120"
 ```
 
 ### <a id="app-scanning"></a> App Scanning maximum concurrent scan (Scan 2.0)
 
 The default resource limits are:
 
-```console
+```yaml
 app_scanning:
-  scans:
-    maxConcurrentScans: 10
+  scans:
+    maxConcurrentScans: 10
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 app_scanning:
-  scans:
-    maxConcurrentScans: 100
+  scans:
+    maxConcurrentScans: 100
 ```
 
 For more information, see [Supply Chain Security Tools - Scan 2.0](scst-scan/scan-2-0.hbs.md).
@@ -579,18 +579,18 @@ For more information, see [Supply Chain Security Tools - Scan 2.0](scst-scan/sca
 
 The default resource limits are:
 
-```console
+```yaml
 springboot_conventions:
-  livenessProbe:
-    initialDelaySeconds: 0
+  livenessProbe:
+    initialDelaySeconds: 0
 ```
 
 Edit `values.yaml` to scale resource limits:
 
-```console
+```yaml
 springboot_conventions:
-  livenessProbe:
-    initialDelaySeconds: 45
+  livenessProbe:
+    initialDelaySeconds: 45
 ```
 
 ## <a id="kube-dns"></a> kube-dns resource limit changes for GKE clusters

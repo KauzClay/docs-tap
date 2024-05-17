@@ -62,6 +62,7 @@ stored in dedicated repositories.
 |Crossplane|Crossplane|
 |Default Roles for Tanzu Application Platform|Default Roles|
 |Developer Conventions|Developer Conventions|
+|Enterprise Config Server|Enterprise Config Server|
 |External Secrets Operator|External Secrets Operator|
 |Flux CD Source Controller|Flux CD Source Controller|
 |Local Source Proxy|Local Source Proxy|

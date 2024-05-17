@@ -519,7 +519,8 @@ To work around this issue, do one of the following actions:
   kubectl edit namespace/metadata-store-secrets
   ```
 
-- Add a finalizer if a finalizer is not already present by adding the following YAML:
+- If a finalizer is not already present, add a finalizer by adding the following YAML with the
+  `kubectl edit` command:
 
     ```yaml
     spec:

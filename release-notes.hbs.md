@@ -33,14 +33,21 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-10-0-app-accelerator'></a> v1.10.0 Features: Application Accelerator
 
-- Provides an improved accelerator syntax and suthoring experience with a new Domain Specific Language (DSL) for authoring accelerators.
-- Provides a Language Server in the local engine server that is used by the VS Code extension for syntax highlighting and code completion for accelerator authors using the new DSL.
-- Adds a Spring Secure Resource Server sample accelerator, which provides a Multi-service demo application with Vue.js frontends backed by a secured Spring resource server.
+- Improves the accelerator syntax and authoring experience with a new Domain Specific Language (DSL)
+  for authoring accelerators.
+
+- Provides a Language Server in the local engine server that the VS Code extension uses for
+  syntax highlighting and code completion for accelerator authors using the new DSL.
+
+- Adds the Spring Secure Resource Server sample accelerator. This accelerator provides a multi-service
+  demo application with Vue.js frontends and is backed by a secured Spring resource server.
 
 #### <a id='1-10-0-aws-services'></a> v1.10.0 Features: AWS Services
 
 - Sets the default CompositionUpdatePolicy on Compositions to `Manual`. Previously, the default was `Automatic`.
+
 - Removes the default version on RDS services.
+
 - Updates Provider from v1.2.0 to v1.4.0.
 
 #### <a id='1-10-0-bitnami-services'></a> v1.10.0 Features: Bitnami Services
@@ -51,12 +58,12 @@ This release includes the following changes, listed by component and area.
   For more information, see [Package values of Bitnami Services](bitnami-services/reference/package-values.hbs.md).
 
 - Updates Helm Charts to the latest versions:
-    - MySQL to v10.1.0
-    - PostgreSQL to v15.2.0
-    - RabbitMQ to v13.0.0
-    - Redis to v19.0.2
-    - MongoDB to v15.1.1
-    - Kafka to v28.0.1
+  - MySQL to v10.1.0
+  - PostgreSQL to v15.2.0
+  - RabbitMQ to v13.0.0
+  - Redis to v19.0.2
+  - MongoDB to v15.1.1
+  - Kafka to v28.0.1
 
 #### <a id='1-10-0-cnr'></a> v1.10.0 Features: Cloud Native Runtimes
 

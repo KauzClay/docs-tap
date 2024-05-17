@@ -21,7 +21,7 @@ This release includes the following platform-wide enhancements.
   Server provides a centralized server for delivering external configuration properties to an
   application, and a central source for managing this configuration across deployment environments.
 
-- [SonarQube Scan Supply Chain Component](scst-scan/tanzu-supply-chain/sonarqube-scan/sonarqube-supply-chain-overview.hbs.md):
+- [SonarQube Scan Supply Chain Component](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md):
   SonarQube Scan Supply Chain Component is a component that can be added to a supply chain to perform Static Application Security Testing(SAST) scans
   on the source code configured. This component is in alpha at this time, and only supports scanning for maven projects.
 

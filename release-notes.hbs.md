@@ -436,10 +436,6 @@ The following issues, listed by component and area, are resolved in this release
 - Fixed an issue in which the Services Toolkit controller manager deleted Carvel SecretExport resources
   that it did not own.
 
-#### <a id='1-10-0-supply-chain-ri'></a> v1.10.0 Resolved issues: Supply Chain
-
-- Fixed performance issues in the Supply Chain UI that caused the Workloads page and Workload
-  Details page to load slowly.
 
 #### <a id='1-10-0-scst-scan-2-ri'></a> v1.10.0 Resolved issues: Supply Chain Security Tools - Scan 2.0
 
@@ -449,6 +445,10 @@ The following issues, listed by component and area, are resolved in this release
   template.
 
 #### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
+
+- **Supply Chain UI plug-in:**
+  - Fixed performance issues in the Supply Chain UI that caused the Workloads page and Workload
+  Details page to load slowly.
 
 - **Runtime Resource View plug-in:**
   - Fixed the issue where the RRV plug-in was querying for resources across all namespaces despite
@@ -472,7 +472,7 @@ This release has the following known issues, listed by component and area.
 
   For a workaround, see [Troubleshoot Application Accelerator](./application-accelerator/troubleshooting.hbs.md#project-build-failure).
 
-#### <a id='1-10-0-supply-chain-ki'></a> v1.10.0 Known issues: Supply Chain
+#### <a id='1-10-0-supply-chain-ki'></a> v1.10.0 Known issues: Tanzu Supply Chain
 
 - Components cannot have more than one resumption defined. When there are multiple resumptions,
   `WorkloadRuns` are not correctly created after resumptions trigger changes. The current workaround
@@ -488,8 +488,11 @@ This release has the following known issues, listed by component and area.
   use them to construct a new Supply Chain. Support for CA certificates as standard is planned for
   future versions of Tanzu Supply Chain.
 
-- In the Workload Details page, the config writer step takes longer than 20 seconds to load when
-  more than 149 workloads are displayed in the Supply Chain UI.
+#### <a id='1-10-0-scst-scan-2-ki'></a> v1.10.0 Known issues: Tanzu Developer Portal
+
+- **Supply Chain UI plug-in:**
+  - In the Workload Details page, the config writer step takes longer than 20 seconds to load when
+  more than 149 workloads (deployed in single namespace) are displayed in the Supply Chain UI.
 
 #### <a id='1-10-0-scst-scan-2-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Scan 2.0
 

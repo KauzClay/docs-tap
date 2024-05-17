@@ -19,7 +19,7 @@ To configure a CORS policy in Cloud Native Runtimes:
           - OPTIONS
     ```
 
-    For information about the available configurations, see the [Contour documentation](https://projectcontour.io/docs/main/config/cors/).
+    For information about the available configuration options, see the [Contour documentation](https://projectcontour.io/docs/main/config/cors/).
 
 1. Update your Tanzu Application Platform installation by running:
 

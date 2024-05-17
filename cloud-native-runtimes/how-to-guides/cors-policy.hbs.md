@@ -1,4 +1,4 @@
-# Configure CORS policy for Cloud Native Runtimes
+# Configure a CORS policy for Cloud Native Runtimes
 
 This topic tells you how to establish a cross-origin resource sharing (CORS) policy for
 Contour HTTPProxy to enable cross-domain requests from trusted sources.

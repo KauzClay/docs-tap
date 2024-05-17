@@ -21,7 +21,7 @@ This release includes the following platform-wide enhancements.
   Server provides a centralized server for delivering external configuration properties to an
   application, and a central source for managing this configuration across deployment environments.
 
-- [SonarQube Scan Supply Chain Component](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md):
+- [SonarQube Scan Supply Chain component](scst-scan/tanzu-supply-chain/sonarqube-scan/overview.hbs.md):
   SonarQube Scan Supply Chain Component is a component that can be added to a supply chain to perform Static Application Security Testing(SAST) scans
   on the source code configured. This component is in alpha at this time, and only supports scanning for maven projects.
 
@@ -60,11 +60,10 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-10-0-cnr'></a> v1.10.0 Features: Cloud Native Runtimes
 
-- Configuring CORS policy is now supported.
+- Supports configuring a cross-origin resource sharing (CORS) policy. For more information, see
+  [Configure a CORS policy for Cloud Native Runtimes](cloud-native-runtimes/how-to-guides/cors-policy.hbs.md).
 
-  See [Configure CORS policy for Cloud Native Runtimes](cloud-native-runtimes/how-to-guides/cors-policy.hbs.md) for details. This topic does not exist right now.
-
-- L7 Routing to web workloads with TKGm and NSX ALB is now available. For more information, see
+- Supports L7 Routing to web workloads with TKGm and NSX ALB. For more information, see
   [(Beta) Configure Tanzu Application Platform and VMware NSX Advanced Load Balancer to support L7 routing to web workloads](integrations/nsx-alb-tap-integration.hbs.md).
 
 #### <a id='1-10-0-crossplane'></a> v1.10.0 Features: Crossplane

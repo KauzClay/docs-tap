@@ -23,6 +23,7 @@ The Authoring profile has the following additional packages that the Iterate pro
   - `git-writer.component.apps.tanzu.vmware.com`
   - `source.component.apps.tanzu.vmware.com`
   - `trivy.app-scanning.component.apps.tanzu.vmware.com`
+  - `sonarqube.component.apps.tanzu.vmware.com`
 
 - App Scanning package
 

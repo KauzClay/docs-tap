@@ -642,6 +642,12 @@ Terms beginning with "T".
         <td>A plug-in for the Tanzu CLI used by application operators and application developers to
         create claims for service instances.</td>
     </tr>
+    <tr>
+        <td>Tanzu Supply Chain</td>
+        <td>Tanzu Supply Chain is a tool that provides a golden path to production for your teams.
+        Tanzu Supply Chain replaces the existing supply-chain solution Supply Chain Choreographer,
+        which is based on Cartographer.</td>
+    </tr>
   </td>
 </table>
 

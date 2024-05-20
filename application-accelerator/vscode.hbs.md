@@ -152,3 +152,11 @@ endpoints using TLS. For more information, see [Installing a root CA certificate
       4. Select **Place all certificates in the following store**, click **Browse**, and select **Trusted Root Certification Authorities**
       5. Click **Finish**.
       6. A pop-up window stating **The import was successful.** is displayed.
+
+### <a id="lsp-config"></a>Using Language server provided by local server
+
+The local server comes bundled with a language server that lets you use Visual Studio Code features like syntax highlighting and
+code folding.
+
+To use it, start the local server first and then open Visual Studio Code, when editing a `accelerator.axl` file, the features should be
+enabled

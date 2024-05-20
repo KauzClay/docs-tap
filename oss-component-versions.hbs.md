@@ -14,7 +14,7 @@ This topic contains the open source component versions for Tanzu Application Pla
 | External Secrets Operator             | 0.9.4               |
 | Flux CD Source Controller             | 1.1.2               |
 | Grype Vulnerability Scanner (Scan v1) | 0.54.0              |
-| IntelliI                              | Build 222 and later |
+| IntelliI                              | Build 222 or later  |
 | Kafka by Bitnami (unmanaged)          | 22.0.0              |
 | Knative Serving                       | 1.13.1              |
 | kpack                                 | 0.13.2              |
@@ -28,6 +28,6 @@ This topic contains the open source component versions for Tanzu Application Pla
 | Sigstore Policy Controller            | 0.8.2               |
 | Source Controller                     | 0.9.0               |
 | Tekton Pipelines                      | 0.50.3              |
-| Tilt                                  | 0.30.12 and later   |
+| Tilt                                  | 0.30.12 or later    |
 | Trivy Vulnerability Scanner (Scan v2) | 0.48.3              |
-| Visual Studio Code                    | 1.64.0 and later    |
+| Visual Studio Code                    | 1.64.0 or later     |

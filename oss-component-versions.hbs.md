@@ -8,7 +8,7 @@ This topic contains the open source component versions for Tanzu Application Pla
 | Backstage                             | 1.22.0              |
 | Cartographer Convention               | 0.8.0               |
 | cert injection webhook                | 0.6.0               |
-| cert-manager                          |                     |
+| cert-manager                          | 1.14.5              |
 | contour                               | 1.28.0              |
 | crossplane                            | 1.15.0-up.1         |
 | External Secrets Operator             | 0.9.4               |

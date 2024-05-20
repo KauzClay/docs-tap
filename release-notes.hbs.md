@@ -447,10 +447,12 @@ The following issues, listed by component and area, are resolved in this release
 #### <a id='1-10-0-tdp-ri'></a> v1.10.0 Resolved issues: Tanzu Developer Portal
 
 - **Supply Chain UI plug-in:**
+
   - Fixed performance issues in the Supply Chain UI that caused the Workloads page and Workload
-  Details page to load slowly.
+    Details page to load slowly.
 
 - **Runtime Resource View plug-in:**
+
   - Fixed the issue where the RRV plug-in was querying for resources across all namespaces despite
     the presence of a Backstage namespace annotation on the entity.
   - Fixed the issue where the RRV plug-in was displaying error messages for resources that did not
@@ -471,48 +473,6 @@ This release has the following known issues, listed by component and area.
   a dialog box might appear in the bottom right side of IntelliJ asking you to **Load Maven Project**.
 
   For a workaround, see [Troubleshoot Application Accelerator](./application-accelerator/troubleshooting.hbs.md#project-build-failure).
-
-#### <a id='1-10-0-supply-chain-ki'></a> v1.10.0 Known issues: Tanzu Supply Chain
-
-- Components cannot have more than one resumption defined. When there are multiple resumptions,
-  `WorkloadRuns` are not correctly created after resumptions trigger changes. The current workaround
-  is to assess all triggers in a single resumption.
-
-- Tanzu Supply Chain currently does not include support for Red Hat OpenShift. This means
-  you cannot individually install components for Tanzu Supply Chain and Managed Resource Controller.
-  You also cannot install the Authoring profile that includes those components as standard. Support
-  for Red Hat OpenShift is planned for a later release.
-
-- Tanzu Supply Chain currently does not include support for CA certificates in
-  the Out of the Box components. However, you can edit the components to support CA certificates and
-  use them to construct a new Supply Chain. Support for CA certificates as standard is planned for
-  future versions of Tanzu Supply Chain.
-
-#### <a id='1-10-0-scst-scan-2-ki'></a> v1.10.0 Known issues: Tanzu Developer Portal
-
-- **Supply Chain UI plug-in:**
-  - In the Workload Details page, the config writer step takes longer than 20 seconds to load when
-  more than 149 workloads (deployed in single namespace) are displayed in the Supply Chain UI.
-
-#### <a id='1-10-0-scst-scan-2-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Scan 2.0
-
-- As of v1.10, when installing the Tanzu Application Platform Build profile or Full profile, Supply
-  Chain Security Tools (SCST) - Scan 2.0 is also installed on the cluster. If you installed SCST -
-  Scan 2.0 manually in an earlier Tanzu Application Platform version, uninstall SCST - Scan 2.0
-  before upgrading to v1.10 to avoid conflict.
-
-#### <a id='1-10-0-scst-store-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Store
-
-- When `observer.deploy_through_tmc` is `true`, properties are auto-configured for Tanzu Mission
-  Control (TMC). This causes the `MultiClusterPropertyCollector` resource to overwrite existing
-  Tanzu Application Platform values for Observer.
-
-  When using Let's Encrypt ACME issuers, the resultant Kubernetes secret resource does
-  not contain a `ca.crt` property. Therefore, when the `MultiClusterPropertyCollector` resource
-  creates the Observer package configuration values secret, the required `ca_cert_data` is empty.
-
-  To work around this issue, add the Certificate Authority (CA) Certificate to the
-  `shared.ca_cert_data` key in the Tanzu Application Platform installation values.
 
 #### <a id='1-10-0-scanning-ki'></a> v1.10.0 Known issues: Scanning
 
@@ -540,6 +500,48 @@ To work around this issue, do one of the following actions:
       finalizer:
       - kubernetes
     ```
+
+#### <a id='1-10-0-scst-scan-2-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Scan 2.0
+
+- As of v1.10, when installing the Tanzu Application Platform Build profile or Full profile, Supply
+  Chain Security Tools (SCST) - Scan 2.0 is also installed on the cluster. If you installed SCST -
+  Scan 2.0 manually in an earlier Tanzu Application Platform version, uninstall SCST - Scan 2.0
+  before upgrading to v1.10 to avoid conflict.
+
+#### <a id='1-10-0-scst-store-ki'></a> v1.10.0 Known issues: Supply Chain Security Tools - Store
+
+- When `observer.deploy_through_tmc` is `true`, properties are auto-configured for Tanzu Mission
+  Control (TMC). This causes the `MultiClusterPropertyCollector` resource to overwrite existing
+  Tanzu Application Platform values for Observer.
+
+  When using Let's Encrypt ACME issuers, the resultant Kubernetes secret resource does
+  not contain a `ca.crt` property. Therefore, when the `MultiClusterPropertyCollector` resource
+  creates the Observer package configuration values secret, the required `ca_cert_data` is empty.
+
+  To work around this issue, add the Certificate Authority (CA) Certificate to the
+  `shared.ca_cert_data` key in the Tanzu Application Platform installation values.
+
+#### <a id='1-10-0-tdp-ki'></a> v1.10.0 Known issues: Tanzu Developer Portal
+
+- **Supply Chain UI plug-in:** On the Workload Details page, the config writer step takes longer
+  than 20 seconds to load when more than 149 workloads (deployed in a single namespace) are
+  displayed in the Supply Chain UI.
+
+#### <a id='1-10-0-supply-chain-ki'></a> v1.10.0 Known issues: Tanzu Supply Chain
+
+- Components cannot have more than one resumption defined. When there are multiple resumptions,
+  `WorkloadRuns` are not correctly created after resumptions trigger changes. The current workaround
+  is to assess all triggers in a single resumption.
+
+- Tanzu Supply Chain currently does not include support for Red Hat OpenShift. This means
+  you cannot individually install components for Tanzu Supply Chain and Managed Resource Controller.
+  You also cannot install the Authoring profile that includes those components as standard. Support
+  for Red Hat OpenShift is planned for a later release.
+
+- Tanzu Supply Chain currently does not include support for CA certificates in
+  the Out of the Box components. However, you can edit the components to support CA certificates and
+  use them to construct a new Supply Chain. Support for CA certificates as standard is planned for
+  future versions of Tanzu Supply Chain.
 
 ---
 

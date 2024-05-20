@@ -3,8 +3,9 @@
 This topic tells you how to manage the workload update behavior with the Tanzu Apps CLI
 `--update-strategy` flag.
 
-When updating a workload from a file, manage the workload update behavior with the `--update-strategy` flag. There are two possible values: `merge` or `replace`.
-The default value is `merge`.
+When updating a workload from a file, manage the workload update behavior with the
+`--update-strategy` flag. There are two possible values: `merge` or `replace`. The default value is
+`merge`.
 
 ## `merge`
 
@@ -24,36 +25,35 @@ properties from existing workloads.
 >**Note** The default value for the `--update-strategy flag` will change from merge to replace
 > in Tanzu Application Platform v1.7.0 and later.
 
-Examples of the outcomes of both the `merge` and `replace` values are provided in the
-following examples:
+Examples of the outcomes of both the `merge` and `replace` values:
 
-- ```console
-  # Export workload if there is no previous yaml definition
-  tanzu apps workload get spring-petclinic --export > spring-petclinic.yaml
+```console
+# Export workload if there is no previous yaml definition
+tanzu apps workload get spring-petclinic --export > spring-petclinic.yaml
 
-  # modify the workload definition
-  vi rmq-sample-app.yaml
-  ---
-  apiVersion: carto.run/v1alpha1
-  kind: Workload
-  metadata:
-    name: spring-petclinic
-    labels:
-      app.kubernetes.io/part-of: spring-petclinic
-      apps.tanzu.vmware.com/workload-type: web
-  spec:
-    resources:
-      requests:
-        memory: 1Gi
-      limits:           # delete this line
-        memory: 1Gi     # delete this line
-        cpu: 500m       # delete this line
-    source:
-      git:
-        url: https://github.com/sample-accelerators/spring-petclinic
-        ref:
-          tag: tap-1.1
-  ```
+# modify the workload definition
+vi rmq-sample-app.yaml
+---
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: spring-petclinic
+  labels:
+    app.kubernetes.io/part-of: spring-petclinic
+    apps.tanzu.vmware.com/workload-type: web
+spec:
+  resources:
+    requests:
+      memory: 1Gi
+    limits:           # delete this line
+      memory: 1Gi     # delete this line
+      cpu: 500m       # delete this line
+  source:
+    git:
+      url: https://github.com/sample-accelerators/spring-petclinic
+      ref:
+        tag: tap-1.1
+```
 
 After saving the file, to verify how both of the update strategy options behave, run:
 

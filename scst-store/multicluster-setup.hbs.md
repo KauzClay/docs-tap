@@ -19,6 +19,8 @@ You must first install the View profile. See [Install View profile](../multiclus
 
 ## <a id='summary'></a>Procedure summary
 
+> **Note** This topic assumes that you are using SCST Scan 2.0 via [Add testing and scanning to your application](/docs-tap/getting-started/add-test-and-security.hbs.md).  If you are still using the deprecated Scan 1.0, you will need to do these steps, as well as the additional [Scan 1.0 steps](#extra-steps-required-for-scan-10).
+
 To deploy Supply Chain Security Tools (SCST) -
 Store in a multicluster setup:
 
@@ -98,21 +100,6 @@ Run cluster:
 * CloudEvent Handler CA certificate
 * CloudEvent Handler edit token
 
-### <a id='apply-kubernetes'></a>Configure SCST - Scan with the Metadata Store CA certificate and authentication token on the Build cluster
-
-Update the Build profile `values.yaml` file to add the following snippet using the contents of $MDS_CA_CERT and $MDS_AUTH_TOKEN copied in an earlier step. It configures SCST - Scan with the Metadata Store CA certificate and authentication token.
-
-    ```console
-    scanning:
-      metadataStore:
-        exports:
-          ca:
-            pem: |
-              <CONTENTS OF $MDS_CA_CERT>
-          auth:
-            token: <CONTENTS OF $MDS_AUTH_TOKEN>
-    ```
-
 ### <a id='apply-ceh-ca-token'></a>Apply the CloudEvent Handler CA certificate data and edit token to the Build and Run clusters
 
 You can apply the CloudEvent Handler CA certificate and edit the token to the Build and Run clusters. These values must be accessible during the Build and Run profile deployments.
@@ -160,7 +147,28 @@ installing the View profile, return to that topic to [install the Build
 profile](../multicluster/installing-multicluster.hbs.md#install-build)
 and [install the Run profile](../multicluster/installing-multicluster.hbs.md#install-run).
 
-## <a id='grype-mds-config'></a>How to configure Grype in the Build profile values file
+## <a id='extra-scan-1-0-steps'></a>Extra steps required for Scan 1.0
+
+Scan 1.0 was deprecated in Tanzu Application Platform 1.10 and the default scan component to use in the Test and Scan supply chain is Scan 2.0.  These steps are required in addition to the steps above if you are still using Scan 1.0.  For more information about Scan 1.0 and Scan 2.0, see the [SCST-Scan component overview](../scst-scan/overview.hbs.md)
+
+### <a id='apply-kubernetes'></a>Configure SCST - Scan with the Metadata Store CA certificate and authentication token on the Build cluster
+
+> ** NOTE** Depreciated
+
+Update the Build profile `values.yaml` file to add the following snippet using the contents of $MDS_CA_CERT and $MDS_AUTH_TOKEN copied in an earlier step. It configures SCST - Scan with the Metadata Store CA certificate and authentication token.
+
+    ```console
+    scanning:
+      metadataStore:
+        exports:
+          ca:
+            pem: |
+              <CONTENTS OF $MDS_CA_CERT>
+          auth:
+            token: <CONTENTS OF $MDS_AUTH_TOKEN>
+    ```
+
+### <a id='grype-mds-config'></a>How to configure Grype in the Build profile values file
 
 The Build profile `values.yaml` uses the secrets you created to configure
 the Grype scanner which talks to SCST - Store. After performing a vulnerabilities
@@ -191,12 +199,9 @@ Where:
 - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains
   the credentials to pull an image from the registry for scanning.
 
-## <a id='config-dev-ns'></a>Configure developer namespaces
-
-After you finish installing Tanzu Application Platform, configure developer namespaces. To prepare developer namespaces,
-you must export the Metadata Store secrets you created earlier to those namespaces.
-
 ### <a id="export-multicluster"></a> Exporting SCST - Store secrets to a developer namespace in a Tanzu Application Platform multicluster deployment
+
+SCST Scan 1.0 required the configuration for SCST Store to be in every developer namespace, which required the SCST Store certificate and authentication token to created.  
 
 Export secrets to a developer namespace by creating `SecretExport` resources on
 the developer namespace. You must have created and populated the `metadata-store-secrets`

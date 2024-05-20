@@ -272,7 +272,7 @@ This release has the following security fixes, listed by component and area.
 </ul></details></td>
 </tr>
 <tr>
-<td>fluxcd.source.controller.tanzu.vmware.com</td>
+<td>fluxcd-source-controller.tanzu.vmware.com</td>
 <td><details><summary>Expand to see the list</summary><ul>
 <li><a href="https://github.com/advisories/GHSA-xw73-rw38-6vjc">GHSA-xw73-rw38-6vjc</a></li>
 <li><a href="https://github.com/advisories/GHSA-vfp6-jrw2-99g9">GHSA-vfp6-jrw2-99g9</a></li>

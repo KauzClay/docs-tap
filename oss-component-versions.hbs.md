@@ -32,4 +32,4 @@ This topic contains the open source component versions for Tanzu Application Pla
 | Trivy Vulnerability Scanner (Scan v2) |                     |
 | Visual Studio Code                    |                     |
 
-<!-- this table is generated from https://confluence.eng.vmware.com/display/CNA/TAP+1.10+OSS+components+inventory -->
+<!-- This table is generated using the values in https://confluence.eng.vmware.com/display/CNA/TAP+1.10+OSS+components+inventory -->

@@ -8,8 +8,9 @@ If you need access to send an MR, request developer level permissions in GitLab 
 
 | Branch | Staging | Production |
 |--------|---------|------------|
-| main   | [Staging](https://docs-staging.vmware.com/en/draft/VMware-Tanzu-Application-Platform/1.10/tap/overview.html) (Pre-release v1.10 docs) | n/a |
-| 1-9-1  | [Staging](https://docs-staging.vmware.com/en/VMware-Tanzu-Application-Platform/1.9/tap/overview.html) | [Production](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.9/tap/overview.html) |
+| main   | [Staging](https://docs-staging.vmware.com/en/draft/VMware-Tanzu-Application-Platform/1.11/tap/overview.html) (Pre-release v1.11 docs) | n/a |
+| 1-10-1  | [Staging](https://docs-staging.vmware.com/en/draft/VMware-Tanzu-Application-Platform/1.10.1/tap/overview.html) | n/a |
+| 1-10-0  | [Staging](https://docs-staging.vmware.com/en/VMware-Tanzu-Application-Platform/1.10/tap/overview.html) | [Production](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.10/tap/overview.html) |
 | 1-8-4  | [Staging](https://docs-staging.vmware.com/en/draft/VMware-Tanzu-Application-Platform/1.8.4/tap/overview.html) (Pre-release v1.8.4 docs) | n/a |
 | 1-8-3  | [Staging](https://docs-staging.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/overview.html) | [Production](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/overview.html) |
 | 1-8-2  | Not in use. Do not PR to this branch. | Not in use. Do not PR to this branch. |

@@ -40,7 +40,7 @@ amr:
     cloudevent_handler:
       endpoint: https://amr-cloudevent-handler.VIEW-CLUSTER-INGRESS-DOMAIN # AMR CloudEvent Handler location at the View profile cluster.
     ca_cert_data: |
-        "AMR-CLOUDEVENT-HANDLER-CA" 
+        "AMR-CLOUDEVENT-HANDLER-CA"
 ```
 
 Where:
@@ -51,7 +51,11 @@ service's external IP address.
     - Red Hat OpenShift Container Platform v4.10 uses the Kubernetes version `1.23.3`.
     - Red Hat OpenShift Container Platform v4.11 uses the Kubernetes version `1.24.1`.
 - `VIEW-CLUSTER-INGRESS-DOMAIN` is the subdomain you setup on the View profile cluster. This matches the value key `appliveview.ingressDomain` or `shared.ingress_domain` on the view cluster. Include the default host name `appliveview.` ahead of the domain.
-- `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN), which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry uses this number to identify data that belongs to a particular customers and prepare usage reports. See the [Tanzu Kubernetes Grid documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kubernetes-grid-15/GUID-cluster-lifecycle-ceip.html#identify-the-entitlement-account-number-2) for more information about identifying the Entitlement Account Number.
+- `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN),
+  which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry
+  uses this number to identify data that belongs to a particular customers and prepare usage
+  reports.
+<!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
 - `AMR-CLOUDEVENT-HANDLER-CA` contains the AMR CloudEvent Handler CA data. For more information about configuring the `amr` portion of the values file, see [Set up multicluster Supply Chain Security Tools (SCST) - Store](../../scst-store/multicluster-setup.hbs.md).
 
 If you use custom CA certificates, you must provide one or more PEM-encoded CA certificates under the `ca_cert_data` key. If you configured `shared.ca_cert_data`, Tanzu Application Platform component packages inherit that value by default.

@@ -110,7 +110,11 @@ Images are written to `SERVER-NAME/REPO-NAME/workload-name`. Examples:
 - `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to run in this namespace.
 - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the Secret that contains the
 credentials to pull an image from the registry for scanning.
-- `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN), which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry uses this number to identify data that belongs to a particular customers and prepare usage reports. See the [Tanzu Kubernetes Grid documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kubernetes-grid-15/GUID-cluster-lifecycle-ceip.html#identify-the-entitlement-account-number-2) for more information about identifying the Entitlement Account Number.
+- `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN),
+  which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry
+  uses this number to identify data that belongs to a particular customers and prepare usage
+  reports.
+<!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
 - `VIEW-CLUSTER-INGRESS-DOMAIN` is the subdomain you set up on the View profile cluster. This matches the `shared.ingress_domain` on the View profile cluster.
 - `AMR-GRAPHQL-READ-ACCESS-TOKEN` is the read access token. For more information about how to obtain the token, see [AMR GraphQL querying](../../scst-store/amr/graphql-query.hbs.md#connect-to-amr-graphql).
 - `AMR-CLOUDEVENT-HANDLER-CA` contains the AMR CloudEvent Handler CA data. For more information about configuring the `amr` portion of the values file, see [Set up multicluster Supply Chain Security Tools (SCST) - Store](../../scst-store/multicluster-setup.hbs.md).

@@ -425,7 +425,7 @@ Where:
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET-NAMESPACE` is the namespace in which
   `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET` is available.
 
-- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies 
+- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies
   the Git credentials for the supply chain to fetch source code from. This field is only required if you use a private repository. See [Git authentication](../scc/git-auth.hbs.md) for more information.
 
 - `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies the
@@ -450,8 +450,8 @@ Where:
 - `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN),
   which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry
   uses this number to identify data that belongs to a particular customers and prepare usage
-  reports. For more information about identifying the Entitlement Account Number, see
-  [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565).
+  reports.
+<!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
 
 If you use custom CA certificates, you must provide one or more PEM-encoded CA certificates under
 the `ca_cert_data` key. If you configured `shared.ca_cert_data`, Tanzu Application Platform

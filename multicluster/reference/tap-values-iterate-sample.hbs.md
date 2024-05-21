@@ -86,7 +86,11 @@ Images are written to `SERVER-NAME/REPO-NAME/workload-name`. Examples:
 - `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies the Git credentials for the supply chain to push configuration to. See [Git authentication](../../scc/git-auth.hbs.md) for more information.
 - `TAP-ITERATE-CNR-DOMAIN` is the iterate cluster Cloud Native Runtimes domain.
 - `VIEW-CLUSTER-INGRESS-DOMAIN` is the subdomain you setup on the View profile cluster. This matches the value key `appliveview.ingressDomain` or `shared.ingress_domain` on the view cluster. Include the default host name `appliveview.` ahead of the domain.
-- `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN), which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry uses this number to identify data that belongs to a particular customers and prepare usage reports. See the [Tanzu Kubernetes Grid documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kubernetes-grid-15/GUID-cluster-lifecycle-ceip.html#identify-the-entitlement-account-number-2) for more information about identifying the Entitlement Account Number.
+- `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN),
+  which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry
+  uses this number to identify data that belongs to a particular customers and prepare usage
+  reports.
+<!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
 
 If you use custom CA certificates, you must provide one or more PEM-encoded CA certificates under the `ca_cert_data` key. If you configured `shared.ca_cert_data`, Tanzu Application Platform component packages inherit that value by default.
 

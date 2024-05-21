@@ -1,12 +1,12 @@
 # Overview of Tanzu Application Platform Telemetry
 
-Tanzu Application Platform Telemetry (commonly known as TAP Telemetry) is a set of 
-objects that collect data about the usage of Tanzu Application Platform (commonly known as TAP) 
-and send it back to VMware for product improvements. 
+Tanzu Application Platform Telemetry (commonly known as TAP Telemetry) is a set of
+objects that collect data about the usage of Tanzu Application Platform (commonly known as TAP)
+and send it back to VMware for product improvements.
 
-A benefit of remaining enrolled in telemetry and identifying your company during 
+A benefit of remaining enrolled in telemetry and identifying your company during
 Tanzu Application Platform installation is that VMware can provide your
-organization with usage reports about Tanzu Application Platform. 
+organization with usage reports about Tanzu Application Platform.
 
 For more information about enrolling in telemetry reports, see [Tanzu Application Platform usage reports](#usage-reports).
 
@@ -15,7 +15,8 @@ For more information about how to install the telemetry component, see [Install 
 ## <a id='usage-reports'></a>Tanzu Application Platform usage reports
 
 VMware offers the option to enroll in a usage reporting program that offers a summary of usage of your Tanzu Application Platform. These reports provide an overview of various deployments of Tanzu Application Platform and their utilization. They encompass details such as the quantity of workloads and supply chains, and their health status. Additionally, the reports include information about the virtual CPU (vCPU) usage for each Tanzu Application Platform deployment. You can enroll in the program by providing the Entitlement Account Number (EAN). An EAN is a unique ID assigned to all VMware customers. VMware uses EAN
-to identify data about Tanzu Application Platform. See [Locate the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565) for more details.
+to identify data about Tanzu Application Platform.
+<!-- For more information, see [Locate the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565) -->
 
 After locating the EAN, pass the number under the telemetry header in the `tap-values.yaml` file as a value for the `customer_entitlement_account_number` key.
 

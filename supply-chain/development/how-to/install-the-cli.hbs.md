@@ -33,8 +33,10 @@ To install the Tanzu Workload CLI plug-in:
    tanzu workload version
    ```
 
-> **Note** If you need to uninstall the Tanzu Workload CLI plug-in, run:
->
-> ```console
-> tanzu plugin delete workload
-> ```
+## Uninstall Tanzu Workload CLI plug-in
+
+To uninstall the Tanzu Workload CLI plug-in, run:
+
+```console
+tanzu plugin delete workload
+```

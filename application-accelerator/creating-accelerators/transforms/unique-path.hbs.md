@@ -8,8 +8,11 @@ You can often use this at the tail of a [Chain](chain.md).
 ## <a id="syntax-ref"></a>Syntax reference
 
 ```go
-UniquePath(<Conflict Resolution>)
+UniquePath(CONFLICT-RESOLUTION)
 ```
+
+Where `CONFLICT-RESOLUTION` is the resolution strategy you want to use from the list in
+[Available strategies](conflict-resolution.hbs.md#available-strategies).
 
 ## <a id="examples"></a>Examples
 
@@ -24,7 +27,7 @@ Include({"README.md"})
 UniquePath(Append)
 ```
 
-## See also
+## <a id="see-also"></a> See also
 
 - `UniquePath` uses a [Conflict Resolution](conflict-resolution.md) strategy to decide
   what to do when several input files use the same `path`.

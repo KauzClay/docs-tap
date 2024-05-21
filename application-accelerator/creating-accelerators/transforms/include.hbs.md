@@ -11,18 +11,20 @@ makes sense if composed inside a [Chain](chain.md) or a [Merge](merge.md).
 
 ## <a id="syntax-ref"></a>Syntax reference
 
+```go
+Include(LIST-OF-STRINGS)
 ```
-Include(<list of strings>)
-```
+
+Where `LIST-OF-STRINGS` is a list of `patterns` matching the files that you want to include.
 
 ## <a id="examples"></a>Examples
 
-```
+```go
  Include({"**/*.yaml"})
 ```
 
 ![Diagram showing an include transform.](images/include.svg)
 
-## See also
+## <a id="see-also"></a> See also
 
 - [Exclude](exclude.md)

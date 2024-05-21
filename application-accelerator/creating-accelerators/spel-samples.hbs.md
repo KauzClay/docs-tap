@@ -2,12 +2,16 @@
 
 This topic tells you about some common Spring Expression Language (SpEL) use cases in Application Accelerator.
 
-For more information, see [Spring Expression Language](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions) documentation.
+For more information, see [Spring Expression Language](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions)
+documentation.
+
 ## <a id="variables"></a>Variables
 
 You can reference all the values added as options in the `accelerator` section from the YAML file as
 variables in the `engine` section of `accelerator.axl`. You can access the value using the syntax
-`#<option name>`:
+`#OPTION-NAME`.
+
+Example `accelerator.yaml`:
 
 ```yaml
 options:
@@ -17,7 +21,9 @@ options:
 ...
 ```
 
-```
+Example `accelerator.axl`:
+
+```go
 engine {
   Include({"some/file.txt"})
   ReplaceText(substitutions: \{{text: 'bar', with: #foo}})
@@ -42,6 +48,8 @@ Some variables are made available to the model by the engine, including:
 
 You can use Boolean options for conditionals in your transformations.
 
+Example `accelerator.yaml`:
+
 ```yaml
 options:
   - name: numbers
@@ -54,7 +62,9 @@ options:
     defaultValue: first
 ```
 
-```
+Example `accelerator.axl`:
+
+```go
 engine {
   if (#numbers == 'first') {
     Include({"some/file.txt"})
@@ -68,8 +78,9 @@ This replaces the text only if the selected option is the first one.
 ## <a id="rewrite-path-concatentation"></a>Rewrite path concatenation
 
 [String templates](https://docs.spring.io/spring-framework/reference/core/expressions/language-ref/templating.html)
-are available in Application Accelerator using bacticks. Those are
-useful for example when using `RewritePath`:
+are available in Application Accelerator using backticks. These are useful, for example, when using `RewritePath`.
+
+Example `accelerator.yaml`:
 
 ```yaml
 options:
@@ -79,7 +90,9 @@ options:
 ...
 ```
 
-```
+Example `accelerator.axl`:
+
+```go
 engine {
   Include({"some/file.txt"})
   RewritePath(rewriteTo: `somewhere/#{#renameTo}.txt`)
@@ -88,8 +101,10 @@ engine {
 
 ## <a id="regular-expressions"></a>Regular expressions
 
-Regular expressions allow you to use patterns as a matcher for strings. Here is a small
-example of what you can do with them:
+Regular expressions allow you to use patterns as a matcher for strings. Here is an
+example of what you can do with them.
+
+Example `accelerator.yaml`:
 
 ```yaml
 options:
@@ -100,7 +115,9 @@ options:
 ...
 ```
 
-```
+Example `accelerator.axl`:
+
+```go
 engine {
   if (#foo.matches('[a-z]+Z\d+')) {
     Include({"some/file.txt"})
@@ -116,8 +133,10 @@ digits. If this condition is fulfilled, the text is replaced in the file, `file.
 
 Options with a `dataType` of `[string]` come out as an array of strings.
 
-To use them and for example format the result as a bulleted list,
-you can use the Java static String.join() method. For example:
+To use them and, for example, format the result as a bulleted list,
+you can use the Java static `String.join()` method.
+
+Example `accelerator.yaml`:
 
 ```yaml
 accelerator:
@@ -132,7 +151,9 @@ accelerator:
 ...
 ```
 
-```
+Example `accelerator.axl`:
+
+```go
 engine {
   ReplaceText(\{{text: recipe, with: ' * ' + T(java.lang.String).join('\n * ', #meals)  }})
 }

@@ -15,20 +15,22 @@ You can avoid or resolve them by configuring transforms with a conflict resoluti
 - You can explicitly end a transform [Chain](chain.md) with a [UniquePath](unique-path.md), which
 by default uses [Fail](#available-strategies). This is customizable.
 
-
 ### <a id="chain"></a>Chain
 
-```
+```go
 engine {
   T1()
   T2()
-  UniquePath(<conflict resolution>)
+  UniquePath(CONFLICT-RESOLUTION)
 }
 ```
 
+Where `CONFLICT-RESOLUTION` is the resolution strategy you want to use from the list in
+[Available strategies](#available-strategies).
+
 ![Diagram showing a chain transform with Fail conflict resolution.](images/conflict-resolution2.svg)
 
-## <a name="available-strategies"></a>Available strategies
+## <a id="available-strategies"></a>Available strategies
 
 The following values and behaviors are available:
 
@@ -48,6 +50,6 @@ first appearing first.
 - `NWayDiff`: Try to merge the conflicting resources by applying patches computed against a
   common ancestor. The resulting resource has the attributes of the first conflicting resource.
 
-## See also
+## <a id="see-also"></a> See also
 
 - [UniquePath](unique-path.md)

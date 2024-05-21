@@ -35,59 +35,59 @@ Use the following procedure to create an accelerator based on this Git repositor
 
 3. Add the following content to the `accelerator.yaml` file:
 
-   ```yaml
-   accelerator:
-     displayName: Simple Accelerator
-     description: Contains just a README
-     iconUrl: https://images.freecreatives.com/wp-content/uploads/2015/05/smiley-559124_640.jpg
-     tags:
-       - simple
-       - getting-started
-   ```
+    ```yaml
+    accelerator:
+      displayName: Simple Accelerator
+      description: Contains just a README
+      iconUrl: https://images.freecreatives.com/wp-content/uploads/2015/05/smiley-559124_640.jpg
+      tags:
+        - simple
+        - getting-started
+    ```
 
-   Feel free to use a different icon if it uses a reachable URL.
+    You can use a different icon if it uses a reachable URL.
 
-4. Add the new `accelerator.yaml` file, commit this change and push to your Git repository.
+4. Add the new `accelerator.yaml` file, commit this change, and push to your Git repository.
 
 ## <a id="publishing-the-new-acc"></a>Publishing the new accelerator
 
 1. To publish your new accelerator, run:
 
-   ```console
-   tanzu accelerator create simple --git-repository ${GIT_REPOSITORY_URL} --git-branch ${GIT_REPOSITORY_BRANCH}
-   ```
+    ```console
+    tanzu accelerator create simple --git-repository ${GIT_REPOSITORY_URL} --git-branch ${GIT_REPOSITORY_BRANCH}
+    ```
 
-   Where:
+    Where:
 
-   - `GIT-REPOSITORY-URL` is the URL for your Git repository where the accelerator is located.
-   - `GIT-REPOSITORY-BRANCH` is the name of the branch where you pushed the new `accelerator.yaml` file.
+    - `GIT-REPOSITORY-URL` is the URL for your Git repository where the accelerator is located.
+    - `GIT-REPOSITORY-BRANCH` is the name of the branch where you pushed the new `accelerator.yaml` file.
 
 2. Refresh Tanzu Developer Portal or the Application Accelerator extension in VS Code to
    reveal the newly published accelerator. It might take a few seconds to refresh the catalog and
    add an entry for your new accelerator.
 
-   ![Screenshot showing the new Simple Accelerator included in Tanzu Developer Portal.](../images/new-accelerator-deployed-v1-1.png)
+    ![Screenshot showing the new Simple Accelerator included in Tanzu Developer Portal.](../images/new-accelerator-deployed-v1-1.png)
 
 Alternatively, use the Tanzu CLI to create a separate manifest file and apply it to
 the cluster.
 
-1.  Create a `simple-manifest.yaml` file and add the following content, filling in with your Git
+1. Create a `simple-manifest.yaml` file and add the following content, filling in with your Git
     repository and branch values.
 
-        ```yaml
-        apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
-        kind: Accelerator
-        metadata:
-          name: simple
-          namespace: accelerator-system
-        spec:
-          git:
-            url: YOUR-GIT-REPOSITORY-URL
-            ref:
-              branch: YOUR-GIT-BRANCH
-        ```
+    ```yaml
+    apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+    kind: Accelerator
+    metadata:
+      name: simple
+      namespace: accelerator-system
+    spec:
+      git:
+        url: YOUR-GIT-REPOSITORY-URL
+        ref:
+          branch: YOUR-GIT-BRANCH
+    ```
 
-2.  To apply the `simple-manifest.yaml`, run this command in your terminal in the directory where you
+2. To apply the `simple-manifest.yaml`, run this command in your terminal in the directory where you
     created this file:
 
     ```console
@@ -143,12 +143,12 @@ This fragment contributes the following to any accelerator that imports it:
 
 1. An option named `javaVersion` with three choices `Java 8`, `Java 11`, and `Java 17`
 2. Three `ReplaceText` transforms:
-   - If the accelerator has a `pom.xml` file, then what is specified for `<java.version>` is
-     replaced with the chosen version.
-   - If the accelerator has a `build.gradle` file, then what is specified for `sourceCompatibility`
-     is replaced with the chosen version.
-   - If the accelerator has a `config/workload.yaml` file, and the user selected "Java 17" then a
-     build environment entry of BP_JVM_VERSION is inserted into the `spec:` section.
+    - If the accelerator has a `pom.xml` file, then what is specified for `<java.version>` is
+      replaced with the chosen version.
+    - If the accelerator has a `build.gradle` file, then what is specified for `sourceCompatibility`
+      is replaced with the chosen version.
+    - If the accelerator has a `config/workload.yaml` file, and the user selected "Java 17" then a
+      build environment entry of BP_JVM_VERSION is inserted into the `spec:` section.
 
 ## <a id="deploy-accelerator-frags"></a>Deploying accelerator fragments
 

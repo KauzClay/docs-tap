@@ -3,6 +3,10 @@
 This topic provides you with a sample accelerator file to get you started
 writing your own accelerators in Tanzu Application Platform (commonly known as TAP).
 
+## <a id="accelerator-yaml"></a> `accelerator.yaml`
+
+Sample `accelerator.yaml` file:
+
 ```yaml
 accelerator:
   # The `accelerator` section serves to document how an accelerator is presented to the
@@ -92,15 +96,17 @@ accelerator:
           text: Gradle (build.gradle)
 ```
 
-## Accelerator.axl
+## <a id="accelerator-axl"></a> `accelerator.axl`
 
-The accelerator.axl file describes how to take the files from the accelerator
-repo root folder and 'transform' them into the contents of a generated project.
-transformation operate on the files as a set and can do things like:
+The `accelerator.axl` file describes how to take the files from the accelerator
+repo root folder and transform them into the contents of a generated project.
+The transformation operates on the files as a set and can do things such as:
 
-- filtering the set of files (i.e. removing / keeping only files that match certain criteria)
-- changing the contents of a file (e.g. replacing some strings in them)
-- renaming or moving files (changing the paths of the files)
+- **Filter the set of files:** Removing or keeping only files that match certain criteria.
+- **Change the contents of a file:** For example, replacing strings within the file.
+- **Rename or move files:** Changing the paths of the files.
+
+Sample `accelerator.axl` file:
 
 ```go
  // this is the 'global' transform. It produces the final set of

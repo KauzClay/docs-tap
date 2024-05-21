@@ -67,7 +67,7 @@ To install the local engine server:
       ├── accelerators
       │   └── hello-world
       │       ├── accelerator.yaml
-      │       ├── accelerator.axxl
+      │       ├── accelerator.axl
       │       ├── ...
       └── fragments
           ├── build-wrapper-maven

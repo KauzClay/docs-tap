@@ -7,25 +7,27 @@ allowing re-use across accelerators.
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```
+```go
 engine{
-  InvokeFragment(<fragment name>)
+  InvokeFragment(FRAGMENT-NAME)
 }
 ```
 
+Where `FRAGMENT-NAME` is the name of your fragment.
+
 ## <a id="behavior"></a>Behavior
 
-Assuming some fragment `my-fragment` has been imported in the accelerator
-(thus exposing the options it defines as options of the current accelerator),
+If, for example, the fragment `my-fragment` is imported into the accelerator, which
+exposes the options it defines as options of the current accelerator,
 the following construct invokes `my-fragment`:
 
-```
+```go
 InvokeFragment('my-fragment')
 ```
 
-This passes all input files (depending where this invocation sits in the "tree") to
-the invoked fragment, which can then manipulate them alongside its own files. The
-result of the invocation becomes the result of this transform.
+This passes all input files, depending where this invocation sits in the tree, to
+the invoked fragment. The invoked fragment can then manipulate the input files alongside its own files.
+The result of the invocation becomes the result of this transform.
 
 ### <a id="variables"></a>Variables
 
@@ -70,7 +72,7 @@ The value of the `anchor` property must not start nor end with a slash (`/`) cha
 
 ## <a id="examples"></a>Examples
 
-The following is a full-featured example showcasing the interaction between
+The following is a full-featured example showing the interaction between
 the `imports` section and `InvokeFragment`:
 
 ```yaml
@@ -82,8 +84,10 @@ accelerator:
   imports:
     - name: my-fragment
 ```
-### accelerator.axl
-```
+
+Example `accelerator.axl`:
+
+```go
 engine {
   Include({'...'})
   T2()
@@ -91,7 +95,7 @@ engine {
 }
 ```
 
-Assuming `my-fragment` is defined as follows:
+If `my-fragment` is defined as follows:
 
 ```yaml
 accelerator:
@@ -107,7 +111,7 @@ transform:
       ...
 ```
 
-Then users will be presented with two options: `someOption` and `indentationLevel`,
+Then users are presented with two options, `someOption` and `indentationLevel`,
 as if `indentationLevel` was defined in the host accelerator.
 
 Moreover, the behavior of the calling accelerator is exactly as if the body
@@ -122,25 +126,24 @@ accelerator:
     - name: indentationLevel
       dataType: number
       defaultValue: 2
-
-
 ```
 
-### accelerator.axl
-```
+Example `accelerator.axl`:
+
+```go
 engine {
   Include({"...", "**/pom.xml". "**/*.xml"})
   T1()
 }
 ```
 
-Now you can imagine some scenarios to better clarify all configuration properties.
+There are some scenarios to better clarify all configuration properties.
 
-If, for some reason, you don't want to use the value entered in the `indentationLevel` option for
-the fragment, but twice the value provided for `someOption`.
-The `InvokeFragment` block can be rewritten as follows:
+If you don't want to use the value entered in the `indentationLevel` option for
+the fragment but use the value provided for `someOption` twice,
+you can rewrite the `InvokeFragment` block as follows:
 
-```yaml
+```go
 let indententationLevel in {
   InvokeFragment('my-fragment')
 }
@@ -148,7 +151,7 @@ let indententationLevel in {
 
 Finally, if the invocation in the accelerator looks like this:
 
-```
+```go
 engine {
   Include("...")
   + Include("**/README.md")
@@ -156,11 +159,11 @@ engine {
 }
 ```
 
-Then there is zero visible effect, because this is
+Then there is no visible effect, because this is
 forwarding only `README.md` files to the fragment and the fragment is itself
-using a filter on `*.xml` files.
+filtering by `*.xml` files.
 
-## See also
+## <a id="see-also"></a> See also
 
 - [Let](let.md)
 - [RewritePath](rewrite-path.md)

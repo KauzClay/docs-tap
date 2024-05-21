@@ -278,7 +278,9 @@ engine:
   type: YTT
 ```
 
-### <a id="accelerator-axl-example"></a> Accelerator.axl example
+### <a id="accelerator-axl-example"></a> `accelerator.axl` example
+
+The following snippet shows an example `accelerator.axl` file:
 
 ```go
 engine {
@@ -301,43 +303,41 @@ engine {
 }
 ```
 
-### <a id="accelerator-axl-desc"></a> Acclerator.axl description
+### <a id="accelerator-axl-desc"></a> `acclerator.axl` description
 
-This section explains the transforms used in the preceding example.
+This section explains the transforms used in the preceding example:
 
-`engine` is the global transform. It produces the final set of files to be zipped and
-returned from the accelerator. As input, it receives all the files from the accelerator repository
-root. The properties in this node dictate how this set of files is transformed into a final set of
-files zipped as the accelerator result.
+- `engine` is the global transform. It produces the final set of files to be zipped and
+  returned from the accelerator. As input, it receives all the files from the accelerator repository
+  root. The properties in this node dictate how this set of files is transformed into a final set of
+  files zipped as the accelerator result.
 
-`Include` filters the set of files, retaining only those matching a list of path
-patterns. This ensures that that the accelerator only detects files in the repository that match the
-list of patterns.
+- `Include` filters the set of files, retaining only those matching a list of path patterns.
+  This ensures that the accelerator only detects files in the repository that match the list of patterns.
 
-`Exclude` further restricts which files are detected. The example ensures files in any
-directory called `secret` are never detected.
+- `Exclude` further restricts which files are detected. The example ensures files in any
+  directory called `secret` are never detected.
 
-`let` defines additional variables and assigns them values. These derived symbols function
-such as options, but instead of being supplied from a UI widget, they are computed by the accelerator
-itself.
+- `let` defines additional variables and assigns them values. These derived symbols function
+  like options, but instead of being supplied from a UI widget, they are computed by the accelerator
+  itself.
 
-`+` executes each of its children in parallel. Each child receives a copy of the current
-set of input files. These are files remaining after applying the `include` and `exclude` filters.
-Each of the children therefore produces a set of files.
-All the files from all the children are then combined, as if overlaid on top of each other
-in the same directory.
-If more than one child produces a file with the same path, the transform resolves the conflict by
-dropping the file contents from the earlier child and keeping the contents from the later child.
+- `+` executes each of its children in parallel. Each child receives a copy of the current
+  set of input files. These are the files that remain after applying the `include` and `exclude` filters.
+  Therefore, each of the children produces a set of files.
+  All the files from all the children are then combined, as if overlaid on top of each other
+  in the same directory.
+  If more than one child produces a file with the same path, the transform resolves the conflict by
+  dropping the file contents from the earlier child and keeping the contents from the later child.
 
-`UniquePath` specifies how conflict is handled when an operation, such as merging, produces
-multiple files at the same path:
+- `UniquePath` specifies how conflict is handled when an operation, such as merging, produces
+  multiple files at the same path:
   - `Fail` raises an error when there is a conflict.
   - `UseFirst` keeps the contents of the first file.
   - `UseLast` keeps the contents of the last file.
-  - `Append` keeps both by using `cat <first-file> <second-file>`.
-
+  - `Append` keeps both by using `cat FIRST-FILE SECOND-FILE`.
 
 ### <a id="advanced-accelerator-use"></a> Advanced accelerator use
 
-Additional advanced features can be leveraged when writing an `accelerator.yaml`.
-For more information see, [Creating dynamic parameters using custom types](custom-types.hbs.md)
+There are advanced features that you can use when writing an `accelerator.yaml`.
+For more information see, [Creating dynamic parameters using custom types](custom-types.hbs.md).

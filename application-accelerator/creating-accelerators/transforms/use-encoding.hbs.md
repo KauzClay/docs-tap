@@ -12,22 +12,23 @@ use the `UseEncoding` transform to annotate them with an explicit encoding.
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```
-UseEncoding({encoding: <encoding>})
+```go
+UseEncoding({encoding: ENCODING})
 ```
 
+Where `ENCODING` is the type of encoding you want to use.
 Supported encoding names include, for example, `UTF-8`, `US-ASCII`, and `ISO-8859-1`.
 
-## <a id="example-usage"></a>Example use
+## <a id="example-usage"></a>Example
 
 `UseEncoding` is typically used as an upfront transform to, for example, [ReplaceText](replace-text.md)
 in a chain:
 
-```
+```go
 UseEnconding('ISO-8859-1')
 ReplaceText({text: "hello", with: #howToSayHello})
 ```
 
-## See also
+## <a id="see-also"></a> See also
 
 - [ReplaceText](replace-text.md)

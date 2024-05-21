@@ -9,18 +9,20 @@ if composed inside a [Chain](chain.md) or a [Merge](merge.md).
 
 ## <a id="syntax-reference"></a>Syntax reference
 
+```go
+Exclude(LIST-OF-STRINGS)
 ```
-Exclude(<List of strings>)
-```
+
+Where `LIST-OF-STRINGS` is a list of `patterns` matching the files that you want to exclude.
 
 ## <a id="examples"></a>Examples
 
-```
+```go
 Exclude({"**/secret/**"})
 ```
 
 ![Diagram showing an exclude transform.](images/exclude.svg)
 
-## See also
+## <a id="see-also"></a> See also
 
 - [Include](include.md)

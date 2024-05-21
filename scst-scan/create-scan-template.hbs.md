@@ -8,16 +8,17 @@ This topic describes how to create a ScanTemplate with Supply Chain Security Too
 
 The `ScanTemplate` custom resource (CR) defines how the scan Pod fulfills the task of vulnerability
 scanning. There are default `ScanTemplates` provided out of the box using the Tanzu Application
-Platform default scanner, `Anchore Grype`. One or more `initContainers` run to complete the scan
-and must save results to a shared `volume`. After the `initContainers` completes, a single container
-on the scan Pod called `summary` combines the result of the initContainers so that the `Scan CR`
-status is updated.
+Platform default scanner, `Anchore Grype`. One or more `initContainers` run to complete the scan and
+must save results to a shared `volume`.
 
-A customized ScanTemplate is created by editing or replacing `initContainer` definitions and
-reusing the `summary` container from the `grype` package. A container can read the `out.yaml` from
-an earlier step to locate relevant inputs.
+After the `initContainers` completes, a single container on the scan Pod called `summary` combines
+the result of the initContainers so that the `Scan CR` status is updated.
 
-## <a id="output-model"></a>Output Model
+A customized ScanTemplate is created by editing or replacing `initContainer` definitions and reusing
+the `summary` container from the `grype` package. A container can read the `out.yaml` from an
+earlier step to locate relevant inputs.
+
+## <a id="output-model"></a> Output Model
 
 Each initContainer can create a subdirectory in `/workspace` to use as a scratch space. Before
 terminating the container must create an `out.yaml` file in the subdirectory containing the relevant
@@ -60,12 +61,12 @@ store:
   locations: []
 ```
 
-The `scan` portion of the earlier output is required and if missing the scan controller fails
-to properly update the final status of the `Scan CR`. Other portions of the output, including those
-of `store` and `policy evaluation`, are optional and can be omitted if not applicable in a custom
+The `scan` portion of the earlier output is required and if missing the scan controller fails to
+properly update the final status of the `Scan CR`. Other portions of the output, including those of
+`store` and `policy evaluation`, are optional and can be omitted if not applicable in a custom
 supply chain setup.
 
-## <a id="template-structure"></a>ScanTemplate Structure
+## <a id="template-structure"></a> ScanTemplate Structure
 
 ```console
 apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
@@ -89,10 +90,10 @@ spec:
         - name: summary
 ```
 
-**Note:** You cannot name a container `sleep` because there is already a container named `sleep`
-which comes from the scan-link controller.
+> **Note:** You cannot name a container `sleep` because there is already a container named `sleep`
+> which comes from the scan-link controller.
 
-## <a id="sample-output"></a>Sample Outputs
+## <a id="sample-output"></a> Sample Outputs
 
 ```yaml
 # example for a typical git clone (source scan fetch stage)

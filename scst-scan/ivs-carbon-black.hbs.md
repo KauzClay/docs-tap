@@ -35,7 +35,8 @@ Where:
 
 This section contains a sample IVS that uses Carbon Black to scan a targeted image and push the
 results to the specified registry location.
-For information about the IVS specification, see [Configuration Options](ivs-create-your-own.hbs.md#img-vuln-config-options).
+For information about the IVS specification, see
+[Configuration Options](ivs-create-your-own.hbs.md#img-vuln-config-options).
 
 Set the tekton-pipelines feature-flags configmap `enable-api-fields` to `alpha`. This lets you use
 the `stdoutConfig` which is needed to output the scan report as a file.
@@ -79,12 +80,13 @@ spec:
       path: /workspace/scan-results/scan-results.cdx.xml
 ```
 
-Where:
+Where `CARBON-BLACK-SCANNER-IMAGE` is the Carbon Black scanner image. For example,
+`cbartifactory/cbctl:latest`.
 
-- `CARBON-BLACK-SCANNER-IMAGE` is the Carbon Black scanner image. For example, `cbartifactory/cbctl:latest`.
-  For information about publicly available Carbon Black images, see
-  [DockerHub](https://hub.docker.com/r/cbartifactory/cbctl). For more information about using the Carbon Black Scanner CLI, see the
-  [Carbon Black documentation](https://developer.carbonblack.com/reference/carbon-black-cloud/container/latest/image-scanning-cli/).
+For information about publicly available Carbon Black images, see
+[DockerHub](https://hub.docker.com/r/cbartifactory/cbctl).
+For more information about using the Carbon Black Scanner CLI, see the
+[Carbon Black documentation](https://developer.carbonblack.com/reference/carbon-black-cloud/container/latest/image-scanning-cli/).
 
 The Carbon Black `cbctl-creds` secret is mounted as a workspace binding and the credentials are inserted
 into a `cbctl.yaml` config file that the Carbon Black CLI uses.

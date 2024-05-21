@@ -60,9 +60,7 @@ Here is an example using the custom resource `accelerator`:
 
 ## <a id="dev-issues"></a> Development issues
 
-### <a id="fail-generate"></a>Failure to generate a new project
-
-#### <a id="uri-not-absolute-error"></a>`URI is not absolute` error
+### <a id="fail-generate"></a>Failure to generate a new project with `URI is not absolute` error
 
 The `generate` command fails with the following error:
 
@@ -97,6 +95,24 @@ Error: exit status 1
 This indicates that the accelerator resource requested is not in a `READY` state.
 Review the instructions in the [When Accelerator ready column is false](#ts-ready-false) section or
 contact your system admin.
+
+### <a id="project-build-failure"></a> Java project does not build in IntelliJ
+
+**Symptom:**
+
+When you create a Java project using the accelerator new project wizard in IntelliJ, it might not
+build correctly when first opened.
+
+This issue mostly occurs in Maven projects. When you open the new project for the first time,
+a dialog box might appear in the bottom right side of IntelliJ asking you to **Load Maven Project**.
+
+![The Maven build scripts found dialog box with the Load Maven Project button.](../images/app-accelerator/intellij/load-maven-project-intellij.png)
+
+**Solution:**
+
+Click **Load Maven Project** and wait until the project builds.
+
+If this does not fix the issue, delete the `.idea` folder and `*.iml` file and the reopen the project.
 
 ## <a id="authorship-issues"></a> Accelerator authorship issues
 

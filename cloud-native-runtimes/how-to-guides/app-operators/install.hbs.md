@@ -63,7 +63,7 @@ To install Cloud Native Runtimes:
 
         >**Note** For most installations, you can leave the `cnr-values.yaml` empty, and use the default values.
 
-        ```console
+        ```yaml
         ---
         # Configures the domain that Knative Services will use
         domain_name: "mydomain.com"
@@ -82,7 +82,7 @@ To install Cloud Native Runtimes:
 
         - If you install Cloud Native Runtimes with the default value of `true` for the `allow_manual_configmap_update` configuration, you can only update some ConfigMaps manually. To update all ConfigMaps using overlays, change this value to `false`.
 
-2. Install the package by running:
+1. Install the package by running:
 
     ```console
     tanzu package install cloud-native-runtimes \
@@ -114,7 +114,7 @@ To install Cloud Native Runtimes:
      Added installed package 'cloud-native-runtimes' in namespace 'tap-install'
     ```
 
-3. Verify the package install by running:
+1. Verify the package install by running:
 
     ```console
     tanzu package installed get cloud-native-runtimes -n tap-install

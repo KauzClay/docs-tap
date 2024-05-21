@@ -31,9 +31,7 @@ Run:
 tanzu apps workload get WORKLOAD
 ```
 
-Where:
-
-`WORKLOAD` is the name of the workload to be checked.
+Where `WORKLOAD` is the name of the workload to be checked
 
 Now the workload should be in a running state. When the workload is created, `tanzu apps workload get`
 includes the URL for the running workload. In some terminals, you can **Ctrl+click** the URL to
@@ -57,13 +55,13 @@ The section describes the cause and resolution for some of the most common issue
 **Cause**: Apps plug-in cannot talk to the registry because the registry credentials are missing
 or invalid.
 
-**Resolution**: Run  `docker logout registry` and `docker login registry` commands and specify 
+**Resolution**: Run  `docker logout registry` and `docker login registry` commands and specify
 the valid credentials for the registry.
 
 **Message**: Writing `registry/project/workload:latest`: Writing image: HEAD Unexpected status code
 *400 Bad Request* (HEAD responses have no body, use GET for details)
 
-**Cause**: Certain registries like Harbor or GCR have a concept of `Project`. A 400 Bad request 
+**Cause**: Certain registries like Harbor or GCR have a concept of `Project`. A 400 Bad request
 is sent when either the project does not exist, the user does not have access to it, or the path
 in the `-—source-image` flag is missing either project or repository.
 

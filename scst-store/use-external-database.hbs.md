@@ -20,10 +20,12 @@ If migrating from the internal database to an external database, back up the dat
 
 ## Configure Artifact Metadata Repository (AMR) and Metadata Store (MDS) to use the external database
 
+To configure Artifact Metadata Repository (AMR) and Metadata Store (MDS) to use the external database:
+
 1. Update your `tap-values.yaml` file:
 
    ```yaml
-   metadata_store: 
+   metadata_store:
      db_host: "<DB Instance Endpoint>"
      db_user: "<Master Username>"
      db_password: "<Master Password>"

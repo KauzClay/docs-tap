@@ -1,23 +1,25 @@
 # Add data to your Supply Chain Security Tools - Store
 
-This topic tells you how to add vulnerability scan reports or Software Bill of 
-Materials (commonly known as SBoM) files to your Supply Chain Security Tools 
-(commonly known as SCST) - Store.
+This topic tells you how to add vulnerability scan reports or Software Bill of Materials (SBoM)
+files to your Supply Chain Security Tools (SCST) - Store.
 
-## <a id='supported-formats'></a>Supported formats and file types
+## <a id='supported-formats'></a> Supported formats and file types
 
 Currently, only CycloneDX XML and JSON files are accepted.
 
-Source commits and image files have been tested. Additional file types might work, but are not fully supported (for example, JAR files).
+Source commits and image files have been tested. Additional file types might work, but are not fully
+supported (for example, JAR files).
 
- If you are not using a source commit or image file, you must ensure the `component.version` field in the CycloneDX file is non-null.
+If you are not using a source commit or image file, you must ensure the `component.version` field in
+the CycloneDX file is non-null.
 
-## <a id='gen-cyclone'></a>Generate a CycloneDX file
+## <a id='gen-cyclone'></a> Generate a CycloneDX file
 
-A CycloneDX file is needed to post data. Supply Chain Security Tools - Scan outputs CycloneDX files automatically.
-For more information, see [Supply Chain Security Tools - Scan](../../scst-scan/overview.md).
+A CycloneDX file is needed to post data. Supply Chain Security Tools - Scan outputs CycloneDX files
+automatically. For more information, see [Supply Chain Security Tools - Scan](../../scst-scan/overview.hbs.md).
 
-To generate a file to post manually, use Grype or another tool in the [CycloneDX Tool Center](https://cyclonedx.org/tool-center/).
+To generate a file to post manually, use Grype or another tool in the
+[CycloneDX Tool Center](https://cyclonedx.org/tool-center/).
 
 To use Grype to scan an image and generate an image report in CycloneDX format:
 
@@ -45,8 +47,7 @@ To use Grype to scan an image and generate an image report in CycloneDX format:
      ✔ Scanned image           [8 vulnerabilities]
     ```
 
-
-## <a id='insight-cli'></a>Add data with the Tanzu Insight plug-in
+## <a id='insight-cli'></a> Add data with the Tanzu Insight plug-in
 
 Use the following commands to add data:
 
@@ -55,53 +56,48 @@ Use the following commands to add data:
 
 If you are not using a source commit or image file, you can select either option.
 
-## <a id='example1'></a>Example #1: Add an image report
+## <a id='example1'></a> Example #1: Add an image report
 
-To use a CycloneDX-formatted image report:
+To use a CycloneDX-formatted image report, run:
 
-1. Run:
+```console
+tanzu insight image add --cyclonedxtype TYPE --path IMAGE-CVE-REPORT
+```
 
-    ```console
-    tanzu insight image add --cyclonedxtype TYPE --path IMAGE-CVE-REPORT
-    ```
+Where:
 
-    Where:
+- `TYPE` specifies XML or JSON, the two supported file types
+- `IMAGE-CVE-REPORT` is the location of a Cyclone DX formatted file
 
-    - `TYPE` specifies XML or JSON, the two supported file types
-    - `IMAGE-CVE-REPORT` is the location of a Cyclone DX formatted file
+For example:
 
-    For example:
-
-    ```console
-    $ tanzu insight image add --cyclonedxtype xml --path downloads/image-cve-report
-    Image report created.
-    ```
+```console
+$ tanzu insight image add --cyclonedxtype xml --path downloads/image-cve-report
+Image report created.
+```
 
 > **Note** The Metadata Store only stores a subset of CycloneDX file data.
-  Support for more data might be added in the future.
+> Support for more data might be added in the future.
 
+## <a id='example2'></a> Example #2: Add a source report
 
-## <a id='example2'></a>Example #2: Add a source report
+To use a CycloneDX-formatted source report, run:
 
-To use a CycloneDX-formatted source report:
+```console
+tanzu insight source add --cyclonedxtype TYPE --path SOURCE-CVE-REPORT
+```
 
-1. Run:
+Where:
 
-    ```console
-    tanzu insight source add --cyclonedxtype TYPE --path SOURCE-CVE-REPORT
-    ```
+- `TYPE` specifies XML or JSON, the two supported file types
+- `SOURCE-CVE-REPORT` is the location of a Cyclone DX formatted file
 
-    Where:
+For example:
 
-    - `TYPE` specifies XML or JSON, the two supported file types
-    - `SOURCE-CVE-REPORT` is the location of a Cyclone DX formatted file
-
-    For example:
-
-    ```console
-    $ tanzu insight source add --cyclonedxtype json --path source-cve-report
-    Source report created.
-    ```
+```console
+$ tanzu insight source add --cyclonedxtype json --path source-cve-report
+Source report created.
+```
 
 > **Note** Supply Chain Security Tools - Store only stores a subset of a CycloneDX file’s data.
-  Support for more data might be added in the future.
+> Support for more data might be added in the future.

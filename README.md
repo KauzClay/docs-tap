@@ -43,47 +43,49 @@ stored in dedicated repositories.
 
 ## Component name list
 
-|Full Name|Short Name|
-|---------|-----------|
-|API Auto Registration|API Auto Registration|
-|API portal for VMware Tanzu|API portal|
-|API Scoring and Validation|API Scoring and Validation|
-|Application Accelerator for VMware Tanzu|Application Accelerator|
-|Application Configuration Service for VMware Tanzu|Application Configuration Service|
-|Application Live View|Application Live View|
-|Application Single Sign-On for VMware Tanzu|Application Single Sign-On|
-|Aria Operations for Applications dashboard for Tanzu Application Platform (Beta)|AOA dashboard|
-|AWS Services|AWS Services|
-|Bitnami Services|Bitnami Services|
-|Cartographer Conventions|Cartographer Conventions|
-|cert-manager|cert-manager|
-|Cloud Native Runtimes for VMware Tanzu|Cloud Native Runtimes|
-|Contour|Contour|
-|Crossplane|Crossplane|
-|Default Roles for Tanzu Application Platform|Default Roles|
-|Developer Conventions|Developer Conventions|
-|External Secrets Operator|External Secrets Operator|
-|Flux CD Source Controller|Flux CD Source Controller|
-|Local Source Proxy|Local Source Proxy|
-|Namespace Provisioner|Namespace Provisioner|
-|Service Bindings|Service Bindings|
-|Service Registry for VMware Tanzu|Service Registry|
-|Services Toolkit for VMware Tanzu Application Platform|Services Toolkit|
-|Source Controller|Source Controller|
-|Spring Boot conventions|Spring Boot conventions|
-|Spring Cloud Gateway for Kubernetes|Spring Cloud Gateway|
-|Supply Chain Choreographer|Supply Chain Choreographer|
-|Supply Chain Security Tools for VMware Tanzu - Policy Controller|Supply Chain Security Tools - Policy Controller (SCST - Policy Controller)|
-|Supply Chain Security Tools for VMware Tanzu - Scan|Supply Chain Security Tools - Scan (SCST - Tools)|
-|Supply Chain Security Tools for VMware Tanzu - Sign|Supply Chain Security Tools - Sign (SCST - Sign)|
-|Supply Chain Security Tools for VMware Tanzu - Store|Supply Chain Security Tools - Store (SCST - Store)|
-|Tanzu Developer Portal|Tanzu Developer Portal|
-|Tanzu Application Platform Telemetry|Tanzu Application Platform Telemetry|
-|Tanzu Build Service|Tanzu Build Service|
-|VMware Tanzu Developer Tools for IntelliJ|Tanzu Developer Tools for IntelliJ|
-|VMware Tanzu Developer Tools for Visual Studio|Tanzu Developer Tools for Visual Studio|
-|VMware Tanzu Developer Tools for Visual Studio Code|Tanzu Developer Tools for VS Code|
-|VMware Tanzu Application Platform Pipeline service with Tekton|Tekton Pipelines|
+| Full Name                                                                        | Short Name                                                                 |
+|----------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| API Auto Registration                                                            | API Auto Registration                                                      |
+| API portal for VMware Tanzu                                                      | API portal                                                                 |
+| API Scoring and Validation                                                       | API Scoring and Validation                                                 |
+| Application Accelerator for VMware Tanzu                                         | Application Accelerator                                                    |
+| Application Configuration Service for VMware Tanzu                               | Application Configuration Service                                          |
+| Application Live View                                                            | Application Live View                                                      |
+| Application Single Sign-On for VMware Tanzu                                      | Application Single Sign-On                                                 |
+| Aria Operations for Applications dashboard for Tanzu Application Platform (Beta) | AOA dashboard                                                              |
+| AWS Services                                                                     | AWS Services                                                               |
+| Bitnami Services                                                                 | Bitnami Services                                                           |
+| Cartographer Conventions                                                         | Cartographer Conventions                                                   |
+| cert-manager                                                                     | cert-manager                                                               |
+| Cloud Native Runtimes for VMware Tanzu                                           | Cloud Native Runtimes                                                      |
+| Contour                                                                          | Contour                                                                    |
+| Crossplane                                                                       | Crossplane                                                                 |
+| Default Roles for Tanzu Application Platform                                     | Default Roles                                                              |
+| Developer Conventions                                                            | Developer Conventions                                                      |
+| Enterprise Config Server                                                         | Enterprise Config Server                                                   |
+| External Secrets Operator                                                        | External Secrets Operator                                                  |
+| Flux CD Source Controller                                                        | Flux CD Source Controller                                                  |
+| Local Source Proxy                                                               | Local Source Proxy                                                         |
+| Namespace Provisioner                                                            | Namespace Provisioner                                                      |
+| Service Bindings                                                                 | Service Bindings                                                           |
+| Service Registry for VMware Tanzu                                                | Service Registry                                                           |
+| Services Toolkit for VMware Tanzu Application Platform                           | Services Toolkit                                                           |
+| Source Controller                                                                | Source Controller                                                          |
+| Spring Boot conventions                                                          | Spring Boot conventions                                                    |
+| Spring Cloud Gateway for Kubernetes                                              | Spring Cloud Gateway                                                       |
+| Supply Chain Choreographer                                                       | Supply Chain Choreographer                                                 |
+| Supply Chain Security Tools for VMware Tanzu - Policy Controller                 | Supply Chain Security Tools - Policy Controller (SCST - Policy Controller) |
+| Supply Chain Security Tools for VMware Tanzu - Scan                              | Supply Chain Security Tools - Scan (SCST - Tools)                          |
+| Supply Chain Security Tools for VMware Tanzu - Sign                              | Supply Chain Security Tools - Sign (SCST - Sign)                           |
+| Supply Chain Security Tools for VMware Tanzu - Store                             | Supply Chain Security Tools - Store (SCST - Store)                         |
+| Tanzu Application Platform Telemetry                                             | Tanzu Application Platform Telemetry                                       |
+| Tanzu Build Service                                                              | Tanzu Build Service                                                        |
+| Tanzu Developer Portal                                                           | Tanzu Developer Portal                                                     |
+| Tanzu Supply Chain                                                               | Tanzu Supply Chain                                                         |
+| VMware Tanzu Developer Tools for IntelliJ                                        | Tanzu Developer Tools for IntelliJ                                         |
+| VMware Tanzu Developer Tools for Visual Studio                                   | Tanzu Developer Tools for Visual Studio                                    |
+| VMware Tanzu Developer Tools for Visual Studio Code                              | Tanzu Developer Tools for VS Code                                          |
+| VMware Tanzu Application Platform Pipeline service with Tekton                   | Tekton Pipelines                                                           |
 
 ### Using names for components other than Supply Chain Security Tools
 

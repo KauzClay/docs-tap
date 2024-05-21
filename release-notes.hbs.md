@@ -536,22 +536,6 @@ while installing through Tanzu Mission Control.
   This is due to caching behavior in the system which is not accounted for during configuration updates.
   For a workaround, see [Troubleshoot Bitnami Services](bitnami-services/how-to-guides/troubleshooting.hbs.md#private-reg).
 
-
-#### <a id='1-10-0-config-server-ki'></a> v1.10.0 Known issues: cert-manager
-
-- On TKGs TGKr 1.27, cert-manager is unable to configure Gateway API support due to
-the use of "gateway.networking.k8s.io/v1beta1".  As a workaround, either install the 
-"gateway.networking.k8s.io/v1." APIs or disable the use of Gateway API in cert-manager 
-by adding these lines to tap-values: 
-
-```console
-   cert_manager: 
-    controller: 
-      feature_gates: 
-        ExperimentalGatewayAPISupport: false
-```
-
-
 #### <a id='1-10-0-carto-conventions'></a>v1.10.0 Known issues: Cartographer Conventions
 
 - Before Tanzu Application Platform v1.9, the `cartographer.tanzu.vmware.com` package contained two products:
@@ -589,6 +573,20 @@ by adding these lines to tap-values:
   servers, including app-live-view-conventions, spring-boot-webhook, and developer-conventions/webhook,
   see [Troubleshoot Cartographer Conventions](cartographer-conventions/troubleshooting.hbs.md).
 
+#### <a id='1-10-0-cert-manager-ki'></a> v1.10.0 Known issues: cert-manager
+
+- cert-manager erroneously toggles Gateway API support in the presence of
+  `gateway.networking.k8s.io/v1beta1`, and does not start successfully. As a workaround, either install
+  `gateway.networking.k8s.io/v1` or explicitly un-toggle the Gateway API support for cert-manager by
+  adding these lines to `tap-values.yaml`:
+
+    ```yaml
+       cert_manager:
+        controller:
+          feature_gates:
+            ExperimentalGatewayAPISupport: false
+    ```
+
 #### <a id='1-10-0-crossplane-ki'></a> v1.10.0 Known issues: Crossplane
 
 - The Crossplane `validatingwebhookconfiguration` is not removed when you uninstall the
@@ -596,10 +594,9 @@ by adding these lines to tap-values:
   To workaround, delete the `validatingwebhookconfiguration` manually by running
   `kubectl delete validatingwebhookconfiguration crossplane`.
 
-
 #### <a id='1-10-0-config-server-ki'></a> v1.10.0 Known issues: Enterprise Config Server
 
-- Enterprise Config Server is not supported on Openshift.
+- Enterprise Config Server is not supported on OpenShift.
 
 #### <a id='1-10-0-scanning-ki'></a> v1.10.0 Known issues: Scanning
 

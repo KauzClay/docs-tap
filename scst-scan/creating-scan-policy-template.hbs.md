@@ -21,7 +21,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
 1. Get the access token from the Metadata Store by running:
 
    ```console
-   ACCESS-TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o yaml \
+   ACCESS_TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o yaml \
    | yq .data.token | base64 -d)
    ```
 
@@ -33,15 +33,15 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
     metadata:
       name: metadata-store-access-token
     stringData:
-      accessToken: ACCESS-TOKEN
+      accessToken: ACCESS_TOKEN
     ```
 
-    Where `ACCESS-TOKEN` is the access token
+    Where `ACCESS_TOKEN` is the access token
 
 1. Get the Certificate Authority (CA) certificate from the Metadata Store by running:
 
    ```console
-   MDS_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"" \
+   METADATA_STORE_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"" \
    | base64 -d)
    ```
 
@@ -54,10 +54,10 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
       name: metadata-store-cert
     stringData:
       caCrt: |
-        METADATA-STORE-CA-CERT
+        METADATA_STORE_CA_CERT
     ```
 
-    Where `METADATA-STORE-CA-CERT` is the Metadata Store CA certificate
+    Where `METADATA_STORE_CA_CERT` is the Metadata Store CA certificate
 
 1. Apply the created secrets in the developer namespace:
 

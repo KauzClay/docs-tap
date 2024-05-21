@@ -649,6 +649,7 @@
       - [Run query with GraphQL](scst-store/amr/graphql-query.hbs.md)
       - [Install AMR CloudEvent Handler](scst-store/amr/install-amr-cloudevent-handler.hbs.md)
       - [Install AMR Observer](scst-store/amr/install-amr-observer.hbs.md)
+      - [AMR fields table](scst-store/amr/table.hbs.md)
       - [Troubleshooting](scst-store/amr/troubleshooting.hbs.md)
       - [Metadata Store](scst-store/mds-overview.hbs.md)
           - [Overview](scst-store/mds-overview.hbs.md)

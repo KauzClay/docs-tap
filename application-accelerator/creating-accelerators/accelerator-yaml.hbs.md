@@ -282,7 +282,7 @@ engine:
 
 The following snippet shows an example `accelerator.axl` file:
 
-```go
+```plaintext
 engine {
   let includePoms = "#buildType == 'Maven'",
       includeGradle =  "#buildType == 'Gradle'"  in {

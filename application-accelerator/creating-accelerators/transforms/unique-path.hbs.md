@@ -7,7 +7,7 @@ You can often use this at the tail of a [Chain](chain.md).
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```go
+```plaintext
 UniquePath(CONFLICT-RESOLUTION)
 ```
 
@@ -19,7 +19,7 @@ Where `CONFLICT-RESOLUTION` is the resolution strategy you want to use from the 
 The following example concatenates the file that was originally named `DEPLOYMENT.md`
 to the file `README.md`:
 
-```go
+```plaintext
 Include({"README.md"})
 + Include({"DEPLOYMENT.md"})
   .RewritePath({rewriteTo: "README.md"})

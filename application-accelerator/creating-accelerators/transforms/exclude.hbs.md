@@ -9,7 +9,7 @@ if composed inside a [Chain](chain.md) or a [Merge](merge.md).
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```go
+```plaintext
 Exclude(LIST-OF-STRINGS)
 ```
 
@@ -17,7 +17,7 @@ Where `LIST-OF-STRINGS` is a list of `patterns` matching the files that you want
 
 ## <a id="examples"></a>Examples
 
-```go
+```plaintext
 Exclude({"**/secret/**"})
 ```
 

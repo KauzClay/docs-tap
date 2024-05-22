@@ -219,7 +219,7 @@ option _depend on_ another option, as in the following example:
 
 This plays well with the use of `if`, as in the following example:
 
-```go
+```plaintext
 engine {
   ...
   if (#deploymentType == 'workload') {

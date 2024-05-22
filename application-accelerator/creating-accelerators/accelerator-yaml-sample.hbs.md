@@ -108,7 +108,7 @@ The transformation operates on the files as a set and can do things such as:
 
 Sample `accelerator.axl` file:
 
-```go
+```plaintext
  // this is the 'global' transform. It produces the final set of
  // files to be zipped and returned from the accelerator.
  // As input it receives all the files from the accelerator repo root.

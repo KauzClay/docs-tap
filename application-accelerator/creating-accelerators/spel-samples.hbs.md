@@ -23,7 +23,7 @@ options:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   Include({"some/file.txt"})
   ReplaceText(substitutions: \{{text: 'bar', with: #foo}})
@@ -64,7 +64,7 @@ options:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   if (#numbers == 'first') {
     Include({"some/file.txt"})
@@ -92,7 +92,7 @@ options:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   Include({"some/file.txt"})
   RewritePath(rewriteTo: `somewhere/#{#renameTo}.txt`)
@@ -117,7 +117,7 @@ options:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   if (#foo.matches('[a-z]+Z\d+')) {
     Include({"some/file.txt"})
@@ -153,7 +153,7 @@ accelerator:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   ReplaceText(\{{text: recipe, with: ' * ' + T(java.lang.String).join('\n * ', #meals)  }})
 }

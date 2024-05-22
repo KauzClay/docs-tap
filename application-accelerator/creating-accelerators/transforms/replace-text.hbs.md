@@ -18,13 +18,13 @@ You can use `ReplaceText` transform in one of two ways:
 
 - Syntax reference for replacing several literal text tokens:
 
-    ```go
+    ```plaintext
     ReplaceText({text: "SOME-TEXT",with: "REPLACEMENT"})
     ```
 
 - Syntax reference for defining the replacement behavior using a _single_ regular expression:
 
-    ```go
+    ```plaintext
     ReplaceText(regex: {pattern: "REGULAR-EXPRESSION",with: SPEL-EXPRESSION})
     ```
 
@@ -48,7 +48,7 @@ See the following examples using The `ReplaceText` transform.
 Replacing the hardcoded string `"hello-world-app"` with the value of variable `#artifactId`
 in all `.md`, `.xml`, and `.yaml` files.
 
-```go
+```plaintext
 Include({"**/*.md", "**/*.xml", "**/*.yaml"})
 ReplaceText({text: "hello-world-app", with: #artifactId})
 ```
@@ -60,7 +60,7 @@ ReplaceText({text: "hello-world-app", with: #artifactId})
 Replacing the hardcoded string `"hello-world-app"` with the value of variable `#artifactId` in the
 `README-fr.md` and `README-de.md` files, which are encoded using the `ISO-8859-1` charset:
 
-```go
+```plaintext
 Include({"README-fr.md", "README-de.md"})
 UseEncoding("ISO-8859-1")
 ReplaceText({text: "hello-world-app", with: #artifactId})
@@ -71,7 +71,7 @@ ReplaceText({text: "hello-world-app", with: #artifactId})
 Similar to the preceding example, but making sure the value appears as kebab case,
 while the entered `#artifactId` is using camel case:
 
-```go
+```plaintext
 Include({"**/*.md", "**/*.xml", "**/*.yaml"})
 ReplaceText({text: "hello-world-app", with: #camel2Kebab(#artifactId)})
 ```
@@ -81,7 +81,7 @@ ReplaceText({text: "hello-world-app", with: #camel2Kebab(#artifactId)})
 Replacing the hardcoded string `"REPLACE-ME"` with the contents of
 file named after the value of the `#platform` option in `README.md`:
 
-```go
+```plaintext
 Include:({"README.md"})
 ReplaceText({text: "REPLACE-ME", with: #files.contentsOf("snippets/install-" + #platform + ".md")})
 ```
@@ -92,7 +92,7 @@ Replacing all occurrences of `apple` or `orange`, singular or plural,
 with the value of the accelerator option `#vegetable`, for example `'banana'`,
 keeping the trailing `'s'` when there was one.
 
-```go
+```plaintext
 Include({"README.md"})
 // This constructs a SpEL string containing eg 'banana$2' where $2
 // refers to the second capturing group (the optional 's')

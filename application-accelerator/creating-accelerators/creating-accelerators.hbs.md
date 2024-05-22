@@ -131,7 +131,7 @@ accelerator:
     required: true
 ```
 
-```go
+```plaintext
 engine {
   Include({"pom.xml"}).ReplaceText({pattern: "<java.version>.*<", with:  `<java.version>#{#javaVersion}<'`}})
   Include({"build.gradle"}).ReplaceText(\{{pattern: "sourceCompatibility = .*", with:  `sourceCompatibility = #{#javaVersion}`}})

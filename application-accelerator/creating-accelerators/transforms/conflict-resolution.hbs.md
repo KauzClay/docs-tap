@@ -17,7 +17,7 @@ by default uses [Fail](#available-strategies). This is customizable.
 
 ### <a id="chain"></a>Chain
 
-```go
+```plaintext
 engine {
   T1()
   T2()

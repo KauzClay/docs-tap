@@ -6,7 +6,7 @@ The `RewritePath` transform allows you to change the name and path of files with
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```go
+```plaintext
 RewritePath(regex: REGEX, rewriteTo: SPEL-EXPRESSION, matchOrFail:BOOLEAN)
 ```
 
@@ -57,7 +57,7 @@ See the following examples using the `RewritePath` transform.
 
 The following moves all files from `src/main/java` to `sub-module/src/main/java`:
 
-```go
+```plaintext
 RewritePath(regex: "src/main/java/(.*)", rewriteTo: "sub-module/src/main/java" + #g1)
 ```
 
@@ -68,7 +68,7 @@ RewritePath(regex: "src/main/java/(.*)", rewriteTo: "sub-module/src/main/java" +
 The following flattens all files found inside the `sub-path` directory and its subdirectories,
 and puts them into the `flattened` folder:
 
-```go
+```plaintext
 RewritePath(regex: "sub-path/(.*/)*(?<filename>[^/]+)", rewriteTo: "flattened" + #filename)
 ```
 
@@ -76,7 +76,7 @@ RewritePath(regex: "sub-path/(.*/)*(?<filename>[^/]+)", rewriteTo: "flattened" +
 
 The following turns all paths into lowercase:
 
-```go
+```plaintext
 RewritePath(rewriteTo: #g0.toLowerCase())
 ```
 
@@ -85,7 +85,7 @@ RewritePath(rewriteTo: #g0.toLowerCase())
 It's common to define pipelines that perform a `Chain` of transformations
 on a subset of files, typically selected by `Include/Exclude`:
 
-```go
+```plaintext
 Include({"**/*.java"})
 T1()
 T2()

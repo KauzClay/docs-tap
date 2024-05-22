@@ -16,7 +16,7 @@ accelerator:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   // Describes what happens to the files of the accelerator
 }
@@ -47,7 +47,7 @@ those files whose path matches any one of a list of `patterns`.
 
 If the accelerator has something like this:
 
-```go
+```plaintext
 engine {
   Include(patterns: {'**/*.java'})
 }
@@ -60,7 +60,7 @@ Transforms can also operate on the contents of a file, instead of merely selecti
 
 For example:
 
-```go
+```plaintext
 engine {
   ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
 }
@@ -76,13 +76,13 @@ write `MyTransform()`. This is referred as using the transform _constructor_.
 If the transform can be parameterized with configuration properties, you can pass those typed
 properties in the constructor call, for example:
 
-```go
+```plaintext
   Include(patterns: {'**/*.java'})
 ```
 
 You can pass properties by name like in the preceding example, or in order like in the following example.
 
-```go
+```plaintext
   Include( {'**/*.java'} )
 ```
 
@@ -116,7 +116,7 @@ filter to select only a subset of files of interest and chain that subset into `
 
 To use chains in the DSL syntax, write transform `A` followed by transform `B`:
 
-```go
+```plaintext
 engine {
   Include(patterns: {'**/*.java'})
   ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
@@ -130,7 +130,7 @@ It also eliminates all other files from the result.
 
 For example:
 
-```go
+```plaintext
 engine {
   Include(patterns: {'**/pom.xml'})
   ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
@@ -144,7 +144,7 @@ but don't want to apply the same text replacement to them.
 
 You might be tempted to write something such as:
 
-```go
+```plaintext
 engine {
   Include(patterns: {'**/pom.xml'})
   ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
@@ -164,7 +164,7 @@ of the result sets.
 
 For example:
 
-```go
+```plaintext
 engine {
   {
     Include(patterns: {'**/pom.xml'})
@@ -189,7 +189,7 @@ first inclusions.
 
 To avoid this, you can use the `applyTo()` operator sequentially. For example:
 
-```go
+```plaintext
 engine {
   applyTo('**/pom.xml') {
     ReplaceText(substitutions: \{{text: "hello-fun", with: #artifactId }})
@@ -212,7 +212,7 @@ to the next transform down the line.
 
 You can wrap transforms, or sequences of transforms, inside an `if()` construct. For example:
 
-```go
+```plaintext
 engine {
   if (#k8sConfig == 'k8s-resource-simple') {
     Include({"kubernetes/app/*.yaml"})
@@ -246,7 +246,7 @@ the same path and yet different contents.
 
 For example when using a merge:
 
-```go
+```plaintext
 engine {
   Include({"**/*})          // Transform A
   + {                       // Transform B
@@ -267,7 +267,7 @@ As the example shows, merges are likely to give rise to these conflicts, so you
 might call this a "merge conflict." However,
 such conflicts can also arise from other operations. For example, `RewritePath`:
 
-```go
+```plaintext
 RewritePath(regex: '.*\.md', rewriteTo: 'docs/README.md')
 ```
 
@@ -288,7 +288,7 @@ before writing files to disk. VMware provides the [UniquePath](transforms/unique
 transform. This transform allows you to specify what to do when more than one file has the same
 path. For example:
 
-```go
+```plaintext
 engine {
   RewritePath(regex: '.*\.md', rewriteTo: 'docs/README.md')
   UniquePath(strategy: Append)
@@ -324,7 +324,7 @@ control the order of the sections in the `README.md` file, change the order of t
 
 For example:
 
-```go
+```plaintext
 engine {
   Include({'README.md'})
   + {

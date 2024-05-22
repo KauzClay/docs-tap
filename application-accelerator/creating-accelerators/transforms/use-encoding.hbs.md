@@ -12,7 +12,7 @@ use the `UseEncoding` transform to annotate them with an explicit encoding.
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```go
+```plaintext
 UseEncoding({encoding: ENCODING})
 ```
 
@@ -24,7 +24,7 @@ Supported encoding names include, for example, `UTF-8`, `US-ASCII`, and `ISO-885
 `UseEncoding` is typically used as an upfront transform to, for example, [ReplaceText](replace-text.md)
 in a chain:
 
-```go
+```plaintext
 UseEnconding('ISO-8859-1')
 ReplaceText({text: "hello", with: #howToSayHello})
 ```

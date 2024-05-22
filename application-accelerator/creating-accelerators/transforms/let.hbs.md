@@ -13,24 +13,27 @@ those existing variables become inaccessible.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```go
-let aVar = "a" in {
-
+```plaintext
+let VAR = SPEL-EXPRESSION [, VAR = SPEL-EXPRESSION]* in {
+ ...
 }
 ```
+
+Where:
+
+- `VAR` is the variable you want to use.
+- `SPEL-EXPRESSION` is the SpEL Expression you want to use.
 
 ## <a id="execution"></a>Execution
 
 The `Let` transform adds variables to the new scope by computation of
 [SpEL expressions](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions).
 
-```go
-let <var> = <SpEL Expression> [, <var> = <SpEL Expression>]* in {
-  ...
+```plaintext
+let aVar = "a" in {
+
 }
 ```
-
-<!-- are these place holders? -->
 
 Symbols defined in the `Let` are evaluated in the new scope in the order they are defined.
 This means that symbols lower in the list can make use of the variables defined higher in the

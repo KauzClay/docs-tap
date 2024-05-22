@@ -7,7 +7,7 @@ allowing re-use across accelerators.
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```go
+```plaintext
 engine{
   InvokeFragment(FRAGMENT-NAME)
 }
@@ -21,7 +21,7 @@ If, for example, the fragment `my-fragment` is imported into the accelerator, wh
 exposes the options it defines as options of the current accelerator,
 the following construct invokes `my-fragment`:
 
-```go
+```plaintext
 InvokeFragment('my-fragment')
 ```
 
@@ -87,7 +87,7 @@ accelerator:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   Include({'...'})
   T2()
@@ -130,7 +130,7 @@ accelerator:
 
 Example `accelerator.axl`:
 
-```go
+```plaintext
 engine {
   Include({"...", "**/pom.xml". "**/*.xml"})
   T1()
@@ -143,7 +143,7 @@ If you don't want to use the value entered in the `indentationLevel` option for
 the fragment but use the value provided for `someOption` twice,
 you can rewrite the `InvokeFragment` block as follows:
 
-```go
+```plaintext
 let indententationLevel in {
   InvokeFragment('my-fragment')
 }
@@ -151,7 +151,7 @@ let indententationLevel in {
 
 Finally, if the invocation in the accelerator looks like this:
 
-```go
+```plaintext
 engine {
   Include("...")
   + Include("**/README.md")

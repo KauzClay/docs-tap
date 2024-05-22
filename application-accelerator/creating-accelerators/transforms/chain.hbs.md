@@ -8,7 +8,7 @@ The `Chain` transform uses function composition to produce its final output.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```go
+```plaintext
 engine {
   T1()
   T2()
@@ -24,7 +24,7 @@ the output of that. In other words, **T3** to **T2** to **T1**.
 
 ## <a id="dot-notation"></a>Dot notation
 
-```go
+```plaintext
 engine {
   T1().T2().T3()
 }
@@ -41,7 +41,7 @@ A good use for this concept is when a [Merge](merge.md) is included in the chain
 
 For example:
 
-```go
+```plaintext
 engine {
   T1()
   + T2()

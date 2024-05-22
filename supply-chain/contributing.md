@@ -84,7 +84,7 @@ page links to this page.
 - While the PE is authoring supply chains, they can see details about each component. In the CLI
   there are links to the vmware.doc docs page that has the component descriptions.
 
-```shell
+```console
 kubectl get component -n sonarqube-catalog sonarqube-sast-scan-1.0.0 -oyaml | yq .status.docs -r
 ```
 

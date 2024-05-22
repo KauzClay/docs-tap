@@ -80,6 +80,7 @@ spec:
       - path: spec.registry.server
         value: "YOUR-REGISTRY-SERVER"
 ```
+
 ### `spec.defines`
 
 The `spec.defines` object defines the `Workload` custom resource definition (CRD).
@@ -119,28 +120,28 @@ spec:
     group: example.com
     version: v1alpha1
     categories:
-      - apps    # `kubectl get apps` would include this kind 
+      - apps    # The kubectl get apps command includes this kind
                 # and others with the same category.
     shortnames:
       - hosted1
-      - ha1     # `kubectl get ha1 -A` would show all instance of this kind
+      - ha1     # The kubectl get ha1 -A command shows all instance of this kind
 ```
 
 ### `spec.description`
 
-The `spec.description` field is visible to an app developer when they use the CLI to discover
-available Workload kinds:
+An app developer can see the `spec.description` field when they use the CLI to discover available
+`Workload` kinds. For example:
 
 ```console
-tanzu workload kind list --wide
+$ tanzu workload kind list --wide
 
 KIND                      VERSION     AGE   DESCRIPTION
 serverappv2.example.com   v1alpha1    12m   Server application supply chain
 ```
 
-**Recommendation:** embed complete documentation in the description.
+Embed complete documentation in the description to best assist app developers.
 
-The description field supports multi-line Plain text or Markdown.
+The description field supports multiline plain text or Markdown.
 
 ### `spec.stages[]`
 

@@ -115,13 +115,13 @@ properties:
       required: true    # makes subPath a required field
       schema:
         type: string
-        description: the subPath of the repo to monitor for changes
+        description: the subPath of the repository to monitor for changes
 ```
 
 ### `spec.description`
 
 `spec.description` describes the component's purpose.
-You will see this description in `tanzu workload run list`.
+You see this description in `tanzu workload run list`.
 
 ```yaml
 spec:
@@ -131,8 +131,8 @@ spec:
 ### `spec.inputs`
 
 The inputs this component requires.
-This component cannot be added to a supply chain unless a prior stage exposes the name and type as
-and output.
+This component cannot be added to a supply chain unless a previous stage exposes the name and type as
+output.
 
 ```yaml
   inputs:
@@ -145,55 +145,57 @@ and output.
 The outputs this component emits. Outputs are references to an artifact located at the `url`.
 
 URL string `json:"url,omitempty"`
+
 ```yaml
-  outputs:
-    - name: source
-      type: source
-      digest: <cryptographic hash>
-      url: <location of output artifact>
+outputs:
+  - name: source
+    type: source
+    digest: <cryptographic hash>
+    url: <location of output artifact>
 ```
 
 #### `spec.outputs[].digest`
 
-Digest of this output. If not provided, defaults to `$(pipeline.results.digest)`.
+The digest of this output. If not provided, the default is `$(pipeline.results.digest)`.
 
-Use a template replacement to describe where the digest originates from, in either the
-pipeline or resumption. Eg: `$(resumption.results.commitId)` or `$(pipeline.results.shasum)` etc...
+Use a template replacement to describe where the digest originates, in either the
+pipeline or resumption. For example, `$(resumption.results.commitId)` or `$(pipeline.results.shasum)`.
 
-This digest should be a [cryptographic hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) 
-so that operators of the supply chain can be assured that the value correlates to the data in the artifact at the
-`url`. It's also important that you describe how the digest is formed, so that it can
-be verified at a later date should the authenticity of the artifact need to be checked.
+This digest must be a [cryptographic hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function)
+to assure operators of the supply chain that the value correlates to the data in the artifact at the
+`url`. Describe how the digest is formed so that it can be verified at a later date if the
+authenticity of the artifact needs to be checked.
 
 #### `spec.outputs[].url`
 
-The URL that holds the artifact of this output. If not provided, defaults to `$(pipeline.results.url)`.
+The URL that holds the artifact of this output. If not provided, the default is `$(pipeline.results.url)`.
 
-Use a template replacement to describe where the URL originates from, typically in the
-pipeline. Eg: `$pipeline.results.buildURL`.
+Use a template replacement to describe where the URL originates, typically in the pipeline. For
+example, `$pipeline.results.buildURL`.
 
-The storage of the resource at this url should match in all instances of this `output.type`, including any
-expected `accepts-*` headers etc.
+The storage of the resource at this URL must match in all instances of this `output.type`, including
+any expected `accepts-*` headers and so on.
 
 #### Example
+
 ```yaml
-  outputs:
-    - name: source
-      type: source
-      digest: $(resumption.results.commitId)
-      url: $(pipeline.results.buildURL)
+outputs:
+  - name: source
+    type: source
+    digest: $(resumption.results.commitId)
+    url: $(pipeline.results.buildURL)
 ```
 
 ### `spec.pipelineRun`
 
-The `spec.pipelineRun` section defines the work done by this component.
-`spec.pipelineRun` is used by Tanzu Supply Chain to create a [Tekton PipelineRun] and has many similarities.
-
+The `spec.pipelineRun` section defines the work that this component performs. Tanzu Supply Chain
+uses `spec.pipelineRun` to create a Tekton `PipelineRun`, and there are many similarities between
+Tekton `PipelineRun` and `spec.pipelineRun`.
 
 #### `spec.pipelineRun.params`
 
-`spec.pipelineRun.params` are the same as [Tekton PipelineRun Parameters] with one major difference:
-you can populate them using templates.
+`spec.pipelineRun.params` are the same as Tekton `PipelineRun` parameters except for one major
+difference: You can populate `spec.pipelineRun.params` by using templates.
 
 The available references for templating are:
 
@@ -202,27 +204,30 @@ The available references for templating are:
 | `$(config.spec...)`                           | References to the [config](#spec-config)         | `$(config.spec.source.git.url)`                            |
 | `$(workload.spec...)`                         | The same as `$(config.spec)...` - **Deprecated** | `$(workload.spec.source.git.url)`                          |
 | `$(workload.metadata...)`                     | The workload metadata                            | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
-| `$(inputs.<input-name>.[url\|digest])`        | An input url or digest                           | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
+| `$(inputs.<input-name>.[url\|digest])`        | An input URL or digest                           | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
 | `$(resumptions.<resumption-name>.results...)` | A [resumption](#specresumptions) result          | `$(resumptions.check-source.results.sha)`                  |
 
 #### `spec.pipelineRun.pipelineRef`
 
 The `spec.pipelineRun.pipelineRef` is required, and it has one field `name` that must refer to the
-`metadata.name` of a [Tekton Pipeline] that resides in the same namespace as the `Component` and
+`metadata.name` of a Tekton Pipeline that resides in the same namespace as the `Component` and
 `SupplyChain`.
 
-
 ### `spec.pipelineRun.taskRunSpecs`
-If you need to define taskRunSpecs to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.taskRunSpecs`.
-This is identical to the Tekton PipelineRun `taskRunSpecs` specification.
+
+If you need to define `taskRunSpecs` to pass to Tekton `PipelineRun`, use
+`spec.pipelineRun.taskRunSpecs`. This is identical to the Tekton `PipelineRun` `taskRunSpecs`
+specification.
 
 ### `spec.pipelineRun.taskRunTemplates`
-If you need to define taskRunTemplates to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.taskRunTemplates`.
-This is identical to the Tekton PipelineRun `taskRunTemplates` specification.
+
+If you need to define `taskRunTemplates` to pass to Tekton `PipelineRun`, use
+`spec.pipelineRun.taskRunTemplates`. This is identical to the Tekton `PipelineRun` `taskRunTemplates`
+specification.
 
 #### `spec.pipelineRun.workspaces`
 
-If you need to define workspaces to pass to the Tekton `PipelineRun`, use `spec.pipelineRun.workspaces`.
+If you need to define workspaces to pass to Tekton `PipelineRun`, use `spec.pipelineRun.workspaces`.
 This field is an array of workspace definitions, and is identical to the Tekton Workspaces specification.
 
 | Reference                                     | Source                                                                                         | Examples                                                   |
@@ -256,7 +261,6 @@ spec:
                 storage: 1Gi
 ```
 
-
 ### `spec.resumptions[]`
 
 `spec.resumptions[]` define Tekton `TaskRuns`. They are optional, but useful to describe small, fast
@@ -267,9 +271,9 @@ For a detailed explanation of resumptions, see
 
 #### `spec.resumptions[].name`
 
-`spec.resumptions[].name` is visible to end users, so make sure it's suitably meaningful. It's
-recommended that it's in the form: `check-RESOURCE-TYPE` where `RESOURCE-TYPE` is the kind of
-resource being polled, such as `source` or `base-image`.
+Make `spec.resumptions[].name` descriptive for the end users who will see it. It is The recommended
+form is `check-RESOURCE-TYPE`, where `RESOURCE-TYPE` is the kind of resource being polled, such as
+`source` or `base-image`.
 
 #### `spec.resumptions[].trigger.runaAfter`
 

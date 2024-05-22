@@ -44,8 +44,8 @@ Before using the extension, you must configure it as follows:
         In the **Tanzu Application Platform Gui Url** text box, add your Tanzu Developer Portal URL.
         For example, `https://tap-gui.myclusterdomain.myorg.com`.
 
-        If you have access to the Tanzu Application Platform cluster that is running the Tanzu Developer Portal,
-        you can run the following command to get the fully-qualified domain name:
+        To get the fully-qualified domain name, if you have access to the Tanzu Application Platform
+        cluster that is running Tanzu Developer Portal, run:
 
         ```console
         kubectl get httpproxy tap-gui -n tap-gui

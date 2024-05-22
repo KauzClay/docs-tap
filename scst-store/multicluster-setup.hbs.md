@@ -21,10 +21,7 @@ CloudEvent Handler.
 
 ## <a id='summary'></a>Procedure summary
 
-> **Note** This topic assumes that you are using SCST Scan 2.0 via [Add testing and scanning to your application](/docs-tap/getting-started/add-test-and-security.hbs.md).  If you are still using the deprecated Scan 1.0, you will need to do these steps, as well as the additional [Scan 1.0 steps](#extra-steps-required-for-scan-10).
-
-To deploy Supply Chain Security Tools (SCST) -
-Store in a multicluster setup:
+To deploy Supply Chain Security Tools (SCST) - Store in a multicluster setup:
 
 1. Copy SCST - Store CA certificates from the View cluster.
    1. Copy the Metadata Store CA certificate from the View cluster.
@@ -36,6 +33,11 @@ Store in a multicluster setup:
    1. Apply the Metadata Store CA certificate and authentication token to the Build cluster.
    2. Apply the AMR CloudEvent Handler CA certificate and edit token for the Build and Run cluster.
 4. Install the Build and Run profiles.
+
+> **Note** This topic assumes that you are using SCST - Scan 2.0, as described in
+> [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md).
+> If you are still using the deprecated SCST - Scan 1.0, you must follow these steps and the
+> [extra steps required for Scan 1.0](#extra-scan-1-0-steps) too.
 
 ## <a id='copy-ca-cert'></a>Copy SCST - Store CA certificates from the View cluster
 
@@ -157,30 +159,34 @@ and [install the Run profile](../multicluster/installing-multicluster.hbs.md#ins
 
 ## <a id='extra-scan-1-0-steps'></a>Extra steps required for Scan 1.0
 
-Scan 1.0 was deprecated in Tanzu Application Platform 1.10 and the default scan component to use in the Test and Scan supply chain is Scan 2.0.  These steps are required in addition to the steps above if you are still using Scan 1.0.  For more information about Scan 1.0 and Scan 2.0, see the [SCST-Scan component overview](../scst-scan/overview.hbs.md)
+Scan 1.0 was deprecated in Tanzu Application Platform v1.10. The default scan component to use in
+the Test and Scan supply chain is Scan 2.0. These steps are required in addition to the earlier steps
+if you are still using Scan 1.0. For more information about Scan 1.0 and Scan 2.0, see the
+[SCST - Scan component overview](../scst-scan/overview.hbs.md)
 
-### <a id='apply-kubernetes'></a>Configure SCST - Scan with the Metadata Store CA certificate and authentication token on the Build cluster
+### <a id='apply-kubernetes'></a> Configure SCST - Scan with the Metadata Store CA certificate and authentication token on the Build cluster
 
-> ** NOTE** Depreciated
+Within the Build profile `values.yaml` file, add the following snippet:
 
-Update the Build profile `values.yaml` file to add the following snippet using the contents of $MDS_CA_CERT and $MDS_AUTH_TOKEN copied in an earlier step. It configures SCST - Scan with the Metadata Store CA certificate and authentication token.
+```yaml
+scanning:
+  metadataStore:
+    exports:
+      ca:
+        pem: |
+          <CONTENTS OF $MDS_CA_CERT>
+      auth:
+        token: <CONTENTS OF $MDS_AUTH_TOKEN>
+```
 
-    ```console
-    scanning:
-      metadataStore:
-        exports:
-          ca:
-            pem: |
-              <CONTENTS OF $MDS_CA_CERT>
-          auth:
-            token: <CONTENTS OF $MDS_AUTH_TOKEN>
-    ```
+This snippet contains the content of `$MDS_CA_CERT` and `$MDS_AUTH_TOKEN` copied in an earlier step.
+This content configures SCST - Scan with the Metadata Store CA certificate and authentication token.
 
 ### <a id='grype-mds-config'></a>How to configure Grype in the Build profile values file
 
-The Build profile `values.yaml` uses the secrets you created to configure the Grype scanner which
-talks to SCST - Store. After performing a vulnerabilities scan, the Grype scanner sends the results
-to SCST - Store.
+The Build profile `values.yaml` file uses the secrets you created to configure the Grype scanner
+that communicates with SCST - Store. After performing a vulnerabilities scan, the Grype scanner
+sends the scan result to SCST - Store.
 
 For example:
 
@@ -189,10 +195,10 @@ For example:
 grype:
   targetImagePullSecret: "TARGET-REGISTRY-CREDENTIALS-SECRET"
   metadataStore:
-    url: METADATA-STORE-URL-ON-VIEW-CLUSTER # Url with http / https
+    url: METADATA-STORE-URL-ON-VIEW-CLUSTER # URL with http / https
     caSecret:
         name: store-ca-cert
-        importFromNamespace: metadata-store-secrets # Must match with `ingress-cert.data."ca.crt"` of store on view cluster
+        importFromNamespace: metadata-store-secrets # Must match with ingress-cert.data."ca.crt" of store on view cluster
     authSecret:
         name: store-auth-token # Must match with valid store token of metadata-store on view cluster
         importFromNamespace: metadata-store-secrets
@@ -201,47 +207,48 @@ grype:
 
 Where:
 
-- `METADATA-STORE-URL-ON-VIEW-CLUSTER` is the ingress URL of SCST - Store
-  deployed to the View cluster. For example,
-  `https://metadata-store.example.com`. See [Ingress support](ingress.hbs.md).
-- `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains
-  the credentials to pull an image from the registry for scanning.
+- `METADATA-STORE-URL-ON-VIEW-CLUSTER` is the ingress URL of SCST - Store deployed to the View
+  cluster. For example, `https://metadata-store.example.com`. For more information, see
+  [Ingress support](ingress.hbs.md).
+- `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the credentials to
+  pull an image from the registry for scanning.
 
 ### <a id="export-multicluster"></a> Exporting SCST - Store secrets to a developer namespace in a Tanzu Application Platform multicluster deployment
 
-SCST Scan 1.0 required the configuration for SCST Store to be in every developer namespace, which required the SCST Store certificate and authentication token to created.  
+SCST - Scan 1.0 required SCST - Store to be configured in every developer namespace with an SCST -
+Store certificate and authentication token.
 
-Export secrets to a developer namespace by creating `SecretExport` resources on
-the developer namespace. You must have created and populated the `metadata-store-secrets`
-namespace. To create the `SecretExport`
-resources, run:
+To export secrets by creating `SecretExport` resources on the developer namespace:
 
-```console
-cat <<EOF | kubectl apply -f -
----
-apiVersion: secretgen.carvel.dev/v1alpha1
-kind: SecretExport
-metadata:
-  name: store-ca-cert
-  namespace: metadata-store-secrets
-spec:
-  toNamespaces: [DEV-NAMESPACES]
----
-apiVersion: secretgen.carvel.dev/v1alpha1
-kind: SecretExport
-metadata:
-  name: store-auth-token
-  namespace: metadata-store-secrets
-spec:
-  toNamespaces: [DEV-NAMESPACES]
-EOF
-```
+1. Verify that you created and populated the `metadata-store-secrets` namespace.
+1. Create the `SecretExport` resources by running:
 
-Where `DEV-NAMESPACES` is an array of developer namespaces where the Metadata Store secrets are
-exported.
+   ```console
+   cat <<EOF | kubectl apply -f -
+   ---
+   apiVersion: secretgen.carvel.dev/v1alpha1
+   kind: SecretExport
+   metadata:
+     name: store-ca-cert
+     namespace: metadata-store-secrets
+   spec:
+     toNamespaces: [DEV-NAMESPACES]
+   ---
+   apiVersion: secretgen.carvel.dev/v1alpha1
+   kind: SecretExport
+   metadata:
+     name: store-auth-token
+     namespace: metadata-store-secrets
+   spec:
+     toNamespaces: [DEV-NAMESPACES]
+   EOF
+   ```
+
+   Where `DEV-NAMESPACES` is an array of developer namespaces where the Metadata Store secrets are
+   exported.
 
 For information about `metadata` configuration, see
-[Cluster Specific Store Configuration](cluster-specific-scanner-configurations.hbs.md).
+[Cluster-specific scanner configurations](cluster-specific-scanner-configurations.hbs.md).
 
 ## <a id='resources'></a> Additional resources
 

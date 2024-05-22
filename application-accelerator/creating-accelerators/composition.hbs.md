@@ -36,7 +36,7 @@ Composition relies on two building blocks that play hand in hand:
 - The `imports` section at the top of an accelerator manifest.
 - The, `InvokeFragment` transform, to be used alongside any other transform.
 
-## <a id="imports-section-explained"></a>| The `imports` section explained
+## <a id="imports-section-explained"></a> The `imports` section explained
 
 To be usable in composition, a fragment MUST be _imported_ into the dedicated
 section of an accelerator manifest:

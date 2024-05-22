@@ -6,7 +6,8 @@ properties to an application, and a central source for managing this configurati
 environments.
 
 For more detailed documentation, including client configuration setup, see the
-[Spring Runtime - Config Server documentation](https://{{ vars.staging_toggle }}.vmware.com/en/VMware-Tanzu-Spring-Runtime---Config-Server/Commercial/Tanzu-Spring-Runtime/config-server-about-config-server.html).
+
+[Tanzu Spring Runtime - Config Server documentation](https://{{ vars.staging_toggle }}.vmware.com/en/Tanzu-Spring-Runtime/Commercial/Tanzu-Spring-Runtime/config-server-about-config-server.html).
 
 ## <a id="architecture"></a> Architecture
 

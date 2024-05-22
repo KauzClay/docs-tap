@@ -6,13 +6,15 @@ using VS Code.
 
 ## <a id="dependencies"></a> Dependencies
 
-- To use the VS Code extension, the extension must access the Tanzu Developer Portal URL.
-  For information about how to retrieve the Tanzu Developer Portal URL, see
-  [Retrieving the URL for the Tanzu Developer Portal](#fqdn-tap-gui-url).
+- To use the VS Code extension to explore and generate projects, the extension must either:
 
-  Alternatively, you can use the local engine server to use the explore and generate projects without
-  requiring access to Tanzu Developer Portal. For more information, see
-  [Use a local Application Accelerator engine server](./creating-accelerators/using-local-engine-server.hbs.md).
+  - Have access the Tanzu Developer Portal URL.
+    For information about how to retrieve the Tanzu Developer Portal URL, see
+    [Retrieving the URL for the Tanzu Developer Portal](#fqdn-tap-gui-url).
+
+  - Alternatively, you can use the local engine server to explore and generate projects locally
+    without requiring access to Tanzu Developer Portal. For more information, see
+    [Use a local Application Accelerator engine server](creating-accelerators/using-local-engine-server.hbs.md).
 
 - (Optional) To use Git repository provisioning during project creation in the VS Code extension,
 you must enable GitHub repository creation in the Application Accelerator plug-in.

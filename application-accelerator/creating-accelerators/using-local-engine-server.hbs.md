@@ -10,8 +10,10 @@ files. This enables you to verify that the accelerator provides the defined opti
 the correct set of files.
 
 With the local engine server, you can serve your accelerators with their fragments on `localhost`,
-including any changes you have locally. You can use the Visual Studio Code (VS Code) Tanzu App Accelerator extension
-or the Tanzu CLI Accelerator plug-in to generate new projects based on these local files.
+including any changes you have locally.
+You can use the Visual Studio Code (VS Code) Tanzu App Accelerator extension,
+IntelliJ Tanzu Application Accelerator plug-in, or the Tanzu CLI Accelerator plug-in to generate
+new projects based on these local files.
 After you are satisfied with the new or modified accelerators and fragments, you can commit them to
 a Git repository and then publish them to a cluster to give others access.
 
@@ -116,7 +118,7 @@ To use the local engine server:
       Use them in the same way that you use accelerators loaded from Tanzu Developer Portal.
       For more information, see [Use the extension](../vscode.hbs.md#using-the-extension).
 
-   - **For the Tanzu Application Accelerator plug-in for IntelliJ:**
+    - **For the Tanzu Application Accelerator plug-in for IntelliJ:**
 
       Under **IntelliJ IDEA** > **Preferences** > **Tools** > **Tanzu Application Accelerator**,
       select the **Use Local Server instead of Developer Portal** check box.

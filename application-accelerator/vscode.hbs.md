@@ -1,10 +1,8 @@
 # Use the Application Accelerator Visual Studio Code extension
 
 This topic describes how to use the Application Accelerator Visual Studio Code extension to explore
-and generate projects from the defined accelerators in Tanzu Application Platform (commonly known as TAP) using VS Code.
-
-The Application Accelerator Visual Studio Code extension lets you explore and generate projects
-from the defined accelerators in Tanzu Application Platform using VS Code.
+and generate projects from the defined accelerators in Tanzu Application Platform (commonly known as TAP)
+using VS Code.
 
 ## <a id="dependencies"></a> Dependencies
 
@@ -12,7 +10,11 @@ from the defined accelerators in Tanzu Application Platform using VS Code.
   For information about how to retrieve the Tanzu Developer Portal URL, see
   [Retrieving the URL for the Tanzu Developer Portal](#fqdn-tap-gui-url).
 
-- (Optionally) To use Git repository provisioning during project creation in the VS Code extension,
+  Alternatively, you can use the local engine server to use the explore and generate projects without
+  requiring access to Tanzu Developer Portal. For more information, see
+  [Use a local Application Accelerator engine server](./creating-accelerators/using-local-engine-server.hbs.md).
+
+- (Optional) To use Git repository provisioning during project creation in the VS Code extension,
 you must enable GitHub repository creation in the Application Accelerator plug-in.
 For more information, see [Create an Application Accelerator Git repository during project creation](../tap-gui/plugins/application-accelerator-git-repo.hbs.md).
 
@@ -29,23 +31,31 @@ Use the following steps to install the Application Accelerator Visual Studio Cod
 
 ## <a id="configure-the-extension"></a> Configure the extension
 
-Before using the extension, you need follow the next steps:
+Before using the extension, you must configure it as follows:
 
-1. Go to VS Code settings - click **Code > Preferences > Settings > Extensions > Tanzu App Accelerator**.
+1. Go to VS Code settings and click **Code > Preferences > Settings > Extensions > Tanzu App Accelerator**.
 
-2. Look for the setting `Tap Gui Url`.
+2. Configure the extension to either use Tanzu Developer Portal or the local server engine:
 
-3. Add the Tanzu Application Platform GUI URL.
+    - **For Tanzu Developer Portal:**
 
-   ![The Server Configure Setting page is open with the acc server URL highlighted.](../images/app-accelerators-vscode-settings-tap-gui-url.png)
+        In the **Tanzu Application Platform Gui Url** text box, add your Tanzu Developer Portal URL.
+        For example, `https://tap-gui.myclusterdomain.myorg.com`.
 
-    An example URL: `https://tap-gui.myclusterdomain.myorg.com`. If you have access to the Tanzu
-    Application Platform cluster that is running the Tanzu Developer Portal, you can run the
-    following command to determine the fully-qualified domain name:
+        If you have access to the Tanzu Application Platform cluster that is running the Tanzu Developer Portal,
+        you can run the following command to get the fully-qualified domain name:
 
-    ```console
-    kubectl get httpproxy tap-gui -n tap-gui
-    ```
+        ```console
+        kubectl get httpproxy tap-gui -n tap-gui
+        ```
+
+        ![The Server Configure Setting page is open with the acc server URL highlighted.](../images/app-accelerators-vscode-settings-tap-gui-url.png)
+
+    - **For the local server engine:**
+
+      To use the local server engine to explore and generate projects based on local files without
+      requiring access to Tanzu Developer Portal, follow the instructions in
+      [Use a local Application Accelerator engine server](creating-accelerators/using-local-engine-server.hbs.md).
 
 ## <a id="using-the-extension"></a> Use the extension
 
@@ -83,6 +93,16 @@ To export your options using the VS Code extension:
     ![The Review and Generate page with the Export Options button highlighted.](images/export-options-vscode.png)
 
 1. Choose a location to save the JSON file.
+
+### <a id="lsp-config"></a>Use the language server provided by the local server
+
+If you are using the local engine server, it includes a language server that enables you to use
+VS Code features such as syntax highlighting and code folding.
+
+To enable these features, you must start the local server. For instructions, see
+[Use a local Application Accelerator engine server](./creating-accelerators/using-local-engine-server.hbs.md).
+After you have enabled the local server, these features are available while editing an `accelerator.axl`
+file in VS Code.
 
 ## <a id="fqdn-tap-gui-url"></a> Retrieve the URL for the Tanzu Developer Portal
 
@@ -152,11 +172,3 @@ endpoints using TLS. For more information, see [Installing a root CA certificate
       4. Select **Place all certificates in the following store**, click **Browse**, and select **Trusted Root Certification Authorities**
       5. Click **Finish**.
       6. A pop-up window stating **The import was successful.** is displayed.
-
-### <a id="lsp-config"></a>Using Language server provided by local server
-
-The local server comes bundled with a language server that lets you use Visual Studio Code features like syntax highlighting and
-code folding.
-
-To use it, start the local server first and then open Visual Studio Code, when editing a `accelerator.axl` file, the features should be
-enabled

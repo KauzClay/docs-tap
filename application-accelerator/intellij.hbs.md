@@ -10,6 +10,10 @@ The plug-in must have access to the Tanzu Developer Portal URL.
 For information about how to retrieve the Tanzu Developer Portal URL, see
 [Retrieving the URL for the Tanzu Developer Portal](#fqdn-tap-gui-url) later in this topic.
 
+Alternatively, you can use the local server engine to explore and generate projects
+without requiring access to Tanzu Developer Portal.
+For more information, see [Use a local Application Accelerator engine server](creating-accelerators/using-local-engine-server.hbs.md).
+
 ## <a id="intellij-install"></a> Install the plug-in
 
 The VMware Tanzu Application Accelerator plug-in for IntelliJ is available from the
@@ -23,26 +27,33 @@ To install the plug-in from the JetBrains Marketplace:
 4. In the search box, enter `Tanzu`.
 5. Click **Tanzu Application Accelerator** then click **Install**.
 
-## <a id="update"></a> Update the plug-in
-
-To update to a later version, repeat the steps in [Install the plug-in](#intellij-install).
-You do not need to uninstall your current version.
-
 ## <a id="intellij-conf-plugin"></a> Configure the plug-in
 
-Before using the plug-in, you must enter the Tanzu Developer Portal URL in the IntelliJ Preferences:
+Before using the plug-in, you must configure it as follows:
 
 1. Go to the IntelliJ menu, select **IntelliJ IDEA > Preferences** > **Tools** > **Tanzu Application Accelerator**.
 
-2. Add the Tanzu Developer Portal URL. For example, `https://tap-gui.myclusterdomain.myorg.com`.
-If you have access to the Tanzu Application Platform cluster that is running the
-Tanzu Developer Portal, run the following command to determine the fully-qualified domain name:
+2. Configure the plug-in to either use Tanzu Developer Portal or the local server engine:
 
-    ```console
-    kubectl get httpproxy tap-gui -n tap-gui
-    ```
+    - **For Tanzu Developer Portal:**
 
-    ![Tanzu Application Accelerator preferences.](../images/app-accelerator/intellij/app-accelerators-intellij-preferences.png)
+        In the **Tanzu Developer Portal** text box, add your Tanzu Developer Portal URL.
+        For example, `https://tap-gui.myclusterdomain.myorg.com`.
+
+        If you have access to the Tanzu Application Platform cluster that is running the
+        Tanzu Developer Portal, run the following command to get the fully-qualified domain name:
+
+        ```console
+        kubectl get httpproxy tap-gui -n tap-gui
+        ```
+
+        ![Tanzu Application Accelerator preferences.](../images/app-accelerator/intellij/app-accelerators-intellij-preferences.png)
+
+    - **For the local server engine:**
+
+      To use the local server engine to explore and generate projects based on local files without
+      requiring access to Tanzu Developer Portal, follow the instructions in
+      [Use a local Application Accelerator engine server](creating-accelerators/using-local-engine-server.hbs.md).
 
 3. Click **Apply** and **OK**.
 
@@ -165,6 +176,11 @@ to communicate with the endpoints using TLS.
     4. Select **Place all certificates in the following store**, click **Browse**, and select **Trusted Root Certification Authorities**
     5. Click **Finish**.
     6. A pop-up window stating **The import was successful.** is displayed.
+
+## <a id="update"></a> Update the plug-in
+
+To update to a later version, repeat the steps in [Install the plug-in](#intellij-install).
+You do not need to uninstall your current version.
 
 ## <a id="uninstall"></a> Uninstall the plug-in
 

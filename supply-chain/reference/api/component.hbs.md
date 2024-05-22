@@ -271,9 +271,9 @@ For a detailed explanation of resumptions, see
 
 #### `spec.resumptions[].name`
 
-Make `spec.resumptions[].name` descriptive for the end users who will see it. It is The recommended
-form is `check-RESOURCE-TYPE`, where `RESOURCE-TYPE` is the kind of resource being polled, such as
-`source` or `base-image`.
+Make `spec.resumptions[].name` descriptive for the end users who will see it. Write it as
+`check-RESOURCE-TYPE`, where `RESOURCE-TYPE` is the kind of resource being polled, such as `source`
+or `base-image`.
 
 #### `spec.resumptions[].trigger.runaAfter`
 

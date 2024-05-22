@@ -52,7 +52,9 @@ For example:
 
 ## Diagrams
 
-See the [Miro Board](https://miro.com/app/board/uXjVNvc1o0E=/).
+The Spark boards are exported from Miro. They will need restyling since they no longer match.
+
+* [Spark Board](https://lucid.app/lucidspark/9b937249-2925-444a-b938-cdc87ca63ebc/edit?view_items=xRgMARDgDguVA&invitationId=inv_ff75f9dc-d1e8-4ef6-93b0-65e959e8a0db)
 
 ## Tanzu Supply Chain Doc Automation Description
 
@@ -72,7 +74,7 @@ Other pages: [Output Types](https://docs.vmware.com/en/VMware-Tanzu-Application-
 while the content of this page is manually created, the Catalog of Tanzu Supply Chain Components
 page links to this page.
 
-### Platform Engineer User Experience
+### Automation Description
 
 - The PE installs the authoring profile when they want to author supply chains. This provides components
   that the PE can use when authoring supply chains.
@@ -82,7 +84,9 @@ page links to this page.
 - While the PE is authoring supply chains, they can see details about each component. In the CLI
   there are links to the vmware.doc docs page that has the component descriptions.
 
-### Component Description
+```shell
+kubectl get component -n sonarqube-catalog sonarqube-sast-scan-1.0.0 -oyaml | yq .status.docs -r
+```
 
 Each component has the following fields that provide descriptions of the component:
 
@@ -101,7 +105,7 @@ Each component has the following fields that provide descriptions of the compone
   configuration from the workload. The YAML has in-line documentation and this is based on OpenAPI
   Spec V3, which is a Swagger doc format.
 
-### Automation Description
+### Reading the current spec from a live cluster
 
 This is custom binary tool, created by Rasheed, reads the component field descriptions and generates
 Markdown. The Markdown is then manually added to a Markdown file and a doc merge request is raised.

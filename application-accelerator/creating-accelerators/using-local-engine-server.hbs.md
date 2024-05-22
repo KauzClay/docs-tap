@@ -9,11 +9,10 @@ When you are authoring your accelerator, it might be convenient to generate a pr
 files. This enables you to verify that the accelerator provides the defined options and generates
 the correct set of files.
 
-With the local engine server, you can serve your accelerators with their fragments on `localhost`,
-including any changes you have locally.
-You can use the Visual Studio Code (VS Code) Tanzu App Accelerator extension,
-IntelliJ Tanzu Application Accelerator plug-in, or the Tanzu CLI Accelerator plug-in to generate
-new projects based on these local files.
+With the local engine server, you can serve your accelerators with their fragments on `localhost`.
+This includes any changes you have locally. You can generate new projects based on these local files
+using the Visual Studio Code (VS Code) Tanzu App Accelerator extension,
+IntelliJ Tanzu Application Accelerator plug-in, or the Tanzu CLI Accelerator plug-in.
 After you are satisfied with the new or modified accelerators and fragments, you can commit them to
 a Git repository and then publish them to a cluster to give others access.
 

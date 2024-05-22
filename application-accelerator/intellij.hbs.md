@@ -35,7 +35,7 @@ Before using the plug-in, you must configure it as follows:
 
 1. Go to the IntelliJ menu, select **IntelliJ IDEA > Preferences** > **Tools** > **Tanzu Application Accelerator**.
 
-2. Configure the plug-in to either use Tanzu Developer Portal or the local server engine:
+2. Configure the plug-in to either use Tanzu Developer Portal or the local engine server:
 
     - **For Tanzu Developer Portal:**
 
@@ -51,9 +51,9 @@ Before using the plug-in, you must configure it as follows:
 
         ![Tanzu Application Accelerator preferences.](../images/app-accelerator/intellij/app-accelerators-intellij-preferences.png)
 
-    - **For the local server engine:**
+    - **For the local engine server:**
 
-      To use the local server engine to explore and generate projects based on local files without
+      To use the local engine server to explore and generate projects based on local files without
       requiring access to Tanzu Developer Portal, follow the instructions in
       [Use a local Application Accelerator engine server](creating-accelerators/using-local-engine-server.hbs.md).
 

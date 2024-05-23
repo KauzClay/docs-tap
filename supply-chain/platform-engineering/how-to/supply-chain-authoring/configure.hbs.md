@@ -136,9 +136,7 @@ registry.
         ```
 
    Path to any key representing a YAML object
-   : Examples:
-
-     Example 1: Path `spec.registry`:
+   : Example 1 is for the path `spec.registry`.
 
         ```yaml
         config:
@@ -148,8 +146,8 @@ registry.
                 repository: "https://my-registry.url.com"
         ```
 
-     Example 2: Path `spec`. In this example, there is no value for `spec.registry.server`, it will
-     not be available to modify in the `Workload`.
+     Example 2 is for the path `spec`. In this example, there is no value for
+     `spec.registry.server`, it will not be available to modify in the `Workload`.
 
         ```yaml
         config:
@@ -160,7 +158,8 @@ registry.
                   repository: "https://my-registry.url.com"
         ```
 
-     Example 3: Path `spec` with empty value. This example results in a `Workload` without a spec.
+     Example 3 is for the path `spec` with empty value. This example results in a `Workload` without
+     a spec.
 
         ```yaml
         config:
@@ -263,7 +262,7 @@ For the defaults use case:
    structure where all desired child fields must be set.
 
    Full path
-   : Example path `spec.registry.repository`:
+   : This example is for the path `spec.registry.repository`.
 
         ```yaml
         config:
@@ -273,9 +272,7 @@ For the defaults use case:
         ```
 
    Path to any key representing a YAML object
-   : Examples
-
-     Path `spec.registry`:
+   : This example is for the path `spec.registry`.
 
         ```yaml
         config:
@@ -285,7 +282,7 @@ For the defaults use case:
                 repository: "https://my-default-registry.url.com"
         ```
 
-     Path `spec`:
+     This example is for the path `spec`.
 
         ```yaml
         config:

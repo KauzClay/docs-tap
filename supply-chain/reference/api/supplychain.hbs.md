@@ -33,15 +33,16 @@ metadata:
 
 ### <a id='spec-config'></a>`spec.config`
 
-The [`spec.stages`](#specstages) structure introduces `Components` where the aggregated [config sections](./component.hbs.md#specconfig),
-form the SupplyChain's configuration and become the [Workload's spec](./workload.hbs.md#spec).
+The [`spec.stages`](#specstages) structure introduces `Components` where the aggregated
+[config sections](component.hbs.md#specconfig), form the SupplyChain's configuration and become the
+[Workload spec](workload.hbs.md#spec).
 
 This configuration can be altered by changing defaults, or overridden and hidden from the `Workload`.
 
 #### <a id='spec-config-defaults'></a>`spec.config.defaults`
 
 Change or add defaults for the config that is presented
-in the [Workload's spec](./workload.hbs.md#spec).
+in the [Workload's spec](workload.hbs.md#spec).
 
 `spec.config.defaults` is an array of `path:` and `value:` fields, where:
 
@@ -52,14 +53,15 @@ in the [Workload's spec](./workload.hbs.md#spec).
 
 #### <a id='spec-config-overrides'></a>`spec.config.overrides`
 
-Override the value of a config field, so that it no
-longer appears in the [Workload's spec](./workload.hbs.md#spec).
+Override the value of a config field, so that it no longer appears in the [Workload spec](workload.hbs.md#spec).
 
 `spec.config.overrides` is an array of `path:` and `value:` fields, where:
 
 - `path`: path to the configuration value, formatted as either:
+
   - The full path to the field you wish to set.
   - The path to any structure where all desired child fields must be set.
+
 - `value`: string or structure value.
 
 #### Example

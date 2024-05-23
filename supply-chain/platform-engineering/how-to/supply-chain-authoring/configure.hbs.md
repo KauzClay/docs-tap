@@ -128,46 +128,46 @@ registry.
    : Example path `spec.registry.repository`. As this example does not provide a value for
    `spec.registry.server`, it will not be available to modify in the `Workload`.
 
-     ```yaml
-     config:
-       overrides:
-         - path: spec.registry.repository
-           value: "https://my-registry.url.com"
-     ```
+        ```yaml
+        config:
+          overrides:
+            - path: spec.registry.repository
+              value: "https://my-registry.url.com"
+        ```
 
    Path to any key representing a YAML object
    : Examples:
 
      Example 1: Path `spec.registry`:
 
-     ```yaml
-     config:
-       overrides:
-         - path: spec.registry
-           value:
-             repository: "https://my-registry.url.com"
-     ```
+        ```yaml
+        config:
+          overrides:
+            - path: spec.registry
+              value:
+                repository: "https://my-registry.url.com"
+        ```
 
      Example 2: Path `spec`. In this example, there is no value for `spec.registry.server`, it will
      not be available to modify in the `Workload`.
 
-     ```yaml
-     config:
-       overrides:
-         - path: spec
-           value:
-             registry:
-               repository: "https://my-registry.url.com"
-     ```
+        ```yaml
+        config:
+          overrides:
+            - path: spec
+              value:
+                registry:
+                  repository: "https://my-registry.url.com"
+        ```
 
      Example 3: Path `spec` with empty value. This example results in a `Workload` without a spec.
 
-     ```yaml
-     config:
-       defaults:
-         - path: spec
-           value: {}
-     ```
+        ```yaml
+        config:
+          defaults:
+            - path: spec
+              value: {}
+        ```
 
 ### Generate SupplyChain with defaults
 
@@ -265,17 +265,17 @@ For the defaults use case:
    Full path
    : Example path `spec.registry.repository`:
 
-     ```yaml
-     config:
-       defaults:
-         - path: spec.registry.repository
-           value: "https://my-default-registry.url.com"
-     ```
+        ```yaml
+        config:
+          defaults:
+            - path: spec.registry.repository
+              value: "https://my-default-registry.url.com"
+        ```
 
    Path to any key representing a YAML object
    : Examples
 
-     - Path `spec.registry`:
+     Path `spec.registry`:
 
         ```yaml
         config:
@@ -285,7 +285,7 @@ For the defaults use case:
                 repository: "https://my-default-registry.url.com"
         ```
 
-     - Path `spec`:
+     Path `spec`:
 
         ```yaml
         config:

@@ -124,49 +124,49 @@ registry.
 3. Configure overrides using either a full path to the field you want to set or a path to any
    structure where all desired child fields must be set. For example:
 
-   Full path
-   : Example path `spec.registry.repository`. As this example does not provide a value for
+    Full path
+    : Example path `spec.registry.repository`. As this example does not provide a value for
      `spec.registry.server`, it will not be available to modify in the `Workload`.
 
-     ```yaml
-     config:
-       overrides:
-         - path: spec.registry.repository
-           value: "https://my-registry.url.com"
-     ```
+      ```yaml
+      config:
+        overrides:
+          - path: spec.registry.repository
+            value: "https://my-registry.url.com"
+      ```
 
-   Path to any key representing a YAML object
-   : This example is for the path `spec.registry`.
+    Path to any key representing a YAML object
+    : This example is for the path `spec.registry`.
 
-     ```yaml
-     config:
-       overrides:
-         - path: spec.registry
-           value:
-             repository: "https://my-registry.url.com"
-     ```
+      ```yaml
+      config:
+        overrides:
+          - path: spec.registry
+            value:
+              repository: "https://my-registry.url.com"
+      ```
 
-     This example is for the path `spec`. In this example, there is no value for
-     `spec.registry.server`, it will not be available to modify in the `Workload`.
+      This example is for the path `spec`. In this example, there is no value for
+      `spec.registry.server`, it will not be available to modify in the `Workload`.
 
-     ```yaml
-     config:
-       overrides:
-         - path: spec
-           value:
-             registry:
-               repository: "https://my-registry.url.com"
-     ```
+      ```yaml
+      config:
+        overrides:
+          - path: spec
+            value:
+              registry:
+                repository: "https://my-registry.url.com"
+      ```
 
-     This example is for the path `spec` with empty value. This example results in a `Workload`
-     without a spec.
+      This example is for the path `spec` with empty value. This example results in a `Workload`
+      without a spec.
 
-     ```yaml
-     config:
-       defaults:
-         - path: spec
-           value: {}
-     ```
+      ```yaml
+      config:
+        defaults:
+          - path: spec
+            value: {}
+      ```
 
 ### Generate SupplyChain with defaults
 
@@ -261,37 +261,37 @@ For the defaults use case:
 1. Configure defaults using either a full path to the field you want to set or a path to any
    structure where all desired child fields must be set.
 
-   Full path
-   : This example is for the path `spec.registry.repository`.
+    Full path
+    : This example is for the path `spec.registry.repository`.
 
-     ```yaml
-     config:
-       defaults:
-         - path: spec.registry.repository
-           value: "https://my-default-registry.url.com"
-     ```
+      ```yaml
+      config:
+        defaults:
+          - path: spec.registry.repository
+            value: "https://my-default-registry.url.com"
+      ```
 
-   Path to any key representing a YAML object
-   : This example is for the path `spec.registry`.
+    Path to any key representing a YAML object
+    : This example is for the path `spec.registry`.
 
-     ```yaml
-     config:
-       defaults:
-         - path: spec.registry
-           value:
-             repository: "https://my-default-registry.url.com"
-     ```
+      ```yaml
+      config:
+        defaults:
+          - path: spec.registry
+            value:
+              repository: "https://my-default-registry.url.com"
+      ```
 
-     This example is for the path `spec`.
+      This example is for the path `spec`.
 
-     ```yaml
-     config:
-       defaults:
-         - path: spec
-           value:
-             registry:
-               repository: "https://my-default-registry.url.com"
-     ```
+      ```yaml
+      config:
+        defaults:
+          - path: spec
+            value:
+              registry:
+                repository: "https://my-default-registry.url.com"
+      ```
 
 ## Reference Guides
 

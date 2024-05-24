@@ -179,16 +179,16 @@ To install Application Live View back end:
 
       1. Verify the HTTPProxy object with the TLS secret by running:
 
-          ```console
-          kubectl get httpproxy -A
-          ```
+         ```console
+         kubectl get httpproxy -A
+         ```
 
-          Expected output:
+         Expected output:
 
-          ```console
-          NAMESPACE       NAME          FQDN                               TLS SECRET               STATUS   STATUS DESCRIPTION
-          app-live-view   appliveview   appliveview.192.168.42.55.nip.io   app-live-view/alv-cert   valid    Valid HTTPProxy
-          ```
+         ```console
+         NAMESPACE       NAME          FQDN                               TLS SECRET               STATUS   STATUS DESCRIPTION
+         app-live-view   appliveview   appliveview.192.168.42.55.nip.io   app-live-view/alv-cert   valid    Valid HTTPProxy
+         ```
 
     Activate TLS using ClusterIssuer
     : To enable TLS for Application Live View back end using ClusterIssuer:

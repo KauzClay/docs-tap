@@ -367,7 +367,7 @@ It's useful for CLIs and UIs, and provides a clean summary of the component.
 
 #### Example
 
-```
+```text
 docs: |
   # source
 
@@ -383,13 +383,13 @@ docs: |
 
   ## Outputs
 
-  | Name  | Type |
-  | ---   | ---  |
-  | source | [source](./output-types.hbs.md#source) |
+  | Name   | Type                                 |
+  |--------|--------------------------------------|
+  | source | [source](output-types.hbs.md#source) |
 
   ## Config
 
-  ``yaml
+  `\``yaml
   spec:
     source:
       # Fill this object in if you want your source to come from git.
@@ -404,7 +404,7 @@ docs: |
         # The url to the git source repository
         # +required
         url:
-  ``
+  `\``
 ```
 
 <!--

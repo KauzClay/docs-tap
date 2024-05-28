@@ -306,7 +306,7 @@ a predefined group of packages.
 - **[Tanzu Supply Chain](supply-chain/about.hbs.md) (beta)**
 
   Tanzu Supply Chain is a tool that provides a golden path to production for your teams. Tanzu
-  Supply Chain replaces the supply-chain solution [Supply Chain Choreographer](../scc/about.hbs.md),
+  Supply Chain replaces the supply-chain solution [Supply Chain Choreographer](scc/about.hbs.md),
   which is based on [Cartographer](https://cartographer.sh).
 
 - **[Tanzu Developer Tools for IntelliJ](intellij-extension/about.hbs.md)**
@@ -375,6 +375,10 @@ The following profiles are available in Tanzu Application Platform:
   Intended for instances of applications related to centralized developer experiences. Specifically,
   Tanzu Developer Portal and Metadata Store.
 
+- **Authoring** (`authoring`):
+  Includes everything in the **Iterate** profile and has extra packages for installing
+  Tanzu Supply Chain (beta).
+
 The following tables list the packages contained in each profile.
 Packages not included in any profile are available to install as individual packages only.
 See the component documentation for the package for installation instructions.
@@ -392,6 +396,7 @@ For a diagram showing the packages contained in each profile, see
       <th scope="col">Build</th>
       <th scope="col">Run</th>
       <th scope="col">View</th>
+      <th scope="col">Authoring</th>
       <th scope="col">Not in a profile</th>
     </tr>
   </thead>
@@ -403,6 +408,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -413,6 +419,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Application Accelerator</th>
@@ -422,9 +429,11 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Application Configuration Service</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -439,6 +448,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -449,6 +459,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Application Live View connector</th>
@@ -457,6 +468,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -466,6 +478,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -475,10 +488,12 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
       <th scope="row">AOA dashboard</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -494,9 +509,11 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">AWS Services</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -511,10 +528,12 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
       <th scope="row">Carbon Black Scanner for SCST - Scan (beta)</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -529,6 +548,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -538,6 +558,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -545,6 +566,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
       <td></td>
@@ -556,6 +578,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
   </tbody>
@@ -572,6 +595,7 @@ For a diagram showing the packages contained in each profile, see
       <th scope="col">Build</th>
       <th scope="col">Run</th>
       <th scope="col">View</th>
+      <th scope="col">Authoring</th>
       <th scope="col">Not in a profile</th>
     </tr>
   </thead>
@@ -583,6 +607,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -592,10 +617,12 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
       <th scope="row">Enterprise Config Server</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -610,10 +637,12 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
       <td>&check;</td>
     </tr>
     <tr>
       <th scope="row">Flux Source Controller</th>
+      <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
@@ -628,6 +657,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
       <td>&check;</td>
     </tr>
     <tr>
@@ -637,6 +667,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -646,6 +677,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -655,6 +687,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -664,6 +697,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -673,6 +707,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -680,6 +715,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td>&check;</td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -691,6 +727,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
   </tbody>
@@ -719,7 +756,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -729,8 +766,8 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
-      <td>&check;</td>
       <td></td>
+      <td>&check;</td>
     </tr>
     <tr>
       <th scope="row">Services Toolkit</th>
@@ -739,7 +776,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -749,7 +786,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -759,8 +796,8 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
-      <td>&check;</td>
       <td></td>
+      <td>&check;</td>
     </tr>
     <tr>
       <th scope="row">Spring Boot conventions</th>
@@ -769,7 +806,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -779,8 +816,8 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
-      <td>&check;</td>
       <td></td>
+      <td>&check;</td>
     </tr>
     <tr>
       <th scope="row">Supply Chain Choreographer</th>
@@ -789,7 +826,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -799,7 +836,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -839,7 +876,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -849,7 +886,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -869,8 +906,8 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
-      <td></td>
       <td>&check;</td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Tekton Pipelines</th>
@@ -879,7 +916,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
     <tr>
@@ -889,7 +926,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
-      <td></td>
+      <td>&check;</td>
       <td></td>
     </tr>
   </tbody>

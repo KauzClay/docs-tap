@@ -220,40 +220,29 @@ a predefined group of packages.
   Spring Cloud Gateway project. It provides a simple means to route internal or external API requests
   to application services that expose APIs.
 
-- **[Supply Chain Choreographer](scc/about.md)**
-
-  Supply Chain Choreographer is based on open-source [Cartographer](https://cartographer.sh/docs/).
-  It enables app operators to create preapproved paths to production by integrating Kubernetes
-  resources with the elements of their existing toolchains, such as Jenkins.
-
-  Each pre-approved supply chain creates a paved road to production. It orchestrates supply chain
-  resources, namely test, build, scan, and deploy. Enabling developers to focus on delivering
-  value to their users. Pre-approved supply chains also assure application operators that all code in
-  production has passed through the steps of an approved workflow.
-
 - **[Supply Chain Security Tools - Policy Controller](scst-policy/overview.md)**
 
-  Supply Chain Security Tools - Policy is an admission controller that allows a cluster operator
-  to specify policies to verify image container signatures before admitting them to a cluster. It
-  works with [cosign signature format](https://github.com/sigstore/cosign#quick-start) and allows for
-  fine-tuned configuration of policies based on image source patterns.
+  Supply Chain Security Tools (SCST) - Policy is an admission controller that allows a cluster
+  operator to specify policies to verify image container signatures before admitting them to a
+  cluster. It works with [cosign signature format](https://github.com/sigstore/cosign#quick-start)
+  and allows for fine-tuned configuration of policies based on image source patterns.
 
-- **[Supply Chain Security tools for Tanzu - Scan](scst-scan/overview.md)**
+- **[Supply Chain Security Tools - Scan](scst-scan/overview.md)**
 
-  With Supply Chain Security Tools for VMware Tanzu - Scan, you can build and deploy
-  secure trusted software that complies with their corporate security requirements.
+  With Supply Chain Security Tools (SCST) - Scan, you can build and deploy secure trusted software
+  that complies with their corporate security requirements.
 
   To enable this, Supply Chain Security Tools - Scan provides scanning and gate keeping capabilities
-  that Application and DevSecOps teams can incorporate earlier in their path to production.
-  This is an established industry best practice for reducing security risk and ensuring more
-  efficient remediation.
+  that Application and DevSecOps teams can incorporate earlier in their path to production. This is
+  an established industry best practice for reducing security risk and ensuring more efficient
+  remediation.
 
 - **[Supply Chain Security Tools - Store](scst-store/overview.md)**
 
-  Supply Chain Security Tools - Store saves software bills of materials (SBoMs) to a database and
-  enables you to query for image, source, package, and vulnerability relationships.
-  It integrates with SCST - Scan to automatically store the resulting source
-  and image vulnerability reports.
+  Supply Chain Security Tools (SCST) - Store saves software bills of materials (SBoMs) to a database
+  and enables you to query for image, source, package, and vulnerability relationships. It
+  integrates with SCST - Scan to automatically store the resulting source and image vulnerability
+  reports.
 
 - **[Tanzu Developer Portal](tap-gui/about.md)**
 
@@ -300,6 +289,12 @@ a predefined group of packages.
   Tanzu Build Service.
   All buildpacks follow the package name format `*.buildpacks.tanzu.vmware.com`.
 
+- **[Tanzu Supply Chain](supply-chain/about.hbs.md)**
+
+  Tanzu Supply Chain is a tool that provides a golden path to production for your teams. Tanzu
+  Supply Chain replaces the supply-chain solution [Supply Chain Choreographer](../scc/about.hbs.md),
+  which is based on [Cartographer](https://cartographer.sh).
+
 - **[Tanzu Developer Tools for IntelliJ](intellij-extension/about.hbs.md)**
 
   Tanzu Developer Tools for IntelliJ is the official VMware Tanzu IDE extension for IntelliJ IDEA
@@ -328,7 +323,8 @@ a predefined group of packages.
   It also contains Tanzu Mission Control specific resources. You cannot install this package on the
   same cluster as Tanzu Developer Portal.
 
-  This package is only used while [installing Tanzu Application Platform using Tanzu Mission Control](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-1BA391EC-A49B-44AE-A8C7-D72F6012EF58.html).
+  This package is only used while
+  [installing Tanzu Application Platform using Tanzu Mission Control](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-1BA391EC-A49B-44AE-A8C7-D72F6012EF58.html).
 
 - **[Tekton Pipelines](tekton/tekton-about.hbs.md)**
 

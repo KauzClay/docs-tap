@@ -220,6 +220,20 @@ a predefined group of packages.
   Spring Cloud Gateway project. It provides a simple means to route internal or external API requests
   to application services that expose APIs.
 
+- **[Supply Chain Choreographer](scc/about.md)**
+
+  Supply Chain Choreographer is based on open-source [Cartographer](https://cartographer.sh/docs/).
+  It enables app operators to create preapproved paths to production by integrating Kubernetes
+  resources with the elements of their existing toolchains, such as Jenkins.
+
+  Each pre-approved supply chain creates a paved road to production. It orchestrates supply chain
+  resources, namely test, build, scan, and deploy. Enabling developers to focus on delivering
+  value to their users. Pre-approved supply chains also assure application operators that all code in
+  production has passed through the steps of an approved workflow.
+
+  > **Note:** [Tanzu Supply Chain](supply-chain/about.hbs.md) replaces Supply Chain Choreographer,
+  > but is still in beta testing.
+
 - **[Supply Chain Security Tools - Policy Controller](scst-policy/overview.md)**
 
   Supply Chain Security Tools (SCST) - Policy is an admission controller that allows a cluster
@@ -289,7 +303,7 @@ a predefined group of packages.
   Tanzu Build Service.
   All buildpacks follow the package name format `*.buildpacks.tanzu.vmware.com`.
 
-- **[Tanzu Supply Chain](supply-chain/about.hbs.md)**
+- **[Tanzu Supply Chain](supply-chain/about.hbs.md) (beta)**
 
   Tanzu Supply Chain is a tool that provides a golden path to production for your teams. Tanzu
   Supply Chain replaces the supply-chain solution [Supply Chain Choreographer](../scc/about.hbs.md),
@@ -693,6 +707,7 @@ For a diagram showing the packages contained in each profile, see
       <th scope="col">Build</th>
       <th scope="col">Run</th>
       <th scope="col">View</th>
+      <th scope="col">Authoring</th>
       <th scope="col">Not in a profile</th>
     </tr>
   </thead>
@@ -705,6 +720,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Service Registry</th>
@@ -714,6 +730,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td>&check;</td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Services Toolkit</th>
@@ -721,6 +738,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td>&check;</td>
+      <td></td>
       <td></td>
       <td></td>
     </tr>
@@ -732,6 +750,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Snyk Scanner for SCST - Scan (beta)</th>
@@ -741,12 +760,14 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td>&check;</td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Spring Boot conventions</th>
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -759,6 +780,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td>&check;</td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Supply Chain Choreographer</th>
@@ -766,6 +788,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
+      <td></td>
       <td></td>
       <td></td>
     </tr>
@@ -777,12 +800,14 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">SCST - Scan</th>
       <td>&check;</td>
       <td></td>
       <td>&check;</td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -795,6 +820,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">SCST - Store</th>
@@ -804,12 +830,14 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Tanzu Build Packs</th>
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -822,6 +850,7 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Tanzu Developer Portal</th>
@@ -831,12 +860,24 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
       <td>&check;</td>
       <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Tanzu Supply Chain (beta)</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>&check;</td>
     </tr>
     <tr>
       <th scope="row">Tekton Pipelines</th>
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -848,6 +889,7 @@ For a diagram showing the packages contained in each profile, see
       <td>&check;</td>
       <td>&check;</td>
       <td>&check;</td>
+      <td></td>
       <td></td>
     </tr>
   </tbody>

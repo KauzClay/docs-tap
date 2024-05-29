@@ -6,7 +6,7 @@ This topic contains release notes for Tanzu Application Platform v{{ vars.url_ve
 
 **Release Date**: 02 July 2024
 
-### <a id='1-11-0-whats-new'></a> What's new in Tanzu Application Platform vX.X
+### <a id='1-11-0-whats-new'></a> What's new in Tanzu Application Platform v1.11
 
 This release includes the following platform-wide enhancements.
 

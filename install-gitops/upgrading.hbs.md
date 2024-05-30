@@ -19,6 +19,10 @@ Before you upgrade your Tanzu Application Platform:
 - Verify all packages are reconciled by running `kubectl get packageinstall --namespace tap-install`.
 - The previously deprecated field `scanning.metadataStore.url` is removed from the values for installing or upgrading Tanzu Application Platform v1.7 and later. This field must not present in the `tap-non-sensitive-values.yaml` file when performing the upgrade.
 
+## <a id="upgrade-paths"></a> Supported upgrade paths
+
+See [Supported upgrade paths](../upgrading.hbs.md#upgrade-paths) in _Upgrading Tanzu Application Platform_.
+
 ## <a id="relocate-images"></a> Relocate Tanzu Application Platform images to a registry
 
 VMware recommends relocating the images from VMware Tanzu Network registry to your own container image registry before attempting installation. If you don't relocate the images, Tanzu Application Platform depends on

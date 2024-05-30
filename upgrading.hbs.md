@@ -1,4 +1,4 @@
-# Upgrade your Tanzu Application Platform
+# Upgrade Tanzu Application Platform
 
 This document tells you how to upgrade your Tanzu Application Platform (commonly known as TAP).
 
@@ -31,6 +31,17 @@ Before you upgrade Tanzu Application Platform:
   Chain Security Tools (SCST) - Scan 2.0 is also installed on the cluster. If you installed SCST -
   Scan 2.0 manually in an earlier Tanzu Application Platform version, uninstall SCST - Scan 2.0
   before upgrading to v1.10 to avoid conflict.
+
+## <a id="upgrade-paths"></a> Supported upgrade paths
+
+<!-- Update each release using https://confluence.eng.vmware.com/display/CNA/TAP+SM+Upgrade+path+support -->
+<!-- Update version number each release so it's clear if this info becomes outdated. Do not use a variable. -->
+
+Tanzu Application Platform v1.11 supports upgrading from the following versions:
+
+- v1.8.x (LTS)
+- v1.9.1
+- v1.10.1
 
 ## <a id="add-new-package-repo"></a> Update the new package repository
 

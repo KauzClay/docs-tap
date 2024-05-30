@@ -39,9 +39,9 @@ Before you upgrade Tanzu Application Platform:
 
 Tanzu Application Platform v1.11 supports upgrading from the following versions:
 
-- v1.8.x (LTS)
-- v1.9.1
 - v1.10.1
+- v1.9.1
+- v1.8.x long term support release
 
 ## <a id="add-new-package-repo"></a> Update the new package repository
 

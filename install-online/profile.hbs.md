@@ -86,15 +86,6 @@ To relocate images from the tanzu.packages.broadcom.com to your registry:
 
 Tanzu CLI packages are accessible through repositories. By adding the Tanzu Application Platform package repository, Tanzu Application Platform and its packages become available for installation.
 
-[Relocate images to a registry](#relocate-images) is recommended but not required for installation. If you skip that step, you can run the following commands to set Tanzu Network as the source of the OCI images:
-
-```console
-# The registry from which the Tanzu Application Platform package is retrieved.
-export INSTALL_REGISTRY_USERNAME=TANZUNET_REGISTRY_USERNAME
-export INSTALL_REGISTRY_PASSWORD=TANZUNET_REGISTRY_PASSWORD
-export INSTALL_REGISTRY_HOSTNAME="registry.tanzu.vmware.com"
-export TAP_VERSION=VERSION-NUMBER
-export INSTALL_REPO="tanzu-application-platform"
 
 # The user’s registry used by Tanzu Application Platform to store built images and the Tanzu Build Service dependencies. These credentials must have write permission.
 export MY_REGISTRY_USERNAME=MY-REGISTRY-USER
@@ -104,8 +95,7 @@ export MY_REGISTRY_HOSTNAME=MY-REGISTRY
 
 Where:
 
-- `TANZUNET_REGISTRY_USERNAME` and `TANZUNET_REGISTRY_PASSWORD` are the credentials to the VMware Tanzu Network registry `registry.tanzu.vmware.com`
-- `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`
+
 - `MY_REGISTRY_HOSTNAME` is your own container registry.
 - `MY_REGISTRY_USERNAME` is the user with write access to `MY_REGISTRY_HOSTNAME`.
 - `MY_REGISTRY_PASSWORD` is the password for `MY_REGISTRY_USERNAME`.

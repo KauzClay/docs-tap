@@ -49,9 +49,7 @@ supply chain to sign and verify your image builds.
       to add `glob: index.docker.io/library/gradle*` to `spec.images.glob` in the preceding code.
 
     - Replace `registry.example.org/myproject/*` with your target registry for your
-      Tanzu Application Platform images. If you did not relocate the Tanzu Application Platform images
-      to your own registry during installation, use
-      `registry.tanzu.vmware.com/tanzu-application-platform/tap-packages*`.
+      Tanzu Application Platform images.
 
 4. Configure and apply a `ClusterImagePolicy` resource to the cluster to verify image signatures when deploying resources. For instructions, see [Create a ClusterImagePolicy resource](../scst-policy/configuring.md#create-cip-resource).
 

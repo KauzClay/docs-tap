@@ -11,20 +11,22 @@ Before installing the packages, ensure that you have completed the following tas
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 
-To relocate images from the VMware Tanzu Network registry to your air-gapped registry:
+To relocate images from the `tanzu.packages.broadcom.com` registry to your air-gapped registry:
 
 1. Set up environment variables for installation use by running:
 
     ```console
-    # Set tanzunet as the source registry to copy the Tanzu Application Platform packages from.
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+    # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY
     export IMGPKG_REGISTRY_USERNAME_1=MY-REGISTRY-USER
     export IMGPKG_REGISTRY_PASSWORD_1=MY-REGISTRY-PASSWORD
+    # These environment variables starting with IMGPKG_* are used by the imgpkg command only.
+
     export TAP_VERSION=VERSION-NUMBER
     export REGISTRY_CA_PATH=PATH-TO-CA
     export TO_REPO=MY-REPO
@@ -32,18 +34,21 @@ To relocate images from the VMware Tanzu Network registry to your air-gapped reg
 
     Where:
 
+    - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
+       download page. <!-- clarify -->
     - `MY-REGISTRY` is your air-gapped container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.
-    - `MY-TANZUNET-USERNAME` is the user with access to the images in the VMware Tanzu Network registry `registry.tanzu.vmware.com`
-    - `MY-TANZUNET-PASSWORD` is the password for `MY-TANZUNET-USERNAME`.
-    - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`
+    - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`.
+    - `PATH-TO-CA` is the path to your CA certificate.
     - `MY-REPO` is your repository in the air-gapped container image registry. Examples:
         - Harbor has the form `MY-REGISTRY/REPO-NAME/tap-packages`.
         - Docker Hub has the form `MY-REGISTRY/tap-packages`.
         - Google Cloud Registry has the form `MY-REGISTRY/MY-PROJECT/REPO-NAME/tap-packages`.
 
-1. Copy the images into a `.tar` file from the VMware Tanzu Network onto an external storage device with the Carvel tool imgpkg by running:
+1. Copy the images into a `.tar` file from `tanzu.packages.broadcom.com` onto an external storage
+   device with the Carvel tool imgpkg by running:
 
     ```console
     imgpkg copy \
@@ -51,6 +56,7 @@ To relocate images from the VMware Tanzu Network registry to your air-gapped reg
       --to-tar tap-packages-$TAP_VERSION.tar \
       --include-non-distributable-layers
     ```
+    <!-- command to be updated -->
 
 1. Relocate the images with the Carvel tool imgpkg by running:
 
@@ -61,6 +67,13 @@ To relocate images from the VMware Tanzu Network registry to your air-gapped reg
       --include-non-distributable-layers \
       --registry-ca-cert-path $REGISTRY_CA_PATH
     ```
+
+## <a id='add-tap-repo'></a> Add the Tanzu Application Platform package repository
+
+Tanzu CLI packages are available through repositories. Adding the Tanzu Application Platform package
+repository makes Tanzu Application Platform and its packages available for installation.
+
+To add the Tanzu Application Platform package repository to your cluster:
 
 1. Create a namespace called `tap-install` for deploying any component packages by running:
 
@@ -81,6 +94,7 @@ To relocate images from the VMware Tanzu Network registry to your air-gapped reg
         --export-to-all-namespaces \
         --yes
     ```
+
 1. Create a secret for accessing the user’s registry by running:
 
     ```console
@@ -204,8 +218,7 @@ To prepare to install a profile:
     tanzu package available list tap.tanzu.vmware.com --namespace tap-install
     ```
 
-1. Create a `tap-values.yaml` file by using the
-[Full Profile sample](#full-profile) as a guide.
+1. Create a `tap-values.yaml` file by using the [Full Profile sample](#full-profile) as a guide.
 These samples have the minimum configuration required to deploy Tanzu Application Platform.
 The sample values file contains the necessary defaults for:
 
@@ -354,25 +367,39 @@ Where:
 
 - `INGRESS-DOMAIN` is the subdomain for the host name that you point at the `tanzu-shared-ingress`
 service's External IP address.
-- `KP-DEFAULT-REPO` is a writable repository in your registry. Tanzu Build Service dependencies are written to this location. Examples:
-    - Harbor has the form `kp_default_repository: "my-harbor.io/my-project/build-service"`.
-    - Docker Hub has the form `kp_default_repository: "my-dockerhub-user/build-service"` or `kp_default_repository: "index.docker.io/my-user/build-service"`.
-    - Google Cloud Registry has the form `kp_default_repository: "gcr.io/my-project/build-service"`.
-- `KP-DEFAULT-REPO-SECRET` is the secret with user credentials that can write to `KP-DEFAULT-REPO`. You can `docker push` to this location with this credential.
-    - For Google Cloud Registry, use `kp_default_repository_username: _json_key`.
-    - You must create the secret before the installation. For example, you can use the `registry-credentials` secret created earlier.
+
+- `KP-DEFAULT-REPO` is a writable repository in your registry. Tanzu Build Service dependencies are
+  written to this location. Examples:
+  - Harbor has the form `kp_default_repository: "my-harbor.io/my-project/build-service"`.
+  - Docker Hub has the form `kp_default_repository: "my-dockerhub-user/build-service"` or
+    `kp_default_repository: "index.docker.io/my-user/build-service"`.
+  - Google Cloud Registry has the form `kp_default_repository: "gcr.io/my-project/build-service"`.
+
+- `KP-DEFAULT-REPO-SECRET` is the secret with user credentials that can write to `KP-DEFAULT-REPO`.
+  You can `docker push` to this location with this credential.
+  - For Google Cloud Registry, use `kp_default_repository_username: _json_key`.
+  - You must create the secret before the installation. For example, you can use the
+    `registry-credentials` secret created earlier.
+
 - `KP-DEFAULT-REPO-SECRET-NAMESPACE` is the namespace where `KP-DEFAULT-REPO-SECRET` is created.
+
 - `SERVER-NAME` is the host name of the registry server. Examples:
-    - Harbor has the form `server: "my-harbor.io"`.
-    - Docker Hub has the form `server: "index.docker.io"`.
-    - Google Cloud Registry has the form `server: "gcr.io"`.
-- `REPO-NAME` is where workload images are stored in the registry. If this key is passed through the shared section earlier and AWS ECR registry is used, you must ensure that the `SERVER-NAME/REPO-NAME/buildservice` and `SERVER-NAME/REPO-NAME/workloads` exist. AWS ECR expects the paths to be pre-created.
+  - Harbor has the form `server: "my-harbor.io"`.
+  - Docker Hub has the form `server: "index.docker.io"`.
+  - Google Cloud Registry has the form `server: "gcr.io"`.
+
+- `REPO-NAME` is where workload images are stored in the registry. If this key is passed through the
+  shared section earlier and AWS ECR registry is used, you must ensure that the
+  `SERVER-NAME/REPO-NAME/buildservice` and `SERVER-NAME/REPO-NAME/workloads` exist.
+  AWS ECR expects the paths to be pre-created.
+
 - Images are written to `SERVER-NAME/REPO-NAME/workload-name`. Examples:
-   - Harbor has the form `repository: "my-project/supply-chain"`.
-   - Docker Hub has the form `repository: "my-dockerhub-user"`.
-   - Google Cloud Registry has the form `repository: "my-project/supply-chain"`.
+  - Harbor has the form `repository: "my-project/supply-chain"`.
+  - Docker Hub has the form `repository: "my-dockerhub-user"`.
+  - Google Cloud Registry has the form `repository: "my-project/supply-chain"`.
+
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE` is where the developer's local source is uploaded when using
- Tanzu CLI to use Local Source Proxy for workload creation.
+  Tanzu CLI to use Local Source Proxy for workload creation.
 
  If an AWS ECR registry is being used, ensure that the repository already exists.
  AWS ECR expects the repository path to already exist. This destination is represented as
@@ -384,19 +411,40 @@ service's External IP address.
 
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET-NAMESPACE` is the namespace in which
   `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET` is available.
-- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies
-  the Git credentials for the supply chain to fetch source code from. See [Git authentication](../scc/git-auth.hbs.md) for more information.
-- `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies the
-  Git credentials for the supply chain to push configuration to. See [Git authentication](../scc/git-auth.hbs.md) for more information.
+
+- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace
+  that supplies the Git credentials for the supply chain to fetch source code from.
+  See [Git authentication](../scc/git-auth.hbs.md) for more information.
+
+- `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace
+  that supplies the Git credentials for the supply chain to push configuration to.
+  See [Git authentication](../scc/git-auth.hbs.md) for more information.
+
 - `MAVEN-CREDENTIALS` is the name of [the secret with maven creds](../scc/building-from-source.hbs.md#maven-repository-secret). This secret must be in the developer namespace. You can create it after the fact.
-- `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download either a blank or populated catalog file from the [Tanzu Application Platform product page](https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1239018). Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
+
+- `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download
+  either a blank or populated catalog file from the
+  [Tanzu Application Platform product page](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
+  Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
+  <!-- Is the item here to download "Tanzu Application Platform Developer Portal Yelb/Blank Catalog"? -->
+
 - `GITLABURL` is the host name of your GitLab instance.
+
 - `GITLAB-USER` is the user name of your GitLab instance.
-- `GITLAB-PASSWORD` is the password for the `GITLAB-USER` of your GitLab instance. This can also be the `GITLAB-TOKEN`.
+
+- `GITLAB-PASSWORD` is the password for the `GITLAB-USER` of your GitLab instance. This can also be
+  the `GITLAB-TOKEN`.
+
 - `GITLAB-TOKEN` is the API token for your GitLab instance.
-- `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the namespace, and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to run in this namespace. If there are multiple developer namespaces, use `ns_for_export_app_cert: "*"` to export the SCST - Store CA certificate to all namespaces. To install Grype in multiple namespaces, use a namespace provisioner. See [Namespace Provisioner](../namespace-provisioner/about.hbs.md).
-- `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the
-credentials to pull an image from the registry for scanning.
+
+- `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the
+   namespace, and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to
+   run in this namespace. If there are multiple developer namespaces, use `ns_for_export_app_cert: "*"`
+   to export the SCST - Store CA certificate to all namespaces. To install Grype in multiple namespaces,
+   use a namespace provisioner. See [Namespace Provisioner](../namespace-provisioner/about.hbs.md).
+
+- `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the credentials to
+  pull an image from the registry for scanning.
 
 >**Note** The `appliveview_connector.backend.sslDisabled` key is deprecated and renamed to `appliveview_connector.backend.sslDeactivated`.
 

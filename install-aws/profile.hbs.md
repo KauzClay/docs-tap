@@ -12,15 +12,14 @@ Before installing the packages, ensure you have:
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to your own container image registry before
-attempting installation. If you don't relocate the images, Tanzu Application Platform will depend on
-VMware Tanzu Network for continued operation, and VMware Tanzu Network offers no uptime guarantees.
-The option to skip relocation is documented for evaluation and proof-of-concept only.
+Before installation, you must relocate the Tanzu Application Platform images from
+`tanzu.packages.broadcom.com` to your own container image registry.
 
-This section describes how to relocate images to the `tap-images` repository created in [Amazon ECR](https://aws.amazon.com/ecr/).
+This section describes how to relocate images to the `tap-images` repository created in
+[Amazon ECR](https://aws.amazon.com/ecr/).
 See [Creating AWS Resources](resources.hbs.md) for more information.
 
-To relocate images from the VMware Tanzu Network registry to the ECR registry:
+To relocate images from `tanzu.packages.broadcom.com` registry to the ECR registry:
 
 1. Set up environment variables for installation use by running:
 
@@ -28,10 +27,10 @@ To relocate images from the VMware Tanzu Network registry to the ECR registry:
     export AWS_ACCOUNT_ID=MY-AWS-ACCOUNT-ID
     export AWS_REGION=TARGET-AWS-REGION
 
-    # Set tanzunet as the source registry to copy the Tanzu Application Platform packages from.
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+    # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
@@ -48,9 +47,10 @@ To relocate images from the VMware Tanzu Network registry to the ECR registry:
     Where:
 
     - `MY-AWS-ACCOUNT-ID` is the account ID you deploy Tanzu Application Platform in. No dashes and must be in the format `012345678901`.
-    - `MY-TANZUNET-USERNAME` is the user with access to the images in the VMware Tanzu Network registry `registry.tanzu.vmware.com`
-    - `MY-TANZUNET-PASSWORD` is the password for `MY-TANZUNET-USERNAME`.
     - `TARGET-AWS-REGION` is the region you deploy the Tanzu Application Platform to.
+    - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
+       download page. <!-- clarify -->
     - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`
 
 1. [Install the Carvel tool imgpkg CLI](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html#optionally-install-clis-onto-your-path).
@@ -60,17 +60,12 @@ To relocate images from the VMware Tanzu Network registry to the ECR registry:
     ```console
     imgpkg copy --concurrency 1 -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}
     ```
+    <!-- command to be updated -->
 
 ## <a id='add-tap-repo'></a> Add the Tanzu Application Platform package repository
 
-Tanzu CLI packages are available on repositories. Adding the Tanzu Application Platform package repository makes Tanzu Application Platform and its packages available for installation.
-
-[Relocate images to a registry](#relocate-images) is strongly recommended but not required for installation. If you skip this step, you can use the following values to replace the corresponding variables:
-
-- `INSTALL_REGISTRY_HOSTNAME` is `registry.tanzu.vmware.com`
-- `INSTALL_REPO` is `tanzu-application-platform`
-- `INSTALL_REGISTRY_USERNAME` and `INSTALL_REGISTRY_PASSWORD` are the credentials to the VMware Tanzu Network registry `registry.tanzu.vmware.com`
-- `TAP_VERSION` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`
+Tanzu CLI packages are available through repositories. Adding the Tanzu Application Platform package
+repository makes Tanzu Application Platform and its packages available for installation.
 
 To add the Tanzu Application Platform package repository to your cluster:
 
@@ -90,6 +85,7 @@ To add the Tanzu Application Platform package repository to your cluster:
       --server ${INSTALL_REGISTRY_HOSTNAME} \
       --export-to-all-namespaces --yes --namespace tap-install
     ```
+    <!-- should this be deleted? should the equivalent step in other topics be deleted? -->
 
 1. Add the Tanzu Application Platform package repository to the cluster by running:
 
@@ -295,8 +291,13 @@ Where:
 
 - `INGRESS-DOMAIN` is the subdomain for the host name that you point at the `tanzu-shared-ingress`
 service's External IP address.
-- `kp_default_repository_aws_iam_role_arn` is the ARN that was created to write to the ECR repository for the build service. This value is generated by the script, but you can modify it manually.
-- `namspace_provisioner.aws_iam_role_arn` is the ARN that was created to write to the ECR repository for workloads. This value is generated by the script, but you can modify it manually.
+
+- `kp_default_repository_aws_iam_role_arn` is the ARN that was created to write to the ECR repository
+  for the build service. This value is generated by the script, but you can modify it manually.
+
+- `namspace_provisioner.aws_iam_role_arn` is the ARN that was created to write to the ECR repository
+  for workloads. This value is generated by the script, but you can modify it manually.
+
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE` is where the developer's local source is uploaded when using
   Tanzu CLI to use Local Source Proxy for workload creation.
 
@@ -307,15 +308,25 @@ service's External IP address.
 
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET` is the name of the secret with credentials that allow
   pushing to the `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE` repository.
+
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET-NAMESPACE` is the namespace in which
   `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET` is available.
-- `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download either a blank or populated catalog file from the [Tanzu Application Platform product page](https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1239018). Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
-- `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the namespace, and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to run in this namespace. If there are multiple developer namespaces, use `ns_for_export_app_cert: "*"` to export the SCST - Store CA certificate to all namespaces.
+
+- `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download
+  either a blank or populated catalog file from the
+  [Tanzu Application Platform product page](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
+  Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
+
+- `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the namespace,
+  and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to run in this
+  namespace. If there are multiple developer namespaces, use `ns_for_export_app_cert: "*"` to export
+  the SCST - Store CA certificate to all namespaces.
+
 - `CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER` (optional) refers to the Entitlement Account Number (EAN),
   which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry
   uses this number to identify data that belongs to a particular customers and prepare usage
   reports.
-<!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
+  <!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
 
 For AWS, the default settings creates a classic LoadBalancer.
 To use the Network LoadBalancer instead of the classic LoadBalancer for ingress, add the

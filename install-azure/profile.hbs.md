@@ -12,20 +12,26 @@ Before installing the packages, ensure you have:
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to your own container image registry before
-attempting installation. If you don't relocate the images, Tanzu Application Platform depends on
-VMware Tanzu Network for continued operation, and VMware Tanzu Network offers no uptime guarantees.
-The option to skip relocation is documented for evaluation and proof-of-concept only.
+Before installation, you must relocate the Tanzu Application Platform images from
+`tanzu.packages.broadcom.com` to your own container image registry.
 
-To relocate images from the VMware Tanzu Network registry to the ACR registry:
+The supported registries are Harbor, Azure Container Registry, Google Container Registry,
+and Quay.io.
+See the following documentation to learn how to set up your container image registry:
+
+- [Harbor documentation](https://goharbor.io/docs/2.5.0/)
+- [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
+- [Quay.io documentation](https://docs.projectquay.io/welcome.html)
+
+To relocate images from the `tanzu.packages.broadcom.com` to your registry:
 
 1. Set up environment variables for installation use by running:
 
     ```console
-    # Set tanzunet as the source registry to copy the Tanzu Application Platform packages from.
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+    # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=$INSTALL_REGISTRY_HOSTNAME
@@ -41,8 +47,9 @@ To relocate images from the VMware Tanzu Network registry to the ACR registry:
 
     Where:
 
-    - `MY-TANZUNET-USERNAME` is the user with access to the images in the VMware Tanzu Network registry `registry.tanzu.vmware.com`
-    - `MY-TANZUNET-PASSWORD` is the password for `MY-TANZUNET-USERNAME`.
+    - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
+       download page. <!-- clarify -->
     - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`
 
 1. [Install the Carvel tool imgpkg CLI](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html#optionally-install-clis-onto-your-path).
@@ -53,6 +60,13 @@ To relocate images from the VMware Tanzu Network registry to the ACR registry:
     imgpkg copy --concurrency 1 -b ${IMGPKG_REGISTRY_HOSTNAME_0}/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${IMGPKG_REGISTRY_HOSTNAME_1}/${INSTALL_REPO}
     ```
 
+## <a id='add-tap-repo'></a> Add the Tanzu Application Platform package repository
+
+Tanzu CLI packages are available through repositories. Adding the Tanzu Application Platform package
+repository makes Tanzu Application Platform and its packages available for installation.
+
+To add the Tanzu Application Platform package repository to your cluster:
+
 1. Create a namespace called `tap-install` for deploying any component packages by running:
 
     ```console
@@ -61,7 +75,7 @@ To relocate images from the VMware Tanzu Network registry to the ACR registry:
 
     This namespace keeps the objects grouped together logically.
 
-1. Create registry secret for the VMware Tanzu Network registry by running:
+1. Create a registry secret for `tanzu.packages.broadcom.com` registry by running:
 
     ```console
     tanzu secret registry add tap-registry \
@@ -79,7 +93,8 @@ To relocate images from the VMware Tanzu Network registry to the ACR registry:
       --namespace tap-install
     ```
 
-1. Get the status of the Tanzu Application Platform package repository, and ensure the status updates to `Reconcile succeeded` by running:
+1. Get the status of the Tanzu Application Platform package repository, and ensure the status updates
+   to `Reconcile succeeded` by running:
 
     ```console
     tanzu package repository get tanzu-tap-repository --namespace tap-install
@@ -197,15 +212,16 @@ To prepare to install a profile:
     ```
 
 1. Create a `tap-values.yaml` file by using the [Full Profile (Azure)](#full-profile),
-which contains the minimum configurations required to deploy Tanzu Application Platform on Azure.
-The sample values file contains the necessary defaults for:
+   which contains the minimum configurations required to deploy Tanzu Application Platform on Azure.
+   The sample values file contains the necessary defaults for:
 
     - The meta-package, or parent Tanzu Application Platform package.
     - Subordinate packages, or individual child packages.
 
     Keep the values file for future configuration use.
 
-    > **Note** `tap-values.yaml` is set as a Kubernetes secret, which provides secure means to read credentials for the Tanzu Application Platform components.
+    > **Note** `tap-values.yaml` is set as a Kubernetes secret, which provides secure means to read
+    > credentials for the Tanzu Application Platform components.
 
 1. [View possible configuration settings for your package](view-package-config.hbs.md)
 
@@ -386,7 +402,7 @@ To install the `full` dependencies package:
 
 ## <a id='access-tap-gui'></a> Access Tanzu Developer Portal
 
-You can use the host name configured in [Access Tanzu Developer Portal](../tap-gui/accessing-tap-gui.hbs.md) to access Tanzu Developer Portal. This host name is pointed at the shared ingress. 
+You can use the host name configured in [Access Tanzu Developer Portal](../tap-gui/accessing-tap-gui.hbs.md) to access Tanzu Developer Portal. This host name is pointed at the shared ingress.
 
 You're now ready to start using Tanzu Developer Portal.
 Proceed to the [Getting Started](../getting-started.md) topic or the

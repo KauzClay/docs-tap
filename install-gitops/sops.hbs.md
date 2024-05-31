@@ -24,28 +24,26 @@ To install the Age CLI, see [age documentation](https://github.com/FiloSottile/a
 
 ## <a id='relocate-images-to-a-registry'></a> Relocate images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to your own container image registry before
-attempting installation. If you don't relocate the images, Tanzu Application Platform depends on
-VMware Tanzu Network for continued operation, and VMware Tanzu Network offers no uptime guarantees.
-The option to skip relocation is documented for evaluation and proof-of-concept only.
+Before installation, you must relocate the Tanzu Application Platform images from
+`tanzu.packages.broadcom.com` to your own container image registry.
 
 The supported registries are Harbor, Azure Container Registry, Google Container Registry,
 and Quay.io.
-See the following documentation for a registry to learn how to set it up:
+See the following documentation to learn how to set up your container image registry:
 
 - [Harbor documentation](https://goharbor.io/docs/2.5.0/)
 - [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
 - [Quay.io documentation](https://docs.projectquay.io/welcome.html)
 
-To relocate images from the VMware Tanzu Network registry to your registry:
+To relocate images from the `tanzu.packages.broadcom.com` to your registry:
 
 1. Set up environment variables for installation use by running:
 
-    ```console
-    # Set tanzunet as the source registry to copy the Tanzu Application Platform packages from.
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+   ```console
+    # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY
@@ -54,22 +52,24 @@ To relocate images from the VMware Tanzu Network registry to your registry:
     # These environment variables starting with IMGPKG_* are used by the imgpkg command only.
 
     # The registry from which the Tanzu Application Platform package is retrieved.
-    export INSTALL_REGISTRY_USERNAME=MY-REGISTRY-USER
-    export INSTALL_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
-    export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY
+    export INSTALL_REGISTRY_USERNAME="${IMGPKG_REGISTRY_USERNAME_1}"
+    export INSTALL_REGISTRY_PASSWORD="${IMGPKG_REGISTRY_PASSWORD_1}"
+    export INSTALL_REGISTRY_HOSTNAME="${IMGPKG_REGISTRY_HOSTNAME_1}"
     export TAP_VERSION=VERSION-NUMBER
     export INSTALL_REPO=TARGET-REPOSITORY
     ```
 
     Where:
 
+    - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
+       download page. <!-- clarify -->
+    - `MY-REGISTRY` is your own container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.
-    - `MY-REGISTRY` is your own container image registry.
-    - `MY-TANZUNET-USERNAME` is the user with access to the images in the VMware Tanzu Network registry `registry.tanzu.vmware.com`.
-    - `MY-TANZUNET-PASSWORD` is the password for `MY-TANZUNET-USERNAME`.
     - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`.
-    - `TARGET-REPOSITORY` is your target repository, a folder or repository on `MY-REGISTRY` that serves as the location for the installation files for Tanzu Application Platform.
+    - `TARGET-REPOSITORY` is your target repository. This is a folder or repository on `MY-REGISTRY`
+      that serves as the location for the Tanzu Application Platform installation files.
 
     VMware recommends using a JSON key file to authenticate with Google Container Registry.
     In this case, the value of `INSTALL_REGISTRY_USERNAME` is `_json_key` and
@@ -79,17 +79,19 @@ To relocate images from the VMware Tanzu Network registry to your registry:
 
 1. [Install the Carvel tool `imgpkg` CLI](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html#optionally-install-clis-onto-your-path).
 
-    To query for the available versions of Tanzu Application Platform on VMWare Tanzu Network Registry, run:
+    To query for the available versions of Tanzu Application Platform on `tanzu.packages.broadcom.com`, run:
 
     ```console
     imgpkg tag list -i registry.tanzu.vmware.com/tanzu-application-platform/tap-packages | sort -V
     ```
+    <!-- command to be updated -->
 
 1. Relocate the images with the `imgpkg` CLI by running:
 
     ```console
     imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
     ```
+    <!-- command to be updated -->
 
 ## <a id='airgap-support'></a> (Optional) Install Tanzu Application Platform in an air-gapped environment
 
@@ -100,10 +102,13 @@ Complete the following steps if you install Tanzu Application Platform in an air
     ```console
     imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/full-tbs-deps-package-repo:VERSION --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/full-tbs-deps-package-repo
     ```
+    <!-- command to be updated -->
 
-    Where `VERSION` is the version of Tanzu Build Service. You can retrieve this value by running `kubectl get package -n tap-install | grep buildservice`
+    Where `VERSION` is the version of Tanzu Build Service. You can retrieve this value by running
+    `kubectl get package -n tap-install | grep buildservice`
 
-1. Host a `grype` database in the air-gapped environment. For more information, see [Use vulnerability scanning in offline and air-gapped environments](../install-offline/scan-offline-airgap.hbs.md).
+1. Host a `grype` database in the air-gapped environment. For more information, see
+   [Use vulnerability scanning in offline and air-gapped environments](../install-offline/scan-offline-airgap.hbs.md).
 
 ## <a id='create-a-new-git-repository'></a> Create a new Git repository
 

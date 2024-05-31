@@ -8,28 +8,29 @@ Before installing the packages, ensure you have:
 - Completed the [Prerequisites](../prerequisites.html).
 - Configured and verified the cluster.
 - [Accepted Tanzu Application Platform EULA and installed Tanzu CLI](../install-tanzu-cli.html) with any required plug-ins.
+-
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 
-Rlocate the Tanzu Application Platform's images from VMware Tanzu Network registry to your own container image registry before
-attempting installation. 
+Before installation, you must relocate the Tanzu Application Platform images from
+`tanzu.packages.broadcom.com` to your own container image registry.
 
 The supported registries are Harbor, Azure Container Registry, Google Container Registry,
 and Quay.io.
-See the following documentation for a registry to learn how to set it up:
+See the following documentation to learn how to set up your container image registry:
 
 - [Harbor documentation](https://goharbor.io/docs/2.5.0/)
 - [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
 - [Quay.io documentation](https://docs.projectquay.io/welcome.html)
 
-To relocate images from the tanzu.packages.broadcom.com to your registry:
+To relocate images from the `tanzu.packages.broadcom.com` to your registry:
 
-1. Set up environment variables for installation use by running:
+1. Set up the environment variables required for installation by running:
 
     ```console
-    # Set tanzunet as the source registry to copy the Tanzu Application Platform packages from.
+    # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
     export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-BRAODCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
     export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
@@ -53,14 +54,15 @@ To relocate images from the tanzu.packages.broadcom.com to your registry:
 
     Where:
 
+    - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
+       download page. <!-- clarify -->
+    - `MY-REGISTRY` is your own container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.
-    - `MY-REGISTRY` is your own container registry.
-    - `MY-TANZUNET-USERNAME` is the user with access to the images in the VMware Tanzu Network registry `registry.tanzu.vmware.com`.
-    - `MY-TANZUNET-PASSWORD` is the password for `MY-TANZUNET-USERNAME`.
     - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`.
-    - `TARGET-REPOSITORY` is your target repository, a folder/repository on `MY-REGISTRY` that serves as the location
-    for the installation files for Tanzu Application Platform.
+    - `TARGET-REPOSITORY` is your target repository. This is a folder or repository on `MY-REGISTRY`
+      that serves as the location for the Tanzu Application Platform installation files.
 
     VMware recommends using a JSON key file to authenticate with Google Container Registry.
     In this case, the value of `INSTALL_REGISTRY_USERNAME` is `_json_key` and
@@ -70,35 +72,38 @@ To relocate images from the tanzu.packages.broadcom.com to your registry:
 
 1. [Install the Carvel tool imgpkg CLI](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html#optionally-install-clis-onto-your-path).
 
-    To query for the available versions of Tanzu Application Platform on VMWare Tanzu Network Registry, run:
+    To query for the available versions of Tanzu Application Platform on `tanzu.packages.broadcom.com`, run:
 
     ```console
     imgpkg tag list -i registry.tanzu.vmware.com/tanzu-application-platform/tap-packages | sort -V
     ```
+    <!-- command to be updated -->
 
 1. Relocate the images with the `imgpkg` CLI by running:
 
     ```console
     imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
     ```
+    <!-- command to be updated -->
 
 ## <a id='add-tap-repo'></a> Add the Tanzu Application Platform package repository
 
-Tanzu CLI packages are accessible through repositories. By adding the Tanzu Application Platform package repository, Tanzu Application Platform and its packages become available for installation.
+Tanzu CLI packages are available through repositories. Adding the Tanzu Application Platform package
+repository makes Tanzu Application Platform and its packages available for installation.
 
-
+```console
 # The user’s registry used by Tanzu Application Platform to store built images and the Tanzu Build Service dependencies. These credentials must have write permission.
-export MY_REGISTRY_USERNAME=MY-REGISTRY-USER
+export MY_REGISTRY_USERNAME=MY-REGISTRY-USERNAME
 export MY_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
 export MY_REGISTRY_HOSTNAME=MY-REGISTRY
 ```
+<!-- aren't these already set in L49-L52 -->
 
 Where:
 
-
-- `MY_REGISTRY_HOSTNAME` is your own container registry.
-- `MY_REGISTRY_USERNAME` is the user with write access to `MY_REGISTRY_HOSTNAME`.
-- `MY_REGISTRY_PASSWORD` is the password for `MY_REGISTRY_USERNAME`.
+- `MY-REGISTRY-USERNAME` is the user with write access to your container registry.
+- `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USERNAME`.
+- `MY-REGISTRY` is your own container registry.
 
 To add the Tanzu Application Platform package repository to your cluster:
 
@@ -139,7 +144,8 @@ To add the Tanzu Application Platform package repository to your cluster:
       --namespace tap-install
     ```
 
-1. Get the status of the Tanzu Application Platform package repository, and ensure the status updates to `Reconcile succeeded` by running:
+1. Get the status of the Tanzu Application Platform package repository, and ensure the status updates
+   to `Reconcile succeeded` by running:
 
     ```console
     tanzu package repository get tanzu-tap-repository --namespace tap-install
@@ -235,18 +241,17 @@ To prepare to install a profile:
     tanzu package available list tap.tanzu.vmware.com --namespace tap-install
     ```
 
-1. Create a `tap-values.yaml` file by using the
-[Full Profile sample](#full-profile) in the following section as a guide.
-These samples have the minimum configuration required to deploy Tanzu Application Platform.
-The sample values file contains the necessary defaults for:
+1. Create a `tap-values.yaml` file by using the [Full Profile sample](#full-profile) in the following
+   section as a guide. These samples have the minimum configuration required to deploy
+   Tanzu Application Platform. The sample values file contains the necessary defaults for:
 
     - The meta-package, or parent Tanzu Application Platform package.
     - Subordinate packages, or individual child packages.
 
     Keep the values file for future configuration use.
 
-    >**Note** `tap-values.yaml` is set as a Kubernetes secret, which provides secure means to read credentials for Tanzu Application Platform components.
-
+    > **Note** `tap-values.yaml` is set as a Kubernetes secret, which provides secure means to read
+    > credentials for Tanzu Application Platform components.
 
 1. [View possible configuration settings for your package](view-package-config.hbs.md)
 
@@ -366,7 +371,8 @@ Where:
 - `KP-DEFAULT-REPO-SECRET` is the secret with user credentials that can write to `KP-DEFAULT-REPO`.
   You can `docker push` to this location with this credential.
 
-  - You can create a secret configured with a valid registry credential with a name and namespace of your choice. For Google Cloud Registry, use `kp_default_repository_username: _json_key`.
+  - You can create a secret configured with a valid registry credential with a name and namespace of
+    your choice. For Google Cloud Registry, use `kp_default_repository_username: _json_key`.
   - You must create the secret before the installation. For example, you can use the
     `registry-credentials` secret created earlier.
 
@@ -413,17 +419,21 @@ Where:
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET-NAMESPACE` is the namespace in which
   `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET` is available.
 
-- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies
-  the Git credentials for the supply chain to fetch source code from. This field is only required if you use a private repository. See [Git authentication](../scc/git-auth.hbs.md) for more information.
+- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace
+  that supplies the Git credentials for the supply chain to fetch source code from.
+  This field is only required if you use a private repository.
+  See [Git authentication](../scc/git-auth.hbs.md) for more information.
 
-- `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies the
-  Git credentials for the supply chain to push configuration to. See [Git authentication](../scc/git-auth.hbs.md) for more information.
+- `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace
+  that supplies the Git credentials for the supply chain to push configuration to.
+  See [Git authentication](../scc/git-auth.hbs.md) for more information.
 
 - `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download
   either a blank or populated catalog file from the
-  [Tanzu Application Platform product page](https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1239018).
+  [Tanzu Application Platform product page](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
   Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git
   infrastructure.
+  <!-- Is the item here to download "Tanzu Application Platform Developer Portal Yelb/Blank Catalog"? -->
 
 - `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the
   namespace, and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to
@@ -439,7 +449,7 @@ Where:
   which is a unique identifier VMware assigns to its customers. Tanzu Application Platform telemetry
   uses this number to identify data that belongs to a particular customers and prepare usage
   reports.
-<!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
+  <!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
 
 If you use custom CA certificates, you must provide one or more PEM-encoded CA certificates under
 the `ca_cert_data` key. If you configured `shared.ca_cert_data`, Tanzu Application Platform

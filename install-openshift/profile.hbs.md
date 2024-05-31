@@ -11,28 +11,26 @@ Before installing the packages, ensure you have:
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to your own container image registry before
-attempting installation. If you don't relocate the images, Tanzu Application Platform will depend on
-VMware Tanzu Network for continued operation, and VMware Tanzu Network offers no uptime guarantees.
-The option to skip relocation is documented for evaluation and proof-of-concept only.
+Before installation, you must relocate the Tanzu Application Platform images from
+`tanzu.packages.broadcom.com` to your own container image registry.
 
 The supported registries are Harbor, Azure Container Registry, Google Container Registry,
 and Quay.io.
-See the following documentation for a registry to learn how to set it up:
+See the following documentation to learn how to set up your container image registry:
 
 - [Harbor documentation](https://goharbor.io/docs/2.5.0/)
 - [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
 - [Quay.io documentation](https://docs.projectquay.io/welcome.html)
 
-To relocate images from the VMware Tanzu Network registry to your registry:
+To relocate images from the `tanzu.packages.broadcom.com` to your registry:
 
 1. Set up environment variables for installation use by running:
 
     ```console
-    # Set tanzunet as the source registry to copy Tanzu Application Platform packages from.
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+    # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY
@@ -43,21 +41,22 @@ To relocate images from the VMware Tanzu Network registry to your registry:
     # The registry from which the Tanzu Application Platform package is retrieved.
     export INSTALL_REGISTRY_USERNAME="${IMGPKG_REGISTRY_USERNAME_1}"
     export INSTALL_REGISTRY_PASSWORD="${IMGPKG_REGISTRY_PASSWORD_1}"
-    export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY
+    export INSTALL_REGISTRY_HOSTNAME="${IMGPKG_REGISTRY_HOSTNAME_1}"
     export TAP_VERSION=VERSION-NUMBER
     export INSTALL_REPO=TARGET-REPOSITORY
     ```
 
     Where:
 
+    - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
+       download page. <!-- clarify -->
+    - `MY-REGISTRY` is your own container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.
-    - `MY-REGISTRY` is your own container registry.
-    - `MY-TANZUNET-USERNAME` is the user with access to the images in the VMware Tanzu Network registry `registry.tanzu.vmware.com`
-    - `MY-TANZUNET-PASSWORD` is the password for `MY-TANZUNET-USERNAME`.
     - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`.
-    - `TARGET-REPOSITORY` is your target repository, a folder/repository on `MY-REGISTRY` that serves as the location
-    for the installation files for Tanzu Application Platform.
+    - `TARGET-REPOSITORY` is your target repository. This is a folder or repository on `MY-REGISTRY`
+      that serves as the location for the Tanzu Application Platform installation files.
 
 1. [Install the Carvel tool imgpkg CLI](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html#optionally-install-clis-onto-your-path).
 
@@ -66,6 +65,14 @@ To relocate images from the VMware Tanzu Network registry to your registry:
     ```console
     imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
     ```
+    <!-- command to be updated -->
+
+## <a id='add-tap-repo'></a> Add the Tanzu Application Platform package repository
+
+Tanzu CLI packages are available through repositories. Adding the Tanzu Application Platform package
+repository makes Tanzu Application Platform and its packages available for installation.
+
+To add the Tanzu Application Platform package repository to your cluster:
 
 1. Create a namespace called `tap-install` for deploying any component packages by running:
 
@@ -109,10 +116,8 @@ To relocate images from the VMware Tanzu Network registry to your registry:
       For Google Cloud Registry, use `_json_key` as the user name and the contents
       of the service account JSON file for the password.
 
-    > **Note** If using the same repository as `tap-registry`, you can skip this step and use the `tap-registry` secret
-    > in your `tap-values.yaml` instead of `image-registry-creds`.
-
-
+    > **Note** If using the same repository as `tap-registry`, you can skip this step and use the
+    > `tap-registry` secret in your `tap-values.yaml` instead of `image-registry-creds`.
 
 1. Add the Tanzu Application Platform package repository to the cluster by running:
 
@@ -218,17 +223,17 @@ To prepare to install a profile:
     tanzu package available list tap.tanzu.vmware.com --namespace tap-install
     ```
 
-1. Create a `tap-values.yaml` file by using the
-[Full Profile sample](#full-profile) in the following section as a guide.
-These samples have the minimum configuration required to deploy Tanzu Application Platform.
-The sample values file contains the necessary defaults for:
+1. Create a `tap-values.yaml` file by using the [Full Profile sample](#full-profile) in the following
+   section as a guide. These samples have the minimum configuration required to deploy
+   Tanzu Application Platform. The sample values file contains the necessary defaults for:
 
     - The meta-package, or parent Tanzu Application Platform package.
     - Subordinate packages, or individual child packages.
 
     Keep the values file for future configuration use.
 
-    >**Note** `tap-values.yaml` is set as a Kubernetes secret, which provides secure means to read credentials for Tanzu Application Platform components.
+    > **Note** `tap-values.yaml` is set as a Kubernetes secret, which provides secure means to read
+    > credentials for Tanzu Application Platform components.
 
 1. [View possible configuration settings for your package](view-package-config.hbs.md)
 
@@ -321,23 +326,36 @@ Where:
 
 - `INGRESS-DOMAIN` is the subdomain for the host name that you point at the `tanzu-shared-ingress`
 service's External IP address.
-- `KP-DEFAULT-REPO` is a writable repository in your registry. Tanzu Build Service dependencies are written to this location. Examples:
-    * Harbor has the form `kp_default_repository: "my-harbor.io/my-project/build-service"`.
-    * Docker Hub has the form `kp_default_repository: "my-dockerhub-user/build-service"` or `kp_default_repository: "index.docker.io/my-user/build-service"`.
-    * Google Cloud Registry has the form `kp_default_repository: "gcr.io/my-project/build-service"`.
-- `K8S-VERSION` is the Kubernetes version used by your OpenShift cluster. It must be in the form of `1.26.3`, `1.27.x` or `1.28.x`, where `x` stands for the patch version. Examples:
-    - Red Hat OpenShift Container Platform v4.13 uses the Kubernetes version `1.26.3`.
-    - Red Hat OpenShift Container Platform v4.14 uses the Kubernetes version `1.27.6`.
-    - Red Hat OpenShift Container Platform v4.15 uses the Kubernetes version `1.28.5`.
+
+- `KP-DEFAULT-REPO` is a writable repository in your registry. Tanzu Build Service dependencies are
+  written to this location. Examples:
+
+  - Harbor has the form `kp_default_repository: "my-harbor.io/my-project/build-service"`.
+  - Docker Hub has the form `kp_default_repository: "my-dockerhub-user/build-service"` or
+    `kp_default_repository: "index.docker.io/my-user/build-service"`.
+  - Google Cloud Registry has the form `kp_default_repository: "gcr.io/my-project/build-service"`.
+
+- `K8S-VERSION` is the Kubernetes version used by your OpenShift cluster. It must be in the form of
+  `1.26.3`, `1.27.x` or `1.28.x`, where `x` stands for the patch version. Examples:
+
+  - Red Hat OpenShift Container Platform v4.13 uses the Kubernetes version `1.26.3`.
+  - Red Hat OpenShift Container Platform v4.14 uses the Kubernetes version `1.27.6`.
+  - Red Hat OpenShift Container Platform v4.15 uses the Kubernetes version `1.28.5`.
+
 - `SERVER-NAME` is the host name of the registry server. Examples:
-    * Harbor has the form `server: "my-harbor.io"`.
-    * Docker Hub has the form `server: "index.docker.io"`.
-    * Google Cloud Registry has the form `server: "gcr.io"`.
-- `REPO-NAME` is where workload images are stored in the registry. If this key is passed through the shared section earlier and AWS ECR registry is used, you must ensure that the `SERVER-NAME/REPO-NAME/buildservice` and `SERVER-NAME/REPO-NAME/workloads` exist. AWS ECR expects the paths to be pre-created.
-Images are written to `SERVER-NAME/REPO-NAME/workload-name`. Examples:
-    * Harbor has the form `repository: "my-project/supply-chain"`.
-    * Docker Hub has the form `repository: "my-dockerhub-user"`.
-    * Google Cloud Registry has the form `repository: "my-project/supply-chain"`.
+  - Harbor has the form `server: "my-harbor.io"`.
+  - Docker Hub has the form `server: "index.docker.io"`.
+  - Google Cloud Registry has the form `server: "gcr.io"`.
+
+- `REPO-NAME` is where workload images are stored in the registry. If this key is passed through the
+  shared section earlier and AWS ECR registry is used, you must ensure that the
+  `SERVER-NAME/REPO-NAME/buildservice` and `SERVER-NAME/REPO-NAME/workloads` exist. AWS ECR expects
+  the paths to be pre-created. Images are written to `SERVER-NAME/REPO-NAME/workload-name`. Examples:
+
+  - Harbor has the form `repository: "my-project/supply-chain"`.
+  - Docker Hub has the form `repository: "my-dockerhub-user"`.
+  - Google Cloud Registry has the form `repository: "my-project/supply-chain"`.
+
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE` is where the developer's local source is uploaded when using
   Tanzu CLI to use Local Source Proxy for workload creation.
 
@@ -351,14 +369,30 @@ Images are written to `SERVER-NAME/REPO-NAME/workload-name`. Examples:
 
 - `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET-NAMESPACE` is the namespace in which
   `EXTERNAL-REGISTRY-FOR-LOCAL-SOURCE-SECRET` is available.
-- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies
-  the Git credentials for the supply chain to fetch source code from. This field is only required if you use a private repository. See [Git authentication](../scc/git-auth.hbs.md) for more information.
-- `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace that supplies the
-  Git credentials for the supply chain to push configuration to. See [Git authentication](../scc/git-auth.hbs.md) for more information.
-- `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download either a blank or populated catalog file from the [Tanzu Application Platform product page](https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1239018). Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
-- `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the namespace, and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to run in this namespace. If there are multiple developer namespaces, use `ns_for_export_app_cert: "*"` to export the SCST - Store CA certificate to all namespaces.
-- `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the
-credentials to pull an image from the registry for scanning.
+
+- `GIT-SOURCE-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace
+  that supplies the Git credentials for the supply chain to fetch source code from.
+  This field is only required if you use a private repository. For more information, see
+  [Git authentication](../scc/git-auth.hbs.md).
+
+- `GITOPS-CREDENTIAL-SECRET-NAME` is the name of the Kubernetes secret in the developer namespace
+  that supplies the Git credentials for the supply chain to push configuration to.
+  See [Git authentication](../scc/git-auth.hbs.md) for more information.
+
+- `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download
+  either a blank or populated catalog file from the
+  [Tanzu Application Platform product page](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
+  Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git
+  infrastructure.
+  <!-- Is the item here to download "Tanzu Application Platform Developer Portal Yelb/Blank Catalog"? -->
+
+- `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the
+  namespace, and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to
+  run in this namespace. If there are multiple developer namespaces, use `ns_for_export_app_cert: "*"`
+  to export the SCST - Store CA certificate to all namespaces.
+
+- `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the credentials to
+  pull an image from the registry for scanning.
 
 Tanzu Application Platform is part of [VMware's CEIP program](https://www.vmware.com/solutions/trustvmware/ceip-products.html) where data is collected to help improve the customer experience. By setting `ceip_policy_disclosed` to `true` (not a string), you acknowledge the program is disclosed to you and you are aware data collection is happening. This field must be set for the installation to be completed. See [Opt out of telemetry collection](../opting-out-telemetry.hbs.md) for more information.
 

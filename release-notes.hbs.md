@@ -44,6 +44,16 @@ This release includes the following changes, listed by component and area.
 
 ---
 
+### <a id='1-11-0-breaking-changes'></a> v1.11.0 Breaking changes
+
+This release includes the following changes, listed by component and area.
+
+#### <a id='1-11-0-COMPONENT-NAME-bc'></a> v1.11.0 Breaking changes: Tanzu Application Platform upgrade procedure
+
+- Usage of Tanzu Network for installing or upgrading Tanzu Application Platform will not be supported. Relocate the TAP images from tanzu.registry.broadcom.com to user's registry by following the instructions at https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.10/tap/install-online-profile.html#relocate-images-to-a-registry-0 before attempting upgrade.
+
+---
+
 ### <a id='1-11-0-security-fixes'></a> v1.11.0 Security fixes
 
 This release has the following security fixes, listed by component and area.

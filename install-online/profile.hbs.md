@@ -11,10 +11,8 @@ Before installing the packages, ensure you have:
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to your own container image registry before
-attempting installation. If you don't relocate the images, Tanzu Application Platform depends on
-VMware Tanzu Network for continued operation, and VMware Tanzu Network offers no uptime guarantees.
-The option to skip relocation is documented for evaluation and proof-of-concept only.
+Rlocate the Tanzu Application Platform's images from VMware Tanzu Network registry to your own container image registry before
+attempting installation. 
 
 The supported registries are Harbor, Azure Container Registry, Google Container Registry,
 and Quay.io.
@@ -24,15 +22,15 @@ See the following documentation for a registry to learn how to set it up:
 - [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
 - [Quay.io documentation](https://docs.projectquay.io/welcome.html)
 
-To relocate images from the VMware Tanzu Network registry to your registry:
+To relocate images from the tanzu.packages.broadcom.com to your registry:
 
 1. Set up environment variables for installation use by running:
 
     ```console
     # Set tanzunet as the source registry to copy the Tanzu Application Platform packages from.
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BRAODCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY

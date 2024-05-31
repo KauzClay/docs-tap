@@ -53,22 +53,14 @@ Follow these steps to update the new package repository:
 
 1. Add the target version of the Tanzu Application Platform package repository by running:
 
-    Cluster Essentials 1.2 or above
-    :
-    ```console
-    tanzu package repository add tanzu-tap-repository \
-    --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages:$TAP_VERSION \
-    --namespace tap-install
-    ```
-
-    Cluster Essentials 1.1 or 1.0
+ 
     :
     ```console
     tanzu package repository update tanzu-tap-repository \
     --url ${INSTALL_REGISTRY_HOSTNAME}/TARGET-REPOSITORY/tap-packages:${TAP_VERSION} \
     --namespace tap-install
     ```
-    Expect to see the installed Tanzu Application Platform packages in a temporary “Reconcile Failed” state, following a “Package not found” warning. These warnings will disappear after you upgrade the installed Tanzu Application Platform packages to version 1.2.0.
+    Expect to see the installed Tanzu Application Platform packages in a temporary “Reconcile Failed” state, following a “Package not found” warning. These warnings will disappear after you upgrade the installed Tanzu Application Platform packages.
 
 1. Verify you have added the new package repository by running:
 
@@ -117,7 +109,6 @@ If you installed Tanzu Application Platform by using a profile, you can perform 
 tanzu package installed update tap -p tap.tanzu.vmware.com -v ${TAP_VERSION}  --values-file tap-values.yaml -n tap-install
 ```
 
-When upgrading to Tanzu Application Platform v1.5, you might encounter a temporary resource reconciliation failure. This error does not persist and the packages will reconcile subsequently. To facilitate the reconciliation of packages, you can execute the `tanzu package installed kick -n tap-install tap -y` command repeatedly.
 
 ### <a id="full-profile-upgrade-tbs-deps"></a> Upgrade the full dependencies package
 

@@ -21,9 +21,16 @@ The following Open Rewrite Recipes are supported:
 
 ## <a id="syntax-ref"></a>Syntax reference
 
-```yaml
-OpenRewriteRecipe(<SpEL expression>)
+```plaintext
+OpenRewriteRecipe(
+  recipe: STRING,
+  options: MAP,
+  parseOrFail: BOOLEAN
+)
 ```
+
+where `recipe` is the classname of the OpenRewrite _recipe_ to use and `options` is a map (in SpEL notation) used to configure the recipe.
+Optionally, the `parseOrFail` boolean (default value is `false`) can be used to make the engine fail if input files fed to the transform are not parseable by OpenRewrite according to the recipe used (_e.g._ you try to use a YAML recipe but a `.java` file is presented as input)
 
 ## <a id="example"></a>Example
 
@@ -33,14 +40,17 @@ of `#companyPkg`. This is more powerful than using [RewritePath](rewrite-path.md
 and [ReplaceText](replace-text.md), as it reads the syntax of files and
 correctly deals with imports, fully compared to non-fully qualified names, and so on.
 
-```yaml
-chain:
-  - include: ["**/*.java"]
-  - type: OpenRewriteRecipe
-    recipe: org.openrewrite.java.ChangePackage
-    options:
-      oldPackageName: "'com.acme'"
-      newPackageName: "#companyPkg"
+```plaintext
+engine {
+  Include({"**/*.java"})
+  OpenRewriteRecipe(
+    recipe: 'org.openrewrite.java.ChangePackage',
+    options: {
+      oldPackageName: 'com.acme',
+      newPackageName: #companyPkg
+    }
+  )
+}
 ```
 
 ![Diagram showing an OpenRewriteRecipe transform.](images/open-rewrite-recipe.svg)

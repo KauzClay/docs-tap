@@ -112,7 +112,7 @@ export MY_REGISTRY_USERNAME=MY-REGISTRY-USERNAME
 export MY_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
 export MY_REGISTRY_HOSTNAME=MY-REGISTRY
 ```
-<!-- aren't these already set in L49-L52 -->
+<!-- aren't these already set in L66-L68? -->
 
 Where:
 

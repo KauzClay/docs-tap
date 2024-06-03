@@ -48,9 +48,15 @@ This release includes the following changes, listed by component and area.
 
 This release includes the following changes, listed by component and area.
 
-#### <a id='1-11-0-COMPONENT-NAME-bc'></a> v1.11.0 Breaking changes: Tanzu Application Platform upgrade procedure
+#### <a id='1-11-0-COMPONENT-NAME-bc'></a> v1.11.0 Breaking changes: Tanzu Application Platform
 
-- Usage of Tanzu Network for installing or upgrading Tanzu Application Platform will not be supported. Relocate the TAP images from tanzu.registry.broadcom.com to user's registry by following the instructions at https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.10/tap/install-online-profile.html#relocate-images-to-a-registry-0 before attempting upgrade.
+- Tanzu Application Platform releases have migrated from VMware Tanzu Network to the
+  Broadcom Support Portal and Broadcom registry.
+  Using VMware Tanzu Network to install or upgrade Tanzu Application Platform is no longer supported.
+
+  Before you upgrade Tanzu Application Platform, you must relocate the Tanzu Application Platform
+  images from the Broadcom registry `tanzu.packages.broadcom.com` to your own registry. For instructions,
+  see [Relocate images to a registry](install-online/profile.html#relocate-images).
 
 ---
 

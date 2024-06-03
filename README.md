@@ -108,6 +108,7 @@ Use this table to keep a running list of terms used and how they should be defin
 
 | Word or phrase | Explanation |
 |----------------|-------------|
+| Broadcom Support Portal | Broadcom's download site, which replaces VMware Tanzu Network. Each word of the name must be capitalized. |
 | components | The individual products available in the TAP SKU. For example, Cloud Native Runtimes is a component of TAP: it's not an add-on or a capability.|
 | convention controller | Lowercase; this is one of the minor components that make up Convention Service |
 | convention server | Lowercase; this is one of the minor components that make up Convention Service |

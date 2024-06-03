@@ -15,13 +15,8 @@ Before proceeding you must have:
 
 To download the Tanzu CLI binary and set up the cluster:
 
-1. Go to [VMware Tanzu Network](https://network.tanzu.vmware.com/products/tanzu-application-platform/).
-
-1. Select {{ vars.tap_version }} from the release drop-down menu for Tanzu Application Platform.
-
-1. Click **Grafana Dashboard for Tanzu Application Platform (Beta)**.
-
-1. Download `prometheus-grafana-dashboard-for-tap-1.0.0-beta.1.zip`.
+1. Download `prometheus-grafana-dashboard-for-tap-1.0.0-beta.1.zip` from the
+   [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products).
 
 1. If on macOS or Linux, unzip `prometheus-grafana-dashboard-for-tap-1.0.0-beta.1.zip`. If you're
    using Windows, use the Windows extractor tool to unzip it.

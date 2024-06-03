@@ -79,7 +79,7 @@ do so by the second component of Cartographer Conventions, the [Convention servi
 
 The convention controller is the orchestrator of one or many convention servers deployed to the cluster. There are resources available on the `conventions.carto.run/v1aplha1` API that allow the controller to carry out its functions. These resources include:
 
-  -  [ClusterPodConvention](./reference/cluster-pod-convention.hbs.md)
+  - [ClusterPodConvention](./reference/cluster-pod-convention.hbs.md)
     `ClusterPodConvention` is a  resource type that allows the conventions author to register a webhook server with the controller using its `spec.webhook` field.
 
       ```yaml
@@ -135,17 +135,23 @@ With this high-level understanding of Cartographer Conventions components, you c
 
 The following prerequisites must be met before a convention is developed and deployed:
 
-+ The Kubernetes CLI tool (kubectl) CLI is installed. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/).
-+ Tanzu Application Platform prerequisites are installed. For more information, see [Prerequisites](../prerequisites.md)
-+ Tanzu Application Platform components are installed. For more information, see the [Installing the Tanzu CLI](../install-tanzu-cli.md).
-+ The default supply chain is installed. Download Supply Chain Security Tools for VMware Tanzu from [Tanzu Network](https://network.tanzu.vmware.com/products/supply-chain-security-tools/).
-+ Your kubeconfig context is set to the Tanzu Application Platform-enabled cluster:
+- The Kubernetes CLI tool (kubectl) CLI is installed. For more information, see the
+  [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/).
+- Tanzu Application Platform prerequisites are installed. For more information, see
+  [Prerequisites](../prerequisites.md)
+- Tanzu Application Platform components are installed. For more information, see the
+  [Installing the Tanzu CLI](../install-tanzu-cli.md).
+- The default supply chain is installed. Download Supply Chain Security Tools for VMware Tanzu from
+  the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products).
+- Your kubeconfig context is set to the Tanzu Application Platform-enabled cluster:
 
-    ```console
-    kubectl config use-context CONTEXT_NAME
-    ```
+   ```console
+   kubectl config use-context CONTEXT_NAME
+   ```
 
-+ You use GitHub to install the ko CLI. See the [google/ko](https://github.com/google/ko) GitHub repository. These instructions use `ko` to build an image. If there is an existing image or build process, `ko` is optional.)
+- Use GitHub to install the `ko` CLI. See the [google/ko](https://github.com/google/ko) GitHub
+  repository. These instructions use `ko` to build an image. If there is an existing image or build
+  process, `ko` is optional.
 
 ## <a id='define-conv-criteria'></a> Define convention criteria
 
@@ -353,7 +359,7 @@ spec:
 ```
 
 If you do not provide a value for this optional field while using the `conventions.carto.run/v1alpha1` API,
-the default value is set to `PodTemplateSpec` without the conventions author explicitly doing so. 
+the default value is set to `PodTemplateSpec` without the conventions author explicitly doing so.
 
 ### <a id='match-criteria-env-var'></a> Matching criteria by environment variables
 

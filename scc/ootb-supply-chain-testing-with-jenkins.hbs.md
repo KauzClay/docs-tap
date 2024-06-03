@@ -250,11 +250,10 @@ EOF
 Tanzu Application Platform includes a [Namespace Provisioner](../namespace-provisioner/about.hbs.md) which is not enabled by default.
 This section requires that you do not use the Namespace Provisioner.
 
-The `jenkins-task` `Task` resource uses a container image with the
-Jenkins Adapter application to trigger the Jenkins job and wait for it to complete.
-This container image is distributed with Tanzu Application Platform on VMware
-Tanzu Network, but it is not installed at the same time as the other packages.
-It is pulled at the time that the supply chain executes the job. As a result, it
+The `jenkins-task` `Task` resource uses a container image with the Jenkins Adapter application to
+trigger the Jenkins job and wait for it to complete. This container image is distributed with Tanzu
+Application Platform on `tanzu.packages.broadcom.com`, but it is not installed at the same time as
+the other packages. It is pulled at the time that the supply chain executes the job. As a result, it
 does not implicitly have access to the `imagePullSecrets` with the required credentials.
 
 > **Important** The `ServiceAccount` that a developer can configure with their

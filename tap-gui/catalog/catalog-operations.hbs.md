@@ -260,10 +260,8 @@ To install Yelb:
 
 To install the Yelb catalog:
 
-1. In [Tanzu Network](https://network.tanzu.vmware.com/products/tanzu-application-platform), select
-   your release from the drop-down menu.
-1. Click **tanzu-developer-portal-catalogs-latest** >
-   **Tanzu Application Platform Developer Portal Yelb Catalog** and download the catalog.
+1. Download the **Tanzu Application Platform Developer Portal Yelb Catalog** catalog from
+   [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products).
 1. Unpack the downloaded TAR archive to a local drive.
 1. Follow the earlier steps for [Register components](#register-comp) to register the
    `catalog-info.yaml` in the root of the unpacked archive and register all the catalog entities

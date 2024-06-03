@@ -40,12 +40,12 @@ Perform the following procedures to set up metrics collection in a cluster.
 
 To download the dashboard and set up the cluster:
 
-1. Download and install the Tanzu CLI binary file from the Tanzu Application Platform tile in
-   [VMware Tanzu Network](https://network.tanzu.vmware.com/products/tanzu-application-platform/)
+1. Download and install the Tanzu CLI binary file from
+   [Broadcom Support](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products)
    if you have not already installed it.
 
-2. Download the dashboard zip file from the tile in
-   [VMware Tanzu Network](https://network.tanzu.vmware.com/products/tanzu-application-platform/)
+2. Download the dashboard zip file from
+   [Broadcom Support](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products)
    for Tanzu Application Platform v{{ vars.tap_version }} or later.
 
    - Click **Aria Operations for Applications Dashboard for Tanzu Application Platform (Beta)**.

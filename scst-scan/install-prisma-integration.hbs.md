@@ -30,18 +30,20 @@ imgpkg tag list -i projects.registry.vmware.com/tanzu_practice/tap-scanners-pack
 
 ## Relocate images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to your own container
+VMware recommends relocating the images from `tanzu.packages.broadcom.com` to your own container
 image registry before installing.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 The Prisma Scanner is in the Alpha development phase, and not packaged as part of Tanzu Application
-Platform. It is hosted on the VMware Project Repository instead of VMware Tanzu Network. If you
-relocated the Tanzu Application Platform images, you can also relocate the Prisma Scanner package.
+Platform. It is hosted on the VMware Project Repository instead of `tanzu.packages.broadcom.com`. If
+you relocated the Tanzu Application Platform images, you can also relocate the Prisma Scanner
+package.
 
-If you don’t relocate the images, the Prisma Scanner installation depends on VMware Tanzu Network
-for continued operation, and VMware Tanzu Network offers no uptime guarantees. The option to skip
-relocation is documented for evaluation and proof-of-concept only.
+If you don’t relocate the images, the Prisma Scanner installation depends on
+`tanzu.packages.broadcom.com` for continued operation, and `tanzu.packages.broadcom.com` offers no
+uptime guarantees. The option to skip relocation is documented for evaluation and proof-of-concept
+only.
 
 For information about supported registries, see each registry's documentation.
 

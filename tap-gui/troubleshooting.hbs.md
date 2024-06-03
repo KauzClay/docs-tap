@@ -132,7 +132,8 @@ The catalog plug-in can't read the Git location of your catalog definition files
 #### Solution
 
 1. Ensure you have built your own [Backstage](https://backstage.io/)-compatible catalog or that
-   you have downloaded one of the Tanzu Developer Portal catalogs from VMware Tanzu Network.
+   you have downloaded one of the Tanzu Developer Portal catalogs from
+   [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products).
 2. Ensure you defined the catalog in the values file that you input as part of installation.
    To update this location, change the definition file:
 

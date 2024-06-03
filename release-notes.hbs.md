@@ -48,7 +48,7 @@ This release includes the following changes, listed by component and area.
 
 This release includes the following changes, listed by component and area.
 
-#### <a id='1-11-0-COMPONENT-NAME-bc'></a> v1.11.0 Breaking changes: Tanzu Application Platform
+#### <a id='1-11-0-tap-bc'></a> v1.11.0 Breaking changes: Tanzu Application Platform
 
 - Tanzu Application Platform releases have migrated from VMware Tanzu Network to the
   Broadcom Support Portal and Broadcom registry.

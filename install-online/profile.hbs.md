@@ -23,7 +23,7 @@ See the following documentation to learn how to set up your container image regi
 - [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
 - [Quay.io documentation](https://docs.projectquay.io/welcome.html)
 
-To relocate images from the `tanzu.packages.broadcom.com` to your registry:
+To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
 1. Retrieve your Broadcom registry API token:
 

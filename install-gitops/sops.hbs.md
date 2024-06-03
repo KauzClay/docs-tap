@@ -35,7 +35,7 @@ See the following documentation to learn how to set up your container image regi
 - [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
 - [Quay.io documentation](https://docs.projectquay.io/welcome.html)
 
-To relocate images from the `tanzu.packages.broadcom.com` to your registry:
+To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
 1. Set up environment variables for installation use by running:
 
@@ -140,10 +140,9 @@ Follow these steps to create a new Git repository and set up the authentication:
 
 ## <a id='download-tanzu-gitops-ri'></a>Download and unpack Tanzu GitOps Reference Implementation (RI)
 
-1. Sign in to [VMware Tanzu Network](https://network.tanzu.vmware.com).
-1. Go to the [Tanzu Application Platform product page](https://network.tanzu.vmware.com/products/tanzu-application-platform).
-1. Select **Release {{ vars.tap_version }}** from the release drop-down menu.
-1. Click **Tanzu GitOps Reference Implementation**.
+1. Download **Tanzu GitOps Reference Implementation** for Tanzu Application Platform v{{ vars.tap_version }}
+   from the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
+
 1. Unpack the downloaded TGZ file into the `$HOME/tap-gitops` directory by running:
 
     ```console

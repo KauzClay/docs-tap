@@ -11,7 +11,7 @@ Before installing the packages, ensure that you have completed the following tas
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 
-To relocate images from the `tanzu.packages.broadcom.com` registry to your air-gapped registry:
+To relocate images from `tanzu.packages.broadcom.com` registry to your air-gapped registry:
 
 1. Set up environment variables for installation use by running:
 

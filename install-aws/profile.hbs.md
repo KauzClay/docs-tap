@@ -16,10 +16,10 @@ Before installation, you must relocate the Tanzu Application Platform images fro
 `tanzu.packages.broadcom.com` to your own container image registry.
 
 This section describes how to relocate images to the `tap-images` repository created in
-[Amazon ECR](https://aws.amazon.com/ecr/).
+[Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/).
 See [Creating AWS Resources](resources.hbs.md) for more information.
 
-To relocate images from `tanzu.packages.broadcom.com` registry to the ECR registry:
+To relocate images from `tanzu.packages.broadcom.com` to the ECR registry:
 
 1. Set up environment variables for installation use by running:
 

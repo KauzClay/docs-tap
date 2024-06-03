@@ -7,9 +7,8 @@ provides details of the accelerator engine transform.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```yaml
-type: Provenance
-condition: <SpEL expression>
+```plaintext
+Provenance()
 ```
 
 The `Provenance` transform is added as a child to the top-most

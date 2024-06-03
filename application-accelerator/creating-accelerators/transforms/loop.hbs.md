@@ -5,38 +5,30 @@ This topic tells you about the Application Accelerator `Loop` transform in Tanzu
 The `Loop` transform iterates over elements in a list and applies the provided transform for every
 element in that list.
 
-When `doAsMerge` is used, a copy of the `Loop` transform's input is passed to each transform and the
+Depending on the "style" used (denoted by the optional `+` marker), the transform either behaves in "doArMerge" (`+`) or "doAsChain" (no `+`):
+
+- When `doAsMerge` is used, a copy of the `Loop` transform's input is passed to each transform and the
 outputs from each transform are merged using a set union.
 
-When `doAsChain` is used, each transform is executed sequentially, receiving the previous
+- When `doAsChain` is used, each transform is executed sequentially, receiving the previous
 transform's output as its input. The first transform is to receive the `Loop` transform's input as
 its input.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
-```yaml
-type: Loop
-on: <SpEL expression>
-var: <string>
-index: <string>
-doAsChain: <transform>
-doAsMerge: <transform>
+```plaintext
+for VAR-IDENTIFIER [, INDEX-IDENTIFIER] in SPEL-EXPRESSION [+] {
+  ... // other transforms
+}
 ```
 
-- `on` must be a SpEL expression that evaluates a list. This is the list of elements to be
+- `SPEL-EXPRESSION` must be a SpEL expression that evaluates a list. This is the list of elements to be
   iterated over.
-- `var` is the name of the variable to be assigned to the current element on each iteration.
-  (optional)
-- `index` is the variable's name to be assigned to the index of the current element on
+- `VAR-IDENTIFIER` is the name of the variable to be assigned to the current element on each iteration.
+  (required)
+- `INDEX-IDENTIFIER` is the variable's name to be assigned to the index of the current element on
   each iteration. (optional)
-- `doAsMerge` is the transform to be executed for every element in the list, on a copy of
-  the `Loop` transform's input.
-- `doAsChain` is the transform to be executed for every element in the list, passing the
-  output of the transform as input to the next transform.
 
-Both `var` and `index` are optional.
-
-Only one of the `doAsMerge` or `doAsChain` variables is to be used in a `Loop` transform.
 
 ## <a id="behavior"></a>Behavior
 
@@ -59,14 +51,10 @@ See the following examples using the `Loop` transform.
 Create a new directory for every module in `modules` (a list of strings) based on the contents of
 the "template" directory.
 
-```yaml
-type: Loop
-on: "#modules"
-var: m
-doAsMerge:
-  type: RewritePath
-  regex: "template/(.*)"
-  rewriteTo: "#m + '/' + #g1"
+```plaintext
+for m in #modules +{
+  RewritePath(regex: "template/(.*)", rewriteTo: #m + '/' + #g1)
+}
 ```
 
 The following diagram shows how this example behaves:
@@ -77,17 +65,17 @@ The following diagram shows how this example behaves:
 
 Add every artifactId in `artifacts` (a list of strings) as a Spring dependency.
 
-```yaml
-type: Loop
-on: "#artifacts"
-var: a
-doAsChain:
-  type: OpenRewriteRecipe
-  recipe: org.openrewrite.maven.AddDependency
-  options:
-    groupId: "'org.springframework'"
-    artifactId: "#a"
-    version: "'5.7.1'"
+```plaintext
+for a in #artifacts {
+  OpenRewriteRecipe(
+    recipe: 'org.openrewrite.maven.AddDependency',
+    options: {
+      groupId: 'org.springframework',
+      artifactIf: #a,
+      version: '5.7.1
+    }
+  )
+}
 ```
 
 The following diagram shows how this example behaves:
@@ -98,6 +86,7 @@ The following diagram shows how this example behaves:
 
 You can use `Loop` in combination with custom types, for example:
 
+`accelerator.yaml`:
 ```yaml
 accelerator:
   types:
@@ -109,19 +98,23 @@ accelerator:
   options:
     - name: pluginsToAdd
       dataType: [MavenPlugin] # End users will be able to enter a collection of GAV tuples
-engine:
-  include: [pom.xml]
-  chain:
-    - type: Loop
-      on: pluginsToAdd # Iterate on the pluginsToAdd collection
-      var: p           # The variable "p" will contain each tuple in turn
-      doAsChain:       # Will apply the second execution to the result of the first, and so on...
-        type: OpenRewriteRecipe
-        recipe: org.openrewrite.maven.AddPlugin
-        options:
-          groupId:    "#p['groupId']"
-          artifactId: "#p['artifactId']"
-          version:    "#p['version']"
+```
+
+`accelerator.axl`:
+```plaintext
+engine {
+  Include({"pom.xml"})
+  for p in #pluginsToAdd {
+    OpenRewriteRecipe(
+      recipe: 'org.openrewrite.maven.AddPlugin',
+      options: {
+        groupId:    #p['groupId'],
+        artifactId: #p['artifactId'],
+        version:    #p['version']
+      }
+    )
+  }
+}
 ```
 
 For more information, see [Using Custom Types](../custom-types.hbs.md).

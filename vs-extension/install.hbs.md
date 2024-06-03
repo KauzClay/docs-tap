@@ -19,7 +19,7 @@ Before installing the extension, you must have:
 
 To install Tanzu Developer Tools for Visual Studio:
 
-1. Download VMware Tanzu Developer Tools for Visual Studio from
+1. Download VMware Tanzu Developer Tools for Visual Studio from the
    [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products).
 2. Double-click the `.vsix` install file and click through the prompts.
 3. Open Visual Studio and, from top menu, click **Extensions** > **Manage Extensions**.

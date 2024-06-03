@@ -13,7 +13,7 @@ The sandbox environment includes the following services:
 
 ## Procedure
 
-1. Create a [VMware Customer Connect](https://customerconnect.vmware.com) account and log in to [Tanzu Academy](https://tanzu.academy/home).
+1. Create a [Broadcom Support](https://profile.broadcom.com/web/registration) account and log in to [Tanzu Academy](https://tanzu.academy/home).
 
 2. Get started with your [developer sandbox](https://tanzu.academy/guides/developer-sandbox) in Tanzu Academy.
 

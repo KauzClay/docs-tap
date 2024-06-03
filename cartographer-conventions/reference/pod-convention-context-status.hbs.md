@@ -1,14 +1,18 @@
 # PodConventionContextStatus for Cartographer Conventions
 
-This reference topic describes the `PodConventionContextStatus` status type that you can use with Cartographer Conventions.
+This reference topic describes the `PodConventionContextStatus` status type that you can use with
+Cartographer Conventions.
 
 ## Overview
 
-The Pod convention context status type is used to represent the current status of the context retrieved by the request.
-It holds the applied conventions by the server and the modified version of the `PodTemplateSpec`.
-For more information about `PodTemplateSpec`, see the [Kubernetes documentation](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
+The Pod convention context status type is used to represent the current status of the context
+retrieved by the request. It holds the applied conventions by the server and the modified version of
+the `PodTemplateSpec`. For more information about `PodTemplateSpec`, see the
+[Kubernetes documentation](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
 
-The field `.template` is populated with the enriched [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec). The field `.appliedConventions` is populated with the names of any applied conventions.
+The field `.template` is populated with the enriched
+[PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
+The field `.appliedConventions` is populated with the names of any applied conventions.
 
 ```console
 {
@@ -28,7 +32,7 @@ The field `.template` is populated with the enriched [PodTemplateSpec](https://k
 }
 ```
 
-yaml version:
+YAML version:
 
 ```yaml
 ---

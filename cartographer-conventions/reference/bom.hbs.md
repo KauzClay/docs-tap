@@ -4,7 +4,8 @@ This reference topic describes the `BOM` structure you can use with Cartographer
 
 ## Overview
 
-The `BOM` is a type/structure wrapping a Software Bill of Materials (SBOM) describing the software components and their dependencies.
+The `BOM` is a type/structure wrapping a Software Bill of Materials (SBOM) describing the software
+components and their dependencies.
 
 ## Structure
 
@@ -27,7 +28,7 @@ Where:
 - `BYTE-ARRAY`: The content of the BOM. The content may be in any format or encoding.
   Consult the name to infer how the content is structured.
 
-The convention controller forwards BOMs to the convention servers that it can discover from
-known sources, including:
+The convention controller forwards BOMs to the convention servers that it can discover from known
+sources, including:
 
 - [CNB-SBOM](https://github.com/buildpacks/rfcs/blob/main/text/0095-sbom.md)

@@ -25,6 +25,22 @@ See the following documentation to learn how to set up your container image regi
 
 To relocate images from the `tanzu.packages.broadcom.com` to your registry:
 
+1. Retrieve your Broadcom registry API token:
+
+    1. Sign in to the [Broadcom Customer Support Portal](https://support.broadcom.com).
+
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)) in Tanzu > My Downloads.
+
+    1. Expand the VMware Tanzu Application Platform section.
+
+    1. Click the Token Download icon next to the Tanzu Application Platform version you want to
+       download and follow the instructions to save the token.
+
+        ![Screenshot of the Tanzu Application Platform download page in the Broadcom Customer Support Portal
+          with the Token Download icon highlighted.](../images/dowload-token-icon.png)
+
+        <!-- will the icon only be next to the item you want to download? -->
+
 1. Set up the environment variables required for installation by running:
 
     ```console
@@ -55,8 +71,7 @@ To relocate images from the `tanzu.packages.broadcom.com` to your registry:
     Where:
 
     - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
-    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
-       download page. <!-- clarify -->
+    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the Broadcom registry API token you retrieved.
     - `MY-REGISTRY` is your own container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.

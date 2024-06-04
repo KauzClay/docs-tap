@@ -29,17 +29,23 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
     1. Sign in to the [Broadcom Support Portal](https://support.broadcom.com).
 
-    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)) in Tanzu > My Downloads.
-
-    1. Expand the VMware Tanzu Application Platform section.
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP))
+       and expand the **VMware Tanzu Application Platform** dropdown.
 
     1. Click the Token Download icon next to the Tanzu Application Platform version you want to
-       download and follow the instructions to save the token.
+       download.
 
         ![Screenshot of the Tanzu Application Platform download page in the Broadcom Support Portal
-          with the Token Download icon highlighted.](../images/dowload-token-icon.png)
+          with the Token Download icon highlighted.](../images/download-token-icon.png)
 
-        <!-- will the icon only be next to the item you want to download? -->
+    1. Follow the instructions in the dialog box. Save the token as a variable named
+       `MY_BROADCOM_SUPPORT_ACCESS_TOKEN`. For example:
+
+        ```console
+        export MY_BROADCOM_SUPPORT_ACCESS_TOKEN=API-TOKEN
+        ```
+
+        Where `API-TOKEN` is your token from the Broadcom Support Portal.
 
 1. Set up the environment variables required for installation by running:
 
@@ -47,7 +53,7 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
     # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
     export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
     export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
+    export IMGPKG_REGISTRY_PASSWORD_0=${MY_BROADCOM_SUPPORT_ACCESS_TOKEN}
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY
@@ -71,7 +77,6 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
     Where:
 
     - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
-    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the Broadcom registry API token you retrieved.
     - `MY-REGISTRY` is your own container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.

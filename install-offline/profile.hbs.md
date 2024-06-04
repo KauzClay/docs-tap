@@ -13,13 +13,35 @@ Before installing the packages, ensure that you have completed the following tas
 
 To relocate images from `tanzu.packages.broadcom.com` registry to your air-gapped registry:
 
+1. Retrieve your Broadcom registry API token:
+
+    1. Sign in to the [Broadcom Support Portal](https://support.broadcom.com).
+
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP))
+       and expand the **VMware Tanzu Application Platform** dropdown.
+
+    1. Click the Token Download icon next to the Tanzu Application Platform version you want to
+       download.
+
+        ![Screenshot of the Tanzu Application Platform download page in the Broadcom Support Portal
+          with the Token Download icon highlighted.](../images/download-token-icon.png)
+
+    1. Follow the instructions in the dialog box. Save the token as a variable named
+       `MY_BROADCOM_SUPPORT_ACCESS_TOKEN`. For example:
+
+        ```console
+        export MY_BROADCOM_SUPPORT_ACCESS_TOKEN=API-TOKEN
+        ```
+
+        Where `API-TOKEN` is your token from the Broadcom Support Portal.
+
 1. Set up environment variables for installation use by running:
 
     ```console
     # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
     export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
     export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
+    export IMGPKG_REGISTRY_PASSWORD_0=${MY_BROADCOM_SUPPORT_ACCESS_TOKEN}
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY
@@ -35,8 +57,6 @@ To relocate images from `tanzu.packages.broadcom.com` registry to your air-gappe
     Where:
 
     - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
-    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
-       download page. <!-- clarify -->
     - `MY-REGISTRY` is your air-gapped container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.

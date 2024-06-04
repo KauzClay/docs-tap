@@ -21,6 +21,28 @@ See [Creating AWS Resources](resources.hbs.md) for more information.
 
 To relocate images from `tanzu.packages.broadcom.com` to the ECR registry:
 
+1. Retrieve your Broadcom registry API token:
+
+    1. Sign in to the [Broadcom Support Portal](https://support.broadcom.com).
+
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP))
+       and expand the **VMware Tanzu Application Platform** dropdown.
+
+    1. Click the Token Download icon next to the Tanzu Application Platform version you want to
+       download.
+
+        ![Screenshot of the Tanzu Application Platform download page in the Broadcom Support Portal
+          with the Token Download icon highlighted.](../images/download-token-icon.png)
+
+    1. Follow the instructions in the dialog box. Save the token as a variable named
+       `MY_BROADCOM_SUPPORT_ACCESS_TOKEN`. For example:
+
+        ```console
+        export MY_BROADCOM_SUPPORT_ACCESS_TOKEN=API-TOKEN
+        ```
+
+        Where `API-TOKEN` is your token from the Broadcom Support Portal.
+
 1. Set up environment variables for installation use by running:
 
     ```console
@@ -30,7 +52,7 @@ To relocate images from `tanzu.packages.broadcom.com` to the ECR registry:
     # Set tanzu.packages.broadcom.com as the source registry to copy the Tanzu Application Platform packages from.
     export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
     export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-ACCESS-TOKEN
+    export IMGPKG_REGISTRY_PASSWORD_0=$MY_BROADCOM_SUPPORT_ACCESS_TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
     export IMGPKG_REGISTRY_HOSTNAME_1=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
@@ -49,8 +71,6 @@ To relocate images from `tanzu.packages.broadcom.com` to the ECR registry:
     - `MY-AWS-ACCOUNT-ID` is the account ID you deploy Tanzu Application Platform in. No dashes and must be in the format `012345678901`.
     - `TARGET-AWS-REGION` is the region you deploy the Tanzu Application Platform to.
     - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
-    - `MY-BROADCOM-SUPPORT-ACCESS-TOKEN` is the token you retrieve from the Tanzu Application Platform
-       download page. <!-- clarify -->
     - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`
 
 1. [Install the Carvel tool imgpkg CLI](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html#optionally-install-clis-onto-your-path).

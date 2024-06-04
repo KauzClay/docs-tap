@@ -46,7 +46,7 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
        download.
 
         ![Screenshot of the Tanzu Application Platform download page in the Broadcom Support Portal
-          with the Token Download icon highlighted.](../images/download-token-icon.png)
+          with the Token Download icon highlighted.](../../images/download-token-icon.png)
 
     1. Follow the instructions in the dialog box. Save the token as a variable named
        `MY_BROADCOM_SUPPORT_ACCESS_TOKEN`. For example:

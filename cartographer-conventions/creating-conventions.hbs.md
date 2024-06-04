@@ -623,29 +623,30 @@ To deploy a convention server:
 
 1. Build and install the convention:
 
-   ko tool
-   : To build and deploy the convention, use the [ko tool](https://github.com/google/ko) on GitHub.
-     It compiles your Go code into a Docker image and pushes it to the registry `KO_DOCKER_REGISTRY`.
+    ko tool
+    : To build and deploy the convention, use the [ko tool](https://github.com/google/ko) on GitHub.
+      Use the `ko` tool to compile your Go code into a Docker image and push it to the registry
+      `KO_DOCKER_REGISTRY`.
 
-     ```console
-     ko apply -f dist/server.yaml
-     ```
+      ```console
+      ko apply -f dist/server.yaml
+      ```
 
-   Other tool
-   : If a different tool builds the image, the configuration is also applied by using either kubectl
-     or `kapp`, setting the correct image in the deployment descriptor.
+    Other tool
+    : If a different tool builds the image, the configuration is also applied by using either kubectl
+      or `kapp`, setting the correct image in the deployment descriptor.
 
-     For kubectl, run:
+      For kubectl, run:
 
-     ```console
-     kubectl apply -f server.yaml
-     ```
+      ```console
+      kubectl apply -f server.yaml
+      ```
 
-     For kapp, run:
+      For kapp, run:
 
-     ```console
-     kapp deploy -y -a awesome-convention -f server.yaml
-     ```
+      ```console
+      kapp deploy -y -a awesome-convention -f server.yaml
+      ```
 
 1. If the server is running, `kubectl get all -n awesome-convention` returns output such as:
 

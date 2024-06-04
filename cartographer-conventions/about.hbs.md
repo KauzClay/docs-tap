@@ -47,7 +47,7 @@ You can use all the metadata details of an image when evaluating workloads. To s
 details, use the Docker CLI command:
 
 ```bash
- docker image inspect IMAGE`.
+docker image inspect IMAGE.
 ```
 
 > **Note** Depending on how the image was built, metadata might not be available to reliably
@@ -60,9 +60,9 @@ details, use the Docker CLI command:
 Conventions can apply to workloads without targeting build service metadata. Examples of possible
 uses of this type of convention include:
 
-- appending a logging or metrics sidecar,
-- adding environment variables, or
-- adding cached volumes.
+- Appending a logging or metrics sidecar
+- Adding environment variables
+- Adding cached volumes
 
 These kinds of conventions ensure that infrastructure uniformity exists across workloads deployed on
 the cluster while reducing developer toil.

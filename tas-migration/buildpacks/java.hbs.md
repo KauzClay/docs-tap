@@ -1,7 +1,8 @@
 # Migrate to the Java Cloud Native Buildpack
 
-This topic tells you how to migrate your Java app from using a Cloud Foundry buildpack for Tanzu Application Service
-(commonly known as TAS for VMs) to using a Cloud Native Buildpack for Tanzu Application Platform (commonly known as TAP).
+This topic tells you how to migrate your Java app from using a Cloud Foundry buildpack for Tanzu
+Application Service (commonly known as TAS for VMs) to using a Cloud Native Buildpack for Tanzu
+Application Platform (commonly known as TAP).
 
 ## <a id="versions"></a> Use a specific Java version
 
@@ -17,24 +18,23 @@ installing specific versions.
 
 ### <a id="override-version-tas"></a> Tanzu Application Service: Override version detection
 
-In Tanzu Application Service, changing from the default JVM v8 requires you to configure the following app
-environment variable key and value:
+In Tanzu Application Service, changing from the default JVM v8 requires you to configure the
+following app environment variable key and value:
 
-```
+```console
 JBP_CONFIG_OPEN_JDK_JRE '{ jre: { version: 17.+ }}'
 ```
 
-This builds the app with the version of Java v17 that was bundled with the buildpack.
-Currently Java v8, v11, v17, and v21 are supported.
+This builds the app with the version of Java v17 that was bundled with the buildpack. Currently Java
+v8, v11, v17, and v21 are supported.
 
 ### <a id="override-version-tap"></a> Tanzu Application Platform: Override version detection
 
-In Tanzu Application Platform, set the `$BP_JVM_VERSION` build-time environment variable to specify which version
-of the JVM to install.
-The value can be the major version of one of the LTS Java releases included in the buildpack,
-currently 8, 11, 17, and 21.
-Patches for these majors are released quarterly along with OpenJDK release schedules.
-For the buildpack’s exact versions, see the [Java Buildpack Release Notes](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-release-notes-tanzu-java-release-notes.html).
+In Tanzu Application Platform, set the `$BP_JVM_VERSION` build-time environment variable to specify
+which version of the JVM to install. The value can be the major version of one of the LTS Java
+releases included in the buildpack, currently 8, 11, 17, and 21. Patches for these majors are
+released quarterly along with OpenJDK release schedules. For the buildpack’s exact versions, see the
+[Java Buildpack Release Notes](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-release-notes-tanzu-java-release-notes.html).
 
 Example `spec` section from a `workload.yaml`:
 
@@ -99,19 +99,20 @@ To provide your `settings.xml` without including it in the directory:
 
 1. Apply the binding in the workload by running:
 
-    ```console
-    tanzu apps workload apply APP-NAME \
-      --param-yaml buildServiceBindings='[{"name": "settings-xml", "kind": "Secret"}]'
-    ```
+   ```console
+   tanzu apps workload apply APP-NAME \
+     --param-yaml buildServiceBindings='[{"name": "settings-xml", "kind": "Secret"}]'
+   ```
 
-    Where `APP-NAME` is the name of your app.
+   Where `APP-NAME` is the name of your app.
 
 For more information about service bindings, see
 [Configure Tanzu Build Service properties on a workload](../../tanzu-build-service/tbs-workload-config.hbs.md).
 
 ## <a id="service-bindings"></a> Service bindings
 
-The following table compares service bindings in Tanzu Application Service and Tanzu Application Platform.
+The following table compares service bindings in Tanzu Application Service and Tanzu Application
+Platform.
 
 | Feature                           | Tanzu Application Service | Tanzu Application Platform |
 | --------------------------------- | ------------------------- | -------------------------- |
@@ -119,9 +120,9 @@ The following table compares service bindings in Tanzu Application Service and T
 
 ### <a id="service-bindings-tas"></a> Tanzu Application Service: Service bindings
 
-In Tanzu Application Service, the Java Buildpack supplies Spring Boot v3 apps with the Java CF Env Library.
-This library parses the `VCAP_SERVICES` variable and allows the auto-configuration for Spring Boot to set
-properties and connect to the bound service.
+In Tanzu Application Service, the Java Buildpack supplies Spring Boot v3 apps with the Java CF Env
+Library. This library parses the `VCAP_SERVICES` variable and allows the auto-configuration for
+Spring Boot to set properties and connect to the bound service.
 
 ### <a id="service-bindings-tap"></a> Tanzu Application Platform: Service bindings
 
@@ -151,7 +152,8 @@ For more information about service bindings, see
 
 ## <a id="tomcat"></a> Deploy with Tomcat
 
-The following table compares deploying with Tomcat for Tanzu Application Service and Tanzu Application Platform.
+The following table compares deploying with Tomcat for Tanzu Application Service and Tanzu
+Application Platform.
 
 | Feature                  | Tanzu Application Service                                         | Tanzu Application Platform |
 | ------------------------ | ----------------------------------------------------------------- | -------------------------- |
@@ -210,24 +212,27 @@ Tanzu Application Platform.
 | Takipi                               | ✅                        | ✅                         |
 | YourKit                              | ✅                        | ✅                         |
 
-<div class="note">
-  <span class="note__title">Note</span>
-  <p>The following integrations do not have a Tanzu Application Platform equivalent:</p>
-  <ul>
-    <li><strong>MariaDB and PostgreSQL Client Libraries:</strong> The recommended way to include these
-      libraries is as an application dependency rather than supplied by the buildpack.
-      Therefore in Tanzu Application Platform, included in the app, for example, using a <code>pom.xml</code> entry.</li>
-    <li><strong>Metrics Writer:</strong> This integration library provides Cloud Foundry-specific tags
-      for micrometer enabled apps, and so does not have a Tanzu Application Platform equivalent.</li>
-    <li><strong>Spring Insight:</strong> This is no longer supported and is no longer available in
-      Tanzu Application Service or Tanzu Application Platform.</li>
-  </ul>
-</div>
+The following integrations do not have a Tanzu Application Platform equivalent:
 
-Most of the third-party integrations that are supported in Tanzu Application Service are also supported
-in Tanzu Application Platform.
-The detection criteria to trigger enabling the integration, for example, adding a Java Agent to the JVM,
-is as follows:
+- **MariaDB and PostgreSQL Client Libraries**:
+
+  The recommended way to include these libraries is as
+  an application dependency rather than supplied by the buildpack. Therefore in Tanzu Application
+  Platform, included in the app, for example, using a `pom.xml` entry.
+
+- **Metrics Writer**:
+
+  This integration library provides Cloud Foundry-specific tags for micrometer
+  enabled apps, and so does not have a Tanzu Application Platform equivalent.
+
+- **Spring Insight**:
+
+  This is no longer supported and is no longer available in Tanzu Application
+  Service or Tanzu Application Platform.
+
+Most of the third-party integrations that are supported in Tanzu Application Service are also
+supported in Tanzu Application Platform. The detection criteria to trigger enabling the integration,
+for example, adding a Java Agent to the JVM, is as follows:
 
 - **Tanzu Application Service:** Bind a Tanzu Application Service service of the relevant type, or
   set an environment variable.
@@ -236,11 +241,14 @@ is as follows:
 
 ### <a id="integrations-tap"></a> Tanzu Application Platform only integrations
 
-The following integrations are only available in Tanzu Application Platform through Cloud Native Buildpacks:
+The following integrations are only available in Tanzu Application Platform through Cloud Native
+Buildpacks:
 
-- **Checkmarx:** Contributes the [Checkmarx](https://checkmarx.com/product/application-security-platform/) CxIAST agent.
+- **Checkmarx:** Contributes the [Checkmarx](https://checkmarx.com/product/application-security-platform/)
+  CxIAST agent.
 - **Snyk:** Contributes [Snyk](https://snyk.io/) scanning and configures it to connect to the service.
-- **Synopsys:** Contributes [Synopsys](https://www.synopsys.com) scanning and configures it to connect to the service.
+- **Synopsys:** Contributes [Synopsys](https://www.synopsys.com) scanning and configures it to
+  connect to the service.
 
 ## <a id="debug"></a> Configure debugging for your application
 
@@ -251,8 +259,8 @@ Tanzu Application Platform.
 | ----------------------- | ------------------------- | -------------------------- |
 | Enable Remote Debugging | ✅ `$JBP_CONFIG_DEBUG`    | ✅ `$BPL_DEBUG_ENABLED`    |
 
-Enabling remote debugging for Java apps in Tanzu Application Platform is similar to Tanzu Application Service.
-Specify a runtime environment variable in your `workload.yaml` as follows:
+Enabling remote debugging for Java apps in Tanzu Application Platform is similar to Tanzu
+Application Service. Specify a runtime environment variable in your `workload.yaml` as follows:
 
 ```yaml
 spec:
@@ -263,23 +271,22 @@ spec:
 
 This adds the JVM argument:
 
-```
+```console
 -agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=n
 ```
 
-(Optional) You can specify `BPL_DEBUG_PORT` and `BPL_DEBUG_SUSPEND` to change the defaults for these
+(Optional) Specify `BPL_DEBUG_PORT` and `BPL_DEBUG_SUSPEND` to change the defaults for these
 options.
 
 ## <a id="apm"></a> Enable Application Performance Monitoring (APM) with Datadog
 
-To enable Datadog, you must first install the Datadog Agent on your platform.
-After installing Datadog, the environment variable allows the buildpack to contribute the
-Datadaog Tracing library to the app classpath.
-To install the Datadog agent for Tanzu Application Platform, follow the instructions in
-[Use Datadog as your observability tool](../../integrations/external-observability-tools.hbs.md#install-datadog-agent).
+To enable Datadog, you must first install the Datadog Agent on your platform. After installing
+Datadog, the environment variable allows the buildpack to contribute the Datadog Tracing library to
+the app classpath. To install the Datadog agent for Tanzu Application Platform, follow the
+instructions in [Use Datadog as your observability tool](../../integrations/external-observability-tools.hbs.md#install-datadog-agent).
 
-> **Note** Your Tanzu Application Platform environment might be restricted to the baseline pod security standard
-> For more information about the baseline pod security standard, see the
+> **Note** Your Tanzu Application Platform environment might be restricted to the baseline pod
+> security standard For more information about the baseline pod security standard, see the
 > [Kubernetes documentation](https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline).
 > In that case, you must remove the restriction before you can install the Datadog Agent DaemonSet.
 
@@ -363,87 +370,104 @@ spec:
 
 ## <a id="apm-appd"></a> Enable Application Performance Monitoring (APM) with AppDynamics
 
-Enabling APM with AppDynamics in Tanzu Application Platform for Kubernetes is similar to the method for Tanzu Application Platform for Cloudfoundry.
+Enabling APM with AppDynamics in Tanzu Application Platform for Kubernetes is similar to the method
+used for Tanzu Application Platform for Cloud Foundry.
 
-The Tanzu Appdynamics Buildpack performs the following actions for Java applications:
+For Java applications, the Tanzu AppDynamics Buildpack:
 
-* Contributes a default `app-agent-config.xml`, `custom-activity-correlation.xml`, and `log4j2.xml`
-* Contributes local versions of the above files if found via binding/Secret
-* Contributes external configuration if available
-* Allows configuration of AppDynamics settings:
-  * Application Name
-  * Node Name
-  * Tier Name
-  * Private config values in the format `APPDYNAMICS_*`
+- Contributes a default `app-agent-config.xml`, `custom-activity-correlation.xml`, and `log4j2.xml`
+- Contributes local versions of `app-agent-config.xml`, `custom-activity-correlation.xml`, and
+  `log4j2.xml` if they are found by using binding or a `Secret`
+- Contributes external configuration if available
+- Allows configuration of these AppDynamics settings:
+  - Application Name
+  - Node Name
+  - Tier Name
+  - Private configuration values in the format `APPDYNAMICS_*`
 
-To enable the installation of the agent at build time, you must create a Secret. You can specify the required AppDynamics configuration options for the agent, including private data such as access keys, in this Secret, for example:
+1. To enable the installation of the agent at build time, create a `Secret`. Specify the required
+   AppDynamics configuration options for the agent in this `Secret`, including private data such as
+   access keys. For example:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: appd-binding
-  namespace: my-apps
-type: service.binding/appdynamics
-stringData:
-  type: AppDynamics
-  AGENT_ACCOUNT_ACCESS_KEY: <key-value>
-  CONTROLLER_HOST_NAME: <key-value>
-  ...
-```
-
-Note: The AppDynamics agent will automatically prefix each config option with `APPDYNAMICS_`
-
-You can then bind this secret to your app/workload by adding the following to your workload yaml:
-
-```yaml
-  params:
-  - name: buildServiceBindings
-    value:
-    - kind: Secret
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
       name: appd-binding
-```
+      namespace: my-apps
+    type: service.binding/appdynamics
+    stringData:
+      type: AppDynamics
+      AGENT_ACCOUNT_ACCESS_KEY: <key-value>
+      CONTROLLER_HOST_NAME: <key-value>
+      ...
+    ```
 
-or using the following `tanzu` CLI command parameter:
+   > **Note** The AppDynamics agent automatically prefixes each configuration option with `APPDYNAMICS_`.
 
-`tanzu apps workload apply <app> --param-yaml buildServiceBindings='[{"name": "appd-binding", "kind": "Secret"}]'`
+1. Bind this `Secret` to your app or workload by adding the following to your workload YAML:
 
-To allow the agent to use the required & optional config specified in your Secret, you must also specify the secret at runtime. To do this, you can add the following service claim config to your app/workload:
+    ```yaml
+    params:
+    - name: buildServiceBindings
+      value:
+      - kind: Secret
+        name: appd-binding
+    ```
 
-```yaml
+   or by using the following Tanzu CLI command parameter:
+
+   ```console
+   tanzu apps workload apply <app> --param-yaml buildServiceBindings='[{"name": "appd-binding", "kind": "Secret"}]'
+   ```
+
+1. To allow the agent to use the required and optional configuration specified in your `Secret`,
+   specify the `Secret` at runtime. To do this, you can add the following service claim
+   configuration to your workload:
+
+    ```yaml
     serviceClaims:
     - name: appd-binding
       ref:
         apiVersion: v1
         kind: Secret
         name: appd-binding
-```
+    ```
 
-or via the `tanzu` CLI:
+   or, from the Tanzu CLI, run:
 
-`tanzu apps workload apply <app> --service-ref "appd-binding=v1:Secret:appd-binding"`
+   ```console
+   tanzu apps workload apply <app> --service-ref "appd-binding=v1:Secret:appd-binding"
+   ```
 
-The app startup logs should show the following message:
+1. Verify that the app startup logs show the following message:
 
-`Configuring AppDynamics properties` - if you do not see this, ensure that your binding/Secret is set up correctly. 
+   ```console
+   Configuring AppDynamics properties
+   ```
 
-To contribute an external configuration to be used in place of the buildpack-provided AppDynamics agent, you can set the following environment variables:
+   If you do not see this, verify that your binding and `Secret` are set up correctly.
 
-* `BP_APPD_EXT_CONF_URI` -  URI to download the external configuration archive from
-* `BP_APPD_EXT_CONF_SHA256` - SHA256 hash value of the external configuration archive
-* `BP_APPD_EXT_CONF_STRIP`- Number of directory components to strip from the external AppDynamics configuration archive. Defaults to `0`
-* `BP_APPD_EXT_CONF_VERSION` - Version of the external AppDynamics configuration
+1. To contribute an external configuration to be used in place of the buildpack-provided AppDynamics
+   agent, set the following environment variables:
+
+   - `BP_APPD_EXT_CONF_URI`, which is a URI to download the external configuration archive from.
+   - `BP_APPD_EXT_CONF_SHA256`, which is a SHA256 hash value of the external configuration archive.
+   - `BP_APPD_EXT_CONF_STRIP`, which is a number of directory components to strip from the external
+     AppDynamics configuration archive. The default is `0`.
+   - `BP_APPD_EXT_CONF_VERSION` is the version of the external AppDynamics configuration.
 
 ## <a id="log-level"></a> Configure the log level for buildpacks
 
-The following table compares configuring the log level in Tanzu Application Service and Tanzu Application Platform.
+The following table compares the log level configuration in Tanzu Application Service with the
+configuration in Tanzu Application Platform.
 
-| Feature              | Tanzu Application Service | Tanzu Application Platform |
-| -------------------- | ------------------------- | -------------------------- |
-| Enable Debug Logging | ✅ `$JBP_LOG_LEVEL=DEBUG` | ✅ `$BP_LOG_LEVEL=DEBUG`   |
+| Feature              | Tanzu Application Service | Tanzu Application Platform   |
+|----------------------|---------------------------|------------------------------|
+| Enable Debug Logging | ✅ `$JBP_LOG_LEVEL=DEBUG`  | ✅ `$BP_LOG_LEVEL=DEBUG`    |
 
-In Tanzu Application Platform, changing the log level to DEBUG is similar to Tanzu Application Service.
-Set the environment variable in your `workload.yaml` as follows:
+In Tanzu Application Platform, changing the log level to `DEBUG` is similar to how you do it in
+Tanzu Application Service. Set the environment variable in your `workload.yaml` as follows:
 
 ```yaml
 spec:

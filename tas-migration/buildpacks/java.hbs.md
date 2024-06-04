@@ -361,6 +361,79 @@ spec:
      url: https://github.com/spring-projects/spring-petclinic
 ```
 
+## <a id="apm-appd"></a> Enable Application Performance Monitoring (APM) with AppDynamics
+
+Enabling APM with AppDynamics in Tanzu Application Platform for Kubernetes is similar to the method for Tanzu Application Platform for Cloudfoundry.
+
+The Tanzu Appdynamics Buildpack performs the following actions for Java applications:
+
+* Contributes a default `app-agent-config.xml`, `custom-activity-correlation.xml`, and `log4j2.xml`
+* Contributes local versions of the above files if found via binding/Secret
+* Contributes external configuration if available
+* Allows configuration of AppDynamics settings:
+  * Application Name
+  * Node Name
+  * Tier Name
+  * Private config values in the format `APPDYNAMICS_*`
+
+To enable the installation of the agent at build time, you must create a Secret. You can specify the required AppDynamics configuration options for the agent, including private data such as access keys, in this Secret, for example:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: appd-binding
+  namespace: my-apps
+type: service.binding/appdynamics
+stringData:
+  type: AppDynamics
+  AGENT_ACCOUNT_ACCESS_KEY: <key-value>
+  CONTROLLER_HOST_NAME: <key-value>
+  ...
+```
+
+Note: The AppDynamics agent will automatically prefix each config option with `APPDYNAMICS_`
+
+You can then bind this secret to your app/workload by adding the following to your workload yaml:
+
+```yaml
+  params:
+  - name: buildServiceBindings
+    value:
+    - kind: Secret
+      name: appd-binding
+```
+
+or using the following `tanzu` CLI command parameter:
+
+`tanzu apps workload apply <app> --param-yaml buildServiceBindings='[{"name": "appd-binding", "kind": "Secret"}]'`
+
+To allow the agent to use the required & optional config specified in your Secret, you must also specify the secret at runtime. To do this, you can add the following service claim config to your app/workload:
+
+```yaml
+    serviceClaims:
+    - name: appd-binding
+      ref:
+        apiVersion: v1
+        kind: Secret
+        name: appd-binding
+```
+
+or via the `tanzu` CLI:
+
+`tanzu apps workload apply <app> --service-ref "appd-binding=v1:Secret:appd-binding"`
+
+The app startup logs should show the following message:
+
+`Configuring AppDynamics properties` - if you do not see this, ensure that your binding/Secret is set up correctly. 
+
+To contribute an external configuration to be used in place of the buildpack-provided AppDynamics agent, you can set the following environment variables:
+
+* `BP_APPD_EXT_CONF_URI` -  URI to download the external configuration archive from
+* `BP_APPD_EXT_CONF_SHA256` - SHA256 hash value of the external configuration archive
+* `BP_APPD_EXT_CONF_STRIP`- Number of directory components to strip from the external AppDynamics configuration archive. Defaults to `0`
+* `BP_APPD_EXT_CONF_VERSION` - Version of the external AppDynamics configuration
+
 ## <a id="log-level"></a> Configure the log level for buildpacks
 
 The following table compares configuring the log level in Tanzu Application Service and Tanzu Application Platform.

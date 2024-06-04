@@ -41,7 +41,7 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
 1. Set up environment variables for installation use by running:
 
     ```console
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
     export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
     export IMGPKG_REGISTRY_PASSWORD_0=MY-BROADCOM-SUPPORT-PASSWORD
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY
@@ -77,16 +77,14 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
     To query for the available versions of Tanzu Application Platform on `tanzu.packages.broadcom.com`, run:
 
     ```console
-    imgpkg tag list -i registry.tanzu.vmware.com/tanzu-application-platform/tap-packages | sort -V
+    imgpkg tag list -i tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages | sort -V
     ```
-    <!-- command to be updated -->
 
 1. Relocate the images with the `imgpkg` CLI by running:
 
     ```console
-    imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
+    imgpkg copy -b tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
     ```
-    <!-- command to be updated -->
 
 ## <a id='airgap-support'></a> (Optional) Install Tanzu Application Platform in an air-gapped environment
 
@@ -95,9 +93,8 @@ Complete the following steps if you install Tanzu Application Platform in an air
 1. Relocate the Tanzu Build Service images to your registry:
 
     ```console
-    imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/full-tbs-deps-package-repo:VERSION --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/full-tbs-deps-package-repo
+    imgpkg copy -b tanzu.packages.broadcom.com/tanzu-application-platform/full-tbs-deps-package-repo:VERSION --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/full-tbs-deps-package-repo
     ```
-    <!-- command to be updated -->
 
     Where `VERSION` is the version of Tanzu Build Service. You can retrieve this value by running `kubectl get package -n tap-install | grep buildservice`
 

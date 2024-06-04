@@ -63,9 +63,8 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
 1. Relocate the images with the `imgpkg` CLI by running:
 
     ```console
-    imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
+    imgpkg copy -b tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
     ```
-    <!-- command to be updated -->
 
 ## <a id='add-tap-repo'></a> Add the Tanzu Application Platform package repository
 

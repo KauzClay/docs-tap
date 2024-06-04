@@ -58,9 +58,8 @@ To relocate images from `tanzu.packages.broadcom.com` to the ECR registry:
 1. Relocate the images with the `imgpkg` CLI by running:
 
     ```console
-    imgpkg copy --concurrency 1 -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}
+    imgpkg copy --concurrency 1 -b tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}
     ```
-    <!-- command to be updated -->
 
 ## <a id='add-tap-repo'></a> Add the Tanzu Application Platform package repository
 

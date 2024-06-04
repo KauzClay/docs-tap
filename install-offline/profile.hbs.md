@@ -52,11 +52,10 @@ To relocate images from `tanzu.packages.broadcom.com` registry to your air-gappe
 
     ```console
     imgpkg copy \
-      -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$TAP_VERSION \
+      -b tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:$TAP_VERSION \
       --to-tar tap-packages-$TAP_VERSION.tar \
       --include-non-distributable-layers
     ```
-    <!-- command to be updated -->
 
 1. Relocate the images with the Carvel tool imgpkg by running:
 

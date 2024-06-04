@@ -43,24 +43,27 @@ Tanzu Application Platform v1.11 supports upgrading from the following versions:
 - v1.9.1
 - v1.8.x long term support release
 
-## <a id="add-new-package-repo"></a> Update the new package repository
+## <a id="add-new-package-repo"></a> Update the package repository
 
-Follow these steps to update the new package repository:
+Follow these steps to update to the new package repository:
 
-1. Relocate the latest version of Tanzu Application Platform images by following step 1 through step 6 in [Relocate images to a registry](install-online/profile.hbs.md#relocate-images).
+1. Relocate the latest version of Tanzu Application Platform images by following step 1 through
+   step 6 in [Relocate images to a registry](install-online/profile.hbs.md#relocate-images).
 
-    >**Important** Make sure to update the `TAP_VERSION` to the target version of Tanzu Application Platform you are migrating to. For example, `{{ vars.tap_version }}`.
+    > **Important** Make sure to update the `TAP_VERSION` to the target version of
+    > Tanzu Application Platform you are migrating to. For example, `{{ vars.tap_version }}`.
 
 1. Add the target version of the Tanzu Application Platform package repository by running:
 
- 
-    :
     ```console
     tanzu package repository update tanzu-tap-repository \
     --url ${INSTALL_REGISTRY_HOSTNAME}/TARGET-REPOSITORY/tap-packages:${TAP_VERSION} \
     --namespace tap-install
     ```
-    Expect to see the installed Tanzu Application Platform packages in a temporary “Reconcile Failed” state, following a “Package not found” warning. These warnings will disappear after you upgrade the installed Tanzu Application Platform packages.
+
+    Expect to see the installed Tanzu Application Platform packages in a temporary `Reconcile Failed`
+    state, following a `Package not found` warning. These warnings will disappear after you upgrade
+    the installed Tanzu Application Platform packages.
 
 1. Verify you have added the new package repository by running:
 
@@ -109,7 +112,6 @@ If you installed Tanzu Application Platform by using a profile, you can perform 
 tanzu package installed update tap -p tap.tanzu.vmware.com -v ${TAP_VERSION}  --values-file tap-values.yaml -n tap-install
 ```
 
-
 ### <a id="full-profile-upgrade-tbs-deps"></a> Upgrade the full dependencies package
 
 If you installed the [full dependencies package](install-online/profile.hbs.md#tap-install-full-deps),
@@ -141,7 +143,7 @@ Subsequent upgrades will not require a removal:
 2. Relocate the Tanzu Build Service `full` dependencies package repository by running:
 
     ```console
-    imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/full-deps-package-repo:VERSION \
+    imgpkg copy -b tanzu.packages.broadcom.com/tanzu-application-platform/full-deps-package-repo:VERSION \
     --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/full-deps-package-repo
     ```
 

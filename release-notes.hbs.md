@@ -45,8 +45,9 @@ This release includes the following changes, listed by component and area.
   Using VMware Tanzu Network to install or upgrade Tanzu Application Platform is no longer supported.
 
   Before you upgrade Tanzu Application Platform, you must relocate the Tanzu Application Platform
-  images from the Broadcom registry `tanzu.packages.broadcom.com` to your own registry. For instructions,
-  see [Relocate images to a registry](install-online/profile.html#relocate-images).
+  images from the Broadcom registry `tanzu.packages.broadcom.com` to your own registry.
+  Make sure you relocate the images to your container image registry as part of the instructions in
+  [Upgrade Tanzu Application Platform](upgrading.hbs.md).
 
 ---
 

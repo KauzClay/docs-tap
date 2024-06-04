@@ -1,6 +1,6 @@
 # Upgrade Tanzu Application Platform
 
-This document tells you how to upgrade your Tanzu Application Platform (commonly known as TAP).
+This topic tells you how to upgrade your Tanzu Application Platform (commonly known as TAP).
 
 You can perform a fresh install of Tanzu Application Platform by following the instructions in [Installing Tanzu Application Platform](install-intro.md).
 
@@ -41,7 +41,7 @@ Tanzu Application Platform v1.11 supports upgrading from the following versions:
 
 - v1.10.1
 - v1.9.1
-- v1.8.x long term support release
+- v1.8.x long-term support release
 
 ## <a id="add-new-package-repo"></a> Update the package repository
 
@@ -232,38 +232,50 @@ Your output is similar, but probably not identical, to the following example out
   tekton-pipelines                    tekton.tanzu.vmware.com                              0.39.0+tap.2     Reconcile succeeded
 ```
 
-## <a id="upgrade-tap"></a> Switching an existing Tanzu Application Platform installation to use images from user's registry instead of Tanzu Network
+## <a id="switch-from-tanzu-network"></a> Update your installation to use images from your own registry instead of Tanzu Network
 
-Tanzu Network is not supported anymore to download or install Tanzu Application Platform. Users have to relocate Tanzu Application Platform images from Broadcom Support portal to user's registry. For the existing installations, follow the below procedure to switch from Tanzu Network registry to user's reigstry.
+Tanzu Application Platform releases have migrated from VMware Tanzu Network to the Broadcom Support Portal
+and Broadcom registry.
+Using VMware Tanzu Network to install or upgrade Tanzu Application Platform is no longer supported.
+
+If you did not relocate the Tanzu Application Platform images as part of the installation,
+you must relocate the images from `tanzu.packages.broadcom.com` to your own container image registry.
+
 ### <a id="update-package-repo"></a> Update the package repository
 
 Follow these steps to update the package repository:
 
-1. Relocate the desired version of Tanzu Application Platform images by following step 1 through step 6 in [Relocate images to a registry](install-online/profile.hbs.md#relocate-images).
+1. Relocate the Tanzu Application Platform images by following step 1 through step 6
+  in [Relocate images to a registry](install-online/profile.hbs.md#relocate-images).
 
-    >**Important** Make sure to keep the `TAP_VERSION` to the same version of Tanzu Application Platform you have installed already. For example, `{{ vars.tap_version }}`.
+    > **Important** You must set the `TAP_VERSION` environment variable to the same version of
+    > Tanzu Application Platform that you have already installed, for example, `{{ vars.tap_version }}`.
 
-1. Update the source URL of package repository to user's registry to which the Tanzu Application Platform have been relocated from Braodcom Support portal by running:
+1. Update the source URL of the package repository to the container image registry where you relocated
+   the Tanzu Application Platform images to by running:
 
- 
-    :
     ```console
     tanzu package repository update tanzu-tap-repository \
     --url ${INSTALL_REGISTRY_HOSTNAME}/TARGET-REPOSITORY/tap-packages:${TAP_VERSION} \
     --namespace tap-install
     ```
 
+    Where `TARGET-REPOSITORY` is your target repository. This is a folder or repository on in your registry
+    that serves as the location for the Tanzu Application Platform installation files.
 
-1. Verify you have added the new package repository by running:
+1. Verify that you have added the new package repository by running:
 
     ```console
     tanzu package repository get TAP-REPO-NAME --namespace tap-install
     ```
 
-    Where `TAP-REPO-NAME` is the package repository name. It must match with either `NEW-TANZU-TAP-REPOSITORY` or `tanzu-tap-repository` in the previous step.
+    Where `TAP-REPO-NAME` is the package repository name. It must match with `tanzu-tap-repository`
+    in the previous step.
 
-### <a id="kapp-conttoller-rollout-restart"></a> Kapp controller rollout restart to that installed applications will switch to pull the images from user registry
+### <a id="restart-kapp-contoller"></a> Restart the kapp controller
 
+Restart the kapp controller so that installed applications can pull the images from your
+container image registry.
 
 Run below command:
 
@@ -271,4 +283,4 @@ Run below command:
 kubectl rollout restart deployment kapp-controller -n kapp-controller
 ```
 
-Wait for 10-15 mins for the installed apps to start pulling images from user's registry.
+Wait for 10 to 15 mins for the installed apps to start pulling images from your container image registry.

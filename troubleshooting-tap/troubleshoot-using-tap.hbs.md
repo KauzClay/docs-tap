@@ -2,6 +2,27 @@
 
 This topic tells you how to troubleshoot using Tanzu Application Platform (commonly known as TAP).
 
+## <a id="switch-from-tanzu-network"></a> Installed packages are failing
+
+**Symptom:**
+
+You skipped relocating images from VMware Tanzu Network during installation, and now your installed
+packages are failing.
+
+**Explanation:**
+
+If you did not relocate the Tanzu Application Platform images during installation or upgrade,
+Tanzu Application Platform depends on VMware Tanzu Network for continued operation.
+
+The Tanzu Application Platform releases have migrated from VMware Tanzu Network
+to the Broadcom Support Portal and Broadcom registry.
+Relying on VMware Tanzu Network for the Tanzu Application Platform images is no longer supported.
+
+**Solution:**
+
+Relocate the Tanzu Application Platform images by following the instructions in
+[Update your installation to use images from your own registry instead of Tanzu Network](../upgrading.hbs.md#switch-from-tanzu-network).
+
 ## <a id='use-events'></a> Use events to find possible causes
 
 Events can highlight issues with components in a supply chain. For example, high occurrences of `StampedObjectApplied`

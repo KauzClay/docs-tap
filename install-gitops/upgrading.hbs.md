@@ -25,26 +25,25 @@ See [Supported upgrade paths](../upgrading.hbs.md#upgrade-paths) in _Upgrading T
 
 ## <a id="relocate-images"></a> Relocate Tanzu Application Platform images to a registry
 
-VMware recommends relocating the images from VMware Tanzu Network registry to your own container image registry before attempting installation. If you don't relocate the images, Tanzu Application Platform depends on
-VMware Tanzu Network for continued operation, and VMware Tanzu Network offers no uptime guarantees.
-The option to skip relocation is documented for evaluation and proof-of-concept only.
+Before installation, you must relocate the Tanzu Application Platform images from
+`tanzu.packages.broadcom.com` to your own container image registry.
 
 The supported registries are Harbor, Azure Container Registry, Google Container Registry,
 and Quay.io.
-See the following the documentation for instructions on setting up a registry:
+See the following documentation to learn how to set up your container image registry:
 
 - [Harbor documentation](https://goharbor.io/docs/2.5.0/)
 - [Google Container Registry documentation](https://cloud.google.com/container-registry/docs)
 - [Quay.io documentation](https://docs.projectquay.io/welcome.html)
 
-To relocate images from the VMware Tanzu Network registry to your registry:
+To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
 1. Set up environment variables for installation use by running:
 
     ```console
-    export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-    export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-    export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+    export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
+    export IMGPKG_REGISTRY_PASSWORD_0=${MY_BROADCOM_SUPPORT_ACCESS_TOKEN}
     export IMGPKG_REGISTRY_HOSTNAME_1=MY-REGISTRY
     export IMGPKG_REGISTRY_USERNAME_1=MY-REGISTRY-USER
     export IMGPKG_REGISTRY_PASSWORD_1=MY-REGISTRY-PASSWORD
@@ -57,13 +56,13 @@ To relocate images from the VMware Tanzu Network registry to your registry:
 
     Where:
 
+    - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+    - `MY-REGISTRY` is your own container registry.
     - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
     - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.
-    - `MY-REGISTRY` is your own container registry.
-    - `MY-TANZUNET-USERNAME` is the user with access to the images in the VMware Tanzu Network registry `registry.tanzu.vmware.com`.
-    - `MY-TANZUNET-PASSWORD` is the password for `MY-TANZUNET-USERNAME`.
     - `VERSION-NUMBER` is your Tanzu Application Platform version. For example, `{{ vars.tap_version }}`.
-    - `TARGET-REPOSITORY` is your target repository, a folder or repository on `MY-REGISTRY` that serves as the location for the installation files of Tanzu Application Platform.
+    - `TARGET-REPOSITORY` is your target repository, a folder or repository on `MY-REGISTRY` that
+       serves as the location for the installation files of Tanzu Application Platform.
 
     VMware recommends using a JSON key file to authenticate with Google Container Registry.
     In this case, the value of `INSTALL_REGISTRY_USERNAME` is `_json_key` and
@@ -73,21 +72,23 @@ To relocate images from the VMware Tanzu Network registry to your registry:
 
 1. [Install the Carvel tool `imgpkg` CLI](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html#optionally-install-clis-onto-your-path).
 
-    To query for the available versions of Tanzu Application Platform on VMWare Tanzu Network Registry, run:
+    To query for the available versions of Tanzu Application Platform on `tanzu.packages.broadcom.com`, run:
 
     ```console
-    imgpkg tag list -i registry.tanzu.vmware.com/tanzu-application-platform/tap-packages | sort -V
+    imgpkg tag list -i tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages | sort -V
     ```
 
 1. Relocate the images with the `imgpkg` CLI by running:
 
     ```console
-    imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
+    imgpkg copy -b tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
     ```
 
 ## <a id='patch-upgrade'></a> Upgrade to a patch version
 
->**Caution** Tanzu Application Platform (GitOps) does not provide a separate artifact for each patch version within a minor line. For example, Tanzu Application Platform v1.6.x only contains the v1.6.1 GitOps artifact.
+> **Caution** Tanzu Application Platform (GitOps) does not provide a separate artifact for each patch
+> version within a minor line. For example, Tanzu Application Platform v1.6.x only contains the v1.6.1
+> GitOps artifact.
 
 Follow these steps to upgrade to the latest patch:
 
@@ -134,7 +135,8 @@ Follow these steps to upgrade the existing SOPs based installation:
     Where:
 
     - `CLUSTER-NAME` the name of your cluster you want to upgrade.
-    - `sops` selects the Secrets OPerationS-based secrets management variant. Changing between SOPs and any other secret management variant is not supported!
+    - `sops` selects the Secrets OPerationS-based secrets management variant. Changing between SOPs
+       and any other secret management variant is not supported!
 
     Example:
 
@@ -150,7 +152,8 @@ Follow these steps to upgrade the existing SOPs based installation:
 
 ## <a id="upgrading-eso"></a> Upgrade the existing ESO based installation
 
-Follow these steps to upgrade the existing ESO based installation with secrets managed externally in AWS Secrets Manager:
+Follow these steps to upgrade the existing ESO based installation with secrets managed externally in
+AWS Secrets Manager:
 
 1. [Download and unpack the new version of Tanzu GitOps RI](eso/aws-secrets-manager.hbs.md#download-tanzu-gitops-ri).
 

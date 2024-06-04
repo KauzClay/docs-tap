@@ -229,3 +229,44 @@ Your output is similar, but probably not identical, to the following example out
   tap-telemetry                       tap-telemetry.tanzu.vmware.com                       0.3.1            Reconcile succeeded
   tekton-pipelines                    tekton.tanzu.vmware.com                              0.39.0+tap.2     Reconcile succeeded
 ```
+
+## <a id="upgrade-tap"></a> Switching an existing Tanzu Application Platform installation to use images from user's registry instead of Tanzu Network
+
+Tanzu Network is not supported anymore to download or install Tanzu Application Platform. Users have to relocate Tanzu Application Platform images from Broadcom Support portal to user's registry. For the existing installations, follow the below procedure to switch from Tanzu Network registry to user's reigstry.
+### <a id="update-package-repo"></a> Update the package repository
+
+Follow these steps to update the package repository:
+
+1. Relocate the desired version of Tanzu Application Platform images by following step 1 through step 6 in [Relocate images to a registry](install-online/profile.hbs.md#relocate-images).
+
+    >**Important** Make sure to keep the `TAP_VERSION` to the same version of Tanzu Application Platform you have installed already. For example, `{{ vars.tap_version }}`.
+
+1. Update the source URL of package repository to user's registry to which the Tanzu Application Platform have been relocated from Braodcom Support portal by running:
+
+ 
+    :
+    ```console
+    tanzu package repository update tanzu-tap-repository \
+    --url ${INSTALL_REGISTRY_HOSTNAME}/TARGET-REPOSITORY/tap-packages:${TAP_VERSION} \
+    --namespace tap-install
+    ```
+
+
+1. Verify you have added the new package repository by running:
+
+    ```console
+    tanzu package repository get TAP-REPO-NAME --namespace tap-install
+    ```
+
+    Where `TAP-REPO-NAME` is the package repository name. It must match with either `NEW-TANZU-TAP-REPOSITORY` or `tanzu-tap-repository` in the previous step.
+
+### <a id="kapp-conttoller-rollout-restart"></a> Kapp controller rollout restart to that installed applications will switch to pull the images from user registry
+
+
+Run below command:
+
+```console
+kubectl rollout restart deployment kapp-controller -n kapp-controller
+```
+
+Wait for 10-15 mins for the installed apps to start pulling images from user's registry.

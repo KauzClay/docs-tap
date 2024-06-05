@@ -29,7 +29,7 @@ perform the update by running:
 
         ```console
         imgpkg copy \
-          -b registry.tanzu.vmware.com/tanzu-application-platform/full-deps-package-repo:VERSION \
+          -b tanzu.packages.broadcom.com/tanzu-application-platform/full-deps-package-repo:VERSION \
           --to-repo ${INSTALL_REGISTRY_HOSTNAME}/full-deps-package-repo
         ```
 
@@ -40,7 +40,7 @@ perform the update by running:
 
         ```console
         imgpkg copy \
-          -b registry.tanzu.vmware.com/tanzu-application-platform/full-deps-package-repo:VERSION \
+          -b tanzu.packages.broadcom.com/tanzu-application-platform/full-deps-package-repo:VERSION \
           --to-tar=full-deps-package-repo.tar
 
         # move full-deps-package-repo.tar to environment with registry access

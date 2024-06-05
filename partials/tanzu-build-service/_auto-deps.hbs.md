@@ -12,7 +12,7 @@ all supported Tanzu Application Platform minor versions.
 `tap-values.yaml` file or your full dependencies values.
 
 **Prerequisites:** These steps assume a registry secret already exists in the cluster for accessing
-`registry.tanzu.vmware.com` and your registry.
+`tanzu.packages.broadcom.com` and your registry.
 
 To enable automatic dependency updates:
 
@@ -65,7 +65,7 @@ To enable automatic dependency updates:
     Where:
 
     - `DEPENDENCY-UPDATER-PACKAGE-REPO` is the location of the package repository. This is
-      `registry.tanzu.vmware.com/build-service-dependency-updater/package-repo` for online installs
+      `tanzu.packages.broadcom.com/build-service-dependency-updater/package-repo` for online installs
       and the internal container image registry for air-gapped installs.
     - `VERSION-CONSTRAINT` is the Tanzu Application Platform version in the form of `MAJOR.MINOR.x`.
       For example, `1.8.x`.

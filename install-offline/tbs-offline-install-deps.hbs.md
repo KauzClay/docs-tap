@@ -26,7 +26,7 @@ To install `full` dependencies:
 
         ```console
         imgpkg copy \
-          -b registry.tanzu.vmware.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
+          -b tanzu.packages.broadcom.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
           --to-repo INTERNAL-REPO
         ```
 
@@ -41,11 +41,11 @@ To install `full` dependencies:
 
     - If you can only transfer the data using a physical external storage device:
 
-        1. Copy the images into a `.tar` file from VMware Tanzu Network by running:
+        1. Copy the images into a `.tar` file from `tanzu.packages.broadcom.com` by running:
 
             ```console
             imgpkg copy \
-              -b registry.tanzu.vmware.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
+              -b tanzu.packages.broadcom.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
               --to-tar dependency-updater-VERSION-CONSTRAINT.tar \
               --include-non-distributable-layers
             ```

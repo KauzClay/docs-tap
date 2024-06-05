@@ -219,7 +219,7 @@ dependency updates or you can update dependencies manually.
 You can update buildpack dependencies outside of upgrading Tanzu Application Platform, but
 VMware recommends that you upgrade Tanzu Application Platform when possible instead.
 Each Tanzu Application Platform release version includes a tested set of buildpacks. If you consume
-a buildpack from VMware Tanzu Network that is not packaged and tested in a Tanzu Application Platform release, it might introduce errors.
+a buildpack from the Broadcom Support Portal that is not packaged and tested in a Tanzu Application Platform release, it might introduce errors.
 
 1. Sign into [VMware Tanzu Network](https://network.tanzu.vmware.com/) so that
 the image can be retrieved from the registry.

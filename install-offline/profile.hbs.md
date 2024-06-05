@@ -6,7 +6,7 @@ on your Kubernetes cluster and registry that are air-gapped from external traffi
 Before installing the packages, ensure that you have completed the following tasks:
 
 - Review the [Prerequisites](../prerequisites.html) to ensure that you have set up everything required before beginning the installation.
-- [Accept Tanzu Application Platform EULA and install Tanzu CLI](../install-tanzu-cli.html).
+- [Install Tanzu CLI](../install-tanzu-cli.html).
 - [Deploy Cluster Essentials](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html). This step is optional if you are using VMware Tanzu Kubernetes Grid cluster.
 
 ## <a id='relocate-images'></a> Relocate images to a registry
@@ -443,9 +443,8 @@ service's External IP address.
 
 - `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download
   either a blank or populated catalog file from the
-  [Tanzu Application Platform product page](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
+  [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)) (file name **Tanzu Application Platform Developer Portal Blank Catalog** or **Tanzu Application Platform Developer Portal Yelb Catalog**).
   Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
-  <!-- Is the item here to download "Tanzu Application Platform Developer Portal Yelb/Blank Catalog"? -->
 
 - `GITLABURL` is the host name of your GitLab instance.
 

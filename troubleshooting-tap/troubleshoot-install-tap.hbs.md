@@ -81,14 +81,14 @@ Error: package reconciliation failed: vendir: Error: Syncing directory '0':
 
 **Explanation**
 
-The Tanzu Network credentials needed to access the package may be missing or incorrect.
+The credentials needed to access the package may be missing or incorrect.
 
 **Solution**
 
 To resolve this issue:
 
 1. Repeat the step to create a secret for the namespace. For instructions, see
-  [Add the Tanzu Application Platform Package Repository](../install-online/profile.hbs.md#relocate-images) in _Installing the Tanzu Application Platform Package and Profiles_.
+  [Add the Tanzu Application Platform Package Repository](../install-online/profile.hbs.md#add-tap-repo) in _Installing the Tanzu Application Platform Package and Profiles_.
   Ensure that you provide the correct credentials.
 
   When the secret has the correct credentials,
@@ -261,21 +261,6 @@ If none exists, and you are unable to fix the described issue yourself, please c
 [support](https://tanzu.vmware.com/support).
 
 1. Repeat these diagnosis steps for any other packages that failed to reconcile.
-
-## <a id='eula-error'></a> Failure to accept an End User License Agreement error
-
-You cannot access Tanzu Application Platform or one of its components from
-VMware Tanzu Network.
-
-**Explanation**
-
-You cannot access Tanzu Application Platform or one of its components from
-VMware Tanzu Network before accepting the relevant EULA in VMware Tanzu Network.
-
-**Solution**
-
-Follow the steps in [Accept the End User License Agreements](../install-tanzu-cli.md#accept-eulas) in
-_Installing the Tanzu CLI_.
 
 ## <a id='contour-error-kind'></a> Ingress is broken on Kind cluster
 

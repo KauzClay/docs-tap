@@ -3,10 +3,11 @@
 This topic tells you how to install Tanzu Application Platform (commonly known as TAP)
 through GitOps with secrets managed in a Git repository.
 
->**Caution**
+> **Caution** Tanzu Application Platform (GitOps) is currently in beta and is intended for evaluation
+> and test purposes only. Do not use in a production environment.
 >
-> - Tanzu Application Platform (GitOps) is currently in beta and is intended for evaluation and test purposes only. Do not use in a production environment.
-> - Tanzu GitOps Reference Implementation (RI) does not support changing the secrets management strategy for a cluster.
+> Tanzu GitOps Reference Implementation (RI) does not support changing the secrets management strategy
+> for a cluster.
 
 ## <a id='prereqs'></a>Prerequisites
 
@@ -19,7 +20,7 @@ To install the SOPS CLI, see [SOPS documentation](https://github.com/mozilla/sop
 - **Age CLI** to create an encryption key used to encrypt and decrypt sensitive data.
 To install the Age CLI, see [age documentation](https://github.com/FiloSottile/age#installation) in GitHub.
 - Completed the [Prerequisites](../prerequisites.hbs.md).
-- [Accepted Tanzu Application Platform EULA and installed Tanzu CLI](../install-tanzu-cli.hbs.md) with any required plug-ins.
+- [Installed Tanzu CLI](../install-tanzu-cli.hbs.md) with any required plug-ins.
 - Installed [Cluster Essentials for Tanzu](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html).
 
 ## <a id='relocate-images-to-a-registry'></a> Relocate images to a registry

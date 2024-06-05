@@ -20,16 +20,14 @@ a Git repository and then publish them to a cluster to give others access.
 
 To install the local engine server:
 
-1. Sign in to [VMware Tanzu Network](https://network.tanzu.vmware.com/).
+1. Go to the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)), expand the **VMware Tanzu Application Platform**
+dropdown, and click the {{ vars.tap_version }} release.
 
-1. Go to the [Tanzu Application Platform product page](https://network.tanzu.vmware.com/products/tanzu-application-platform).
+1. If you have not done so already, select the **I agree to Terms and Conditions** check box.
 
-1. Select your Tanzu Application Platform version from the release drop-down menu.
-
-1. From the list of resources, select the file group named `Application Accelerator Engine Server-v1.9.0`.
-   It contains four different ZIP archives,
-  `macos-aarch64`, `macos-amd64`, `windows`, and `linux`. Download the ZIP file for your operating
-  system and architecture.
+1. From the list of resources, download the acc-engine binary. Choose from **acc-engine-linux**,
+   **acc-engine-macos-aarch64**, **acc-engine-macos-amd64**, or **acc-engine-windows** depending on your
+   operating system and architecture.
 
     The ZIP file contains the local engine server and a Java runtime for
     running the server.

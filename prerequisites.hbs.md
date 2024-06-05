@@ -16,13 +16,13 @@ Tanzu Application Platform sandbox. For more information, see [Access an experim
 
 Installation requires:
 
-### <a id='tn-and-cont-img-reg-reqs'></a> VMware Tanzu Network and container image registry requirements
+### <a id='tn-and-cont-img-reg-reqs'></a> Broadcom Support Portal and container image registry requirements
 
-- Access to VMware Tanzu Network:
+- Access to Broadcom Support Portal:
 
-    - A [Tanzu Network](https://network.tanzu.vmware.com/) account to download
+    - A [Broadcom Support Portal](https://support.broadcom.com/) account to download
     Tanzu Application Platform packages.
-    - Network access to https://registry.tanzu.vmware.com.
+    - Network access to Broadcom registry `tanzu.packages.broadcom.com`.
 
 - Cluster-specific registry:
 
@@ -79,8 +79,8 @@ For Tanzu Developer Portal, you must have:
     - GitHub
     - GitLab
     - Azure DevOps
-- Tanzu Developer Portal Blank Catalog from the Tanzu Application section of VMware Tanzu Network. The Blank Catalog serves as a foundation for your customization, allowing you to populate it with your own content. For more information about formatting your own catalog, see [Catalog operations](tap-gui/catalog/catalog-operations.hbs.md).
-  - To install, navigate to [Tanzu Network](https://network.tanzu.vmware.com/products/tanzu-application-platform/). Under the list of available files to download, there is a folder titled `tanzu-developer-portal-catalogs-latest`. Inside that folder is a compressed archive titled `Tanzu Developer Portal Blank Catalog`. You must extract that catalog to the preceding Git repository of choice. This serves as the configuration location for your organization's catalog inside Tanzu Developer Portal.
+- Tanzu Developer Portal Blank Catalog from the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)). The Blank Catalog serves as a foundation for your customization, allowing you to populate it with your own content. For more information about formatting your own catalog, see [Catalog operations](tap-gui/catalog/catalog-operations.hbs.md).
+  - To install, download the file named **Tanzu Developer Portal Blank Catalog**. You must extract the catalog to the preceding Git repository of choice. This serves as the configuration location for your organization's catalog inside Tanzu Developer Portal.
 - The Tanzu Developer Portal catalog allows for two approaches to store catalog information:
     - The default option uses an in-memory database and is suitable for test and development scenarios.
           This reads the catalog data from Git URLs that you specify in the `tap-values.yaml` file.

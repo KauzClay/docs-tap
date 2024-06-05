@@ -46,43 +46,43 @@ the following values when installing the package:
 PostgreSQL
 :
 
-  ```yaml
-  postgresql:
-    enabled: true
-    region: "REGION"
-    infrastructure:
-      subnet_group:
-        name: "SUBNET-GROUP-NAME"
-      security_groups:
-        - id: "SECURITY-GROUP-ID"
-  ```
+    ```yaml
+    postgresql:
+      enabled: true
+      region: "REGION"
+      infrastructure:
+        subnet_group:
+          name: "SUBNET-GROUP-NAME"
+        security_groups:
+          - id: "SECURITY-GROUP-ID"
+    ```
 
 MySQL
 :
 
-  ```yaml
-  mysql:
-    enabled: true
-    region: "REGION"
-    infrastructure:
-      subnet_group:
-        name: "SUBNET-GROUP-NAME"
-      security_groups:
-        - id: "SECURITY-GROUP-ID"
-  ```
+    ```yaml
+    mysql:
+      enabled: true
+      region: "REGION"
+      infrastructure:
+        subnet_group:
+          name: "SUBNET-GROUP-NAME"
+        security_groups:
+          - id: "SECURITY-GROUP-ID"
+    ```
 
 RabbitMQ
 :
 
-  ```yaml
-  rabbitmq:
-    enabled: true
-    region: "REGION"
-    infrastructure:
-      subnet_id: "SUBNET-ID"
-      security_groups:
-        - id: "SECURITY-GROUP-ID"
-  ```
+    ```yaml
+    rabbitmq:
+      enabled: true
+      region: "REGION"
+      infrastructure:
+        subnet_id: "SUBNET-ID"
+        security_groups:
+          - id: "SECURITY-GROUP-ID"
+    ```
 
 ## <a id="external"></a> Topology 2: service instance accessed by a workload external to AWS
 
@@ -125,44 +125,44 @@ the following values when installing the package:
 PostgreSQL
 :
 
-  ```yaml
-  postgresql:
-    enabled: true
-    region: "REGION"
-    infrastructure:
-      subnet_group:
-        name: "SUBNET-GROUP-NAME"
-      security_groups:
-        - id: "SECURITY-GROUP-ID"
-    instance_configuration:
-      publicly_accessible: true
-  ```
+    ```yaml
+    postgresql:
+      enabled: true
+      region: "REGION"
+      infrastructure:
+        subnet_group:
+          name: "SUBNET-GROUP-NAME"
+        security_groups:
+          - id: "SECURITY-GROUP-ID"
+      instance_configuration:
+        publicly_accessible: true
+    ```
 
 MySQL
 :
 
-  ```yaml
-  mysql:
-    enabled: true
-    region: "REGION"
-    infrastructure:
-      subnet_group:
-        name: "SUBNET-GROUP-NAME"
-      security_groups:
-        - id: "SECURITY-GROUP-ID"
-    instance_configuration:
-      publicly_accessible: true
-  ```
+    ```yaml
+    mysql:
+      enabled: true
+      region: "REGION"
+      infrastructure:
+        subnet_group:
+          name: "SUBNET-GROUP-NAME"
+        security_groups:
+          - id: "SECURITY-GROUP-ID"
+      instance_configuration:
+        publicly_accessible: true
+    ```
 
 RabbitMQ
 :
 
-  ```yaml
-  rabbitmq:
-    enabled: true
-    region: "REGION"
-    infrastructure:
-      subnet_id: "SUBNET-ID"
-    instance_configuration:
-      publicly_accessible: true
-  ```
+    ```yaml
+    rabbitmq:
+      enabled: true
+      region: "REGION"
+      infrastructure:
+        subnet_id: "SUBNET-ID"
+      instance_configuration:
+        publicly_accessible: true
+    ```

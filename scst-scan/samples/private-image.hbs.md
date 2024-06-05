@@ -1,6 +1,7 @@
 # Sample private image scan for Supply Chain Security Tools - Scan
 
-This example describes how you can perform a scan against an image located in a private registry for SCST - Scan.
+This example describes how you can perform a scan against an image located in a private registry for
+SCST - Scan.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
@@ -8,41 +9,45 @@ This example describes how you can perform a scan against an image located in a 
 
 ### <a id="set-up-target-secret"></a> Set up target image pull secret
 
-1. Confirm that target image secret is configured. This is completed during Tanzu Application Platform installation. If the target image secret exists, see [Create the private image scan](./private-image.hbs.md#create-the-private-image-scan).
-2. If the target image secret was not configured, create a secret containing the credentials used to pull the target image you want to scan. For information about secret creation, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line).
+1. Confirm that target image secret is configured. This is completed during Tanzu Application
+   Platform installation. If the target image secret exists, see [Create the private image scan](./private-image.hbs.md#create-the-private-image-scan).
 
-  ```
-  kubectl create secret docker-registry TARGET-REGISTRY-CREDENTIALS-SECRET \
-    --docker-server=YOUR-REGISTRY-SERVER \
-    --docker-username=YOUR-NAME \
-    --docker-password=YOUR-PASSWORD \
-    --docker-email=YOUR-EMAIL \
-    -n DEV-NAMESPACE
-  ```
+1. If the target image secret was not configured, create a secret containing the credentials used to
+   pull the target image you want to scan. For information about secret creation, see the
+   [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line).
 
-  Where:
+   ```console
+   kubectl create secret docker-registry TARGET-REGISTRY-CREDENTIALS-SECRET \
+     --docker-server=YOUR-REGISTRY-SERVER \
+     --docker-username=YOUR-NAME \
+     --docker-password=YOUR-PASSWORD \
+     --docker-email=YOUR-EMAIL \
+     -n DEV-NAMESPACE
+   ```
 
-  - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that is created.
-  - `DEV-NAMESPACE` is the developer namespace where the scanner is installed.
-  - `YOUR-REGISTRY-SERVER` is the registry server you want to use.
-  - `YOUR-NAME` is the name associated with the secret.
-  - `YOUR-PASSWORD` is the password associated with the secret.
-  - `YOUR-EMAIL` is the email associated with the secret.
+   Where:
+
+   - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that is created.
+   - `DEV-NAMESPACE` is the developer namespace where the scanner is installed.
+   - `YOUR-REGISTRY-SERVER` is the registry server you want to use.
+   - `YOUR-NAME` is the name associated with the secret.
+   - `YOUR-PASSWORD` is the password associated with the secret.
+   - `YOUR-EMAIL` is the email associated with the secret.
 
 1. Update the `tap-values.yaml` file to include the name of secret created earlier.
 
-  ```yaml
-  grype:
-    targetImagePullSecret: "TARGET-REGISTRY-CREDENTIALS-SECRET"
-  ```
+    ```yaml
+    grype:
+      targetImagePullSecret: "TARGET-REGISTRY-CREDENTIALS-SECRET"
+    ```
 
 1. Upgrade Tanzu Application Platform with the modified `tap-values.yaml` file.
 
-  ```console
-  tanzu package installed update tap -p tap.tanzu.vmware.com -v ${TAP-VERSION}  --values-file tap-values.yaml -n tap-install
-  ```
+   ```console
+   tanzu package installed update tap -p tap.tanzu.vmware.com -v ${TAP-VERSION}  --values-file tap-values.yaml -n tap-install
+   ```
 
-  Where `TAP-VERSION` is the Tanzu Application Platform version.
+   Where `TAP-VERSION` is the Tanzu Application Platform version.
 
 ### <a id="create-private-image-scan"></a>Create the private image scan
 
@@ -92,9 +97,8 @@ kubectl describe imagescan sample-private-image-scan -n DEV-NAMESPACE
 
 Where `DEV-NAMESPACE` is the developer namespace where the scanner is installed.
 
->**Note** The `Status.Conditions` includes a `Reason: JobFinished` and
-`Message: The scan job finished`. See [Viewing and Understanding Scan Status
-Conditions](../results.md).
+> **Note** The `Status.Conditions` includes a `Reason: JobFinished` and
+> `Message: The scan job finished`. See [Viewing and Understanding Scan Status Conditions](../results.md).
 
 ## <a id="clean-up"></a>Clean up
 

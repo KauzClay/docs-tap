@@ -105,13 +105,13 @@ To configure a self-signed TLS certificate for Tanzu Developer Portal:
 
    Example:
 
-   ```yaml
-   tap_gui:
-     tls:
-       namespace: cert-manager
-       secretName: tap-gui
-    # Additional configuration below this line as needed
-   ```
+    ```yaml
+    tap_gui:
+      tls:
+        namespace: cert-manager
+        secretName: tap-gui
+     # Additional configuration below this line as needed
+    ```
 
 1. Update the Tanzu Application Platform package with the new values in `tap-values.yaml` by running:
 

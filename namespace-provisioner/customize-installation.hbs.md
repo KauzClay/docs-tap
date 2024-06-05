@@ -61,44 +61,44 @@ Sample `tap-values.yaml` configuration:
 Using Namespace Provisioner Controller
 : The Git repository is configured under `additional_sources`.
 
-  ```yaml
-  namespace_provisioner:
-    controller: true
-    additional_sources:
-    - git:
-        ref: origin/main
-        subPath: ns-provisioner-samples/testing-scanning-supplychain
-        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-        # secretRef section is only needed if connecting to a Private Git repo
-        secretRef:
-          name: git-auth
-          namespace: tap-install
-          create_export: true
-      path: _ytt_lib/testing-scanning-supplychain-setup
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: true
+      additional_sources:
+      - git:
+          ref: origin/main
+          subPath: ns-provisioner-samples/testing-scanning-supplychain
+          url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+          # secretRef section is only needed if connecting to a Private Git repo
+          secretRef:
+            name: git-auth
+            namespace: tap-install
+            create_export: true
+        path: _ytt_lib/testing-scanning-supplychain-setup
+    ```
 
 Using GitOps
 : The Git repository is configured under `additional_sources`.
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    additional_sources:
-    - git:
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      additional_sources:
+      - git:
+          ref: origin/main
+          subPath: ns-provisioner-samples/testing-scanning-supplychain
+          url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+          # secretRef section is only needed if connecting to a Private Git repo
+          secretRef:
+            name: git-auth
+            namespace: tap-install
+            create_export: true
+        path: _ytt_lib/testing-scanning-supplychain-setup
+      gitops_install:
         ref: origin/main
-        subPath: ns-provisioner-samples/testing-scanning-supplychain
+        subPath: ns-provisioner-samples/gitops-install
         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-        # secretRef section is only needed if connecting to a Private Git repo
-        secretRef:
-          name: git-auth
-          namespace: tap-install
-          create_export: true
-      path: _ytt_lib/testing-scanning-supplychain-setup
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```
 
 If a path is not specified in the `additional_sources` configuration, Namespace Provisioner
 automatically generates a path as follows: `_ytt_lib/applicaton-accelerator-samples-git-ns-provisioner-samples-testing-scaning-supplychain-0`
@@ -117,39 +117,40 @@ Sample `tap-values.yaml` configuration:
 Using Namespace Provisioner Controller
 : Use the `sync_period` key.
 
-  ```yaml
-  namespace_provisioner:
-    sync_period: 2m0s
-  ```
+    ```yaml
+    namespace_provisioner:
+      sync_period: 2m0s
+    ```
 
 Using GitOps
 : Use the `sync_period` key.
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    sync_period: 1m0s
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      sync_period: 1m0s
+      gitops_install:
+        ref: origin/main
+        subPath: ns-provisioner-samples/gitops-install
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```
 
 ## <a id='import-user-defined'></a>Import user defined secrets in YAML format as ytt data.values
 
 The `import_data_values_secrets` is an array of additional secrets in YAML format that can be
 imported into the Namespace Provisioner as data.values under the `data.values.imported` key.
-Namespace Provisioner creates a SecretImport for each secret listed in the array in the `tap-namespace-provisioning` namespace. Alternatively, you can manually create a SecretExport for
-the same secrets and export them to the `tap-namespace-provisioning` namespace.
-The following parameters are available:
+Namespace Provisioner creates a SecretImport for each secret listed in the array in the
+`tap-namespace-provisioning` namespace. Alternatively, you can manually create a SecretExport for
+the same secrets and export them to the `tap-namespace-provisioning` namespace. The following
+parameters are available:
 
 - `name`: The name of the secret to be imported to use as valuesFrom in kapp.
 - `namespace`: The namespace where the secret exists.
-- `create_export`:  A Boolean flag that indicates whether a `SecretExport` resource is
-created in the namespace. The default value is `false`. If the secret is already exported, ensure
-that it is exported to the `tap-namespace-provisioning` namespace.
+- `create_export`: A Boolean flag that indicates whether a `SecretExport` resource is created in the
+  namespace. The default value is `false`. If the secret is already exported, ensure that it is
+  exported to the `tap-namespace-provisioning` namespace.
 
->**Note** The `stringData` key of the secret must have .`yaml` or .`yml` suffix.
+> **Note** The `stringData` key of the secret must have .`yaml` or .`yml` suffix.
 
  Example secret:
 
@@ -172,60 +173,62 @@ Sample `tap-values.yaml` configuration:
 Using Namespace Provisioner Controller
 : The list of secrets are imported under `import_data_values_secrets`.
 
-  ```yaml
-  namespace_provisioner:
-    controller: true
-    import_data_values_secrets:
-    - name: user-defined-secrets
-      namespace: tap-install
-      create_export: true
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: true
+      import_data_values_secrets:
+      - name: user-defined-secrets
+        namespace: tap-install
+        create_export: true
+    ```
 
 Using GitOps
 : The list of secrets are imported under `import_data_values_secrets`.
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    import_data_values_secrets:
-    - name: user-defined-secrets
-      namespace: tap-install
-      create_export: true
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      import_data_values_secrets:
+      - name: user-defined-secrets
+        namespace: tap-install
+        create_export: true
+      gitops_install:
+        ref: origin/main
+        subPath: ns-provisioner-samples/gitops-install
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```
 
 ## <a id='use-aws-iam'></a>Use AWS IAM roles
 
-If you are installing Tanzu Application Platform on Amazon Elastic Kubernetes Service (EKS), you
-can use the IAM Role specified in `aws_iam_role_arn` to configure the Kubernetes service account
-used by the workload and the supply chain components. For additional details on the process of creating the IAM Role for workloads and obtaining the `aws_iam_role_arn`, see [Create AWS Resources for Tanzu Application Platform](../install-aws/resources.hbs.md).
+If you are installing Tanzu Application Platform on Amazon Elastic Kubernetes Service (EKS), you can
+use the IAM Role specified in `aws_iam_role_arn` to configure the Kubernetes service account used by
+the workload and the supply chain components. For additional details on the process of creating the
+IAM Role for workloads and obtaining the `aws_iam_role_arn`, see
+[Create AWS Resources for Tanzu Application Platform](../install-aws/resources.hbs.md).
 
 Sample `tap-values.yaml` configuration:
 
 Using Namespace Provisioner Controller
 : Add the AWS IAM Role to `aws_iam_role_arn`.
 
-  ```yaml
-  namespace_provisioner:
-    controller: yes
-    aws_iam_role_arn: "arn:aws:iam::123456789012:role/EKSIAMRole"
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: yes
+      aws_iam_role_arn: "arn:aws:iam::123456789012:role/EKSIAMRole"
+    ```
 
 Using GitOps
 : Add the AWS IAM Role to `aws_iam_role_arn`.
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    aws_iam_role_arn: "arn:aws:iam::123456789012:role/EKSIAMRole"
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      aws_iam_role_arn: "arn:aws:iam::123456789012:role/EKSIAMRole"
+      gitops_install:
+        ref: origin/main
+        subPath: ns-provisioner-samples/gitops-install
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```
 
 ## <a id='apply-default-params'></a>Apply default parameters to all namespaces
 
@@ -238,38 +241,38 @@ Sample `tap-values.yaml` configuration:
 Using Namespace Provisioner Controller
 : Use the `default_parameters` with the desired parameter.
 
-  ```yaml
-  namespace_provisioner:
-    controller: yes
-    default_parameters:
-      limits:
-        default:
-          cpu: 1.7
-          memory: 1Gi
-        defaultRequest:
-          cpu: 100m
-          memory: 1Gi
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: yes
+      default_parameters:
+        limits:
+          default:
+            cpu: 1.7
+            memory: 1Gi
+          defaultRequest:
+            cpu: 100m
+            memory: 1Gi
+    ```
 
 Using GitOps
 : Use the `default_parameters` with the desired parameter.
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    default_parameters:
-      limits:
-        default:
-          cpu: 1.7
-          memory: 1Gi
-        defaultRequest:
-          cpu: 100m
-          memory: 1Gi
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      default_parameters:
+        limits:
+          default:
+            cpu: 1.7
+            memory: 1Gi
+          defaultRequest:
+            cpu: 100m
+            memory: 1Gi
+      gitops_install:
+        ref: origin/main
+        subPath: ns-provisioner-samples/gitops-install
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```
 
 ## <a id='import-overlay-secrets'></a> Import overlay secrets
 
@@ -279,63 +282,64 @@ The `overlay_secrets` is a list of secrets that contains [Carvel ytt overlay](ht
 
 Sample secret with overlay to be used:
 
-  ```yaml
-  cat << EOF | kubectl apply -f -
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: grype-package-overlay
-    namespace: tap-install
-    annotations:
-      kapp.k14s.io/change-rule: "delete after deleting tap"
-  stringData:
-    grype-package-overlay.yaml: |
-      #@  load("@ytt:overlay", "overlay")
-      #@
-      #@  def matchGrypeScanners(index, left, right):
-      #@    if left["apiVersion"] != "packaging.carvel.dev/v1alpha1" or left["kind"] != "PackageInstall":
-      #@      return False
-      #@    end
-      #@    return "metadata" in left and "name" in left["metadata"] and left["metadata"]["name"].startswith("grype-scanner")
-      #@  end
+    ```yaml
+    cat << EOF | kubectl apply -f -
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: grype-package-overlay
+      namespace: tap-install
+      annotations:
+        kapp.k14s.io/change-rule: "delete after deleting tap"
+    stringData:
+      grype-package-overlay.yaml: |
+        #@  load("@ytt:overlay", "overlay")
+        #@
+        #@  def matchGrypeScanners(index, left, right):
+        #@    if left["apiVersion"] != "packaging.carvel.dev/v1alpha1" or left["kind"] != "PackageInstall":
+        #@      return False
+        #@    end
+        #@    return "metadata" in left and "name" in left["metadata"] and left["metadata"]["name"].startswith("grype-scanner")
+        #@  end
 
-      #@overlay/match by=matchGrypeScanners, expects="0+"
-      ---
-      metadata:
-        annotations:
-          #@overlay/match expects="0+"
-          ext.packaging.carvel.dev/ytt-paths-from-secret-name.0: my-grype-overlay-secret
-  EOF
-  ```
+        #@overlay/match by=matchGrypeScanners, expects="0+"
+        ---
+        metadata:
+          annotations:
+            #@overlay/match expects="0+"
+            ext.packaging.carvel.dev/ytt-paths-from-secret-name.0: my-grype-overlay-secret
+    EOF
+    ```
 
 Sample `tap-values.yaml` configuration:
 
 Using Namespace Provisioner Controller
 : The list of secrets with the overlay are set under `overlay_secrets`.
-  ```yaml
-  namespace_provisioner:
-    controller: true
-    overlay_secrets:
-    - name: grype-package-overlay
-      namespace: tap-install
-      create_export: true
-  ```
+
+    ```yaml
+    namespace_provisioner:
+      controller: true
+      overlay_secrets:
+      - name: grype-package-overlay
+        namespace: tap-install
+        create_export: true
+    ```
 
 Using GitOps
 : The list of secrets with the overlay are set under `overlay_secrets`.
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    overlay_secrets:
-    - name: grype-package-overlay
-      namespace: tap-install
-      create_export: true
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      overlay_secrets:
+      - name: grype-package-overlay
+        namespace: tap-install
+        create_export: true
+      gitops_install:
+        ref: origin/main
+        subPath: ns-provisioner-samples/gitops-install
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```
 
 Furthermore, you have the following options for customization:
 
@@ -352,14 +356,14 @@ Options if using Controller
 
    Sample `tap-values.yaml` configuration:
 
-   ```yaml
-   namespace_provisioner:
-     controller: true
-     namespace_selector:
-       matchExpressions:
-       - key: apps.tanzu.vmware.com/tap-ns
-         operator: Exists
-   ```
+    ```yaml
+    namespace_provisioner:
+      controller: true
+      namespace_selector:
+        matchExpressions:
+        - key: apps.tanzu.vmware.com/tap-ns
+          operator: Exists
+    ```
 
    **<a id='con-override-cpu'></a>Override the default CPU and memory limits for controller pods**
 
@@ -372,18 +376,19 @@ Options if using Controller
 
    Sample `tap-values.yaml` configuration:
 
-   ```yaml
-   namespace_provisioner:
-     controller: true
-     controller_resources:
-       resources:
-         limits:
-           cpu: 500m
-           memory: 100Mi
-         requests:
-           cpu: 100m
-           memory: 20Mi
-   ```
+    ```yaml
+    namespace_provisioner:
+      controller: true
+      controller_resources:
+        resources:
+          limits:
+            cpu: 500m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 20Mi
+    ```
+
    **<a id='con-custom-label'></a>Customize the label and annotation prefixes that controller watches**
 
    The `parameter_prefixes` is an array of label and annotation prefixes that the Namespace Provisioner controller uses to identify and include namespace-specific parameters in the [desired-namespaces](about.hbs.md#desired-ns) ConfigMap. These parameters can then be used as ytt data.values for templating both default and additional resources.
@@ -395,13 +400,13 @@ Options if using Controller
 
    Sample `tap-values.yaml` configuration:
 
-   ```yaml
-   namespace_provisioner:
-     controller: yes
-     parameter_prefixes:
-     - tmc.cloud.vmware.com
-     - tap.tanzu.vmware.com
-   ```
+    ```yaml
+    namespace_provisioner:
+      controller: yes
+      parameter_prefixes:
+      - tmc.cloud.vmware.com
+      - tap.tanzu.vmware.com
+    ```
 
 Options if using GitOps
 : If you are using GitOps to manage the list of developer namespaces, you have the following
@@ -431,37 +436,37 @@ customization option:
 
      > **Note** The Carvel data header (#@data/values) is required in this file.
 
-   ```yaml
-   #@data/values
-   ---
-   namespaces:
-   - name: dev
-   - name: qa
-   ```
+    ```yaml
+    #@data/values
+    ---
+    namespaces:
+    - name: dev
+    - name: qa
+    ```
 
-   ```yaml
-   #@ load("@ytt:data", "data")
-   #! This loop will now loop over the namespace list in
-   #! in ns.yaml and will create those namespaces.
-   #@ for ns in data.values.namespaces:
-   ---
-   apiVersion: v1
-   kind: Namespace
-   metadata:
-     name: #@ ns.name
-   #@ end
-   ```
+    ```yaml
+    #@ load("@ytt:data", "data")
+    #! This loop will now loop over the namespace list in
+    #! in ns.yaml and will create those namespaces.
+    #@ for ns in data.values.namespaces:
+    ---
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: #@ ns.name
+    #@ end
+    ```
 
    This file in the sample repository creates the namespaces in the namespaces list so no manual
    intervention is required.
 
    Sample `tap-values.yaml` configuration:
 
-   ```yaml
-   namespace_provisioner:
-     controller: false
-     gitops_install:
-       ref: origin/main
-       subPath: ns-provisioner-samples/gitops-install
-       url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-   ```
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      gitops_install:
+        ref: origin/main
+        subPath: ns-provisioner-samples/gitops-install
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```

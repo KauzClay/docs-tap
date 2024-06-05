@@ -24,33 +24,33 @@ To configure Artifact Metadata Repository (AMR) and Metadata Store (MDS) to use 
 
 1. Update your `tap-values.yaml` file:
 
-   ```yaml
-   metadata_store:
-     db_host: "<DB Instance Endpoint>"
-     db_user: "<Master Username>"
-     db_password: "<Master Password>"
-     db_name: "<Database Name>"
-     # SEE NOTE BELOW
-     # Disable the internal database deployment
-     deploy_internal_db: "false"
-     db_port: "5432"
-     db_max_open_conns: 10
-     db_max_idle_conns: 100
-     db_conn_max_lifetime: 60
-     # If TLS is enabled on PostgreSQL Instance
-     db_sslmode: "verify-full"
-     # If TLS Certificate is self-signed
-     db_ca_certificate: |
-       <Corresponding CA Certification>
-       ...
-       ...
-       ...
-   ```
+    ```yaml
+    metadata_store:
+      db_host: "<DB Instance Endpoint>"
+      db_user: "<Master Username>"
+      db_password: "<Master Password>"
+      db_name: "<Database Name>"
+      # SEE NOTE BELOW
+      # Disable the internal database deployment
+      deploy_internal_db: "false"
+      db_port: "5432"
+      db_max_open_conns: 10
+      db_max_idle_conns: 100
+      db_conn_max_lifetime: 60
+      # If TLS is enabled on PostgreSQL Instance
+      db_sslmode: "verify-full"
+      # If TLS Certificate is self-signed
+      db_ca_certificate: |
+        <Corresponding CA Certification>
+        ...
+        ...
+        ...
+    ```
 
    > **Note** If you initially deployed Tanzu Application Platform with an internal database and
-   are migrating to an external database, be aware that setting `deploy_internal_db` to `false,`
-   removes the internal instance of PostgreSQL. Back up and migrate your data to the database before
-   setting this value to false or it might cause data loss.
+   > are migrating to an external database, be aware that setting `deploy_internal_db` to `false,`
+   > removes the internal instance of PostgreSQL. Back up and migrate your data to the database before
+   > setting this value to false or it might cause data loss.
 
 2. Apply the new configuration:
 

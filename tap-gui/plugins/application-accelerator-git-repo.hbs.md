@@ -28,24 +28,24 @@ The following steps describe an example configuration that uses GitHub:
    These values appear in your `app-config.yaml` or `app-config.local.yaml` for local development.
    For example:
 
-   ```yaml
-   auth:
-     environment: development
-     providers:
-       github:
-         development:
-           clientId: GITHUB-CLIENT-ID
-           clientSecret: GITHUB-CLIENT-SECRET
-   ```
+    ```yaml
+    auth:
+      environment: development
+      providers:
+        github:
+          development:
+            clientId: GITHUB-CLIENT-ID
+            clientSecret: GITHUB-CLIENT-SECRET
+    ```
 
 2. Add a GitHub integration in your `app-config.yaml` configuration. For example:
 
-   ```yaml
-   app_config:
-     integrations:
-       github:
-         - host: github.com
-   ```
+    ```yaml
+    app_config:
+      integrations:
+        github:
+          - host: github.com
+    ```
 
    For more information, see the
    [Backstage documentation](https://backstage.io/docs/integrations/github/locations).

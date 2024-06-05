@@ -113,50 +113,50 @@ The example refers to `git-auth` secret from `tap-install` in the secretRef sect
 Using Namespace Provisioner Controller
 : Description
 
-  ```yaml
-  namespace_provisioner:
-    controller: true
-    additional_sources:
-    - git:
-        ref: origin/main
-        subPath: sources
-        #! This example URL is for SSH auth. Use https:// path if using HTTPS auth
-        url: git@github.com:private-repo-org/repo.git
-        secretRef:
-            name: git-auth
-            namespace: tap-install
-            #! If this secret is already exported for this namespace, you can ignore the create_export key as it defaults to false
-            create_export: true
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: true
+      additional_sources:
+      - git:
+          ref: origin/main
+          subPath: sources
+          #! This example URL is for SSH auth. Use https:// path if using HTTPS auth
+          url: git@github.com:private-repo-org/repo.git
+          secretRef:
+              name: git-auth
+              namespace: tap-install
+              #! If this secret is already exported for this namespace, you can ignore the create_export key as it defaults to false
+              create_export: true
+    ```
 
 Using GitOps
 : Description
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    additional_sources:
-    - git:
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      additional_sources:
+      - git:
+          ref: origin/main
+          subPath: tekton-pipelines
+          #! This example URL is for SSH auth. Use https:// path if using HTTPS auth
+          url: git@github.com:private-repo-org/repo.git
+          secretRef:
+              name: git-auth
+              namespace: tap-install
+              #! If this secret is already exported for this namespace, you can ignore the create_export key as it defaults to false
+              create_export: true
+      gitops_install:
         ref: origin/main
-        subPath: tekton-pipelines
+        subPath: gitops-install
         #! This example URL is for SSH auth. Use https:// path if using HTTPS auth
         url: git@github.com:private-repo-org/repo.git
         secretRef:
-            name: git-auth
-            namespace: tap-install
-            #! If this secret is already exported for this namespace, you can ignore the create_export key as it defaults to false
-            create_export: true
-    gitops_install:
-      ref: origin/main
-      subPath: gitops-install
-      #! This example URL is for SSH auth. Use https:// path if using HTTPS auth
-      url: git@github.com:private-repo-org/repo.git
-      secretRef:
-        name: git-auth-install
-        namespace: tap-install
-        #! If this secret is already exported for this namespace, you can ignore the create_export key as it defaults to false
-        create_export: true
-  ```
+          name: git-auth-install
+          namespace: tap-install
+          #! If this secret is already exported for this namespace, you can ignore the create_export key as it defaults to false
+          create_export: true
+    ```
 
 After reconciling, Namespace Provisioner creates:
 

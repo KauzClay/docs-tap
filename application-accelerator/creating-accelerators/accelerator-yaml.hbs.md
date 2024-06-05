@@ -64,14 +64,15 @@ The following option properties are used by both the UI and the engine.
   available as a [SPeL](spel-samples.md) variable name. For example, `#deploymentType`.
 
   You can specify your own default name by including:
-  ```yaml
-  options:
-  - name: projectName
-    label: Name
-    inputType: text
-    defaultValue: myname
-    required: true
-  ```
+
+    ```yaml
+    options:
+    - name: projectName
+      label: Name
+      inputType: text
+      defaultValue: myname
+      required: true
+    ```
 
 - **dataType**:
   Data types that work with the UI are:

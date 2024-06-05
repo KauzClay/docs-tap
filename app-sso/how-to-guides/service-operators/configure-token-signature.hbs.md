@@ -37,44 +37,44 @@ expedited creation of a Secret resource containing PEM-encoded public and privat
 
 1. Create an `AuthServer` with `RSAKeys` as follows:
 
-   ```yaml
-   apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
-   kind: AuthServer
-   metadata:
-     name: authserver-sample
-     namespace: default
-   spec:
-     tokenSignature:
-       signAndVerifyKeyRef:
-         name: my-token-signing-key
-       extraVerifyKeyRefs:
-         - name: my-token-verification-key
-     # ...
-   ---
-   apiVersion: secretgen.k14s.io/v1alpha1
-   kind: RSAKey
-   metadata:
-     name: my-token-signing-key
-     namespace: default
-   spec:
-     secretTemplate:
-       type: Opaque
-       stringData:
-         key.pem: $(privateKey)
-         pub.pem: $(publicKey)
-   ---
-   apiVersion: secretgen.k14s.io/v1alpha1
-   kind: RSAKey
-   metadata:
-     name: my-token-verification-key
-     namespace: default
-   spec:
-     secretTemplate:
-       type: Opaque
-       stringData:
-         key.pem: $(privateKey)
-         pub.pem: $(publicKey)
-   ```
+    ```yaml
+    apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
+    kind: AuthServer
+    metadata:
+      name: authserver-sample
+      namespace: default
+    spec:
+      tokenSignature:
+        signAndVerifyKeyRef:
+          name: my-token-signing-key
+        extraVerifyKeyRefs:
+          - name: my-token-verification-key
+      # ...
+    ---
+    apiVersion: secretgen.k14s.io/v1alpha1
+    kind: RSAKey
+    metadata:
+      name: my-token-signing-key
+      namespace: default
+    spec:
+      secretTemplate:
+        type: Opaque
+        stringData:
+          key.pem: $(privateKey)
+          pub.pem: $(publicKey)
+    ---
+    apiVersion: secretgen.k14s.io/v1alpha1
+    kind: RSAKey
+    metadata:
+      name: my-token-verification-key
+      namespace: default
+    spec:
+      secretTemplate:
+        type: Opaque
+        stringData:
+          key.pem: $(privateKey)
+          pub.pem: $(publicKey)
+    ```
 
 1. Observe the creation of an underlying `Secrets`. The name of the each `Secret` is the same as the `RSAKey` names:
 
@@ -136,18 +136,18 @@ You can generate an RSA key yourself using OpenSSL. Here are the steps:
 
 3. Apply your `AuthServer`:
 
-   ```yaml
-      apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
-      kind: AuthServer
-      metadata:
-        name: authserver-sample
-        namespace: default
-      spec:
-        tokenSignature:
-          signAndVerifyKeyRef:
-            name: my-key
-        # ...
-   ```
+    ```yaml
+       apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
+       kind: AuthServer
+       metadata:
+         name: authserver-sample
+         namespace: default
+       spec:
+         tokenSignature:
+           signAndVerifyKeyRef:
+             name: my-key
+         # ...
+    ```
 
 4. Verify that the `AuthServer` serves its keys
 
@@ -172,38 +172,38 @@ Assuming that you have an `AuthServer` with token signature keys configured, rot
 
    For example:
 
-   ```yaml
-   # Before
-   ---
-   apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
-   kind: AuthServer
-   metadata:
-     name: authserver-sample
-     namespace: default
-   spec:
-     tokenSignature:
-       signAndVerifyKeyRef:
-         name: old-key
-       extraVerifyKeys: []
-     # ...
-   ```
+    ```yaml
+    # Before
+    ---
+    apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
+    kind: AuthServer
+    metadata:
+      name: authserver-sample
+      namespace: default
+    spec:
+      tokenSignature:
+        signAndVerifyKeyRef:
+          name: old-key
+        extraVerifyKeys: []
+      # ...
+    ```
 
-   ```yaml
-   # After
-   ---
-   apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
-   kind: AuthServer
-   metadata:
-     name: authserver-sample
-     namespace: default
-   spec:
-     tokenSignature:
-       signAndVerifyKeyRef:
-         name: new-key
-       extraVerifyKeys:
-         - name: old-key
-     # ...
-   ```
+    ```yaml
+    # After
+    ---
+    apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
+    kind: AuthServer
+    metadata:
+      name: authserver-sample
+      namespace: default
+    spec:
+      tokenSignature:
+        signAndVerifyKeyRef:
+          name: new-key
+        extraVerifyKeys:
+          - name: old-key
+      # ...
+    ```
 
    Once you apply your changes, key rotation is effective immediately.
 

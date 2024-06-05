@@ -9,32 +9,32 @@ This [sample GitOps location](https://github.com/vmware-tanzu/application-accele
 Using Namespace Provisioner Controller
 : Add the following configuration to your `tap-values.yaml` file to add multiple tekton pipelines and scan policies to your developer namespace:
 
-  ```yaml
-  namespace_provisioner:
-    controller: true
-    additional_sources:
-    - git:
-        ref: origin/main
-        subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
-        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: true
+      additional_sources:
+      - git:
+          ref: origin/main
+          subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
+          url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```
 
 Using GitOps
 : Add the following configuration to your `tap-values.yaml` file to add multiple tekton pipelines and scan policies to your developer namespace:
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    additional_sources:
-    - git:
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      additional_sources:
+      - git:
+          ref: origin/main
+          subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
+          url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+      gitops_install:
         ref: origin/main
-        subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
+        subPath: ns-provisioner-samples/gitops-install
         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```
 
 The sample Pipeline resource have the following ytt logic which creates this pipeline only if
 
@@ -70,6 +70,7 @@ Run the following Tanzu CLI command to create a workload in your developer names
 
 Using Tanzu CLI
 : Create workload using tanzu apps CLI command
+
   ```shell
   tanzu apps workload apply tanzu-java-web-app \
   --git-repo https://github.com/sample-accelerators/tanzu-java-web-app \
@@ -87,32 +88,37 @@ Using Tanzu CLI
 
 Using workload yaml
 : Create a workload.yaml file with the details as below.
-  ```yaml
-  ---
-  apiVersion: carto.run/v1alpha1
-  kind: Workload
-  metadata:
-    generation: 1
-    labels:
-      app.kubernetes.io/part-of: tanzu-java-web-app
-      apps.tanzu.vmware.com/has-tests: "true"
-      apps.tanzu.vmware.com/workload-type: web
-    name: tanzu-java-web-app
-    namespace: YOUR-NEW-DEVELOPER-NAMESPACE
-  spec:
-    params:
-    - name: scanning_source_policy
-      value: lax-scan-policy
-    - name: scanning_image_policy
-      value: lax-scan-policy
-    - name: testing_pipeline_matching_labels
-      value:
-        apps.tanzu.vmware.com/language: java
-    source:
-      git:
-        ref:
-          branch: main
-        url: https://github.com/sample-accelerators/tanzu-java-web-app
-  ```
 
->**Note** `--param-yaml testing_pipeline_matching_labels` tells the supply chain to use the selector that matches the Java pipeline. To use the Python or Golang pipelines, use the selector that matches the language label in those resources.` --param scanning_source_policy="lax-scan-policy"` tells the supply chain to use the lax ScanPolicy for the workload.
+    ```yaml
+    ---
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
+      generation: 1
+      labels:
+        app.kubernetes.io/part-of: tanzu-java-web-app
+        apps.tanzu.vmware.com/has-tests: "true"
+        apps.tanzu.vmware.com/workload-type: web
+      name: tanzu-java-web-app
+      namespace: YOUR-NEW-DEVELOPER-NAMESPACE
+    spec:
+      params:
+      - name: scanning_source_policy
+        value: lax-scan-policy
+      - name: scanning_image_policy
+        value: lax-scan-policy
+      - name: testing_pipeline_matching_labels
+        value:
+          apps.tanzu.vmware.com/language: java
+      source:
+        git:
+          ref:
+            branch: main
+          url: https://github.com/sample-accelerators/tanzu-java-web-app
+    ```
+
+> **Note** `--param-yaml testing_pipeline_matching_labels` tells the supply chain to use the
+> selector that matches the Java pipeline. To use the Python or Golang pipelines, use the selector
+> that matches the language label in those
+> resources.` --param scanning_source_policy="lax-scan-policy"` tells the supply chain to use the
+> lax ScanPolicy for the workload.

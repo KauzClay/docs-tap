@@ -2,7 +2,7 @@
 
 This topic describes how you can Azure DevOps as a Git provider with your Supply Chain Choreographer supply chains.
 
-## Overview 
+## Overview
 
 There are two uses for Git in a supply chain:
 
@@ -20,10 +20,10 @@ The operator requires special configuration to integrate Azure DevOps repositori
 
 ## <a id="azure-auth"></a> Azure authentication
 
-You can use Azure authentication with Supply Chain Choreographer. 
+You can use Azure authentication with Supply Chain Choreographer.
 
-For information about configuring secrets to authenticate with your Azure DevOps Git repository, see 
-[Use Git authentication with Supply Chain Choreographer](./git-auth.hbs.md). 
+For information about configuring secrets to authenticate with your Azure DevOps Git repository, see
+[Use Git authentication with Supply Chain Choreographer](./git-auth.hbs.md).
 
 Azure http and https authentication requires:
 
@@ -32,7 +32,7 @@ username: "_token"
 password: AZURE-USER-TOKEN
 ```
 
-Where `AZURE-USER-TOKEN` is your Azure personal access token. 
+Where `AZURE-USER-TOKEN` is your Azure personal access token.
 See [Azure Devops Personal Access Tokens](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate) in the Microsoft documentation.
 
 ## <a id="repo-committed"></a> Using Azure DevOps as a repository for committed code
@@ -82,17 +82,17 @@ The following example uses the Azure DevOps Git repository:
 
 Set the `gitops_server_kind` workload parameters to `azure`.
 
-  ```yaml
-  apiVersion: carto.run/v1alpha1
-  kind: Workload
-  metadata:
-    ...
-  spec:
-    params:
-      - name: gitops_server_kind
-        value: azure
+    ```yaml
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
       ...
-  ```
+    spec:
+      params:
+        - name: gitops_server_kind
+          value: azure
+        ...
+    ```
 
 Set other GitOps values in either tap-values or in the workload parameters.
 

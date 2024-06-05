@@ -96,21 +96,20 @@ by using Tanzu Application Platform profiles can customize the default name of
 the secret (`git-ssh`) by editing the corresponding `ootb_supply_chain*`
 property in the `tap-values.yaml` file:
 
-
-  ```yaml
-  ootb_supply_chain_basic:
-    source:
-      credentials_secret: GIT-SECRET-NAME
-  ```
+```yaml
+ootb_supply_chain_basic:
+  source:
+    credentials_secret: GIT-SECRET-NAME
+```
 
 For platform operators who install the `ootb-supply-chain-*` package individually
 by using `tanzu package install`, they can edit the
 `ootb-supply-chain-*-values.yml` as follows:
 
-  ```yaml
-  source:
-    credentials_secret: GIT-SECRET-NAME
-  ```
+```yaml
+source:
+  credentials_secret: GIT-SECRET-NAME
+```
 
 You can also override the default secret name directly in the workload by using
 the `source_credentials_secret` parameter, regardless of how Tanzu Application Platform
@@ -226,39 +225,38 @@ other components to fetch the source code from within the cluster.
 
 The digest of the latest commit:
 
-  ```yaml
-  apiVersion: source.toolkit.fluxcd.io/v1
-  kind: GitRepository
-  metadata:
-    name: tanzu-java-web-app
-  spec:
-    gitImplementation: go-git
-    ignore: '!.git'
-    interval: 1m0s
-    ref: {branch: main}
-    timeout: 20s
-    url: https://github.com/vmware-tanzu/application-accelerator-samples
-  status:
-    artifact:
-      checksum: 375c2daee5fc8657c5c5b49711a8e94d400994d7
-      lastUpdateTime: "2022-04-07T15:02:30Z"
-      path: gitrepository/default/tanzu-java-web-app/d85df1fc.tar.gz
-      revision: main/d85df1fc28c6b86ca54bd613f55991645d3b257c
-      url: http://source-controller.flux-system.svc.cluster.local./gitrepository/default/tanzu-java-web-app/d85df1fc.tar.gz
-    conditions:
-    - lastTransitionTime: "2022-04-07T15:02:30Z"
-      message: 'Fetched revision: main/d85df1fc28c6b86ca54bd613f55991645d3b257c'
-      reason: GitOperationSucceed
-      status: "True"
-      type: Ready
-    observedGeneration: 1
-  ```
+```yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: tanzu-java-web-app
+spec:
+  gitImplementation: go-git
+  ignore: '!.git'
+  interval: 1m0s
+  ref: {branch: main}
+  timeout: 20s
+  url: https://github.com/vmware-tanzu/application-accelerator-samples
+status:
+  artifact:
+    checksum: 375c2daee5fc8657c5c5b49711a8e94d400994d7
+    lastUpdateTime: "2022-04-07T15:02:30Z"
+    path: gitrepository/default/tanzu-java-web-app/d85df1fc.tar.gz
+    revision: main/d85df1fc28c6b86ca54bd613f55991645d3b257c
+    url: http://source-controller.flux-system.svc.cluster.local./gitrepository/default/tanzu-java-web-app/d85df1fc.tar.gz
+  conditions:
+  - lastTransitionTime: "2022-04-07T15:02:30Z"
+    message: 'Fetched revision: main/d85df1fc28c6b86ca54bd613f55991645d3b257c'
+    reason: GitOperationSucceed
+    status: "True"
+    type: Ready
+  observedGeneration: 1
+```
 
 Cartographer passes the artifact URL and revision to further
 components in the supply chain. Those components must consume the source code from
 an internal URL where a tarball with the source code is fetched, without
 having to process any Git-specific details in multiple places.
-
 
 ### <a id="workload-params"></a>Workload parameters
 
@@ -381,18 +379,18 @@ way to keep track of images pushed to the registry provided by the user.
 
 Take the following workload as an example:
 
-  ```yaml
-  apiVersion: carto.run/v1alpha1
-  kind: Workload
-  metadata:
-    name: app
-    labels:
-      app.kubernetes.io/part-of: app
-      apps.tanzu.vmware.com/workload-type: web
-  spec:
-    source:
-      image: 10.188.0.3:5000/test:latest
-  ```
+```yaml
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: app
+  labels:
+    app.kubernetes.io/part-of: app
+    apps.tanzu.vmware.com/workload-type: web
+spec:
+  source:
+    image: 10.188.0.3:5000/test:latest
+```
 
 Instead of a `GitRepository` object, an `ImageRepository` is created:
 
@@ -511,7 +509,7 @@ you can use the kubectl CLI instead.
 
 For example:
 
-``` bash
+```bash
 kubectl create secret generic maven-credentials \
   --from-literal=username=literal-username \
   --from-file=password=/path/to/file/with/password.txt \

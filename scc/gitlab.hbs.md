@@ -56,47 +56,46 @@ The following example uses the GitLab Git repository:
 
 1. Set the `gitops_server_kind` workload parameters to `gitlab`.
 
-  ```yaml
-    apiVersion: carto.run/v1alpha1
-    kind: Workload
-    metadata:
-      ...
-    spec:
-      params:
-        - name: gitops_server_kind
-          value: gitlab
-        ...
-  ```
-
-1. Set other GitOps values in either `tap-values.yaml` or in the workload parameters.
-
-  By using `tap-values.yaml`:
-
-  ```yaml
-      ootb_supply_chain_testing_scanning:
-        gitops:
-          server_address: https://gitlab.example.com
-          repository_owner: my-org
-          repository_name: repository
-  ```
-
-  By using the workload parameters:
-
-  ```yaml
+    ```yaml
       apiVersion: carto.run/v1alpha1
       kind: Workload
       metadata:
         ...
       spec:
         params:
-          - name: gitops_server_address
-            value: https://gitlab.example.com
-          - name: gitops_repository_owner
-            value: my-org
-          - name: gitops_repository_name
-            value: repository
+          - name: gitops_server_kind
+            value: gitlab
           ...
-  ```
+    ```
+
+1. Set other GitOps values in either `tap-values.yaml` or in the workload parameters.
+   By using `tap-values.yaml`:
+
+    ```yaml
+        ootb_supply_chain_testing_scanning:
+          gitops:
+            server_address: https://gitlab.example.com
+            repository_owner: my-org
+            repository_name: repository
+    ```
+
+   By using the workload parameters:
+
+    ```yaml
+        apiVersion: carto.run/v1alpha1
+        kind: Workload
+        metadata:
+          ...
+        spec:
+          params:
+            - name: gitops_server_address
+              value: https://gitlab.example.com
+            - name: gitops_repository_owner
+              value: my-org
+            - name: gitops_repository_name
+              value: repository
+            ...
+    ```
 
 ### <a id="gitops-read-ex"></a> GitLab read example
 
@@ -132,37 +131,37 @@ secret both in `tap-values.yaml` and the Git secret used by the GitRepository.
 1. Set the [shared.ca_cert_data](../security-and-compliance/custom-ca-certificates.hbs.md)
  in `tap-values.yaml`. You must set the Git secret in the `caFile` field.
 
-  ```yaml
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: SECRET-NAME
-      annotations:
-        tekton.dev/git-0: GIT-SERVER        # ! required
-    type: kubernetes.io/basic-auth          # ! required
-    stringData:
-      username: GIT-USERNAME
-      password: GIT-PASSWORD
-      caFile: |
-      -----BEGIN CERTIFICATE-----
-      ...
-      -----END CERTIFICATE-----
-  ```
+    ```yaml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: SECRET-NAME
+        annotations:
+          tekton.dev/git-0: GIT-SERVER        # ! required
+      type: kubernetes.io/basic-auth          # ! required
+      stringData:
+        username: GIT-USERNAME
+        password: GIT-PASSWORD
+        caFile: |
+        -----BEGIN CERTIFICATE-----
+        ...
+        -----END CERTIFICATE-----
+    ```
 
 1. Associate the secret with the `ServiceAccount`.
 
-  ```yaml
-  apiVersion: v1
-  kind: ServiceAccount
-  metadata:
-    name: default
-  secrets:
-    - name: registry-credentials
-    - name: tap-registry
-    - name: GIT-SECRET-NAME
-  imagePullSecrets:
-    - name: registry-credentials
-    - name: tap-registry
-  ```
+    ```yaml
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: default
+    secrets:
+      - name: registry-credentials
+      - name: tap-registry
+      - name: GIT-SECRET-NAME
+    imagePullSecrets:
+      - name: registry-credentials
+      - name: tap-registry
+    ```
 
 For information about authentication, see [Git Authentication](git-auth.hbs.md).

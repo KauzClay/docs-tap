@@ -138,11 +138,11 @@ To persist the results found by the Carbon Black Scanner,
 
 The SCST - Store integration is enabled by default. If you don’t want to use this integration, explicitly deactivate the integration by appending the following field to the `values.yaml` file:
 
-  ```yaml
-  # ...
-  metadataStore:
-    url: "" # Disable Supply Chain Security Tools - Store integration
-  ```
+```yaml
+# ...
+metadataStore:
+  url: "" # Disable Supply Chain Security Tools - Store integration
+```
 
 ## <a id="carbonblack-scan-policy"></a> Sample ScanPolicy in CycloneDX format
 

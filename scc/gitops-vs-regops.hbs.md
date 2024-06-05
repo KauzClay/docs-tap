@@ -163,15 +163,15 @@ The following parameters are deprecated and no longer recommended for specifying
 For example, assuming the installation of the supply chain packages through
 Tanzu Application Platform profiles and a `tap-values.yaml`:
 
-  ```yaml
-  ootb_supply_chain_basic:
-    registry:
-      server: REGISTRY-SERVER
-      repository: REGISTRY-REPOSITORY
+```yaml
+ootb_supply_chain_basic:
+  registry:
+    server: REGISTRY-SERVER
+    repository: REGISTRY-REPOSITORY
 
-    gitops:
-      repository_prefix: https://github.com/my-org/
-  ```
+  gitops:
+    repository_prefix: https://github.com/my-org/
+```
 
 Workloads in the cluster with the
 Kubernetes configuration produced throughout the supply chain are pushed to
@@ -387,24 +387,24 @@ If the repository at which configuration is published uses
 `https://` or `http://` as the URL scheme, the Kubernetes secret must
 provide the credentials for that repository as follows:
 
-  ```yaml
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: GIT-SECRET-NAME #   - operators should write this name into the
-                          #   `gitops.credentials_secret` property in `tap-values.yaml`
-                          #   - developers can override by using the workload parameter
-                          #     named `gitops_credentials_secret`.
-    annotations:
-      tekton.dev/git-0: GIT-SERVER        # ! required
-  type: kubernetes.io/basic-auth          # ! required
-  stringData:
-    username: GIT-USERNAME
-    password: GIT-PASSWORD
-    # ! Optional, required if the git repository is signed by a certificate authority not in the system trust store
-    caFile: |
-      CADATA-BASE64
-  ```
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: GIT-SECRET-NAME #   - operators should write this name into the
+                        #   `gitops.credentials_secret` property in `tap-values.yaml`
+                        #   - developers can override by using the workload parameter
+                        #     named `gitops_credentials_secret`.
+  annotations:
+    tekton.dev/git-0: GIT-SERVER        # ! required
+type: kubernetes.io/basic-auth          # ! required
+stringData:
+  username: GIT-USERNAME
+  password: GIT-PASSWORD
+  # ! Optional, required if the git repository is signed by a certificate authority not in the system trust store
+  caFile: |
+    CADATA-BASE64
+```
 
 Both the Tekton annotation and the `basic-auth` secret type must be
 set. `GIT-SERVER` must be prefixed with the appropriate URL scheme and the Git
@@ -417,19 +417,19 @@ See [Pull Requests](#prs).
 After the `Secret` is created, attach it to the `ServiceAccount` used by the
 workload. For example:
 
-  ```yaml
-  apiVersion: v1
-  kind: ServiceAccount
-  metadata:
-    name: default
-  secrets:
-    - name: registry-credentials
-    - name: tap-registry
-    - name: GIT-SECRET-NAME
-  imagePullSecrets:
-    - name: registry-credentials
-    - name: tap-registry
-  ```
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+secrets:
+  - name: registry-credentials
+  - name: tap-registry
+  - name: GIT-SECRET-NAME
+imagePullSecrets:
+  - name: registry-credentials
+  - name: tap-registry
+```
 
 For more information about the credentials and setting up the Kubernetes
 secret, see [Git Authentication's HTTP section](git-auth.md#http).
@@ -440,50 +440,51 @@ If the repository to which configuration is published uses
 `https://` or `http://` as the URL scheme, the Kubernetes secret must
 provide the credentials for that repository as follows:
 
-  ```yaml
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: GIT-SECRET-NAME #   - operators should write this name into the
-                          #   `gitops.credentials_secret` property in `tap-values.yaml`
-                          #   - developers can override by using the workload parameter
-                          #     named `gitops_credentials_secret`.
-    annotations:
-      tekton.dev/git-0: GIT-SERVER
-  type: kubernetes.io/ssh-auth
-  stringData:
-    ssh-privatekey: SSH-PRIVATE-KEY     # private key with push-permissions
-    identity: SSH-PRIVATE-KEY           # private key with pull permissions
-    identity.pub: SSH-PUBLIC-KEY        # public of the `identity` private key
-    known_hosts: GIT-SERVER-PUBLIC-KEYS # git server public keys
-  ```
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: GIT-SECRET-NAME #   - operators should write this name into the
+                        #   `gitops.credentials_secret` property in `tap-values.yaml`
+                        #   - developers can override by using the workload parameter
+                        #     named `gitops_credentials_secret`.
+  annotations:
+    tekton.dev/git-0: GIT-SERVER
+type: kubernetes.io/ssh-auth
+stringData:
+  ssh-privatekey: SSH-PRIVATE-KEY     # private key with push-permissions
+  identity: SSH-PRIVATE-KEY           # private key with pull permissions
+  identity.pub: SSH-PUBLIC-KEY        # public of the `identity` private key
+  known_hosts: GIT-SERVER-PUBLIC-KEYS # git server public keys
+```
 
 After the `Secret` is created, attach it to the `ServiceAccount` used by the
 workload. For example:
 
-  ```yaml
-  apiVersion: v1
-  kind: ServiceAccount
-  metadata:
-    name: default
-  secrets:
-    - name: registry-credentials
-    - name: tap-registry
-    - name: GIT-SECRET-NAME
-  imagePullSecrets:
-    - name: registry-credentials
-    - name: tap-registry
-  ```
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+secrets:
+  - name: registry-credentials
+  - name: tap-registry
+  - name: GIT-SECRET-NAME
+imagePullSecrets:
+  - name: registry-credentials
+  - name: tap-registry
+```
 
 >**Note** If you've used Namespace Provisioner to set up your Developer Namespace where you workload is created, use the `namespace_provisioner.default_parameters.supply_chain_service_account.secrets` property in your `tap-values.yaml`. For example:
 
-    ```yaml
-    namespace_provisioner:
-      default_parameters:
-        supply_chain_service_account:
-          secrets:
-          - GIT-SECRET-NAME
-    ```
+```yaml
+namespace_provisioner:
+  default_parameters:
+    supply_chain_service_account:
+      secrets:
+      - GIT-SECRET-NAME
+```
+
 Namespace Provisioner manages the service account and manual edits to it do not persist.
 
 For information about the credentials and setting up the Kubernetes
@@ -595,12 +596,12 @@ values.
 For example, assuming the installation of Tanzu Application Platform by using
 profiles, configure the `ootb-supply-chain*` package as follows:
 
-  ```yaml
-  ootb_supply_chain_basic:
-    registry:
-      server: REGISTRY-SERVER
-      repository: REGISTRY_REPOSITORY
-  ```
+```yaml
+ootb_supply_chain_basic:
+  registry:
+    server: REGISTRY-SERVER
+    repository: REGISTRY_REPOSITORY
+```
 
 The Kubernetes configuration produced by the supply chain is pushed
 to an image named after `REGISTRY-SERVER/REGISTRY-REPOSITORY` including

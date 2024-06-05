@@ -33,16 +33,16 @@ Examples:
 
    The `desired-namespaces` ConfigMap will look like:
 
-   ```yaml
-   #@data/values
-   ---
-   namespaces:
-   - name: dev
-     project:
-       tools:
-       - git
-       - maven
-   ```
+    ```yaml
+    #@data/values
+    ---
+    namespaces:
+    - name: dev
+      project:
+        tools:
+        - git
+        - maven
+    ```
 
 2. To add a list of objects:
 
@@ -52,18 +52,18 @@ Examples:
 
    The `desired-namespaces` ConfigMap will look like:
 
-   ```yaml
-   #@data/values
-   ---
-   namespaces:
-   - name: dev
-     volume:
-       claims:
-       - name: logs
-       mountPath: /var/logs/app
-       - name: truststore
-       mountPath: /opt/app/ssl
-   ```
+    ```yaml
+    #@data/values
+    ---
+    namespaces:
+    - name: dev
+      volume:
+        claims:
+        - name: logs
+        mountPath: /var/logs/app
+        - name: truststore
+        mountPath: /opt/app/ssl
+    ```
 
 3. Simple key-value:
 
@@ -73,13 +73,13 @@ Examples:
 
    The `desired-namespaces` ConfigMap will look like:
 
-   ```yaml
-   #@data/values
-   ---
-   namespaces:
-   - name: dev
-     scanpolicy: relaxed
-   ```
+    ```yaml
+    #@data/values
+    ---
+    namespaces:
+    - name: dev
+      scanpolicy: relaxed
+    ```
 
 4. Object as value:
 
@@ -89,18 +89,18 @@ Examples:
 
    The `desired-namespaces` ConfigMap will look like:
 
-   ```yaml
-   #@data/values
-   ---
-   namespaces:
-   - name: dev
-     maven:
-       values:
-         username: user
-         password: my-pass
-         repo: myrepo
-         Version: 0.1.1-alpha.0
-   ```
+    ```yaml
+    #@data/values
+    ---
+    namespaces:
+    - name: dev
+      maven:
+        values:
+          username: user
+          password: my-pass
+          repo: myrepo
+          Version: 0.1.1-alpha.0
+    ```
 
 ## Reserved Namespace Parameters
 

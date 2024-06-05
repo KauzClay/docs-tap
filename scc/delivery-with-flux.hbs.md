@@ -104,41 +104,41 @@ app.default.tap/
 
 1. For each run cluster, create a `Secret` that has the values for each `Package` parameter. You can see the configurable properties of the `Package` by inspecting the `Package` CR’s valuesSchema, or in the [Carvel Package Supply Chains documentation](./carvel-package-supply-chain.hbs.md). Store the `Secret` in your GitOps repository at `<package_name>/<run_cluster>/params.yaml`.
 
-   ```yaml
-   ---
-   apiVersion: v1
-   kind: Secret
-   metadata:
-     name: app-values
-   stringData:
-     values.yaml: |
-       ---
-       workload_name: app
-       replicas: 2
-       hostname: app.mycompany.com
-   ```
+    ```yaml
+    ---
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: app-values
+    stringData:
+      values.yaml: |
+        ---
+        workload_name: app
+        replicas: 2
+        hostname: app.mycompany.com
+    ```
 
    > **Note** You must set a value for the `workload_name` parameter. You can skip setting other fields
     to use the default parameter values.
 
 2. For each run cluster, create a `PackageInstall`. Reference the `Secret` you created earlier. Store the `PackageInstall` in your GitOps repository at `<package_name>/<run_cluster>/packageinstall.yaml`.
 
-   ```yaml
-   ---
-   apiVersion: packaging.carvel.dev/v1alpha1
-   kind: PackageInstall
-   metadata:
-     name: app
-   spec:
-     serviceAccountName: <run-cluster-ns-sa> # ServiceAccount on run cluster with permissions to deploy Package, see "Set up run Cluster Namespaces"
-     packageRef:
-       refName: app.default.tap # name of the Package
-       versionSelection:
-         constraints: 20230321004057.0.0 # version of the Package
-     values:
-     - secretRef:
-         name: app-values # Secret created in previous step
-   ```
+    ```yaml
+    ---
+    apiVersion: packaging.carvel.dev/v1alpha1
+    kind: PackageInstall
+    metadata:
+      name: app
+    spec:
+      serviceAccountName: <run-cluster-ns-sa> # ServiceAccount on run cluster with permissions to deploy Package, see "Set up run Cluster Namespaces"
+      packageRef:
+        refName: app.default.tap # name of the Package
+        versionSelection:
+          constraints: 20230321004057.0.0 # version of the Package
+      values:
+      - secretRef:
+          name: app-values # Secret created in previous step
+    ```
 
 To continuously deploy the latest version of your `Package`, set `versionSelection.constraints: >=0.0.0`. To revert to a previous version, update the `versionSelection.constraints:` field
  and annotate the PackageInstall:
@@ -168,98 +168,98 @@ Configure Flux CD on the Build cluster to deploy your `Packages`, `PackageInstal
 
 2. Configure your Build cluster to clone the GitOps repository. On the Build cluster, create the following Flux CD `GitRepository`:
 
-   ```yaml
-   ---
-   apiVersion: source.toolkit.fluxcd.io/v1
-   kind: GitRepository
-   metadata:
-     name: <package-name>-gitops-repo
-     namespace: <build-cluster-ns>
-   spec:
-     url: # GitOps repo URL
-     ignore: |
-       !.git
-     interval: 30s
-     ref:
-       branch: # GitOps repo branch
-     timeout: 60s
+    ```yaml
+    ---
+    apiVersion: source.toolkit.fluxcd.io/v1
+    kind: GitRepository
+    metadata:
+      name: <package-name>-gitops-repo
+      namespace: <build-cluster-ns>
+    spec:
+      url: # GitOps repo URL
+      ignore: |
+        !.git
+      interval: 30s
+      ref:
+        branch: # GitOps repo branch
+      timeout: 60s
 
-     # only required if GitOps repo is private (recommended). The secret below should be present in the same namespace as the GitRepository.
-     secretRef:
-       name: <package-name>-gitops-auth
+      # only required if GitOps repo is private (recommended). The secret below should be present in the same namespace as the GitRepository.
+      secretRef:
+        name: <package-name>-gitops-auth
 
-   # only required if GitOps repo is private (recommended)
-   ---
-   apiVersion: v1
-   kind: Secret
-   metadata:
-     name: <package-name>-gitops-auth
-     namespace: <build-cluster-ns>
-   type: Opaque
-   data:
-     username: # base64 encoded GitHub (or other git remote) username
-     password: # base64 encoded GitHub (or other git remote) personal access token
-   ```
+    # only required if GitOps repo is private (recommended)
+    ---
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: <package-name>-gitops-auth
+      namespace: <build-cluster-ns>
+    type: Opaque
+    data:
+      username: # base64 encoded GitHub (or other git remote) username
+      password: # base64 encoded GitHub (or other git remote) personal access token
+    ```
 
 3. Configure your Build cluster to deploy your `Package` to the run clusters. For each run cluster, on the Build cluster, create the following Flux CD `Kustomization`:
 
-   ```yaml
-   ---
-   apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-   kind: Kustomization
-   metadata:
-     name: <package-name>-<run-cluster>-packages
-     namespace: <build-cluster-ns>
-   spec:
-     sourceRef:
-       kind: GitRepository
-       name: <package-name>-gitops-repo
-       namespace: <build-cluster-ns>
-     path: "./<package-name>/packages"
-     interval: 5m
-     timeout: 5m
-     prune: true
-     wait: true
+    ```yaml
+    ---
+    apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    kind: Kustomization
+    metadata:
+      name: <package-name>-<run-cluster>-packages
+      namespace: <build-cluster-ns>
+    spec:
+      sourceRef:
+        kind: GitRepository
+        name: <package-name>-gitops-repo
+        namespace: <build-cluster-ns>
+      path: "./<package-name>/packages"
+      interval: 5m
+      timeout: 5m
+      prune: true
+      wait: true
 
-     # where to deploy
-     kubeConfig:
-       secretRef:
-         name: <run-cluster>-kubeconfig
-     targetNamespace: <run-cluster-ns>
-     serviceAccountName: <run-cluster-ns-sa>
-   ```
+      # where to deploy
+      kubeConfig:
+        secretRef:
+          name: <run-cluster>-kubeconfig
+      targetNamespace: <run-cluster-ns>
+      serviceAccountName: <run-cluster-ns-sa>
+    ```
 
    > **Note** The Kustomization resource does not accept a `metadata.name` field
     longer than 63 characters.
 
 4. Configure your Build cluster to deploy your `PackageInstalls` and `Secrets` to the run clusters. For each run cluster, on the Build cluster, create the following Flux CD `Kustomization`:
 
-   ```yaml
-   ---
-   apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-   kind: Kustomization
-   metadata:
-     # for the second run cluster, for example hello-app-prod2-packages
-     name: <package-name>-<run-cluster>-packageinstalls
-     namespace: <build-cluster-ns>
-   spec:
-     sourceRef:
-       kind: GitRepository
-       name: <package-name>-gitops-repo
-       namespace: <build-cluster-ns>
-     path: "./<package-name>/<run-cluster>"
-     interval: 5m
-     timeout: 5m
-     prune: true
-     wait: true
+    ```yaml
+    ---
+    apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    kind: Kustomization
+    metadata:
+      # for the second run cluster, for example hello-app-prod2-packages
+      name: <package-name>-<run-cluster>-packageinstalls
+      namespace: <build-cluster-ns>
+    spec:
+      sourceRef:
+        kind: GitRepository
+        name: <package-name>-gitops-repo
+        namespace: <build-cluster-ns>
+      path: "./<package-name>/<run-cluster>"
+      interval: 5m
+      timeout: 5m
+      prune: true
+      wait: true
 
-     # where to deploy
-     kubeConfig:
-       secretRef:
-         name: <run-cluster>-kubeconfig
-     targetNamespace: <run-cluster-ns>
-     serviceAccountName: <run-cluster-ns-sa>
-   ```
+      # where to deploy
+      kubeConfig:
+        secretRef:
+          name: <run-cluster>-kubeconfig
+      targetNamespace: <run-cluster-ns>
+      serviceAccountName: <run-cluster-ns-sa>
+    ```
 
    > **Note** The Kustomization resource does not accept a `metadata.name` field longer than 63 characters.
 

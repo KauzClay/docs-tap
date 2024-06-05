@@ -17,12 +17,12 @@ To customize:
 
 1. Provide additional configuration parameters to the `app_config` section of `tap-values.yaml`:
 
-   ```yaml
-   tap_gui:
-     app_config:
-       pendoAnalytics:
-         organizationId: 'ORGANIZATION-NAME'
-   ```
+    ```yaml
+    tap_gui:
+      app_config:
+        pendoAnalytics:
+          organizationId: 'ORGANIZATION-NAME'
+    ```
 
    Where `ORGANIZATION-NAME` is the name of your organization or the name of the
    Tanzu Developer Portal instance of your choice. `ORGANIZATION-NAME` must be unique and

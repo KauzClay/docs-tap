@@ -215,26 +215,28 @@ then, configure the Wavefront proxy to consume Zipkin spans:
    You can configure Cloud Native Runtimes to send traces to the Wavefront proxy by editing the `zipkin-endpoint` property in the ConfigMap to point to the Wavefront proxy URL.
    You can configure the Wavefront proxy to consume Zipkin spans by listening to port `9411`.
 
-   >**Note** There are two ways of editing a Knative ConfigMap on Cloud Native Runtimes. Depending on your installation, you can edit the ConfigMap directly on the cluster or by using overlays. For information about how to edit ConfigMaps using overlays, see [Configuring Cloud Native Runtimes](./customizing-cnrs.hbs.md).
+   > **Note** There are two ways of editing a Knative ConfigMap on Cloud Native Runtimes. Depending
+   > on your installation, you can edit the ConfigMap directly on the cluster or by using overlays.
+   > For information about how to edit ConfigMaps using overlays, see [Configuring Cloud Native Runtimes](./customizing-cnrs.hbs.md).
 
    The following example of a Kubernetes secret contains a ytt overlay with the suggested changes to the ConfigMap `config-tracing`:
 
-   ```yaml
-   apiVersion: v1
-   kind: Secret
-   metadata:
-     name: cnrs-patch
-   stringData:
-     patch.yaml: |
-       #@ load("@ytt:overlay", "overlay")
-       #@overlay/match by=overlay.subset({"kind":"ConfigMap","metadata":{"name":"config-tracing","namespace":"knative-serving"}})
-       ---
-       data:
-         #@overlay/match missing_ok=True
-         backend: "zipkin"
-         #@overlay/match missing_ok=True
-         zipkin-endpoint: "http://wavefront-proxy.default.svc.cluster.local:9411/api/v2/spans"
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: cnrs-patch
+    stringData:
+      patch.yaml: |
+        #@ load("@ytt:overlay", "overlay")
+        #@overlay/match by=overlay.subset({"kind":"ConfigMap","metadata":{"name":"config-tracing","namespace":"knative-serving"}})
+        ---
+        data:
+          #@overlay/match missing_ok=True
+          backend: "zipkin"
+          #@overlay/match missing_ok=True
+          zipkin-endpoint: "http://wavefront-proxy.default.svc.cluster.local:9411/api/v2/spans"
+    ```
 
    After you follow the steps in [Customizing Cloud Native Runtimes](./customizing-cnrs.hbs.md) to configure your installation to use an overlay,
    you can examine the ConfigMap on the cluster to confirm that the changes were applied.
@@ -245,17 +247,17 @@ then, configure the Wavefront proxy to consume Zipkin spans:
 
    The ConfigMap looks like this example:
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-    name: config-tracing
-   data:
-    _example: |
-       ...
-    backend: "zipkin"
-    zipkin-endpoint: "http://wavefront-proxy.default.svc.cluster.local:9411/api/v2/spans"
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+     name: config-tracing
+    data:
+     _example: |
+        ...
+     backend: "zipkin"
+     zipkin-endpoint: "http://wavefront-proxy.default.svc.cluster.local:9411/api/v2/spans"
+    ```
 
 Other resources:
 

@@ -81,6 +81,7 @@ scan and Snyk for Image scan:
 
 Using Tanzu CLI
 : Create workload using tanzu apps CLI command
+
   ```shell
   tanzu apps workload apply tanzu-java-web-app \
   --git-repo https://github.com/sample-accelerators/tanzu-java-web-app \
@@ -98,26 +99,26 @@ Using Tanzu CLI
 Using workload yaml
 : Create a `workload.yaml` file:
 
-  ```yaml
-  ---
-  apiVersion: carto.run/v1alpha1
-  kind: Workload
-  metadata:
-    labels:
-      app.kubernetes.io/part-of: tanzu-java-web-app
-      apps.tanzu.vmware.com/has-tests: "true"
-      apps.tanzu.vmware.com/workload-type: web
-    name: tanzu-java-web-app
-    namespace: YOUR-NEW-DEVELOPER-NAMESPACE
-  spec:
-    params:
-    - name: scanning_image_policy
-      value: snyk-scan-policy
-    - name: scanning_image_template
-      value: snyk-private-image-scan-template
-    source:
-      git:
-        ref:
-          branch: main
-        url: https://github.com/sample-accelerators/tanzu-java-web-app
-  ```
+    ```yaml
+    ---
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
+      labels:
+        app.kubernetes.io/part-of: tanzu-java-web-app
+        apps.tanzu.vmware.com/has-tests: "true"
+        apps.tanzu.vmware.com/workload-type: web
+      name: tanzu-java-web-app
+      namespace: YOUR-NEW-DEVELOPER-NAMESPACE
+    spec:
+      params:
+      - name: scanning_image_policy
+        value: snyk-scan-policy
+      - name: scanning_image_template
+        value: snyk-private-image-scan-template
+      source:
+        git:
+          ref:
+            branch: main
+          url: https://github.com/sample-accelerators/tanzu-java-web-app
+    ```

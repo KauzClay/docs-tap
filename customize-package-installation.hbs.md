@@ -12,16 +12,16 @@ To customize a package that was installed manually:
 
 1. Create a `secret.yml` file with a `Secret` that contains your ytt overlay. For example:
 
-   ```yaml
-   apiVersion: v1
-   kind: Secret
-   metadata:
-     name: tap-overlay
-     namespace: tap-install
-   stringData:
-     custom-package-overlay.yml: |
-       CUSTOM-OVERLAY
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: tap-overlay
+      namespace: tap-install
+    stringData:
+      custom-package-overlay.yml: |
+        CUSTOM-OVERLAY
+    ```
 
    For more information about ytt overlays, see the
    [Carvel documentation](https://carvel.dev/ytt/docs/v0.43.0/ytt-overlays/).
@@ -36,16 +36,16 @@ To customize a package that was installed manually:
    `ext.packaging.carvel.dev/ytt-paths-from-secret-name.x` annotation to reference your new
    overlay `Secret`. For example:
 
-   ```yaml
-   apiVersion: packaging.carvel.dev/v1alpha1
-   kind: PackageInstall
-   metadata:
-     name: PACKAGE-NAME
-     namespace: tap-install
-     annotations:
-       ext.packaging.carvel.dev/ytt-paths-from-secret-name: tap-overlay
-   ...
-   ```
+    ```yaml
+    apiVersion: packaging.carvel.dev/v1alpha1
+    kind: PackageInstall
+    metadata:
+      name: PACKAGE-NAME
+      namespace: tap-install
+      annotations:
+        ext.packaging.carvel.dev/ytt-paths-from-secret-name: tap-overlay
+    ...
+    ```
 
    > **Note** You can suffix the extension annotation with `.x`, where `x` is a number, to
    > apply multiple overlays.
@@ -72,9 +72,9 @@ To add an overlay to a package that was installed by using a Tanzu Application P
 
 3. Update Tanzu Application Platform by running:
 
-    ```console
-    tanzu package installed update tap -p tap.tanzu.vmware.com -v {{ vars.tap_version }}  --values-file tap-values.yaml -n tap-install
-    ```
+   ```console
+   tanzu package installed update tap -p tap.tanzu.vmware.com -v {{ vars.tap_version }}  --values-file tap-values.yaml -n tap-install
+   ```
 
 For information about Tanzu Application Platform profiles, see
 [Installing Tanzu Application Platform package and profiles](install-online/profile.hbs.md).

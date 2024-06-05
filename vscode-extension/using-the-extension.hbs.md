@@ -302,27 +302,27 @@ For these projects, make these adjustments:
 
    Both of these `workload.yaml` changes are in the following example:
 
-   ```yaml
-   apiVersion: carto.run/v1alpha1
-   kind: Workload
-   metadata:
-   name: fortune-ui
-   labels:
-      apps.tanzu.vmware.com/workload-type: web
-      app.kubernetes.io/part-of: fortune-ui
-   spec:
-   build:
-      env:
-         - name: BP_MAVEN_BUILD_ARGUMENTS
-         value: package -pl fortune-teller-ui -am # indicate which module to build.
-         - name: BP_MAVEN_BUILT_MODULE
-         value: fortune-teller-ui # indicate where to find the built artefact to deploy.
-   source:
-      git:
-         url: https://github.com/my-user/fortune-teller # repo root
-         ref:
-         branch: main
-   ```
+    ```yaml
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
+    name: fortune-ui
+    labels:
+       apps.tanzu.vmware.com/workload-type: web
+       app.kubernetes.io/part-of: fortune-ui
+    spec:
+    build:
+       env:
+          - name: BP_MAVEN_BUILD_ARGUMENTS
+          value: package -pl fortune-teller-ui -am # indicate which module to build.
+          - name: BP_MAVEN_BUILT_MODULE
+          value: fortune-teller-ui # indicate where to find the built artefact to deploy.
+    source:
+       git:
+          url: https://github.com/my-user/fortune-teller # repo root
+          ref:
+          branch: main
+    ```
 
    For more information about these and other `BP_xxx` buildpack parameters, see the
    [Buildpack Documentation](https://github.com/paketo-buildpacks/maven/blob/main/README.md).

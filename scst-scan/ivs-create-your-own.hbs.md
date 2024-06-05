@@ -72,7 +72,7 @@ To customize an ImageVulnerabilityScan to use your scanner:
 
     >**Note** If you populate any of the following fields in the `securityContext`, you must
     populate all the other fields or you might see a runtime error in the `ImageVulnerabilityScan` controller:
-    
+
     ```
     allowPrivilegeEscalation
     runAsNonRoot
@@ -98,13 +98,13 @@ Optional fields:
 
 - `activeKeychains` is an array of enabled credential helpers to authenticate against registries using workload identity mechanisms.
 
-  ```yaml
-  activeKeychains:
-  - name: acr  # Azure Container Registry
-  - name: ecr  # Elastic Container Registry
-  - name: gcr  # Google Container Registry
-  - name: ghcr # Github Container Registry
-  ```
+    ```yaml
+    activeKeychains:
+    - name: acr  # Azure Container Registry
+    - name: ecr  # Elastic Container Registry
+    - name: gcr  # Google Container Registry
+    - name: ghcr # Github Container Registry
+    ```
 
 - `serviceAccountNames` includes:
   - `scanner` is the service account that runs the scan. It must have read access to `image`.

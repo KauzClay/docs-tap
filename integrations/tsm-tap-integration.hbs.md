@@ -45,10 +45,10 @@ To enable Tanzu Service Mesh support in Tanzu Application Platform Build cluster
 
 1. Add the following key to `tap-values.yaml` under the `buildservice` top-level key:
 
-   ```yaml
-   buildservice:
-     injected_sidecar_support: true
-   ```
+    ```yaml
+    buildservice:
+      injected_sidecar_support: true
+    ```
 
 2. [Install Tanzu Application Platform](../install-intro.hbs.md) on the run cluster.
 
@@ -74,52 +74,52 @@ resource that uses port 8080 by default.
    The following example YAML snippets show the changes to make from the `web` to `server` workload
    type. This is an example before applying the changes:
 
-   ```yaml
-   apiVersion: carto.run/v1alpha1
-   kind: Workload
-   metadata:
-     name: where-for-dinner
-     labels:
-       apps.tanzu.vmware.com/workload-type: web
-       app.kubernetes.io/part-of: where-for-dinner-api-gateway
-   spec:
-     params:
-     - name: annotations
-   value:
-   autoscaling.knative.dev/minScale: "1"
-     source:
-       git:
-         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-       ref:
-         branch: tap-1.6.x
-       subPath: where-for-dinner/where-for-dinner-api-gateway
-   ```
+    ```yaml
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
+      name: where-for-dinner
+      labels:
+        apps.tanzu.vmware.com/workload-type: web
+        app.kubernetes.io/part-of: where-for-dinner-api-gateway
+    spec:
+      params:
+      - name: annotations
+    value:
+    autoscaling.knative.dev/minScale: "1"
+      source:
+        git:
+          url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+        ref:
+          branch: tap-1.6.x
+        subPath: where-for-dinner/where-for-dinner-api-gateway
+    ```
 
    This is an example modified for Tanzu Service Mesh, which includes the removal of the autoscaling
    annotation:
 
-   ```yaml
-   apiVersion: carto.run/v1alpha1
-   kind: Workload
-   metadata:
-     name: where-for-dinner
-     labels:
-     apps.tanzu.vmware.com/workload-type: server # modification
-     app.kubernetes.io/part-of: where-for-dinner-api-gateway
-   spec:
-     params:
-     - name: ports # modification
-     value:
-     - port: 80 # modification
-       containerPort: 8080 # modification
-       name: http # modification
-     source:
-     git:
-         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-       ref:
-           branch: tap-1.6.x
-     subPath: where-for-dinner/where-for-dinner-api-gateway
-   ```
+    ```yaml
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
+      name: where-for-dinner
+      labels:
+      apps.tanzu.vmware.com/workload-type: server # modification
+      app.kubernetes.io/part-of: where-for-dinner-api-gateway
+    spec:
+      params:
+      - name: ports # modification
+      value:
+      - port: 80 # modification
+        containerPort: 8080 # modification
+        name: http # modification
+      source:
+      git:
+          url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+        ref:
+            branch: tap-1.6.x
+      subPath: where-for-dinner/where-for-dinner-api-gateway
+    ```
 
    This results in a deployment and a service that listens on port 80 and forwards traffic to port 8080
    on the pod’s workload container.

@@ -36,13 +36,13 @@ To configure Tanzu Developer Portal with an existing certificate:
 
    Example:
 
-   ```yaml
-   tap_gui:
-     tls:
-       namespace: tap-gui
-       secretName: tap-gui-cert
-    # Additional configuration below this line as needed
-   ```
+    ```yaml
+    tap_gui:
+      tls:
+        namespace: tap-gui
+        secretName: tap-gui-cert
+     # Additional configuration below this line as needed
+    ```
 
 3. Update the Tanzu Application Platform package with the new values in `tap-values.yaml` by running:
 

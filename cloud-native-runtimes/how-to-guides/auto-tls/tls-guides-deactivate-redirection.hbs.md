@@ -14,10 +14,10 @@ To deactivate HTTP-to-HTTPS redirection in Cloud Native Runtimes, you must edit 
 
 1. Configure Cloud Native Runtimes to deactivate https redirection:
 
-   ```yaml
-   cnrs:
-       https_redirection: false
-   ```
+    ```yaml
+    cnrs:
+        https_redirection: false
+    ```
 
 2. Update your Tanzu Application Platform installation:
 

@@ -162,24 +162,24 @@ Using Tanzu CLI
 Using workload yaml
 : Create a workload.yaml file with the details as below.
 
-  ```yaml
-  ---
-  apiVersion: carto.run/v1alpha1
-  kind: Workload
-  metadata:
-    labels:
-      app.kubernetes.io/part-of: tanzu-java-web-app
-      apps.tanzu.vmware.com/has-tests: "true"
-      apps.tanzu.vmware.com/workload-type: web
-    name: tanzu-java-web-app
-    namespace: YOUR-NEW-DEVELOPER-NAMESPACE
-  spec:
-    source:
-      git:
-        ref:
-          branch: main
-        url: https://github.com/sample-accelerators/tanzu-java-web-app
-  ```
+    ```yaml
+    ---
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
+      labels:
+        app.kubernetes.io/part-of: tanzu-java-web-app
+        apps.tanzu.vmware.com/has-tests: "true"
+        apps.tanzu.vmware.com/workload-type: web
+      name: tanzu-java-web-app
+      namespace: YOUR-NEW-DEVELOPER-NAMESPACE
+    spec:
+      source:
+        git:
+          ref:
+            branch: main
+          url: https://github.com/sample-accelerators/tanzu-java-web-app
+    ```
 
 Run the following command to verify the resources have been created in the namespace:
 

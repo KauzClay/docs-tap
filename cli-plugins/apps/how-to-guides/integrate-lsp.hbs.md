@@ -27,68 +27,68 @@ based on the response received:
 
 - All checks pass. Format is `yaml`.
 
-  ```yaml
-  user_has_permission: true
-  reachable: true
-  upstream_authenticated: true
-  overall_health: true
-  message: "All health checks passed"
-  ```
+    ```yaml
+    user_has_permission: true
+    reachable: true
+    upstream_authenticated: true
+    overall_health: true
+    message: "All health checks passed"
+    ```
 
 - You do not have permission to list the service. The possible reason is a 403 error from the
 Kubernetes API Server. Format is `yaml`.
 
-  ```yaml
-  user_has_permission: false
-  reachable: false
-  upstream_authenticated: false
-  overall_health: false
-  message: "The current user does not have permission to access the local source proxy"
-  ```
+    ```yaml
+    user_has_permission: false
+    reachable: false
+    upstream_authenticated: false
+    overall_health: false
+    message: "The current user does not have permission to access the local source proxy"
+    ```
 
 - You can list the services, but it's not there. The possible reason is a 404 error from the Kubernetes
 API Server. Format is [Source-Controller](../../../source-controller/about.hbs.md)
 
-  ```yaml
-  user_has_permission: true
-  reachable: false
-  upstream_authenticated: false
-  overall_health: false
-  message: "Local source proxy is not installed on the cluster"
-  ```
+    ```yaml
+    user_has_permission: true
+    reachable: false
+    upstream_authenticated: false
+    overall_health: false
+    message: "Local source proxy is not installed on the cluster"
+    ```
 
 - `/health` from Local Source Proxy returns a 5xx. Format is `yaml`.
 
-  ```yaml
-  user_has_permission: true
-  reachable: true
-  upstream_authenticated: false
-  overall_health: false
-  message: "Local source proxy is not healthy. Error: <error>"
-  ```
+    ```yaml
+    user_has_permission: true
+    reachable: true
+    upstream_authenticated: false
+    overall_health: false
+    message: "Local source proxy is not healthy. Error: <error>"
+    ```
 
 - `/health` from upstream returns a non-2xx, 4xx, 5xx. `/health` from Local Source Proxy will still
   be 2xx. Format is `yaml`.
 
-  ```yaml
-  user_has_permission: true
-  reachable: true
-  upstream_authenticated: false
-  overall_health: false
-  message: "Local source proxy was unable to authenticate against the target registry. Error: <error>"
-  ```
+    ```yaml
+    user_has_permission: true
+    reachable: true
+    upstream_authenticated: false
+    overall_health: false
+    message: "Local source proxy was unable to authenticate against the target registry. Error: <error>"
+    ```
 
 - All checks pass. Format is `json`.
 
-  ```json
-  {
-    "user_has_permission": true
-    "reachable": true
-    "upstream_authenticated": true
-    "overall_health": true
-    "message": ""
-  }
-  ```
+    ```json
+    {
+      "user_has_permission": true
+      "reachable": true
+      "upstream_authenticated": true
+      "overall_health": true
+      "message": ""
+    }
+    ```
 
 ## Update the local source code for workloads
 
@@ -100,7 +100,7 @@ the registry.
 
 To distinguish whether a workload was created with the Local Source Proxy or the `--source-image`
 flag, check if the workload contains the `local-source-proxy.apps.tanzu.vmware.com` annotation.
-This annotation indicates the method used to create the workload. 
+This annotation indicates the method used to create the workload.
 
 For more information, see [Create a workload from Local Source](../tutorials/create-update-workload.hbs.md#create-a-workload-from-local-source).
 
@@ -115,7 +115,7 @@ If you do want to change the registry or storage location for the source code, s
 ```console
 # create a workload using source image
 # inside the local source code folder
-tanzu apps workload apply java-web-app --local-path . -s my-registry.io/my-project/java-app                                   
+tanzu apps workload apply java-web-app --local-path . -s my-registry.io/my-project/java-app
 The files and/or directories listed in the .tanzuignore file are being excluded from the uploaded source code.
 Publishing source in "." to "my-registry.io/my-project/java-app"...
 📥 Published source
@@ -163,7 +163,7 @@ is removed.
 
 ```console
 # inside the folder that contains the local source code
-tanzu apps workload apply java-web-app --local-path .                                              
+tanzu apps workload apply java-web-app --local-path .
 The files and/or directories listed in the .tanzuignore file are being excluded from the uploaded source code.
 Publishing source in "." to "local-source-proxy.tap-local-source-system.svc.cluster.local/source:default-java-web-app"...
 📥 Published source
@@ -190,7 +190,7 @@ To get status: "tanzu apps workload get java-web-app"
 
 # update to use a source image and see how the Local Source Proxy annotation is removed
 # and the `spec.source.image` field also changes
-tanzu apps workload apply java-web-app --local-path . -s my-registry.io/my-project/java-web-app                      
+tanzu apps workload apply java-web-app --local-path . -s my-registry.io/my-project/java-web-app
 The files and/or directories listed in the .tanzuignore file are being excluded from the uploaded source code.
 Publishing source in "." to "gcr.io/tanzu-framework-playground/java-web-app"...
 37.58 kB / 37.16 kB [---------------------------------------------------------------------------------------------------------------------------------------------] 101.14% 31.94 kB p/s
@@ -211,5 +211,5 @@ Publishing source in "." to "gcr.io/tanzu-framework-playground/java-web-app"...
  12, 10   |  source:
  13     - |    image: my-registry.io/my-project/source:default-java-web-app@sha256:447db92e289dbe3a6969521917496ff2b6b0a1d6fbff1beec3af726430ce8493
      11 + |    image: my-registry.io/my-project/java-web-app:latest@sha256:447db92e289dbe3a6969521917496ff2b6b0a1d6fbff1beec3af726430ce8493
-❓ Really update the workload "java-web-app"? [yN]: 
+❓ Really update the workload "java-web-app"? [yN]:
 ```

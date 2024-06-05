@@ -6,7 +6,8 @@ Tanzu Application Platform (commonly known as TAP).
 ## Prerequisite
 
 - The Namespace Provisioner package is installed and reconciled.
-- The registry-credential secret referenced by the supply chain components for pulling and pushing images is added to **tap-install** and exported to all namespaces.
+- The registry-credential secret referenced by the supply chain components for pulling and pushing
+  images is added to **tap-install** and exported to all namespaces.
 
 Example secret creation, exported to all namespaces:
 
@@ -14,7 +15,9 @@ Example secret creation, exported to all namespaces:
 tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes --namespace tap-install
 ```
 
->**Important** Namespace Provisioner creates a secret called registries-credentials in each managed namespace which is a placeholder secret filled indirectly by [secretgen-controller](https://github.com/carvel-dev/secretgen-controller) with all the registry credentials exported for that managed  namespace.
+> **Important** Namespace Provisioner creates a secret called registries-credentials in each managed
+> namespace which is a placeholder secret filled indirectly by [secretgen-controller](https://github.com/carvel-dev/secretgen-controller)
+> with all the registry credentials exported for that managed namespace.
 
 ## <a id ='manage-list'></a>Manage a list of developer namespaces
 
@@ -25,10 +28,10 @@ Using Namespace Provisioner Controller
 
   `tap-values.yaml` configuration example:
 
-  ```yaml
-  namespace_provisioner:
-    controller: true
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: true
+    ```
 
   The imperative way is to create the namespace using kubectl or using other means and label it using the default selector.
 
@@ -44,14 +47,19 @@ Using Namespace Provisioner Controller
       kubectl label namespaces YOUR-NEW-DEVELOPER-NAMESPACE apps.tanzu.vmware.com/tap-ns=""
       ```
 
-      - This label tells the Namespace Provisioner controller to add this namespace to the [desired-namespaces](about.hbs.md#desired-ns) ConfigMap.
+      - This label tells the Namespace Provisioner controller to add this namespace to the
+        [desired-namespaces](about.hbs.md#desired-ns) ConfigMap.
       - By default, the label’s value can be anything, including "".
-      - If required, you can change the default label selector, see [Customize Installation of Namespace Provisioner](customize-installation.hbs.md#con-label-selector).
-  3. Run the following command to verify the [default resources](default-resources.hbs.md) have been created in the namespace:
+      - If required, you can change the default label selector, see
+        [Customize Installation of Namespace Provisioner](customize-installation.hbs.md#con-label-selector).
+
+  3. Run the following command to verify the [default resources](default-resources.hbs.md) have been
+     created in the namespace:
 
       ```shell
       kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n YOUR-NEW-DEVELOPER-NAMESPACE
       ```
+
       For example:
 
       ```console
@@ -82,14 +90,14 @@ by Namespace Provisioner.
 
   `tap-values.yaml` configuration example:
 
-  ```yaml
-  namespace_provisioner:
-    controller: false
-    gitops_install:
-      ref: origin/main
-      subPath: ns-provisioner-samples/gitops-install
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-  ```
+    ```yaml
+    namespace_provisioner:
+      controller: false
+      gitops_install:
+        ref: origin/main
+        subPath: ns-provisioner-samples/gitops-install
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    ```
 
   This GitOps configuration does the following things:
 

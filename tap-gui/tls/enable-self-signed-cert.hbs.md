@@ -23,27 +23,27 @@ To configure a self-signed TLS certificate for Tanzu Developer Portal:
 
 1. Create a `certificate.yaml` file that defines an issuer and a certificate. For example:
 
-   ```yaml
-   apiVersion: cert-manager.io/v1
-   kind: Issuer
-   metadata:
-     name: ca-issuer
-     namespace: tap-gui
-   spec:
-     selfSigned: {}
-   ---
-   apiVersion: cert-manager.io/v1
-   kind: Certificate
-   metadata:
-     name: tap-gui-cert
-     namespace: tap-gui
-   spec:
-     secretName: tap-gui-cert
-     dnsNames:
-     - tap-gui.INGRESS-DOMAIN
-     issuerRef:
-       name: ca-issuer
-   ```
+    ```yaml
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    metadata:
+      name: ca-issuer
+      namespace: tap-gui
+    spec:
+      selfSigned: {}
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+      name: tap-gui-cert
+      namespace: tap-gui
+    spec:
+      secretName: tap-gui-cert
+      dnsNames:
+      - tap-gui.INGRESS-DOMAIN
+      issuerRef:
+        name: ca-issuer
+    ```
 
    Where `INGRESS-DOMAIN` is your domain value that matches the values you used when you installed
    the profile.
@@ -64,13 +64,13 @@ To configure a self-signed TLS certificate for Tanzu Developer Portal:
 
    Example:
 
-   ```yaml
-   tap_gui:
-     tls:
-       namespace: tap-gui
-       secretName: tap-gui-cert
-    # Additional configuration below this line as needed
-   ```
+    ```yaml
+    tap_gui:
+      tls:
+        namespace: tap-gui
+        secretName: tap-gui-cert
+     # Additional configuration below this line as needed
+    ```
 
 4. Update the Tanzu Application Platform package with the new values in `tap-values.yaml`:
 

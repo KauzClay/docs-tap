@@ -104,7 +104,6 @@ To add the Tanzu Application Platform package repository to your cluster:
       --server ${INSTALL_REGISTRY_HOSTNAME} \
       --export-to-all-namespaces --yes --namespace tap-install
     ```
-    <!-- should this be deleted? should the equivalent step in other topics be deleted? -->
 
 1. Add the Tanzu Application Platform package repository to the cluster by running:
 

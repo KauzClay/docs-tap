@@ -116,14 +116,19 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
 Complete the following steps if you install Tanzu Application Platform in an air-gapped environment:
 
-1. Relocate the Tanzu Build Service images to your registry:
+1. Retrieve the Tanzu Build Service version by running:
 
     ```console
-    imgpkg copy -b tanzu.packages.broadcom.com/tanzu-application-platform/full-tbs-deps-package-repo:VERSION --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/full-tbs-deps-package-repo
+    kubectl get package -n tap-install | grep buildservice
     ```
 
-    Where `VERSION` is the version of Tanzu Build Service. You can retrieve this value by running
-    `kubectl get package -n tap-install | grep buildservice`
+1. Relocate the Tanzu Build Service images to your registry by running:
+
+    ```console
+    imgpkg copy -b tanzu.packages.broadcom.com/tanzu-application-platform/full-tbs-deps-package-repo:TBS-VERSION --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/full-tbs-deps-package-repo
+    ```
+
+    Where `TBS-VERSION` is the version of Tanzu Build Service you retrieved.
 
 1. Host a `grype` database in the air-gapped environment. For more information, see
    [Use vulnerability scanning in offline and air-gapped environments](../install-offline/scan-offline-airgap.hbs.md).

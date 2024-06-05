@@ -147,15 +147,15 @@ To install Application Live View back end:
          cluster so that the HTTPProxy is updated with the TLS secret. To create a
          TLS secret, run:
 
-          ```console
-          kubectl create -n app-live-view secret tls alv-cert --cert=CERT-FILE --key=KEY-FILE
-          ```
+         ```console
+         kubectl create -n app-live-view secret tls alv-cert --cert=CERT-FILE --key=KEY-FILE
+         ```
 
-          Where:
+         Where:
 
-          - `SECRET-NAME` is the name you want for the TLS secret for the domain, for example, `alv-cert`.
-          - `CERT-FILE` is a .crt file that contains the PEM encoded server certificate.
-          - `KEY-FILE`  is a .key file that contains the PEM encoded server private key.
+         - `SECRET-NAME` is the name you want for the TLS secret for the domain, for example, `alv-cert`.
+         - `CERT-FILE` is a .crt file that contains the PEM encoded server certificate.
+         - `KEY-FILE`  is a .key file that contains the PEM encoded server private key.
 
       1. Provide the following properties in your `app-live-view-backend-values.yaml`:
 

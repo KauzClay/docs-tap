@@ -402,19 +402,19 @@ workload and service namespaces of where-for-dinner and service-instances, respe
       - **Domain:** where-for-dinner.lab
    2. Namespace mapping
       - Namespace mapping Rule 1
-        - **Cluster name:** RunCluster01
-        - **Namespace:** where-for-dinner
+          - **Cluster name:** RunCluster01
+          - **Namespace:** where-for-dinner
       - Namespace Mapping Rule 2
-        - **Cluster name:** RunCluster02
-        - **Namespace:** where-for-dinner
+          - **Cluster name:** RunCluster02
+          - **Namespace:** where-for-dinner
       - Namespace Mapping Rule 3
-        - **Cluster name:** RunCluster01
-        - **Namespace:** service-instances
+          - **Cluster name:** RunCluster01
+          - **Namespace:** service-instances
    3. Autodiscovery. Use the default settings.
    4. Public services
       - **Service name:** where-for-dinner
-      - **Service port:** 80
-      - **Public URL:** http where-for-dinner . Select a domain.
+          - **Service port:** 80
+          - **Public URL:** http where-for-dinner . Select a domain.
    5. Global server load balancing and resiliency. Use the default settings.
 
 You can now access the Where For Dinner application with the URL configured earlier.

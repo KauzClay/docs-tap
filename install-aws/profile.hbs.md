@@ -332,8 +332,9 @@ service's External IP address.
 
 - `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download
   either a blank or populated catalog file from the
-  [Tanzu Application Platform product page](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
+  [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)) (file name **Tanzu Application Platform Developer Portal Blank Catalog** or **Tanzu Application Platform Developer Portal Yelb Catalog**).
   Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
+
 
 - `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the namespace,
   and SCST - Scan deploys the `ScanTemplates` there. This allows the scanning feature to run in this

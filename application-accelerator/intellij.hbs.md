@@ -134,50 +134,56 @@ GUI instance that is secured using TLS, you must download and install the certif
 
 ### Procedure
 
-1. Find the name of the Tanzu Developer Portal certificate. The name of the certificate
-might look different to the following example.
+1. Find the name of the Tanzu Developer Portal certificate. The name of the certificate might look
+   different to the following example.
 
-    ```console
-    kubectl get secret -n cert-manager
-    ```
+   ```console
+   kubectl get secret -n cert-manager
+   ```
 
-    ```console
-    NAME                                           TYPE                             DATA   AGE
-    canonical-registry-secret                      kubernetes.io/dockerconfigjson   1      18d
-    cert-manager-webhook-ca                        Opaque                           3      18d
-    postgres-operator-ca-certificate               kubernetes.io/tls                3      18d
-    tanzu-sql-with-mysql-operator-ca-certificate   kubernetes.io/tls                3      18d
-    tap-ingress-selfsigned-root-ca                 kubernetes.io/tls                3      18d <------- This is the certificate that is needed
-    ```
+   For example:
+
+   ```console
+   NAME                                           TYPE                             DATA   AGE
+   canonical-registry-secret                      kubernetes.io/dockerconfigjson   1      18d
+   cert-manager-webhook-ca                        Opaque                           3      18d
+   postgres-operator-ca-certificate               kubernetes.io/tls                3      18d
+   tanzu-sql-with-mysql-operator-ca-certificate   kubernetes.io/tls                3      18d
+   tap-ingress-selfsigned-root-ca                 kubernetes.io/tls                3      18d <------- This is the certificate that is needed
+   ```
 
 2. Download the certificate:
 
-    ```console
-    kubectl get secret -n cert-manager tap-ingress-selfsigned-root-ca -o yaml | yq '.data."ca.crt"' | base64 -d > ca.crt
-    ```
+   ```console
+   kubectl get secret -n cert-manager tap-ingress-selfsigned-root-ca -o yaml | yq '.data."ca.crt"' | base64 -d > ca.crt
+   ```
 
-3. Install the certificate on your local system and restart any applications that use
-the certificate. After restarting, the application uses the certificate
-to communicate with the endpoints using TLS.
+3. Install the certificate on your local system and restart any applications that use the
+   certificate. After restarting, the application uses the certificate to communicate with the
+   endpoints using TLS.
 
-  macOS
-  : Run:
+   macOS
+   : Run:
 
-  ```console
-  sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt
-  ```
+     ```console
+     sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt
+     ```
 
-  For more information, see [Installing a root CA certificate in the trust store](https://ubuntu.com/server/docs/security-trust-store) in the Ubuntu documentation.
+     For more information, see
+     [Installing a root CA certificate in the trust store](https://ubuntu.com/server/docs/security-trust-store)
+     in the Ubuntu documentation.
 
-  Windows
-  : Complete the following steps:
+   Windows
+   : Complete the following steps:
 
-    1. Use Windows Explorer to navigate to the directory where the certificate was downloaded and select the certificate.
-    2. In the Certificate window, click **Install Certificate...**.
-    3. Change the **Store Location** from **Current User** to **Local Machine**. Click **Next**.
-    4. Select **Place all certificates in the following store**, click **Browse**, and select **Trusted Root Certification Authorities**
-    5. Click **Finish**.
-    6. A pop-up window stating **The import was successful.** is displayed.
+     1. Use Windows Explorer to navigate to the directory where the certificate was downloaded and
+        select the certificate.
+     2. In the Certificate window, click **Install Certificate...**.
+     3. Change the **Store Location** from **Current User** to **Local Machine**. Click **Next**.
+     4. Select **Place all certificates in the following store**, click **Browse**, and select
+        **Trusted Root Certification Authorities**
+     5. Click **Finish**.
+     6. A pop-up window stating **The import was successful.** is displayed.
 
 ## <a id="update"></a> Update the plug-in
 

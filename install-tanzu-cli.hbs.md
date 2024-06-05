@@ -2,20 +2,6 @@
 
 This topic tells you how to accept the EULAs, and install the Tanzu CLI and plug-ins on Tanzu Application Platform (commonly known as TAP).
 
-## <a id='accept-eulas'></a>Accept the End User License Agreements
-
-Before downloading and installing Tanzu Application Platform packages, you must accept the
-End User License Agreements (EULAs) as follows:
-
-1. Sign in to [VMware Tanzu Network](https://network.tanzu.vmware.com).
-
-2. Accept or confirm that you have accepted the EULAs for each of the following:
-
-    - [Tanzu Application Platform](https://network.tanzu.vmware.com/products/tanzu-application-platform/)
-    - [Cluster Essentials for VMware Tanzu](https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/)
-
-<!-- Do we require a whole section for this? Is it only required for download from BC Support? -->
-
 ## <a id="set-k8s-context"></a> Set the Kubernetes cluster context
 
 For information about the supported Kubernetes cluster providers and versions, see
@@ -153,9 +139,11 @@ Install from a binary release
 
       - **Broadcom Support Portal:**
 
-          1. Download the tanzu-core-cli binary for Tanzu Application platform {{ vars.tap_version }}
-          from the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
-          Choose from **tanzu-core-cli-linux**, **tanzu-core-cli-mac**, or **tanzu-core-cli-windows**.
+          1. Go to the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)), expand the **VMware Tanzu Application Platform**
+          dropdown, and click the {{ vars.tap_version }} release.
+          1. Select the **I agree toTerms and Conditions** check box.
+          1. Download the tanzu-core-cli binary. Choose from **tanzu-core-cli-linux**, **tanzu-core-cli-mac**,
+          or **tanzu-core-cli-windows**.
           1. Download the Tanzu CLI binary for your operating system.
 
       - **GitHub:**

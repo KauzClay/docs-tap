@@ -19,7 +19,7 @@ Before installing Tanzu Application Platform, ensure you have:
 
 - Completed the [Prerequisites](../../prerequisites.hbs.md).
 - Created [AWS Resources](../../install-aws/resources.hbs.md).
-- [Installed Tanzu CLI](../../install-tanzu-cli.hbs.md) with any required plug-ins.
+- Installed [Tanzu CLI](../../install-tanzu-cli.hbs.md) with any required plug-ins.
 - Installed [Cluster Essentials for Tanzu](https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html).
 - Installed [eksctl CLI](https://github.com/weaveworks/eksctl#installation).
 

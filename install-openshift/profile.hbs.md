@@ -7,7 +7,7 @@ Before installing the packages, ensure you have:
 
 - Completed the [Prerequisites](../prerequisites.html).
 - Configured and verified the cluster.
-- [Installed Tanzu CLI](../install-tanzu-cli.html) with any required plug-ins.
+- Installed [Tanzu CLI](../install-tanzu-cli.html) with any required plug-ins.
 
 ## <a id='relocate-images'></a> Relocate images to a registry
 

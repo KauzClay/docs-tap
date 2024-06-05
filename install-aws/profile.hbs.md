@@ -7,7 +7,7 @@ Before installing the packages, ensure you have:
 
 - Completed the [Prerequisites](../prerequisites.hbs.md).
 - Created [AWS Resources](resources.hbs.md).
-- [Installed Tanzu CLI](../install-tanzu-cli.hbs.md) with any required plug-ins.
+- Installed [Tanzu CLI](../install-tanzu-cli.hbs.md) with any required plug-ins.
 - Installed [Cluster Essentials for Tanzu](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html).
 
 ## <a id='relocate-images'></a> Relocate images to a registry

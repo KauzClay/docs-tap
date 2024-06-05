@@ -16,7 +16,7 @@ The External Secrets Operator integration in this release of Tanzu GitOps RI is 
 Before installing Tanzu Application Platform, ensure you have:
 
 - Completed the [Prerequisites](../../prerequisites.hbs.md).
-- [Installed Tanzu CLI](../../install-tanzu-cli.hbs.md) with any required plug-ins.
+- Installed [Tanzu CLI](../../install-tanzu-cli.hbs.md) with any required plug-ins.
 - Installed [Cluster Essentials for Tanzu](https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html).
 - Installed [eksctl CLI](https://github.com/weaveworks/eksctl#installation).
 

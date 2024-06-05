@@ -141,7 +141,7 @@ Install from a binary release
 
           1. Go to the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)), expand the **VMware Tanzu Application Platform**
           dropdown, and click the {{ vars.tap_version }} release.
-          1. Select the **I agree toTerms and Conditions** check box.
+          1. Select the **I agree to Terms and Conditions** check box.
           1. Download the tanzu-core-cli binary. Choose from **tanzu-core-cli-linux**, **tanzu-core-cli-mac**,
           or **tanzu-core-cli-windows**.
           1. Download the Tanzu CLI binary for your operating system.

@@ -7,7 +7,7 @@ Sample applications are used to demonstrate how a global namespace can provide a
 workloads that are connected and secured within and across clusters, and across clouds.
 
 >**Note** You can also use Tanzu Mission Control (commonly called TMC)
-to install Tanzu Application Platform (commonly called TAP) on a managed cluster. 
+to install Tanzu Application Platform (commonly called TAP) on a managed cluster.
 For more information, see the [Tanzu Mission Control documentation](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-1BA391EC-A49B-44AE-A8C7-D72F6012EF58.html).
 
 ## <a id="prereqs"></a> Prerequisites
@@ -398,23 +398,23 @@ workload and service namespaces of where-for-dinner and service-instances, respe
 2. Configure the following settings in each step:
 
    1. General details
-       - **GNS Name:** where-for-dinner
-       - **Domain:** where-for-dinner.lab
+      - **GNS Name:** where-for-dinner
+      - **Domain:** where-for-dinner.lab
    2. Namespace mapping
-       - Namespace mapping Rule 1
-           - **Cluster name:** RunCluster01
-           - **Namespace:** where-for-dinner
-       - Namespace Mapping Rule 2
-           - **Cluster name:** RunCluster02
-           - **Namespace:** where-for-dinner
-       - Namespace Mapping Rule 3
-           - **Cluster name:** RunCluster01
-           - **Namespace:** service-instances
+      - Namespace mapping Rule 1
+        - **Cluster name:** RunCluster01
+        - **Namespace:** where-for-dinner
+      - Namespace Mapping Rule 2
+        - **Cluster name:** RunCluster02
+        - **Namespace:** where-for-dinner
+      - Namespace Mapping Rule 3
+        - **Cluster name:** RunCluster01
+        - **Namespace:** service-instances
    3. Autodiscovery. Use the default settings.
    4. Public services
-       - **Service name:** where-for-dinner
-       - **Service port:** 80
-       - **Public URL:** http where-for-dinner . Select a domain.
+      - **Service name:** where-for-dinner
+      - **Service port:** 80
+      - **Public URL:** http where-for-dinner . Select a domain.
    5. Global server load balancing and resiliency. Use the default settings.
 
 You can now access the Where For Dinner application with the URL configured earlier.
@@ -693,18 +693,18 @@ of ACME.
 1. Configure the following settings in each step:
 
    1. General details
-       - **GNS name:** acme-tap
-       - **Domain:** acme-tap.lab
+      - **GNS name:** acme-tap
+      - **Domain:** acme-tap.lab
    2. Namespace mapping
-       - Namespace mapping Rule 1
-           - **Cluster name:** RunCluster01
-           - **Namespace:** acme
-       - Namespace Mapping Rule 2
-           - **Cluster name:** RunCluster02
-           - **Namespace:** acme
+      - Namespace mapping Rule 1
+          - **Cluster name:** RunCluster01
+          - **Namespace:** acme
+      - Namespace Mapping Rule 2
+          - **Cluster name:** RunCluster02
+          - **Namespace:** acme
    3. Autodiscovery. Use the default settings.
    4. Public Services
-       - No Public service
+      - No Public service
    5. Global server load-balancing and resiliency. Use the default settings.
 
 You can access the application by going to the URL `http://acme-fitness`.

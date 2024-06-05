@@ -79,8 +79,8 @@ To use the IntelliJ plug-in to generate a project:
 
 1. Click **Next**.
 
-1. (Optional) Fill the text boxes required to create the Git repository. A personal access token from the Git
-   provider is required. This is stored in a secured location for future use.
+1. (Optional) Fill the text boxes required to create the Git repository. A personal access token
+   from the Git provider is required. This is stored in a secured location for future use.
 
     > **Note** You can leave the values blank if you do not require a repository.
 
@@ -94,7 +94,8 @@ To use the IntelliJ plug-in to generate a project:
 ### <a id="export-options"></a> Export accelerator configuration options
 
 For faster iteration while writing accelerators, you can export the accelerator options in the
-**Review and Generate Step** to a JSON file. You can use this file to generate your project again from the CLI.
+**Review and Generate Step** to a JSON file. You can use this file to generate your project again
+from the CLI.
 
 To export your options using the IntelliJ extension:
 
@@ -162,28 +163,28 @@ GUI instance that is secured using TLS, you must download and install the certif
    certificate. After restarting, the application uses the certificate to communicate with the
    endpoints using TLS.
 
-   macOS
-   : Run:
+    macOS
+    : Run:
 
-     ```console
-     sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt
-     ```
+      ```console
+      sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt
+      ```
 
-     For more information, see
-     [Installing a root CA certificate in the trust store](https://ubuntu.com/server/docs/security-trust-store)
-     in the Ubuntu documentation.
+      For more information, see
+      [Installing a root CA certificate in the trust store](https://ubuntu.com/server/docs/security-trust-store)
+      in the Ubuntu documentation.
 
-   Windows
-   : Complete the following steps:
+    Windows
+    : Complete the following steps:
 
-     1. Use Windows Explorer to navigate to the directory where the certificate was downloaded and
-        select the certificate.
-     2. In the Certificate window, click **Install Certificate...**.
-     3. Change the **Store Location** from **Current User** to **Local Machine**. Click **Next**.
-     4. Select **Place all certificates in the following store**, click **Browse**, and select
-        **Trusted Root Certification Authorities**
-     5. Click **Finish**.
-     6. A pop-up window stating **The import was successful.** is displayed.
+      1. Use Windows Explorer to navigate to the directory where the certificate was downloaded and
+         select the certificate.
+      2. In the Certificate window, click **Install Certificate...**.
+      3. Change the **Store Location** from **Current User** to **Local Machine**. Click **Next**.
+      4. Select **Place all certificates in the following store**, click **Browse**, and select
+         **Trusted Root Certification Authorities**
+      5. Click **Finish**.
+      6. A pop-up window stating **The import was successful.** is displayed.
 
 ## <a id="update"></a> Update the plug-in
 

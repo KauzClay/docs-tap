@@ -46,7 +46,7 @@ cluster.
 You can use all the metadata details of an image when evaluating workloads. To see the metadata
 details, use the Docker CLI command:
 
-```bash
+```console
 docker image inspect IMAGE.
 ```
 

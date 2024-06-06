@@ -84,7 +84,7 @@ Where:
 
   You can also run the following to retrieve the correct `issuerURI` value from the upstream identity provider:
 
-  ```shell
+  ```console
   curl -s "https://openid.example.com/.well-known/openid-configuration" | jq -r ".issuer"
   ```
 
@@ -212,7 +212,7 @@ You can find out the signing algorithms your OpenID provider supports by referri
 
 For example, you can run:
 
-```shell
+```console
 curl -s "ISSUER-URI/.well-known/openid-configuration" | jq ".id_token_signing_alg_values_supported"
 ```
 
@@ -788,7 +788,7 @@ There are multiple options for generating bcrypt hashes:
 2. On Unix platforms, use `htpasswd`. Note, you may need to install it, for example on Ubuntu by
    running `apt install apache2-utils`
 
-  ```shell
+  ```console
   htpasswd -bnBC 12 "" your-password-here | tr -d ':\n'
   ```
 

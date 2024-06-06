@@ -1,8 +1,8 @@
 # RBAC for AppSSO
 
-The Application Single Sign-On (commonly called AppSSO) package aggregates the 
-following permissions into Tanzu Application Platform's well-known roles. 
-For more information, see 
+The Application Single Sign-On (commonly called AppSSO) package aggregates the
+following permissions into Tanzu Application Platform's well-known roles.
+For more information, see
 [Role descriptions for Tanzu Application Platform](../../authn-authz/role-descriptions.hbs.md).
 
 ## <a id="rules"></a> User aggregated rules
@@ -11,11 +11,11 @@ For more information, see
 
 <!---
 Generated with:
-```shell
+```console
 kubectl get clusterrole app-operator -oyaml | yq '.rules[] | select(.apiGroups | contains(["sso.apps.tanzu.vmware.com"]))'
 ```
 --->
-  
+
 ```yaml
 apiGroups:
   - sso.apps.tanzu.vmware.com
@@ -30,7 +30,7 @@ verbs:
 
 <!---
 Generated with:
-```shell
+```console
 kubectl get clusterrole app-editor -oyaml | yq '.rules[] | select(.apiGroups | contains(["sso.apps.tanzu.vmware.com"]))'
 ```
 --->
@@ -51,7 +51,7 @@ verbs:
 
 <!---
 Generated with:
-```shell
+```console
 kubectl get clusterrole app-viewer -oyaml | yq '.rules[] | select(.apiGroups | contains(["sso.apps.tanzu.vmware.com"]))'
 ```
 --->
@@ -72,7 +72,7 @@ verbs:
 
 <!---
 Generated with:
-```shell
+```console
 kubectl get clusterrole service-operator -oyaml | yq '.rules[] | select(.apiGroups | contains(["sso.apps.tanzu.vmware.com"]))'
 ```
 --->
@@ -90,12 +90,12 @@ verbs:
 
 ## <a id="controller"></a> Controller
 
-To manage the life cycle of AppSSO's [APIs](index.hbs.md), the AppSSO controller's 
+To manage the life cycle of AppSSO's [APIs](index.hbs.md), the AppSSO controller's
 `ServiceAccount` has a `ClusterRole` with the following permissions:
 
 <!---
 Generated with:
-```shell
+```console
 kubectl get clusterrolebinding -A -oyaml | yq '.items[] | select(.subjects[] | contains({"kind": "ServiceAccount", "name": "appsso-controller", "namespace": "appsso"})) | .roleRef.name' | xargs -n1 -I% kubectl get clusterrole % -oyaml | yq .rules
 ```
 --->
@@ -217,5 +217,5 @@ kubectl get clusterrolebinding -A -oyaml | yq '.items[] | select(.subjects[] | c
     - '*'
 ```
 
-AppSSO also installs OpenShift specific RBAC and resources. For more information, 
+AppSSO also installs OpenShift specific RBAC and resources. For more information,
 see [Application Single Sign-On for OpenShift clusters](./openshift.hbs.md).

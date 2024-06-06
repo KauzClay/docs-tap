@@ -42,7 +42,7 @@ rotation mechanism measure, and can potentially be slated for eviction at a pred
 
 The `AuthServer` serves its public keys at `{spec.issuerURI}/oauth2/jwks`. For example:
 
-```shell
+```console
 $ curl -s authserver-sample.default/oauth2/jwks | jq
 {
   "keys": [

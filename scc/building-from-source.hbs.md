@@ -450,7 +450,7 @@ There are two ways to create a workload that defines a specific version of a Mav
 
 The first way is to define the source through CLI flags. For example:
 
-```bash
+```console
 tanzu apps workload apply my-workload \
       --maven-artifact springboot-initial \
       --maven-version 2.6.0 \
@@ -462,7 +462,7 @@ Another flag that can be used alongside the others in this type of command is `-
 
 The second one is through complex params (in JSON or YAML format). To specify the Maven info with this method, run:
 
-```bash
+```console
 tanzu apps workload apply my-workload \
       --param-yaml maven='{"artifactId": "springboot-initial", "version": "2.6.0", "groupId": "com.example"}'\
       --type web --app spring-boot-initial -y
@@ -470,7 +470,7 @@ tanzu apps workload apply my-workload \
 
 To create a workload that defines the `RELEASE` version of a maven artifact as source, run:
 
-```bash
+```console
 tanzu apps workload apply my-workload \
       --param-yaml maven='{"artifactId": "springboot-initial", "version": "RELEASE", "groupId": "com.example"}'\
       --type web --app spring-boot-initial -y
@@ -507,7 +507,7 @@ you can use the kubectl CLI instead.
 
 For example:
 
-```bash
+```console
 kubectl create secret generic maven-credentials \
   --from-literal=username=literal-username \
   --from-file=password=/path/to/file/with/password.txt \

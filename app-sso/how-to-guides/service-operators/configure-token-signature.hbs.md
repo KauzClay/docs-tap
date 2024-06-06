@@ -78,7 +78,7 @@ expedited creation of a Secret resource containing PEM-encoded public and privat
 
 1. Observe the creation of an underlying `Secrets`. The name of the each `Secret` is the same as the `RSAKey` names:
 
-   ```shell
+   ```console
    # Verify Secret exists
    kubectl get secret my-token-signing-key
 
@@ -90,7 +90,7 @@ expedited creation of a Secret resource containing PEM-encoded public and privat
 
 1. Verify that the `AuthServer` serves its keys
 
-   ```shell
+   ```console
    curl -s authserver-sample.default/oauth2/jwks | jq
    ```
 
@@ -106,7 +106,7 @@ You can generate an RSA key yourself using OpenSSL. Here are the steps:
    references [the freely published OpenSSL Cookbook](https://www.feistyduck.com/library/openssl-cookbook/online/ch-openssl.html#openssl-key-generation)
    and the approaches mentioned therein around generating a public and private key pair.
 
-   ```bash
+   ```console
    # Generate an 4096-bit RSA key
    openssl genpkey -out privatekey.pem -algorithm RSA -pkeyopt rsa_keygen_bits:4096
    # -> privatekey.pem
@@ -127,7 +127,7 @@ You can generate an RSA key yourself using OpenSSL. Here are the steps:
 
 2. Create a secret resource by using the key generated earlier in this procedure:
 
-   ```shell
+   ```console
    kubectl create secret generic my-key \
     --from-file=key.pem=privatekey.pem \
     --from-file=pub.pem=publickey.pem \
@@ -151,7 +151,7 @@ You can generate an RSA key yourself using OpenSSL. Here are the steps:
 
 4. Verify that the `AuthServer` serves its keys
 
-   ```shell
+   ```console
    curl -s authserver-sample.default/oauth2/jwks | jq
    ```
 

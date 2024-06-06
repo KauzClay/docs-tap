@@ -61,7 +61,7 @@ spec:
 
 To verify the status of this `ClassClaim`, run:
 
-```shell
+```console
 kubectl get classclaim my-sso-client --namespace my-apps
 ```
 
@@ -290,7 +290,7 @@ spec:
 Alternatively, you can refer to your `ClassClaim` when deploying your workload
 with the Tanzu CLI:
 
-```shell
+```console
 tanzu apps workload create my-workload \
   --service-ref "my-sso-client=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:my-sso-claim" \
   # ...
@@ -321,7 +321,7 @@ The credentials provided by the claim are:
 These credentials are mounted onto your `Workload`'s `Pod`(one or more) as
 individual files at the following locations:
 
-```shell
+```console
 /bindings
   /<name-of-service-claim>
     /client-id
@@ -335,7 +335,7 @@ individual files at the following locations:
 Following the earlier example, you can find the location of mounted credentials
 on every `Pod` at:
 
-```shell
+```console
 /bindings/my-sso-client
 ```
 

@@ -37,39 +37,39 @@ spec:
 
 1. Apply your [ClientRegistration](../reference/api/clientregistration.hbs.md#example)
 
-   ```shell
+   ```console
    kubectl apply -f <path-to-the-clientregistration-yaml>
    ```
 
 2. Verify your `ClientRegistration` was created
 
-   ```shell
+   ```console
    kubectl get clientregistrations
    ```
 
    --> you should see a `ClientRegistration` with the name you provided
 3. Verify your Secret was created
 
-   ```shell
+   ```console
    kubectl get secrets
    ```
 
    --> you should see a Secret with that same name you provided for the `ClientRegistration`
 4. Get the client secret and decode it
 
-   ```shell
+   ```console
    kubectl get secret <your-client-registration-name> -o jsonpath="{.data.client-secret}" | base64 -d
    ```
 
 5. Get the client id (or get it from your configuration)
 
-   ```shell
+   ```console
    kubectl get secret <your-client-registration-name> -o jsonpath="{.data.client-id}" | base64 -d
    ```
 
 6. Request token
 
-   ```shell
+   ```console
    curl -X POST <AUTH-DOMAIN>/oauth2/token \
      -d "grant_type=client_credentials" \
      -u "YOUR_CLIENT_ID:DECODED_CLIENT_SECRET"
@@ -100,7 +100,7 @@ Ensure there is an Identity Provider configured
 
 1. Get your authserver's label name
 
-   ```shell
+   ```console
    kubectl get authserver sso4k8s -o jsonpath="{.metadata.labels.name}"
    ```
 
@@ -133,46 +133,46 @@ Ensure there is an Identity Provider configured
         - name: roles
     ```
 
-   ```shell
+   ```console
    kubectl apply -f <path-to-the-clientregistration-yaml>
    ```
 
 3. Verify your `ClientRegistration` was created
 
-   ```shell
+   ```console
    kubectl get clientregistrations
    ```
 
    --> you should see a `ClientRegistration` with the name you provided
 4. Verify your Secret was created
 
-   ```shell
+   ```console
    kubectl get secrets
    ```
 
    --> you should see a Secret with that same name you provided for the `ClientRegistration`
 5. Get the client secret and decode it
 
-   ```shell
+   ```console
    CLIENT_SECRET=$(kubectl get secret <your-client-registration-name> -o jsonpath="{.data.client-secret}" | base64 -d)
    ```
 
 6. Get the client id (or get it from your configuration)
 
-   ```shell
+   ```console
    CLIENT_ID=$(kubectl get secret <your-client-registration-name> -o jsonpath="{.data.client-id}" | base64 -d)
    ```
 
 7. Get the issuer uri
 
-   ```shell
+   ```console
    ISSUER_URI=$(kubectl get secret <your-client-registration-name> -o jsonpath="{.data.issuer-uri}" | base64 -d)
    ```
 
 8. Use the [oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/) to spin up a quick trial run of the configured
 Authserver and run it with docker.
 
-   ```shell
+   ```console
    docker run -p 4180:4180 --name oauth2-proxy bitnami/oauth2-proxy:latest \
    --oidc-issuer-url "$ISSUER_URI" \
    --client-id "$CLIENT_ID" \

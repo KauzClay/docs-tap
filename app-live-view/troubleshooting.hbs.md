@@ -134,9 +134,9 @@ To troubleshoot:
 
 2. Delete the connector pod to recreate it by running:
 
-    ```bash
-    kubectl -n app-live-view-connector delete pods -l=name=application-live-view-connector
-    ```
+   ```console
+   kubectl -n app-live-view-connector delete pods -l=name=application-live-view-connector
+   ```
 
 ---
 
@@ -156,9 +156,9 @@ To troubleshoot:
 2. Delete the secret `appliveview-webhook-cert` that corresponds to the certificate in the
    `app-live-view-conventions` namespace by running:
 
-    ```bash
-    kubectl delete secret appliveview-webhook-cert -n app-live-view-conventions
-    ```
+   ```console
+   kubectl delete secret appliveview-webhook-cert -n app-live-view-conventions
+   ```
 
     This recreates the certificate request and updates the corresponding certificate.
 
@@ -179,7 +179,7 @@ no longer exists while the new instance doesn't show up yet.
 
 The workaround is to delete the connector pod so it is re-created by running:
 
-```bash
+```console
 kubectl -n app-live-view-connector delete pods -l=name=application-live-view-connector
 ```
 
@@ -220,26 +220,26 @@ To verify that the labels in your workload YAML file are working:
 
 1. Verify the app live view convention webhook is running properly by running:
 
-    ```bash
-    kubectl get pods -n app-live-view | grep webhook
-    ```
+   ```console
+   kubectl get pods -n app-live-view | grep webhook
+   ```
 
 1. Verify the conventions controller is running properly by running:
 
-    ```bash
-    kubectl get pods -n conventions-system
-    ```
+   ```console
+   kubectl get pods -n conventions-system
+   ```
 
 1. Verify that the conventions are applied properly to the PodSpec by running:
 
-    ```bash
-    kubectl get podintents.conventions.carto.run WORKLOAD-NAME -oyaml
-    ```
+   ```console
+   kubectl get podintents.conventions.carto.run WORKLOAD-NAME -oyaml
+   ```
 
-    Where `WORKLOAD-NAME` is the name of your workload.
+   Where `WORKLOAD-NAME` is the name of your workload.
 
-    If everything works correctly, the status will contain a transformed template
-    that includes the labels added as part of your workload YAML file. For example:
+   If everything works correctly, the status will contain a transformed template
+   that includes the labels added as part of your workload YAML file. For example:
 
     ```yaml
     status:

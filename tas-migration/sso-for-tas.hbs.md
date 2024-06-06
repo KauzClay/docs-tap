@@ -71,7 +71,7 @@ For more information, see the [Single Sign-On for VMware Tanzu Application Servi
 
 List all service plans by subdomain:
 
-```bash
+```console
 uaac curl "/identity-zones" -b | jq -r ".[].subdomain"
 export SUBDOMAIN=<your-subdomain>
 ```
@@ -91,7 +91,7 @@ The AuthServer definition includes default values. You can skip this section if 
 
 Cross-origin resource sharing (CORS) configuration is available under `config.corsPolicy` in the UAA as follows:
 
-```bash
+```console
 uaac curl "/identity-zones" -b | jq ".[] | select(.subdomain == \"$SUBDOMAIN\") | .config.corsPolicy"
 ```
 
@@ -103,13 +103,13 @@ or the `kubectl explain AuthServer.spec.cors` API documentation.
 
 Token configuration is available under `config.tokenPolicy` in the UAA as follows:
 
-```bash
+```console
 uaac curl "/identity-zones" -b | jq ".[] | select(.subdomain == \"$SUBDOMAIN\") | .config.tokenPolicy"
 ```
 
 Fields can be `null` or equal to `-1`, indicating configuration at the UAA level. In such cases, you can retrieve the configuration by using:
 
-```bash
+```console
 uaac curl "/identity-zones" -b | jq ".[] | select(.subdomain == \"\") | .config.tokenPolicy"
 ```
 
@@ -392,7 +392,7 @@ Most of the configuration for OpenID Connect (OIDC) or LDAP-type identity provid
 
 1. Run the script with the UAA URL, access token, and the previously captured `SUBDOMAIN`.
 
-    ```bash
+    ```console
     python3 migration.py -u $UAA_URL -t $TOKEN -s $SUBDOMAIN
     ```
 
@@ -435,7 +435,7 @@ Most of the configuration for OpenID Connect (OIDC) or LDAP-type identity provid
 
 1. Chain the migration script into YTT and obtain an `AuthServer` configuration.
 
-    ```bash
+    ```console
     ytt \
       --data-value-yaml identityProviders="$(python3 migration.py -u "$UAA_URL" -s "$SUBDOMAIN" -t "$ACCESS_TOKEN")" \
       --file authserver-template.yaml
@@ -475,7 +475,7 @@ For Service Keys or Applications created in the dashboard, the common use case i
 
 Automation is possible to a certain extent, but manual intervention is required. The following script retrieves a list of all clients for your Identity Zone. You can save the script as `get-clients.sh`:
 
-```bash
+```console
 uaac curl "/oauth/clients" -H"X-Identity-Zone-Subdomain: $SUBDOMAIN" -b |
   jq ".resources | map(
 {
@@ -513,7 +513,7 @@ _: #@ template.replace(client)
 
 Use YTT to convert clients into placeholders for `ClientRegistration`s:
 
-```bash
+```console
 ytt -f client-registration-template.yaml --data-value-yaml clients="$(./get-clients.sh)"
 ```
 

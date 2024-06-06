@@ -41,7 +41,7 @@ The sample Pipeline resource have the following ytt logic which creates this pip
 - `supply_chain` in your `tap-values.yaml` file is either `testing` or `testing_scanning`
 - `profile` in your `tap-values.yaml` file is either `full, iterate` or `build`.
 
-```shell
+```console
 #@ load("@ytt:data", "data")
 #@ def in_list(key, list):
 #@  return hasattr(data.values.tap_values, key) and (data.values.tap_values[key] in list)
@@ -62,7 +62,7 @@ The [strict ScanPolicy](https://github.com/vmware-tanzu/application-accelerator-
 
 After adding the additional source to your `tap-values.yaml` file, you should be able to see the `tekton-pipeline-java, tekton-pipeline-golang, tekton-pipeline-python`, `scan-policy` and `lax-scan-policy` created in your developer namespace. Run the following command to see if the pipelines are created correctly.
 
-```shell
+```console
 kubectl get pipeline.tekton.dev,scanpolicies -n YOUR-NEW-DEVELOPER-NAMESPACE
 ```
 
@@ -71,7 +71,7 @@ Run the following Tanzu CLI command to create a workload in your developer names
 Using Tanzu CLI
 : Create workload using tanzu apps CLI command
 
-  ```shell
+  ```console
   tanzu apps workload apply tanzu-java-web-app \
   --git-repo https://github.com/sample-accelerators/tanzu-java-web-app \
   --git-branch main \

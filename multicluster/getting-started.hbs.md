@@ -25,7 +25,7 @@ Before implementing a multicluster topology, complete the following:
 
 3. To set the value of `DEVELOPER_NAMESPACE` to the namespace you setup in the previous step, run:
 
-    ```bash
+    ```console
     export DEVELOPER_NAMESPACE=YOUR-DEVELOPER-NAMESPACE
     ```
 
@@ -40,7 +40,7 @@ The Build cluster starts by building the necessary bundle for the workload that 
 
 1. Use the Tanzu CLI to start the workload down the first supply chain:
 
-    ```bash
+    ```console
     tanzu apps workload create tanzu-java-web-app \
     --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
     --sub-path tanzu-java-web-app \
@@ -61,7 +61,7 @@ The Build cluster starts by building the necessary bundle for the workload that 
 
 1. Verify that your supply chain has produced the necessary `ConfigMap` containing `Deliverable` content produced by the `Workload`:
 
-    ```bash
+    ```console
     kubectl get configmap tanzu-java-web-app-deliverable --namespace ${DEVELOPER_NAMESPACE} -o go-template='\{{.data.deliverable}}'
     ```
 
@@ -97,19 +97,19 @@ The Build cluster starts by building the necessary bundle for the workload that 
 
 1. Take this `Deliverable` file to the Run profile clusters by running:
 
-    ```bash
+    ```console
     kubectl apply -f deliverable.yaml --namespace ${DEVELOPER_NAMESPACE}
     ```
 
 1. Verify that this `Deliverable` is started and `Ready` by running:
 
-    ```bash
+    ```console
     kubectl get deliverables --namespace ${DEVELOPER_NAMESPACE}
     ```
 
     The output resembles the following:
 
-    ```bash
+    ```console
     kubectl get deliverables --namespace default
     NAME                 SOURCE                                                                                                                DELIVERY         READY   REASON   AGE
     tanzu-java-web-app   tapmulticloud.azurecr.io/tap-multi-build-dev/tanzu-java-web-app-default-bundle:xxxx-xxxx-xxxx-xxxx-1a7beafd6389   delivery-basic   True    Ready    7m2s
@@ -117,13 +117,13 @@ The Build cluster starts by building the necessary bundle for the workload that 
 
 1. To test the application, query the URL for the application. Look for the `httpProxy` by running:
 
-    ```bash
+    ```console
     kubectl get httpproxy --namespace ${DEVELOPER_NAMESPACE}
     ```
 
     The output resembles the following:
 
-    ```bash
+    ```console
     kubectl get httpproxy --namespace default
     NAME                                                              FQDN                                                       TLS SECRET   STATUS   STATUS DESCRIPTION
     tanzu-java-web-app-contour-a98df54e3629c5ae9c82a395501ee1fdtanz   tanzu-java-web-app.default.svc.cluster.local                            valid    Valid HTTPProxy

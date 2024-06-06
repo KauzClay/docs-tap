@@ -16,7 +16,7 @@ in the Cluster Essentials for VMware Tanzu documentation.
 
 To get the logs when using the [controller](about.hbs.md#nsp-controller) workflow, run the following kubectl command:
 
-```shell
+```console
 kubectl -n tap-namespace-provisioning logs deployments/controller-manager
 ```
 
@@ -26,7 +26,7 @@ Use `-f` to follow the log output.
 
 After the Namespace Provisioner is installed in the Tanzu Application Platform cluster, the main resource to check is the [provisioner](about.hbs.md#carvel-app) Carvel Application in the `tap-namespace-provisioning` namespace. To check for the status of the Application, run the following kubectl command:
 
-```shell
+```console
 kubectl -n tap-namespace-provisioning get app/provisioner --template=\{{.status.usefulErrorMessage}}
 ```
 
@@ -59,7 +59,7 @@ This is not compliant as the operator must be `Exist` instead of `exists`. When 
 
 When working with ytt, templating errors in the additional sources in your GitOps repository can cause the Provisioner Carvel application to go into `Reconcile Failed` state. To debug the Application, run the following command:
 
-```shell
+```console
 kubectl -n tap-namespace-provisioning get app/provisioner --template=\{{.status.usefulErrorMessage}}
 ```
 

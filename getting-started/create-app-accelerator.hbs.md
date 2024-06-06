@@ -47,14 +47,14 @@ To create your project, follow these instructions to set up the project director
 1. Create a new directory for the project named `myProject` and change to the newly created
    directory.
 
-    ```bash
+    ```console
     mkdir myProject
     cd myProject
     ```
 
 2. Create two new files in the `myProject` directory named `README.md` and `accelerator.yaml`.
 
-    ```bash
+    ```console
     touch README.MD accelerator.yaml
     ```
 
@@ -171,7 +171,7 @@ that the resulting project is generated as expected.
     >**Important** This step requires that the `TANZU-APPLICATION-ACCELERATOR-URL` endpoint is exposed
     > and accessible. For more information, see [Server API connections for operators and developers](../cli-plugins/accelerator/overview.hbs.md#server-api-connections).
 
-    ```bash
+    ```console
     tanzu accelerator generate-from-local \
         --accelerator-path simple-accelerator="$(pwd)" `# The path to new accelerator` \
         --server-url TANZU-APPLICATION-ACCELERATOR-URL `# Example: https://accelerator.mytapcluster.myorg.com` \
@@ -181,7 +181,7 @@ that the resulting project is generated as expected.
 
 2. After the project is generated, a status message is displayed.
 
-    ```bash
+    ```console
     generated project simple-accelerator
     ```
 
@@ -227,7 +227,7 @@ command using the Tanzu CLI to register the accelerator to Tanzu Developer Porta
 > directory. For more information, see the [Tanzu CLI Command Reference](https://docs.vmware.> com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/command-ref.html) documentation.
 
 
-```bash
+```console
 tanzu accelerator create simple-accelerator --git-repository https://github.com/myusername/myprojectrepository --git-branch main
 ```
 

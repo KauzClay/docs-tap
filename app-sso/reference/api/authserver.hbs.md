@@ -1,15 +1,15 @@
 # AuthServer API for AppSSO
 
-In Application Single Sign-On (commonly called AppSSO), `AuthServer` represents 
+In Application Single Sign-On (commonly called AppSSO), `AuthServer` represents
 the request for an OIDC authorization server. It causes the deployment of an authorization
 server backed by Redis over mutual TLS if no storage is defined.
 
 An `AuthServer` should have labels which allow to uniquely match it amongst others. `ClientRegistration` selects an
 `AuthServer` by label selector and needs a unique match to be successful.
 
-To allow `ClientRegistrations` only from a restricted set of `Namespaces`, you must set the annotation 
+To allow `ClientRegistrations` only from a restricted set of `Namespaces`, you must set the annotation
 `sso.apps.tanzu.vmware.com/allow-client-namespaces`. Its value is a comma-separated list of
-allowed `Namespaces`, for example, `"app-team-red,app-team-green"`. If the annotation is missing, the default value is `*`, 
+allowed `Namespaces`, for example, `"app-team-red,app-team-green"`. If the annotation is missing, the default value is `*`,
 denoting that all client namespaces are allowed.
 
 The issuer URI, which is the point of entry for clients and end-users, is constructed through the package's `domain_template`.
@@ -20,7 +20,7 @@ See [Issuer URI & TLS](../../how-to-guides/service-operators/issuer-uri-and-tls.
 Token signature keys are configured by using `spec.tokenSignature`. This is a required field. See
 [Token signatures](../../how-to-guides/service-operators/configure-token-signature.hbs.md) for more context.
 
-You can configure identity providers under `spec.identityProviders`. If there is none, end-users can not log in. 
+You can configure identity providers under `spec.identityProviders`. If there is none, end-users can not log in.
 For more information about configuring identity providers, see [Identity providers](../../how-to-guides/service-operators/identity-providers.hbs.md).
 
 The deployment can be further customized by configuring replicas, resources, http server and logging properties.
@@ -90,7 +90,7 @@ spec:
   identityProviders: # optional
     # each must be one and only one of internalUnsafe, ldap, openID or saml
     - name: "" # must be unique
-               # must follow the DNS Subdomain formatting (RFC 1123): 
+               # must follow the DNS Subdomain formatting (RFC 1123):
                # https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names
                # must not start with 'client' or 'unknown'
       internalUnsafe: # requires annotation `sso.apps.tanzu.vmware.com/allow-unsafe-identity-provider: ""`
@@ -158,7 +158,7 @@ spec:
             depth: 0
           roleAttribute: "" # deprecated, use 'ldap.roles.fromUpstream.attribute' instead.
     - name: "" # must be unique
-               # must follow the DNS Subdomain formatting (RFC 1123): 
+               # must follow the DNS Subdomain formatting (RFC 1123):
                # https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names
                # must not start with 'client' or 'unknown'
       openID:
@@ -266,7 +266,7 @@ status:
 
 Alternatively, you can interactively discover the spec with:
 
-```shell
+```console
 kubectl explain authservers.sso.apps.tanzu.vmware.com
 ```
 
@@ -331,7 +331,7 @@ storage:
    port: "" # the port of the configured Redis
 tls:
   deactivated: false
-  # One of issuerRef, certificateRef or secretRef is set if TLS is enabled 
+  # One of issuerRef, certificateRef or secretRef is set if TLS is enabled
   issuerRef:
     name: ""
     kind: ""

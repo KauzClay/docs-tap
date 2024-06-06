@@ -180,19 +180,19 @@ Git repository for a cluster named `full-tap-cluster`:
 
 1. The following is used to deploy the application by using `kapp`:
 
-    ```terminal
-    kapp deploy --app tanzu-sync --file <(ytt \
-        --file tanzu-sync/app/config \
-        --file cluster-config/config/tap-install/.tanzu-managed/version.yaml \
-        --data-values-file tanzu-sync/app/values/ \
-        --data-value secrets.sops.age_key=$(cat $HOME/key.txt) \
-        --data-value secrets.sops.registry.hostname="hostname" \
-        --data-value secrets.sops.registry.username="foo@example.com" \
-        --data-value secrets.sops.registry.password="password" \
-        --data-value secrets.sops.git.ssh.private_key=$(cat $HOME/.ssh/my_private_key) \
-        --data-value secrets.sops.git.ssh.known_hosts=$(ssh-keyscan github.com) \
-    )
-    ```
+   ```console
+   kapp deploy --app tanzu-sync --file <(ytt \
+       --file tanzu-sync/app/config \
+       --file cluster-config/config/tap-install/.tanzu-managed/version.yaml \
+       --data-values-file tanzu-sync/app/values/ \
+       --data-value secrets.sops.age_key=$(cat $HOME/key.txt) \
+       --data-value secrets.sops.registry.hostname="hostname" \
+       --data-value secrets.sops.registry.username="foo@example.com" \
+       --data-value secrets.sops.registry.password="password" \
+       --data-value secrets.sops.git.ssh.private_key=$(cat $HOME/.ssh/my_private_key) \
+       --data-value secrets.sops.git.ssh.known_hosts=$(ssh-keyscan github.com) \
+   )
+   ```
 
 ## <a id="tanzu-sync-scripts"></a> Tanzu Sync Scripts
 

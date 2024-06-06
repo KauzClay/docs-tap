@@ -278,7 +278,7 @@ Using Namespace Provisioner Controller
 : Annotate or label a namespace using the default _parameter_prefix_ `param.nsp.tap/` followed by the
 YAML path to CPU or memory limits as follows:
 
-    ```shell
+    ```console
     kubectl annotate ns YOUR-NEW-DEVELOPER-NAMESPACE param.nsp.tap/limits.default.cpu=1100m
 
     kubectl annotate ns YOUR-NEW-DEVELOPER-NAMESPACE param.nsp.tap/limits.default.memory=2Gi

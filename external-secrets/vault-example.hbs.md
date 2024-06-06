@@ -1,6 +1,6 @@
 # Integrate External Secrets Operator with HashiCorp Vault in Tanzu Application Platform
 
-This topic shows you how to integrate External Secrets Operator with [HashiCorp Vault](https://www.vaultproject.io/) in Tanzu Application Platform. 
+This topic shows you how to integrate External Secrets Operator with [HashiCorp Vault](https://www.vaultproject.io/) in Tanzu Application Platform.
 
 The operator synchronizes secret data from external APIs to a Kubernetes secret resource. For more information about Kubernetes secret resources, see the
 [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret).
@@ -93,7 +93,7 @@ To set up the External Secrets Operator integration with HashiCorp Vault:
 
 1. Create an `ExternalSecret` resource that uses the `SecretStore` you just created by running:
 
-    ```sh
+    ```console
     cat <<EOF | tanzu external-secrets secret create -y -f -
     ---
     apiVersion: external-secrets.io/v1beta1

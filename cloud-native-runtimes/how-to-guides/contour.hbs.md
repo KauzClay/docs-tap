@@ -52,7 +52,7 @@ The following prerequisites are required to configure Cloud Native Runtimes with
 
 To identify your cluster's Contour version, run:
 
-```shell script
+```console
 export CONTOUR_NAMESPACE=CONTOUR-NAMESPACE
 export CONTOUR_DEPLOYMENT=$(kubectl get deployment --namespace $CONTOUR_NAMESPACE --output name)
 kubectl get $CONTOUR_DEPLOYMENT --namespace $CONTOUR_NAMESPACE --output jsonpath="{.spec.template.spec.containers[].image}"

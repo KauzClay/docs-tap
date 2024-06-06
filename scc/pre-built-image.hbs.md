@@ -57,7 +57,7 @@ Your app must adhere to the following Knative standards:
 To select a prebuilt image, set the `spec.image` field in your `workload.yaml` file
 with the name of the container image that contains the app to deploy by running:
 
-```bash
+```console
 tanzu apps workload create WORKLOAD-NAME \
   --app APP-NAME \
   --type TYPE \
@@ -74,7 +74,7 @@ Where:
 For example, if you have an image named `IMAGE`, you can create a workload
 with the flag mentioned earlier:
 
-```bash
+```console
 tanzu apps workload create tanzu-java-web-app \
   --app tanzu-java-web-app \
   --type web \
@@ -143,14 +143,14 @@ reference it in the workload.
 
 2. Push the container image to a container image registry by running:
 
-    ```bash
+    ```console
     docker build -t IMAGE .
     docker push IMAGE
     ```
 
 3. Create a workload by running:
 
-    ```bash
+    ```console
     tanzu apps workload create tanzu-java-web-app \
       --type web \
       --app tanzu-java-web-app \
@@ -176,7 +176,7 @@ reference it in the workload.
 
 4. Run the following workload:
 
-    ```bash
+    ```console
     tanzu apps workload get tanzu-java-web-app
     ```
     Expected output:
@@ -210,7 +210,7 @@ For example, using the same sample repository as mentioned before
 
 1. Build the image by running the following command from the root of the repository:
 
-    ```bash
+    ```console
     IMAGE=ghcr.io/kontinue/hello-world:tanzu-java-web-app
     ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE
     ```
@@ -238,7 +238,7 @@ For example, using the same sample repository as mentioned before
 
 1. Push the image you built to the container image registry by running:
 
-    ```bash
+    ```console
     IMAGE=ghcr.io/kontinue/hello-world:tanzu-java-web-app
     docker push $IMAGE
     ```
@@ -331,7 +331,7 @@ For example, if you create a workload using an image named `hello-world`,
 tagged `tanzu-java-web-app` hosted under `ghcr.io` in the `kontinue`
 repository:
 
-```bash
+```console
 tanzu apps workload create tanzu-java-web-app \
   --app tanzu-java-web-app \
   --type web \

@@ -1,10 +1,10 @@
 # Uninstall Application Single Sign-On
 
-This topic tells you how to uninstall Application Single Sign-On (commonly called AppSSO). 
+This topic tells you how to uninstall Application Single Sign-On (commonly called AppSSO).
 
 Delete the AppSSO package by running:
 
-```shell
+```console
 tanzu package installed delete appsso --namespace tap-install
 ```
 

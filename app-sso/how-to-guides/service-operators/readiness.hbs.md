@@ -1,13 +1,13 @@
 # AuthServer readiness for AppSSO
 
-This topic tells you how to use `AuthServer.status` as a reliable source to verify 
-an `AuthServer`'s readiness for Application Single Sign-On (commonly called AppSSO). 
+This topic tells you how to use `AuthServer.status` as a reliable source to verify
+an `AuthServer`'s readiness for Application Single Sign-On (commonly called AppSSO).
 
 You can verify your `AuthServer` by ensuring:
 
 - there is at least one token signing key configured.
 
-    ```shell
+    ```console
     curl -X GET {spec.issuerURI}/oauth2/jwks
     ```
 
@@ -16,7 +16,7 @@ You can verify your `AuthServer` by ensuring:
 
 - OpenID discovery endpoint is available.
 
-    ```shell
+    ```console
     curl -X GET {spec.issuerURI}/.well-known/openid-configuration
     ```
 
@@ -24,7 +24,7 @@ You can verify your `AuthServer` by ensuring:
 
 ## Client registration check
 
-It is helpful to verify an `AuthServer` by running a test run with a test `ClientRegistration`. 
+It is helpful to verify an `AuthServer` by running a test run with a test `ClientRegistration`.
 It ensures that app developers can register clients with the `AuthServer` successfully.
 
 Follow the steps below to ensure that your installation can:
@@ -64,7 +64,7 @@ This defines a test `ClientRegistration` with the `client_credentials` OAuth gra
 
 Apply the `ClientRegistration`:
 
-```shell
+```console
 kubectl apply -f appsso-test-client.yaml
 ```
 
@@ -74,7 +74,7 @@ Once the `ClientRegistration` is applied, inspects its status and verify it's re
 
 You should be able to get a token with the client credentials grant for example:
 
-```shell
+```console
 # Get client id (`base64` command has to be available on the command line)
 export APPSSO_TEST_CLIENT_ID=$(kubectl get secret test-client -n default -o jsonpath="{.data['client-id']}" | base64 --decode)
 

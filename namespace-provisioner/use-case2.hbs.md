@@ -34,7 +34,7 @@ Using Namespace Provisioner controller
     - `profile` in your `tap-values.yaml` file is either` full, iterate` or `build`.
      `pipeline` parameter that matches the language for which the pipeline is for.
 
-    ```shell
+    ```console
     #@ load("@ytt:data", "data")
     #@ def in_list(key, list):
     #@  return hasattr(data.values.tap_values, key) and (data.values.tap_values[key] in list)
@@ -48,7 +48,7 @@ Using Namespace Provisioner controller
     * `profile` in your `tap-values.yaml` file is either `full` or `build`.
     * `scanpolicy `parameter matches either `strict` or `lax`
 
-    ```shell
+    ```console
     #@ load("@ytt:data", "data")
     #@ def in_list(key, list):
     #@  return hasattr(data.values.tap_values, key) and (data.values.tap_values[key] in list)
@@ -58,11 +58,11 @@ Using Namespace Provisioner controller
 
     Label your developer namespace using the `parameter_prefixes` with the [parameter](parameters.hbs.md#namespace-parameters) to be used in the `additional_sources` as follows:
 
-    ```shell
+    ```console
     kubectl label namespaces YOUR-NEW-DEVELOPER-NAMESPACE tap.tanzu.vmware.com/scanpolicy=lax
     ```
 
-    ```shell
+    ```console
     kubectl label namespaces YOUR-NEW-DEVELOPER-NAMESPACE tap.tanzu.vmware.com/pipeline=java
     ```
 
@@ -120,7 +120,7 @@ Using GitOps
     * `profile` in your `tap-values.yaml` file is either` full, iterate` or `build`.
     * `pipeline` parameter that matches the language for which the pipeline is for.
 
-    ```shell
+    ```console
     #@ load("@ytt:data", "data")
     #@ def in_list(key, list):
     #@  return hasattr(data.values.tap_values, key) and (data.values.tap_values[key] in list)
@@ -134,7 +134,7 @@ Using GitOps
     * `profile` in your `tap-values.yaml` file is either `full` or `build`.
     * `scanpolicy `parameter matches either `strict` or `lax`
 
-    ```shell
+    ```console
     #@ load("@ytt:data", "data")
     #@ def in_list(key, list):
     #@  return hasattr(data.values.tap_values, key) and (data.values.tap_values[key] in list)
@@ -183,6 +183,6 @@ Using workload yaml
 
 Run the following command to verify the resources have been created in the namespace:
 
-```shell
+```console
 kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange,pipeline,scanpolicies -n YOUR-NEW-DEVELOPER-NAMESPACE
 ```

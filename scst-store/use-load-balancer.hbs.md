@@ -1,6 +1,6 @@
 # Use your LoadBalancer with Supply Chain Security Tools - Store
 
-This topic describes how to use your LoadBalancer with Supply Chain Security Tools (SCST) - Store. 
+This topic describes how to use your LoadBalancer with Supply Chain Security Tools (SCST) - Store.
 
 ## Configure LoadBalancer
 
@@ -8,12 +8,12 @@ This topic describes how to use your LoadBalancer with Supply Chain Security Too
 >Consider the recommended configuration of enabling
 >[Ingress](ingress.hbs.md).
 
-To configure a `LoadBalancer`: 
+To configure a `LoadBalancer`:
 
 1. Edit `/etc/hosts/` to use the
 external IP address of the `metadata-store-app` service.
 
-    ```bash
+    ```console
     METADATA_STORE_IP=$(kubectl get service/metadata-store-app --namespace metadata-store -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
     METADATA_STORE_PORT=$(kubectl get service/metadata-store-app --namespace metadata-store -o jsonpath="{.spec.ports[0].port}")
     METADATA_STORE_DOMAIN="metadata-store-app.metadata-store.svc.cluster.local"
@@ -27,7 +27,7 @@ external IP address of the `metadata-store-app` service.
     >**Note** On EKS, you must get the IP address for the LoadBalancer. Find the IP
     >address by running something similar to the following: `dig
     >RANDOM-SHA.us-east-2.elb.amazonaws.com`.
-    >Where `RANDOM-SHA` is the EXTERNAL-IP received for the LoadBalancer. 
+    >Where `RANDOM-SHA` is the EXTERNAL-IP received for the LoadBalancer.
 
 1. Select one of the IP addresses returned from the `dig` command and write it to the
 `/etc/hosts` file.

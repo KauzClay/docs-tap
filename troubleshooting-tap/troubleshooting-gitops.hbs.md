@@ -7,26 +7,26 @@ This topic tells you how to troubleshoot Tanzu GitOps Reference Implementation (
 After the Tanzu Sync application is installed in the cluster, the main
 resource to check is the sync app in the `tanzu-sync` namespace:
 
-```terminal
+```console
 kubectl -n tanzu-sync get app/sync --template='\{{.status.usefulErrorMessage}}'
 ```
 
 Example error:
 
-```terminal
+```console
 kapp: Error: waiting on reconcile packageinstall/tap (packaging.carvel.dev/v1alpha1) namespace: tap-install:
   Finished unsuccessfully (Reconcile failed:  (message: Error (see .status.usefulErrorMessage for details)))
 ```
 
-This indicates that the resource `packageinstall/tap` in the namespace `tap-install` failed. 
+This indicates that the resource `packageinstall/tap` in the namespace `tap-install` failed.
 See the following section for the solution details.
 
 ## <a id="tanzu-sync-app-error"></a>Tanzu Application Platform install error
 
-After the Tanzu Sync application is installed in the cluster, the Tanzu Application Platform starts to install. 
+After the Tanzu Sync application is installed in the cluster, the Tanzu Application Platform starts to install.
 The resource to check is the Tanzu Application Platform package install in the `tap-install` namespace:
 
-```terminal
+```console
 kubectl -n tap-install get packageinstall/tap --template='\{{.status.usefulErrorMessage}}'
 ```
 
@@ -38,7 +38,7 @@ You might encounter one of the following errors:
 
 **Error:** Reconciliation fails with `Given data value is not declared in schema`
 
-```terminal
+```console
 ^ Reconcile failed:  (message: ytt: Error: Overlaying data values (in following order: tap-install/.tanzu-managed/version.yaml, additional data values):
 One or more data values were invalid
 ====================================
@@ -55,7 +55,7 @@ tap-values.yaml:
 
 **Problem:** The values files were not generated according to the expected schema.
 
-**Solution:** Ensure both non-sensitive and sensitive Tanzu Application Platform values files to adhere 
+**Solution:** Ensure both non-sensitive and sensitive Tanzu Application Platform values files to adhere
 to the schema described in [configure values](#configure-values).
 
 Incorrect values example:

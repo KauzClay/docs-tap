@@ -14,7 +14,7 @@ upstream, open-source project's version. The contained cert-manager version is
 reflected in `Package.spec.includedSoftware`. You can identify the version of
 cert-manager as follows:
 
-```shell
+```console
 kubectl get package -n tap-install cert-manager.tanzu.vmware.com.2.0.0 -ojsonpath='{.spec.includedSoftware}' | jq
 [
  {
@@ -25,5 +25,5 @@ kubectl get package -n tap-install cert-manager.tanzu.vmware.com.2.0.0 -ojsonpat
 ]
 ```
 
-> **Caution** ACME HTTP01 challenges can fail under certain conditions. 
+> **Caution** ACME HTTP01 challenges can fail under certain conditions.
 > For more information, see [ACME challenges](acme-challenges.hbs.md).

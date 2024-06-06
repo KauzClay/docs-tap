@@ -1,12 +1,12 @@
 # Configure workloads to trust a custom CA
 
-This topic tells you how to configure workloads to trust a custom Certificate 
+This topic tells you how to configure workloads to trust a custom Certificate
 Authority (commonly called CA) for Application Single Sign-On (commonly called AppSSO).
 
 ## Overview
 
 If your `ClientRegistration` selects an `AuthServer` that serves a certificate from a custom CA, your `Workload`
-does not trust it by default. This is because the certificate is not issued by a trusted certificate authority from the `Workload`'s perspective. 
+does not trust it by default. This is because the certificate is not issued by a trusted certificate authority from the `Workload`'s perspective.
 
 To establish trust between a `Workload` and an `AuthServer`:
 
@@ -76,7 +76,7 @@ spec:
 
 ## <a id="append-ca"></a> Appending custom CA certificate Secret reference to Workload
 
-With custom CA certificate available in the workloads' namespace, you can append it to the `Workload` as a service 
+With custom CA certificate available in the workloads' namespace, you can append it to the `Workload` as a service
 resource claim:
 
 **Example:** Appending custom CA certificate Secret as a resource claim.
@@ -99,7 +99,7 @@ spec:
 
 Alternatively, you can provide the workload with a `--service-ref` parameter for the same effect:
 
-```shell
+```console
 --service-ref "ca-cert=v1:Secret:tap-ca-cert"
 ```
 

@@ -165,7 +165,7 @@ modification to is `source-to-url` provided by the
 
 1. Find the image that contains the supply chain definition:
 
-    ```bash
+    ```console
     kubectl get app ootb-supply-chain-basic \
       -n tap-install \
       -o jsonpath={.spec.fetch[0].imgpkgBundle.image}
@@ -177,7 +177,7 @@ modification to is `source-to-url` provided by the
 
 2. Pull the contents of the bundle into a directory named `ootb-supply-chain-basic`:
 
-    ```bash
+    ```console
     imgpkg pull \
       -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:f2ad401bb3e850940... \
       -o ootb-supply-chain-basic
@@ -195,7 +195,7 @@ modification to is `source-to-url` provided by the
 
 3. Inspect the files obtained:
 
-    ```bash
+    ```console
     tree ./ootb-supply-chain-basic/
     ```
 
@@ -230,7 +230,7 @@ modification to is `source-to-url` provided by the
     they are submitted to Kubernetes. So before applying the modified supply chain
     to the cluster, use YTT to interpolate those values. After that, run:
 
-    ```bash
+    ```console
     ytt \
       --ignore-unknown-comments \
       --file ./ootb-supply-chain-basic/config \
@@ -279,7 +279,7 @@ installs by upating `tap-values.yaml`:
 
 1. Find the image that contains the templates:
 
-    ```bash
+    ```console
     kubectl get app ootb-templates \
       -n tap-install \
       -o jsonpath={.spec.fetch[0].imgpkgBundle.image}
@@ -291,7 +291,7 @@ installs by upating `tap-values.yaml`:
 
 1. Pull the contents of the bundle into a directory named `ootb-templates`:
 
-    ```bash
+    ```console
     imgpkg pull \
       -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:a5e177f38d7.. \
       -o ootb-templates
@@ -309,7 +309,7 @@ installs by upating `tap-values.yaml`:
 
 2. Confirm that you downloaded all the templates:
 
-    ```bash
+    ```console
     tree ./ootb-templates
     ```
 

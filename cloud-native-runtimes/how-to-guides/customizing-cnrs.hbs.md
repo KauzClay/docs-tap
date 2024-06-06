@@ -8,7 +8,7 @@ There are many package configuration options exposed through data values that al
 
 To yield all the configuration options available in a Cloud Native Runtimes package version:
 
-```sh
+```console
 export CNR_VERSION=2.4.0
 tanzu package available get cnrs.tanzu.vmware.com/${CNR_VERSION} --values-schema -n tap-install
 ```

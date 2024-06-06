@@ -108,7 +108,7 @@ status:
 
 Alternatively, you can interactively discover the API with:
 
-```shell
+```console
 kubectl explain workloadreg
 ```
 

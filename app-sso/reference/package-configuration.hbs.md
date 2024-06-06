@@ -86,10 +86,10 @@ The domain template is applied with the configured `workload_domain_name`
 and the name and namespace specified in `WorkloadRegistration.spec.workloadRef`.
 For more information, see [Redirect URI templating](./api/workloadregistration.hbs.md#redirect-uri-templating).
 
-VMware recommends maintaining consistency between the values of `default_workload_domain_template` 
+VMware recommends maintaining consistency between the values of `default_workload_domain_template`
 and [Cloud Native Runtimes](../../cloud-native-runtimes/about.hbs.md)'
-`domain_template`. Both values share the same default configuration. 
-However, for customization purposes, using the same value for both settings ensures 
+`domain_template`. Both values share the same default configuration.
+However, for customization purposes, using the same value for both settings ensures
 that `Workloads` get the expected redirect URIs templated.
 
 ### <a id="domain-name"></a> `domain_name`
@@ -188,7 +188,7 @@ configuration schema:
 
 <!---
 Generated with:
-```shell
+```console
 cat ~/workspace/sso4k8s/carvel/config/values-schema.yml
 ```
 --->

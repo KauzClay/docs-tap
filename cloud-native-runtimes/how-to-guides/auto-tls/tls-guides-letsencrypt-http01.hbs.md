@@ -99,7 +99,7 @@ To verify your certificate:
 
 1. You can access your workload using the domain you specified with `curl` or a web browser and verify that it is using a TLS certificate issued by the custom Issuer or ClusterIssuer.
 
-   ```sh
+   ```console
    tanzu apps workload get WORKLOAD-NAME --namespace DEVELOPER-NAMESPACE
    kubectl get ksvc WORKLOAD-NAME -n DEVELOPER-NAMESPACE -o jsonpath='{.status.url}'
    ```

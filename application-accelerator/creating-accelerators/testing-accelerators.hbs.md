@@ -87,7 +87,7 @@ The script also uses `curl` and `jq`.
 The script downloads artifacts compatible with Tanzu Application Platform version v1.4 and a Linux operating
 system. Update the script to suit the Tanzu Application Platform version and OS that you are using.
 
-```bash
+```console
 #!/bin/bash
 
 # Get access token using personal Tanzu Network refresh token

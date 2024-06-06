@@ -27,13 +27,13 @@ Follow these steps to fetch the single-page Angular app source code:
 
         Download the zip file of the accelerator source code and identify your `AuthServer` Issuer URI by running:
 
-        ```shell
+        ```console
         kubectl get authserver -A
         ```
 
         Generate the accelerator by using the `tanzu accelerator` CLI:
 
-        ```shell
+        ```console
         tanzu accelerator generate angular-frontend \
           --server-url TAP-GUI-SERVER-URL \
           --options '{
@@ -47,7 +47,7 @@ Follow these steps to fetch the single-page Angular app source code:
 
 1. Unzip the resulting `.zip` file into the `angular-frontend` directory in your workspace:
 
-    ```shell
+    ```console
     unzip angular-frontend
     cd angular-frontend
     git init
@@ -65,7 +65,7 @@ Follow these steps to fetch the single-page Angular app source code:
 You must create a namespace for your workloads for the `Workload` resources to function properly.
 If you have a workloads namespace already, you can skip this step.
 
-```shell
+```console
 kubectl create namespace my-apps
 kubectl label namespaces my-apps apps.tanzu.vmware.com/tap-ns=""
 ```
@@ -121,7 +121,7 @@ Follow these steps to claim the credentials for an Application Single Sign-On se
 
 1. Apply the `ClassClaim` and verify the status is `Ready` by running:
 
-    ```shell
+    ```console
     kubectl get classclaim angular-frontend --namespace my-apps
     ```
 
@@ -142,7 +142,7 @@ Open the file and verify that it adheres to the following structure:
 
 Retrieve your client id by running:
 
-```shell
+```console
 kubectl get secret \
   $(kubectl get classclaim -n my-apps angular-frontend -o jsonpath='{.status.binding.name}') \
   --namespace my-apps \
@@ -151,7 +151,7 @@ kubectl get secret \
 
 Retrieve your issuer URI by running:
 
-```shell
+```console
 kubectl get secret \
   $(kubectl get classclaim -n my-apps angular-frontend -o jsonpath='{.status.binding.name}') \
   --namespace my-apps \
@@ -166,7 +166,7 @@ The `angular-frontend` sample application requires a back end application to sta
 
 1. Start a sample simulated back end by running:
 
-    ```shell
+    ```console
     kubectl run sample-backend --image nginx:NGINX-VERSION -n my-apps
     kubectl expose pod sample-backend --port 80 -n my-apps
     ```
@@ -192,7 +192,7 @@ Follow these steps to deploy the `Workload`:
 
 1. Create the `angular-frontend` accelerator `Workload` by running:
 
-    ```shell
+    ```console
     tanzu apps workload create angular-frontend \
         --namespace my-apps \
         --type web \
@@ -210,13 +210,13 @@ Follow these steps to deploy the `Workload`:
 
 1. Query the latest status of the workload by running:
 
-    ```shell
+    ```console
     tanzu apps workload get angular-frontend --namespace my-apps
     ```
 
 1. Monitor the `Workload` logs:
 
-    ```shell
+    ```console
     tanzu apps workload tail angular-frontend --namespace my-apps
     ```
 
@@ -238,19 +238,19 @@ Delete the running application by running these commands:
 
 1. Delete the sample application `Workload`:
 
-    ```shell
+    ```console
     tanzu apps workload delete angular-frontend --namespace my-apps
     ```
 
 1. Delete the claim:
 
-    ```shell
+    ```console
     tanzu service class-claims delete angular-frontend --namespace my-apps
     ```
 
 1. Delete the sample back end if was previously applied:
 
-    ```shell
+    ```console
     kubectl delete svc sample-backend --namespace my-apps
     kubectl delete pod sample-backend --namespace my-apps
     ```

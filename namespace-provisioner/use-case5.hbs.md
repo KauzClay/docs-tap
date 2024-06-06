@@ -82,7 +82,7 @@ scan and Snyk for Image scan:
 Using Tanzu CLI
 : Create workload using tanzu apps CLI command
 
-  ```shell
+  ```console
   tanzu apps workload apply tanzu-java-web-app \
   --git-repo https://github.com/sample-accelerators/tanzu-java-web-app \
   --git-branch main \

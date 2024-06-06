@@ -15,7 +15,7 @@ This topic tells you how to use a GitHub action to create a Tanzu Build Service 
 
 1. Create a developer namespace where the build resource will be created.
 
-    ```bash
+    ```console
     kubectl create namespace DEVELOPER-NAMESPACE
     ```
 
@@ -34,7 +34,7 @@ Alternatively, it might be possible to run the action on a custom runner within 
 
 These are the minimum permissions required on the Tanzu Build Service cluster:
 
-    ```bash
+    ```console
     ClusterRole
      └ kpack.io
        └ clusterbuilders verbs=[get]
@@ -131,7 +131,7 @@ Create the required secrets on the repository
 through [GitHub.com](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
 or through the `gh` CLI:
 
-    ```bash
+    ```console
     gh secret set CA_CERT --app actions --body "$CA_CERT"
     gh secret set NAMESPACE --app actions --body "$NAMESPACE"
     gh secret set TOKEN --app actions --body "$TOKEN"

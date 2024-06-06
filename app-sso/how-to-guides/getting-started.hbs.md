@@ -14,21 +14,21 @@ For more information, see [Secure a workload with Application Single Sign-On](ap
 
 ## <a id='prereqs'></a> Prerequisites
 
-To get start with Application Single Sign-On, you must: 
+To get start with Application Single Sign-On, you must:
 
 - Install Application Single Sign-On on your Tanzu Application Platform cluster.
 For more information, see [Install Application Single Sign-On](platform-operators/installation.hbs.md).
-- Install the [Tanzu CLI](../../install-tanzu-cli.hbs.md) on your machine 
+- Install the [Tanzu CLI](../../install-tanzu-cli.hbs.md) on your machine
 and connect to a Tanzu cluster.
 
 ## <a id='concepts'></a>Key concepts
 
-At the core of Application Single Sign-On is the concept of the Authorization Server, 
+At the core of Application Single Sign-On is the concept of the Authorization Server,
 outlined by the [AuthServer custom resource](../reference/api/authserver.hbs.md).
 Service Operators create those resources to provision running Authorization Servers,
 which are [OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html)
 Providers. They issue [ID Tokens](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)
-to the client applications, which contain identity information about the end user, 
+to the client applications, which contain identity information about the end user,
 such as email, first name, last name and so on.
 
 ![Diagram of Application Single Sign-On components and how they interact with the end-users and client applications](../../images/app-sso/appsso-concepts.png)
@@ -65,7 +65,7 @@ The following steps outline how a client application uses an `AuthServer` to aut
 }
 ```
 
-`roles` claim is included in an `id_token` only if user roles are mapped and the 
+`roles` claim is included in an `id_token` only if user roles are mapped and the
 `roles` scope is requested.
 For more information about mapping for OpenID Connect, LDAP and SAML, see:
 
@@ -73,7 +73,7 @@ For more information about mapping for OpenID Connect, LDAP and SAML, see:
 - [LDAP external groups mapping](service-operators/identity-providers.hbs.md#ldap-external-groups-mapping)
 - [SAML (experimental) external groups mapping](service-operators/identity-providers.hbs.md#saml-external-groups-mapping)
 
-ID Tokens are signed by the `AuthServer` by using [Token signature keys](service-operators/configure-token-signature.hbs.md). 
+ID Tokens are signed by the `AuthServer` by using [Token signature keys](service-operators/configure-token-signature.hbs.md).
 Client applications can verify their validity by using the `AuthServer`'s public keys.
 
 ## <a id="curate-service-offering"></a> Curate an AppSSO service offering
@@ -87,7 +87,7 @@ Sign-On. Use this topic to learn how to:
 
 ### <a id="prereqs"></a> Prerequisites
 
-You must install and correctly configure Application Single Sign-On on your 
+You must install and correctly configure Application Single Sign-On on your
 Tanzu Application Platform cluster.
 
 Application Single Sign-On is installed with the `run`, `iterate`, and `full` profiles.
@@ -95,7 +95,7 @@ No extra steps are required.
 
 To verify Application Single Sign-On is installed on your cluster, run:
 
-```shell
+```console
 tanzu package installed list -A | grep "sso.apps.tanzu.vmware.com"
 ```
 
@@ -104,13 +104,13 @@ see [Install Application Single Sign-On](./platform-operators/installation.md).
 
 ### <a id="discover"></a> Discover the existing Application Single Sign-On service offerings
 
-The Application Single Sign-On login servers are a consumable service offering in 
+The Application Single Sign-On login servers are a consumable service offering in
 Tanzu Application Platform. The `ClusterWorkloadRegistrationClass` represents
 these service offerings.
 
 In your Kubernetes cluster, run the following command:
 
-```bash
+```console
 tanzu service class list
 ```
 
@@ -123,7 +123,7 @@ production environments. For more information about the identity providers, see 
 
 In a non-poduction environment, [`ClusterUnsafeTestLogin`](../reference/api/clusterunsafetestlogin.hbs.md) is the recommended way to get started with Application Single Sign-On.
 
-```bash
+```console
 cat <<EOF | kubectl apply -f -
 apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
 kind: ClusterUnsafeTestLogin
@@ -136,35 +136,35 @@ EOF
 
 To see the service offering, run:
 
-```shell
+```console
 tanzu service class list
 ```
 
 Expect to see the following output:
 
-```shell
+```console
 NAME                          DESCRIPTION
 my-login  Login by AppSSO - user:password - UNSAFE FOR PRODUCTION!
 ```
 
->**Caution** This login offering is not safe for production because it hard codes 
+>**Caution** This login offering is not safe for production because it hard codes
 the user and password.
 
 You can wait for the `ClusterUnsafeTestLogin` to be ready by running:
 
-```shell
+```console
 kubectl wait --for=condition=Ready clusterUnsafeTestLogin my-login
 ```
 
 Alternatively, you can inspect your `ClusterUnsafeTestLogin` like any other resource:
 
-```shell
+```console
 kubectl get clusterunsafetestlogin.sso.apps.tanzu.vmware.com --all-namespaces
 ```
 
 Expect to see the following output:
 
-```shell
+```console
 NAME       ISSUER URI                           STATUS
 my-login   http://unsafe-my-login.appsso.<...>  Ready
 ```
@@ -173,32 +173,32 @@ You can visit the login page by using the `ISSUER URI`.
 
 ## <a id="claim-credentials"></a> Claim credentials
 
-Now that you have an Application Single Sign-On service offering. 
-The next step is to create a `ClassClaim`, which creates consumable credentials 
+Now that you have an Application Single Sign-On service offering.
+The next step is to create a `ClassClaim`, which creates consumable credentials
 for your workload, and allows your workload to connect to the login service
 offering by using the credentials.
 
 Select your preferred login offering from the available options:
 
-```bash
+```console
 tanzu service class list
 ```
 
 If there are none available, [you can create one yourself](#curate-an-appsso-service-offering):
 
-```bash
+```console
 tanzu service class-claim create my-workload \
   --class my-login \
   --parameter workloadRef.name=appsso-starter-java \
   --parameter redirectPaths='["/login/oauth2/code/appsso-starter-java"]'
 ```
 
-The `redirectPaths` is the login redirect within your application. This example 
+The `redirectPaths` is the login redirect within your application. This example
 deploys a minimal Spring application, so you can use the Spring Security path.
 
 Verify the status of your `ClassClaim` by running:
 
-```bash
+```console
 tanzu service class-claim list
 ```
 
@@ -217,16 +217,16 @@ Follow these steps to deploy a minimal Spring Boot application:
 
 1. List the available accelerators by running:
 
-    ```bash
+    ```console
     tanzu accelerator list
     ```
 
-    Expect to see an accelerator named `appsso-starter-java`. 
+    Expect to see an accelerator named `appsso-starter-java`.
     This is the accelerator to use.
 
 1. Create a project by running:
 
-    ```bash
+    ```console
     tanzu accelerator generate appsso-starter-java --server-url YOUR-TAP-SERVER-URI --options '{"appssoOfferingName": "my-login"}'
     ```
 
@@ -234,7 +234,7 @@ Follow these steps to deploy a minimal Spring Boot application:
 
 1. Unzip the file by running:
 
-    ```bash
+    ```console
     unzip appsso-starter-java.zip
     ```
 
@@ -242,7 +242,7 @@ Follow these steps to deploy a minimal Spring Boot application:
 
     1. The reference to the `serviceClaims` is the `ServiceClaim` you generated in the previous step. Replace `appsso-starter-java` in the `serviceClaims` section with `my-workload`.
     1. There is a reference to a remote version of your repository.
-       You can push this repository to your preferred Git repository and provide 
+       You can push this repository to your preferred Git repository and provide
        the reference here.
 
     The following code sample claimes the `ServiceClaim` from your appliction:
@@ -260,11 +260,11 @@ Follow these steps to deploy a minimal Spring Boot application:
 
 1. Deploy the workload by running:
 
-    ```bash
+    ```console
     kubectl apply -f config/workload.yaml
     ```
 
 The `ServiceClaim` connects your application to the `AppSSO AuthServer`.
 
-See the workload section of the Tanzu Application Platform Portal where you can 
+See the workload section of the Tanzu Application Platform Portal where you can
 find the URL for your workload at `https://tap-gui.YOUR-TAP-CLUSTER-DOMAIN`.

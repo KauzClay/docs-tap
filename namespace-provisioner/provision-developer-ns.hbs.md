@@ -11,7 +11,7 @@ Tanzu Application Platform (commonly known as TAP).
 
 Example secret creation, exported to all namespaces:
 
-```shell
+```console
 tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes --namespace tap-install
 ```
 
@@ -37,13 +37,13 @@ Using Namespace Provisioner Controller
 
   1. Create a namespace using kubectl or any other means
 
-      ```shell
+      ```console
       kubectl create namespace YOUR-NEW-DEVELOPER-NAMESPACE
       ```
 
   2. Label your new developer namespace with the default *namespace_selector* `apps.tanzu.vmware.com/tap-ns=""`.
 
-      ```shell
+      ```console
       kubectl label namespaces YOUR-NEW-DEVELOPER-NAMESPACE apps.tanzu.vmware.com/tap-ns=""
       ```
 
@@ -56,7 +56,7 @@ Using Namespace Provisioner Controller
   3. Run the following command to verify the [default resources](default-resources.hbs.md) have been
      created in the namespace:
 
-      ```shell
+      ```console
       kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n YOUR-NEW-DEVELOPER-NAMESPACE
       ```
 

@@ -1,11 +1,11 @@
 # Token settings for Application Single Sign-On
 
-This topic tells you how to configure token expiry settings for Application Single 
+This topic tells you how to configure token expiry settings for Application Single
 Sign-On (commonly called AppSSO).
 
 ## <a id='token-expiry-settings'></a> Token expiry
 
-AppSSO allows you to optionally configure the token expiry settings in your 
+AppSSO allows you to optionally configure the token expiry settings in your
 `AuthServer` resource.
 
 The default token expiry settings are as follows:
@@ -16,11 +16,11 @@ The default token expiry settings are as follows:
 | Identity token | 12 hours                |
 | Refresh token  | 720 hours or 30 days    |
 
-VMware recommends setting a shorter lifetime for access tokens, typically measured 
-in hours, and a longer lifetime for refresh tokens, typically measured in days. 
+VMware recommends setting a shorter lifetime for access tokens, typically measured
+in hours, and a longer lifetime for refresh tokens, typically measured in days.
 Refresh tokens acquire new access tokens, so they have a longer lifespan.
 
-To override the token expiry settings, configure the following in your `AuthServer` 
+To override the token expiry settings, configure the following in your `AuthServer`
 resource:
 
 ```yaml
@@ -44,7 +44,7 @@ spec:
 | Minutes | `10m`   | 10 minutes |
 | Hours   | `10h`   | 10 hours   |
 
-> **Note** The `expiry` field adheres to the duration constraints of the Go standard time library 
+> **Note** The `expiry` field adheres to the duration constraints of the Go standard time library
 > and does not support durations in units beyond hours, such as days or weeks.
 > For more information, see the [Go documentation](https://pkg.go.dev/time#Duration).
 
@@ -57,7 +57,7 @@ The token expiry constraints are as follows:
 
 ## <a id='verify'></a> Verify token settings
 
-After you set up an Application Single Sign-On `AuthServer`, you can verify that the token received by  applications looks as expected. 
+After you set up an Application Single Sign-On `AuthServer`, you can verify that the token received by  applications looks as expected.
 For this purpose, you can create a simple application consuming your `AuthServer`. The following YAML file creates such an application. When you access its URL, it enables you to log in by using your `AuthServer` and displays the token it receives.
 
 > **Caution**
@@ -68,7 +68,7 @@ For this purpose, you can create a simple application consuming your `AuthServer
 
 If you stored the following YAML in a file named `token-viewer.yaml`, you can apply it to your cluster by running the following command:
 
-```shell
+```console
   ytt -f token-viewer.yaml --data-value ingress_domain=YOUR-INGRESS-DOMAIN --data-value-yaml 'authserver_selector=YOUR-AUTHSERVER-SELECTOR' | kubectl apply -f-
 ```
 

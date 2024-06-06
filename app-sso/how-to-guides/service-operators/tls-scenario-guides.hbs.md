@@ -32,7 +32,7 @@ If a scenario requires a bespoke `domain_template`, it contains the relevant ins
 
 After applying each scenario, wait for your `AuthServer` to become ready and then test it by running:
 
-```shell
+```console
 kubectl wait --namespace login authserver/sso --for condition=Ready=True --timeout 500s
 curl --location "$(kubectl get --namespace login authserver sso --output=jsonpath='{.status.issuerURI}')/.well-known/openid-configuration"
 ```
@@ -40,7 +40,7 @@ curl --location "$(kubectl get --namespace login authserver sso --output=jsonpat
 Alternatively, visit the `AuthServer` with your browser.
 You can obtain its issuer URI by running:
 
-```shell
+```console
 kubectl get --namespace login authserver sso --output=jsonpath='{.status.issuerURI}'
 ```
 

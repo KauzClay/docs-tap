@@ -3,8 +3,8 @@
 In Application Single Sign-On (commonly called AppSSO), `ClientRegistration` is
 the request for client credentials for an [AuthServer](./authserver.hbs.md).
 
-`ClientRegistration` is created automatically during the process of 
-[claiming credentials](../../how-to-guides/app-operators/claim-credentials.hbs.md). 
+`ClientRegistration` is created automatically during the process of
+[claiming credentials](../../how-to-guides/app-operators/claim-credentials.hbs.md).
 However, there is also the option of creating it manually.
 
 It implements the [Service Bindings](https://servicebinding.io/spec/core/1.0.0/) `ProvisionedService`. The credentials
@@ -59,7 +59,7 @@ status:
 
 Alternatively, you can interactively discover the spec with:
 
-```shell
+```console
 kubectl explain clientregistrations.sso.apps.tanzu.vmware.com
 ```
 

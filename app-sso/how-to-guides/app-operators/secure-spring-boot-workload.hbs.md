@@ -27,13 +27,13 @@ Follow these steps to fetch the Application Single Sign-On Spring Boot applicati
 
         Download the zip file of the accelerator source code by running:
 
-        ```shell
+        ```console
         tanzu accelerator generate appsso-starter-java --server-url TAP_GUI_SERVER_URL
         ```
 
 2. Unzip the resulting `.zip` file into the `appsso-starter-java` directory in your workspace.
 
-    ```shell
+    ```console
     unzip appsso-starter-java
     ```
 
@@ -44,7 +44,7 @@ Follow these steps to fetch the Application Single Sign-On Spring Boot applicati
 You must create a namespace for your workloads for the `Workload` resources to function properly.
 If you have a workloads namespace already, you can skip this step.
 
-```shell
+```console
 kubectl create namespace my-apps
 kubectl label namespaces my-apps apps.tanzu.vmware.com/tap-ns=""
 ```
@@ -94,7 +94,7 @@ secure your workload:
 
 1. Apply the `ClassClaim` and verify its status by running:
 
-    ```shell
+    ```console
     kubectl get classclaim appsso-starter-java --namespace my-apps
     ```
 
@@ -109,7 +109,7 @@ Follow these steps to deploy the `Workload`:
 
 1. Create the Spring Boot accelerator `Workload` by running:
 
-    ```shell
+    ```console
     tanzu apps workload create appsso-starter-java \
         --namespace my-apps \
         --type web \
@@ -135,13 +135,13 @@ Follow these steps to deploy the `Workload`:
 
 1. Query the latest status of the workload by running:
 
-    ```shell
+    ```console
     tanzu apps workload get appsso-starter-java --namespace my-apps
     ```
 
 1. Monitor the `Workload` logs:
 
-    ```shell
+    ```console
     tanzu apps workload tail appsso-starter-java --namespace my-apps
     ```
 
@@ -162,12 +162,12 @@ Delete the running application by running the following commands:
 
 1. Delete the sample application `Workload`:
 
-    ```shell
+    ```console
     tanzu apps workload delete appsso-starter-java --namespace my-apps
     ```
 
 1. Delete the claim:
 
-    ```shell
+    ```console
     tanzu service class-claims delete appsso-starter-java --namespace my-apps
     ```

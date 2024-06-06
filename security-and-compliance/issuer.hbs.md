@@ -1,6 +1,6 @@
 # Secure exposed ingress endpoints in Tanzu Application Platform
 
-This topic tells you how to secure exposed ingress endpoints with TLS in Tanzu Application Platform (commonly known as TAP). 
+This topic tells you how to secure exposed ingress endpoints with TLS in Tanzu Application Platform (commonly known as TAP).
 
 Tanzu Application Platform exposes ingress endpoints so that:
 
@@ -70,7 +70,7 @@ and your device's certificate chain.
 
 1. Obtain `tap-ingress-selfsigned`'s PEM-encoded certificate
 
-    ```shell
+    ```console
     kubectl get secret \
       tap-ingress-selfsigned-root-ca \
       --namespace cert-manager \
@@ -158,7 +158,7 @@ LetsEncrypt production
   - Replace `.spec.acme.email` with the email that should receive notices
    for certificates from LetsEncrypt.
 
-  > **Caution** ACME HTTP01 challenges can fail under certain conditions. 
+  > **Caution** ACME HTTP01 challenges can fail under certain conditions.
   > For more information, see [ACME challenges](../cert-manager/acme-challenges.hbs.md).
 
   1. Create a `ClusterIssuer` for [Let's Encrypts](https://letsencrypt.org)
@@ -215,7 +215,7 @@ LetsEncrypt staging
   - Replace `.spec.acme.email` with the email that should receive notices
     for certificates from LetsEncrypt.
 
-  > **Caution** ACME HTTP01 challenges can fail under certain conditions. 
+  > **Caution** ACME HTTP01 challenges can fail under certain conditions.
   > For more information, see [ACME challenges](../cert-manager/acme-challenges.hbs.md).
 
   1. Create a `ClusterIssuer` for [Let's Encrypts](https://letsencrypt.org)
@@ -289,7 +289,7 @@ The `openssl` command-line utility is available on most
 operating systems. The following command retrieves the certificate from an
 ingress endpoint and shows its text representation:
 
-```shell
+```console
 # replace tap.example.com with your Tanzu Application Platform installation's ingress domain
 openssl s_client -showcerts -servername tap-gui.tap.example.com -connect tap-gui.tap.example.com:443 <<< Q | openssl x509 -text -noout
 ```

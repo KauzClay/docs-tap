@@ -17,7 +17,7 @@ where managing the workload through direct interactions and edits of a `yaml` fi
 The Apps CLI plug-in supports using `yaml` files to meet the requirements.
 
 When a workload is managed using a `yaml` file, that file must contain a single workload definition.
-ß
+
 For example, a valid file looks similar to the following example:
 
 ```yaml

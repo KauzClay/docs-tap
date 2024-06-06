@@ -32,6 +32,10 @@ This release includes the following changes, listed by component and area.
 
 - Feature description.
 
+#### <a id='1-11-0-scc'></a> v1.11.0 Features: Supply Chain Choreographer
+
+- [Carvel Package Supply Chains](./scc/carvel-package-supply-chain.hbs.md) are now GA.
+
 ---
 
 ### <a id='1-11-0-breaking-changes'></a> v1.11.0 Breaking changes

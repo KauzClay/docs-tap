@@ -1,7 +1,7 @@
-# Use blue-green deployment with Flagger for Supply Chain Choreographer (beta)
+# Use blue-green deployment with Flagger for Supply Chain Choreographer
 
 This topic tells you how to use blue-green deployment with Packages and PackageInstalls using
-Flagger for Supply Chain Choreographer (beta).
+Flagger for Supply Chain Choreographer.
 
 ## <a id="overview"></a> Overview
 
@@ -15,7 +15,7 @@ To use blue-green deployment, you must complete the following prerequisites:
 - Complete the prerequisites in
   [Configure and deploy to multiple environments with custom parameters](./config-deploy-multi-env.hbs.md).
 - Configure Carvel for your supply chain.
-  See [Carvel Package Supply Chains (beta)](./carvel-package-supply-chain.hbs.md).
+  See [Carvel Package Supply Chains](./carvel-package-supply-chain.hbs.md).
 - Configure a GitOps tool to deploy the package.
   See [Deploy Package and PackageInstall using Flux CD Kustomization](./delivery-with-flux.hbs.md)
   or [ArgoCD](./delivery-with-argo.hbs.md).

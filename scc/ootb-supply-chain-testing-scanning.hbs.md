@@ -22,7 +22,7 @@ Workloads that use source code or prebuilt images perform the following:
   5. Scanning the image for known vulnerabilities
   6. Applying operator-defined conventions to the container definition
   7. Deploying the application to the same cluster
-  8. (Beta) Alternatively, outputting a Carvel Package containing the application to a Git repository.
+  8. Alternatively, outputting a Carvel Package containing the application to a Git repository.
      See [Carvel Package Supply Chains](carvel-package-supply-chain.hbs.md).
 
 - Using a prebuilt application image:
@@ -30,7 +30,7 @@ Workloads that use source code or prebuilt images perform the following:
   1. Scanning the image for known vulnerabilities
   1. Applying operator-defined conventions to the container definition
   1. Creating a deliverable object for deploying the application to a cluster
-  1. (Beta) Alternatively, outputting a Carvel package containing the application to a Git repository.
+  1. Alternatively, outputting a Carvel package containing the application to a Git repository.
      See [Carvel Package Supply Chains](carvel-package-supply-chain.hbs.md).
 
 ## <a id="prerequisites"></a> Prerequisites

@@ -16,7 +16,7 @@ repository and applies the package to your runtime environments.
 To configure and deploy to multiple environments with custom parameters, ensure
 that your supply chains are compatible with the feature limits.
 
-This feature is in beta and has the following limitation:
+This feature has the following limitation:
 
 - Innerloop development is not supported.
 
@@ -24,14 +24,13 @@ This feature is in beta and has the following limitation:
 
 You can configure your supply chain to outputs Carvel packages and deliver
 configuration for each environment. For information about using Carvel, see
-[Carvel Package Supply Chains (beta)](carvel-package-supply-chain.hbs.md).
+[Carvel Package Supply Chains](carvel-package-supply-chain.hbs.md).
 
 ## <a id="using-flux"></a> Using GitOps delivery with Flux CD
 
 You can deliver packages created by the Carvel package supply chain, and add
 them to clusters, by using a GitOps repository. For information about this
-delivery method, see [Use Gitops Delivery with Flux CD
-(beta)](delivery-with-flux.hbs.md).
+delivery method, see [Use Gitops Delivery with Flux CD](delivery-with-flux.hbs.md).
 
 ## <a id="using-app"></a> Using GitOps delivery with Carvel App
 
@@ -50,7 +49,7 @@ about this delivery method, see [Use Gitops Delivery with Argo CD](delivery-with
 You can use blue-green deployment to transfer user traffic from one version of
 an app to a later version while both are running. For information about setting
 up blue-green deployment, see [Use blue-green deployment with Contour and
-PackageInstall (beta)](blue-green-with-packageinstall.hbs.md).
+PackageInstall](blue-green-with-packageinstall.hbs.md).
 
 ## <a id="config-canary"></a> Configuring canary deployment
 

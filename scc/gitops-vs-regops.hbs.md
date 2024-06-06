@@ -53,6 +53,7 @@ In the repository, files are located in the `./config/{workload-namespace}/{work
 #### <a id="examples-1"></a> Examples
 
 ---
+
 `tap-values.yaml`
 ```yaml
 gitops:
@@ -62,6 +63,7 @@ gitops:
 ```
 
 `workload`
+
 ```yaml
   name: incrediApp
   namespace: awesomeTeam
@@ -72,7 +74,6 @@ gitops:
       value: vmware-tanzu
     - name: gitops_repository_name
       value: cartographer
-
 ```
 
 Resulting GitOps repository: `https://github.com/vmware-tanzu/cartographer`

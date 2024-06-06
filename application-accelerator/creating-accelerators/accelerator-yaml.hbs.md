@@ -186,7 +186,6 @@ options:
       name: useMeat
       value: true
   ...
-
 ```
 
 ### <a id="examples"></a> Examples

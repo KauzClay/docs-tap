@@ -75,7 +75,7 @@ In Tanzu Application Platform, you can vendor in your app dependencies before a 
 To do this, put all `.gem` files into the custom path inside the app source code, for example, `custom_dir/custom_cache`.
 Then, create a `.bundle/config` file with the `BUNDLE_CACHE_PATH` setting configured:
 
-```
+```text
 ---
 BUNDLE_CACHE_PATH: "custom_dir/custom_cache"
 ```

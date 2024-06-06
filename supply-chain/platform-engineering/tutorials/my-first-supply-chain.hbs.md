@@ -36,21 +36,21 @@ Run:
 
     ```console
     Listing components from the catalog
-    NAMESPACE                   NAME                             AGE  DESCRIPTION                                                                       
-    alm-catalog                 app-config-server-1.0.0          18h  Generates configuration for a Server application from a Conventions PodIntent.    
-    alm-catalog                 app-config-web-1.0.0             18h  Generates configuration for a Web application from a Conventions PodIntent.       
-    alm-catalog                 app-config-worker-1.0.0          18h  Generates configuration for a Worker application from a Conventions PodIntent.    
-    alm-catalog                 carvel-package-1.0.0             18h  Generates a carvel package from OCI images containing raw YAML files and YTT      
-                                                                      files.                                                                            
-    alm-catalog                 deployer-1.0.0                   18h  Deploys K8s resources to the cluster.                                             
-    alm-catalog                 source-package-translator-1.0.0  18h  Takes the type source and immediately outputs it as type package.                 
-    conventions-component       conventions-1.0.0                18h  The Conventions component analyzes the `image` input as described in the          
-    git-writer-catalog          git-writer-1.0.0                 18h  Writes carvel package config directly to a gitops repository                      
-    git-writer-catalog          git-writer-pr-1.0.0              18h  Writes carvel package config to a gitops repository and opens a PR                
-    kaniko-catalog              kaniko-build-1.0.0               18h  Builds an app with kaniko                                                         
-    source-provider             source-git-provider-1.0.0        18h  Source git provider retrieves source code and monitors a git repository.          
-    tbs-catalog                 buildpack-build-1.0.0            18h  Builds an app with buildpacks using kpack                                         
-    trivy-app-scanning-catalog  trivy-image-scan-1.0.0           18h  Performs a trivy image scan using the scan 2.0 components                         
+    NAMESPACE                   NAME                             AGE  DESCRIPTION
+    alm-catalog                 app-config-server-1.0.0          18h  Generates configuration for a Server application from a Conventions PodIntent.
+    alm-catalog                 app-config-web-1.0.0             18h  Generates configuration for a Web application from a Conventions PodIntent.
+    alm-catalog                 app-config-worker-1.0.0          18h  Generates configuration for a Worker application from a Conventions PodIntent.
+    alm-catalog                 carvel-package-1.0.0             18h  Generates a carvel package from OCI images containing raw YAML files and YTT
+                                                                      files.
+    alm-catalog                 deployer-1.0.0                   18h  Deploys K8s resources to the cluster.
+    alm-catalog                 source-package-translator-1.0.0  18h  Takes the type source and immediately outputs it as type package.
+    conventions-component       conventions-1.0.0                18h  The Conventions component analyzes the `image` input as described in the
+    git-writer-catalog          git-writer-1.0.0                 18h  Writes carvel package config directly to a gitops repository
+    git-writer-catalog          git-writer-pr-1.0.0              18h  Writes carvel package config to a gitops repository and opens a PR
+    kaniko-catalog              kaniko-build-1.0.0               18h  Builds an app with kaniko
+    source-provider             source-git-provider-1.0.0        18h  Source git provider retrieves source code and monitors a git repository.
+    tbs-catalog                 buildpack-build-1.0.0            18h  Builds an app with buildpacks using kpack
+    trivy-app-scanning-catalog  trivy-image-scan-1.0.0           18h  Performs a trivy image scan using the scan 2.0 components
 
     🔎 To view the details of a component, use 'tanzu supplychain component get'
     ```
@@ -108,7 +108,7 @@ Run:
         ├─ type: source
         └─ url: $(pipeline.results.url)
 
-    🏃 Pipeline   
+    🏃 Pipeline
         ├─ name: source-git-provider
         └─ 📋 parameters
           ├─ git-url: $(workload.spec.source.git.url)
@@ -308,7 +308,7 @@ might contain sensitive corporate data.
 
 To do this, update the `source-git-provider` stage of the generated `supplychains/mavenappbuildv1.yaml` file as follows:
 
-```console
+```yaml
 ...
       - componentRef:
           name: source-git-provider-1.0.0
@@ -345,7 +345,7 @@ these fields are no longer accessible within the `Workload`.
 To do this, update the `config.overrides` section of the generated `supplychains/mavenappbuildv1.yaml`
 file as follows:
 
-```console
+```yaml
 ...
   config:
     overrides:
@@ -366,7 +366,7 @@ file as follows:
           value: ""
         - path: spec.build.serviceAccountName
           value: default
-        
+
         # Platform Engineer provided carvel package component overrides
         - path: spec.carvel.caCertData
           value: ""
@@ -395,7 +395,7 @@ file as follows:
 
 Here is an example of what a `SupplyChain` looks like when the configuration is complete:
 
-```console
+```yaml
 apiVersion: supply-chain.apps.tanzu.vmware.com/v1alpha1
 kind: SupplyChain
 metadata:
@@ -448,7 +448,7 @@ spec:
           value: ""
         - path: spec.build.serviceAccountName
           value: default
-        
+
         # Platform Engineer provided carvel package component overrides
         - path: spec.carvel.caCertData
           value: ""
@@ -468,7 +468,6 @@ spec:
           value: "YOUR-GITOPS-REPO-SUBPATH"
         - path: spec.gitOps.url
           value: "YOUR-GITOPS-REPO-URL"
-
 ```
 
 ## Next Steps

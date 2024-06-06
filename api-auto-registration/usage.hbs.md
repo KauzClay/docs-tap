@@ -161,7 +161,6 @@ spec:
         system: pet-clinics
         owner: team-petclinic
         description: "A set of API endpoints to manage the resources within the petclinic app."
-
 ```
 
 Example of a workload with a hardcoded URL to the API documentation:

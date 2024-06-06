@@ -424,7 +424,6 @@ spec:
       some message in combinedMessages
       msg := message
     }
-
 ```
 
 ### Sample ScanPolicy using Local Policies

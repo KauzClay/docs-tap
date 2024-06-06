@@ -41,7 +41,6 @@ volumes:
   - secret
 seccompProfiles:
   - 'runtime/default'
-
 ```
 
 AppSSO controller's `ServiceAccount` is given the following additional permissions, including a `use` permission for AppSSO SCC, so `AuthServer` can use the custom SCC:

@@ -69,7 +69,7 @@ by running:
 
 The following resource limits are set on the Developer Conventions service:
 
-```
+```yaml
 resources:
   limits:
   cpu: 100m

@@ -54,7 +54,6 @@ tap_gui:
             label: string
             # base64 encoded SVG image.
             icon: 'BASE64-ENCODED-ICON-STRING'
-
 ```
 
 Where `BASE64-ENCODED-LOGO-STRING` and `BASE64-ENCODED-ICON-STRING` are Base64-encoded SVG files.

@@ -140,7 +140,7 @@ spec:
 
 You can also set this when creating the accelerator resource. To do so from the Tanzu CLI, run:
 
-``` console
+```console
 tanzu accelerator create test-accelerator --git-repo https://github.com/trisberg/test-accelerator --git-branch main --interval 10s
 ```
 

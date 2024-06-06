@@ -52,7 +52,6 @@ tap_gui:
       # See: https://grafana.com/blog/2021/06/14/the-new-unified-alerting-system-for-grafana-everything-you-need-to-know/
       # Optional. Default: false
       unifiedAlerting: true
-
 ```
 
 Where `GRAFANA-TOKEN` is a valid token for your Grafana instance.

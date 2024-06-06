@@ -267,7 +267,6 @@ export const HelloWorldPlugin: AppPluginInterface = () => context => {
     ),
   );
 };
-
 ```
 
 ## <a id="sidebar-item-surface"></a> SidebarItemSurface

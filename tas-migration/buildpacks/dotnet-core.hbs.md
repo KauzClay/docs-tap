@@ -69,7 +69,7 @@ the main project’s path.
 
 For example:
 
-```
+```text
 [config]
 project = src/MyApp.Web/MyApp.Web.csproj
 ```

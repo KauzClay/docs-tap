@@ -429,7 +429,7 @@ For instructions, see [Install Tanzu Developer Tools for your VS Code](../vscode
 
 >**Note** You can run the following command after reconfiguring the profile to reinstall the Tanzu Application Platform:
 
-```
+```console
 tanzu package installed update tap -p tap.tanzu.vmware.com -v ${TAP_VERSION}  --values-file tap-values.yaml -n tap-install
 ```
 

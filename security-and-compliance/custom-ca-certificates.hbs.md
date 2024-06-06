@@ -29,7 +29,6 @@ shared:
     -----BEGIN CERTIFICATE-----
     MIIFkzCCA3....
     -----END CERTIFICATE-----
-
 ```
 
 Some Tanzu Application Platform components do not support the `shared.ca_cert_data` feature, such as

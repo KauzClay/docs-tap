@@ -1,12 +1,12 @@
 # Identity providers for AppSSO
 
-This topic tells you how to configure Application Single Sign-On (commonly called AppSSO) 
+This topic tells you how to configure Application Single Sign-On (commonly called AppSSO)
 to use external identity providers (commonly called IdPs).
 
-Users can log in by using external identity providers. OpenID Connect and LDAP providers are supported. SAML 
-providers have limited experimental support. An `AuthServer` does not manage users internally. Developers can get 
-started quickly without needing to connect to an IdP by using static hard-coded users, which is for development purposes 
-only. 
+Users can log in by using external identity providers. OpenID Connect and LDAP providers are supported. SAML
+providers have limited experimental support. An `AuthServer` does not manage users internally. Developers can get
+started quickly without needing to connect to an IdP by using static hard-coded users, which is for development purposes
+only.
 
 Identity providers are configured under `spec.identityProviders`, learn more
 from [the API reference](../../reference/api/authserver.hbs.md).
@@ -82,7 +82,7 @@ Where:
 
   > **Note** You can retrieve the values of `issuerURI` (`https://openid.example.com`) and `clientID` (`my-client-abcdef`) when registering a client with the provider, which in most cases, is by using a web UI.
 
-  You can also run the following to retrieve the correct `issuerURI` value from the upstream identity provider: 
+  You can also run the following to retrieve the correct `issuerURI` value from the upstream identity provider:
 
   ```shell
   curl -s "https://openid.example.com/.well-known/openid-configuration" | jq -r ".issuer"
@@ -199,7 +199,7 @@ The Application Single Sign-On client supports connecting to OpenID Connect prov
 
 The Application Single Sign-On client attempts to discover the following OpenID Connect fields:
 
-- `authorization_endpoint` 
+- `authorization_endpoint`
 - `token_endpoint`
 - `jwks_uri`
 - `userinfo_endpoint`
@@ -208,7 +208,7 @@ The Application Single Sign-On client attempts to discover the following OpenID 
 
 AppSSO only supports the `RS256` algorithm for token signature. For more information, see [OpenID Connect documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation).
 
-You can find out the signing algorithms your OpenID provider supports by referring to the `id_token_signing_alg_values_supported` response parameter in the [OpenID Connect documentation](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) at `.well-known/openid-configuration`. 
+You can find out the signing algorithms your OpenID provider supports by referring to the `id_token_signing_alg_values_supported` response parameter in the [OpenID Connect documentation](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) at `.well-known/openid-configuration`.
 
 For example, you can run:
 
@@ -288,7 +288,7 @@ Where:
   authorization server. See [Identity token claims mapping](#id-token-claims-mapping) for more details.
 
     LDAP providers have the following claims mapped by default:
-    
+
     | LDAP attribute  | Id token claim |
     |-----------------|----------------|
     | givenname       | given_name     |
@@ -297,11 +297,11 @@ Where:
     | mail            | email          |
     | telephonenumber | phone_number   |
 
-The following fields are deprecated: 
+The following fields are deprecated:
 
-- `.ldap.group` (optional): Configures how LDAP groups are mapped to user roles in the `id_token` claims. If not set, the user has no roles. Use `.ldap.roles` instead. 
+- `.ldap.group` (optional): Configures how LDAP groups are mapped to user roles in the `id_token` claims. If not set, the user has no roles. Use `.ldap.roles` instead.
 - `.ldap.group.roleAttribute`: Selects which attributes of the group entry are mapped to a user role. If an attribute has multiple values, the first value is selected.
-- `.ldap.group.search` (optional): Toggles Active Directory search and uses recursive search to find groups for a given user.  
+- `.ldap.group.search` (optional): Toggles Active Directory search and uses recursive search to find groups for a given user.
 
 Verify the configuration by visiting the `AuthServer`'s issuer URI in your browser and log in with the user name and password from LDAP.
 
@@ -418,7 +418,7 @@ sAMAccountName: Developers
 ```
 
 The user `appsso-user` has two values for `memberOf`, pointing to two groups. Given the configuration earlier,
-`sAMAccountName` is used for the role, so the user has `SSO Group` and `Developers` as roles. 
+`sAMAccountName` is used for the role, so the user has `SSO Group` and `Developers` as roles.
 The group is not required to have `member` attribute point to the user for the role to be mapped.
 
 ### "Classic" group search
@@ -426,7 +426,7 @@ The group is not required to have `member` attribute point to the user for the r
 In non-ActiveDirectory LDAP, users generally do not have a `memberOf` attribute. Group search is performed by looking
 up groups in a base branch and filtering based on the groups `member` attribute.
 
-An AuthServer can optionally perform: 
+An AuthServer can optionally perform:
 
 - group search in sub-branches.
 - nested group search, that is, find a hierarchy of groups, in which a group
@@ -582,8 +582,8 @@ a subtree of the search base.
 #### Nested group search
 
 AppSSO can perform nested group search by going up a chain where a user is a member of a group, which is itself a member
-of a group, and so on. This is enabled by setting `roles.fromUpstream.search.depth` to greater than `1`. 
-`roles.fromUpstream.search.depth` controls the number of "levels" that AppSSO fetches to get the groups of a user. 
+of a group, and so on. This is enabled by setting `roles.fromUpstream.search.depth` to greater than `1`.
+`roles.fromUpstream.search.depth` controls the number of "levels" that AppSSO fetches to get the groups of a user.
 
 For example:
 
@@ -773,7 +773,7 @@ spec:
   # ...
 ```
 
-The passwords can be plain text or bcrypt-hashed. Bcrypt-hashing passwords must be prefixed with `{bcrypt}`. 
+The passwords can be plain text or bcrypt-hashed. Bcrypt-hashing passwords must be prefixed with `{bcrypt}`.
 For more information about the bcrypt-hash string, see [Generating a bcrypt hash from a plain-text password](#bcrypt-hash).
 
 Verify the configuration by visiting the `AuthServer`'s issuer URI in your browser and logging in as `ernie/password` or `bert/password`.
@@ -814,7 +814,7 @@ spec:
 
 With this, if the upstream OpenID identity provider makes a `"title"` claim available with the value `"developer"`, the corresponding AuthServer-issued `id_token` contains a claim `"job_title": "developer"`.
 
-This field also allows for mapping the [standard OpenID claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims), such as `given_name`, `family_name`, and non-standard claim, such as the `job_title` claim in the earlier example. When mapping the standard claims, the field types are preserved according to the original OpenID specification. For example, the `given_name` claim is defined as a string in the OpenID specification, so if a custom claim is mapped into this field, the value of the custom claim is coerced into a string type. If the 
+This field also allows for mapping the [standard OpenID claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims), such as `given_name`, `family_name`, and non-standard claim, such as the `job_title` claim in the earlier example. When mapping the standard claims, the field types are preserved according to the original OpenID specification. For example, the `given_name` claim is defined as a string in the OpenID specification, so if a custom claim is mapped into this field, the value of the custom claim is coerced into a string type. If the
 custom claim is an array type, the first value of the array is used.
 
 > **Important** For the custom claims defined `.spec.identityProviders[*].{openid,ldap,saml}.idToken.claims` to be
@@ -899,7 +899,7 @@ Available filters are:
 
 - `exactMatch` - match the groups exactly. This filter is **case-sensitive**. e.g. `exactMatch: "developer"` will match
   only the group named "developer" and no other.
-- `regex` - match groups according to the defined regular expression pattern. , and 
+- `regex` - match groups according to the defined regular expression pattern. , and
   This filter is **case-insensitive**. e.g. `regex: ^admin` will match groups starting with the word "admin".
   - The regular expression pattern syntax used is [RE2](https://golang.org/s/re2syntax)
   - Expressions should not be surrounded by forward slashes (`/`) and should only contain the pattern (e.g. `.*`, `^dev`, `\\w+`).
@@ -908,7 +908,7 @@ Available filters are:
 
 Given an example set of groups retrieved from a hypothetical identity provider:
 
-```
+```text
 it-admin
 it-developer
 devops-user
@@ -930,7 +930,7 @@ hr-admin
 
 returns:
 
-```
+```text
 product-user
 org-user
 ```
@@ -943,7 +943,7 @@ org-user
 
 returns:
 
-```
+```text
 it-developer
 devops-developer
 product-developer
@@ -960,7 +960,7 @@ product-developer
 
 returns:
 
-```
+```text
 it-admin
 it-developer
 devops-admin
@@ -982,7 +982,7 @@ hr-admin
 
 returns:
 
-```
+```text
 it-developer
 devops-developer
 product-developer

@@ -5,31 +5,31 @@ This topic tells you how to troubleshoot issues with Artifact Metadata Repositor
 ## <a id='debug'></a> Debug AMR
 
 1. Pause reconciliation of the package
-    
+
     ```console
     tanzu package installed pause amr-observer -n tap-install
     # OR
     kctrl package installed pause -i amr-observer -n tap-install
     ```
 
-2. Change the zap log level. 
-    
-    ```console
-    kubectl -n amr-observer-system \
-    patch deployment amr-observer-controller-manager \
-      --type='json' \
-      -p='[{"op": "add", 
-            "path": "/spec/template/spec/containers/1/args/-", 
-            "value": "--zap-log-level=3"
-          }]'
-    ```
+1. Change the zap log level.
 
-  Logs now show `LEVEL(-3)` with the example patch above.
-  
-  ```console
-  $ kubectl -n amr-observer-system logs deployments/amr-observer-controller-manager
-  2023-06-20T15:42:39Z  LEVEL(-3)  httpclient.circuitbreaker  AMR CloudEventHandler  {"availability": true, "State": "closed"}
-  ```
+   ```console
+   kubectl -n amr-observer-system \
+   patch deployment amr-observer-controller-manager \
+     --type='json' \
+     -p='[{"op": "add",
+           "path": "/spec/template/spec/containers/1/args/-",
+           "value": "--zap-log-level=3"
+         }]'
+   ```
+
+   Logs now show `LEVEL(-3)` with the example patch above.
+
+   ```console
+   $ kubectl -n amr-observer-system logs deployments/amr-observer-controller-manager
+   2023-06-20T15:42:39Z  LEVEL(-3)  httpclient.circuitbreaker  AMR CloudEventHandler  {"availability": true, "State": "closed"}
+   ```
 
 1. Unpause reconciliation of the package:
 
@@ -140,7 +140,7 @@ kubectl -n amr-observer-system logs deployments/amr-observer-controller-manager
 ```
 ---
 
-The AMR Observer is not observing `ImageVulnerabilityScan` CRD. 
+The AMR Observer is not observing `ImageVulnerabilityScan` CRD.
 
 ```log
 2023-06-20T15:47:09Z  INFO  ivs.SetupWithManager  Not registering ImageVulnerabilityScans Controller: customresourcedefinitions.apiextensions.k8s.io "imagevulnerabilityscans.app-scanning.apps.tanzu.vmware.com" not found"
@@ -180,7 +180,7 @@ No valid CA certificates were found.
 ```
 ---
 
-When the ReplicaSet is observed to be deleted, it attempts to send the result to AMR CloudEvent Handler. 
+When the ReplicaSet is observed to be deleted, it attempts to send the result to AMR CloudEvent Handler.
 There is a known minor issue that even non workload replicaSets are sent during create and delete events. The log shows an error, however, it is a no-op because AMR CloudEvent Handler filters out ReplicaSet CloudEvents without a workload container.
 
 ```log

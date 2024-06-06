@@ -4,7 +4,7 @@ This topic contains ways that you can troubleshoot API Auto Registration.
 
 ## <a id='debug'></a> Debug API Auto Registration
 
-This section includes commands for debugging or troubleshooting the APIDescriptor 
+This section includes commands for debugging or troubleshooting the APIDescriptor
 Custom Resource (commonly known as CR).
 
 1. Get the details of CRs.
@@ -156,20 +156,21 @@ both reconcile without an error.
 However, the following undesired behaviors can signal conflict:
 
 - The `/openapi?groupId&version` endpoint returns more than one API specification.
-- If you add both specifications to API portal, for example, `/openapi?groupId&version`,
-only one of them shows up in the API portal UI with a warning indicating that there is a conflict.
-- If you add the route provider annotation for both of the `CuratedAPIDescriptor`s to use SCG,
-the generated API specification includes API routes from both `CuratedAPIDescriptor`s.
+- If you add both specifications to API portal, for example, `/openapi?groupId&version`, only one of
+  them shows up in the API portal UI with a warning indicating that there is a conflict.
+- If you add the route provider annotation for both of the `CuratedAPIDescriptor`s to use SCG, the
+  generated API specification includes API routes from both `CuratedAPIDescriptor`s.
 
-You can see the `groupId` and `version` information from all `CuratedAPIDescriptor`s to find conflicts by running:
+You can see the `groupId` and `version` information from all `CuratedAPIDescriptor`s to find
+conflicts by running:
 
-  ```console
-  $ kubectl get curatedapidescriptors -A
+```console
+$ kubectl get curatedapidescriptors -A
 
-  NAMESPACE           NAME         GROUPID            VERSION   STATUS   CURATED API SPEC URL
-  my-apps             petstore     test-api-group     1.2.3     Ready    http://AAR-CONTROLLER-FQDN/openapi/my-apps/petstore
-  default             mystery      test-api-group     1.2.3     Ready    http://AAR-CONTROLLER-FQDN/openapi/default/mystery
-  ```
+NAMESPACE           NAME         GROUPID            VERSION   STATUS   CURATED API SPEC URL
+my-apps             petstore     test-api-group     1.2.3     Ready    http://AAR-CONTROLLER-FQDN/openapi/my-apps/petstore
+default             mystery      test-api-group     1.2.3     Ready    http://AAR-CONTROLLER-FQDN/openapi/default/mystery
+```
 
 ### <a id='unsupported-openapi-version'></a> Unsupported OpenAPI version
 

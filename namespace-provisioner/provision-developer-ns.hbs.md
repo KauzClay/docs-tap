@@ -85,8 +85,8 @@ Using Namespace Provisioner Controller
      ```
 
 Using GitOps
-: The GitOps approach provides a fully declarative way to create developer namespaces managed
-by Namespace Provisioner.
+: The GitOps approach provides a fully declarative way to create developer namespaces managed by
+  Namespace Provisioner.
 
   `tap-values.yaml` configuration example:
 
@@ -101,19 +101,29 @@ by Namespace Provisioner.
 
   This GitOps configuration does the following things:
 
-  - `controller: false` - The Namespace Provisioner package does not install the controller. The list of namespaces is managed in a GitOps repository instead.
-  - The `gitops-install` directory specified as the `subPath` value includes two files:
+  `controller: false` - the Namespace Provisioner package does not install the controller. The list
+  of namespaces is managed in a GitOps repository instead.
 
-    1. [desired-namespace.yaml](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/gitops-install/desired-namespaces.yaml) contains the list of developer namespaces in a ytt data.values format.
-    2. [namespaces.yaml](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/gitops-install/namespaces.yaml) contains a Kubernetes namespace object.
+  The `gitops-install` directory specified as the `subPath` value includes two files:
 
-  >**Note** If you have another tool like Tanzu Mission Control or some other process that is taking care of creating namespaces for you, and you don’t want a Namespace Provisioner to create the namespaces, you can delete this file from your GitOps install repository.
+  - [desired-namespace.yaml](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/gitops-install/desired-namespaces.yaml)
+    contains the list of developer namespaces in a ytt data.values format.
 
-  >**Important**  The `tap-values.yaml` configuration example above creates the following two namespaces: `dev` and `qa`. If these namespaces already exist in your cluster, remove them or rename the namespaces in your GitOps repository so they do not conflict with existing resources.
+  - [namespaces.yaml](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/gitops-install/namespaces.yaml)
+    contains a Kubernetes namespace object.
 
-  Run the following command to verify the [default resources](default-resources.hbs.md) are created in the namespace:
+  If you have another tool like Tanzu Mission Control or some other process that is taking care of
+  creating namespaces for you, and you don’t want a Namespace Provisioner to create the namespaces,
+  you can delete this file from your GitOps install repository.
 
-  ```shell
+  The `tap-values.yaml` configuration example above creates the following two namespaces: `dev` and
+  `qa`. If these namespaces already exist in your cluster, remove them or rename the namespaces in
+  your GitOps repository so they do not conflict with existing resources.
+
+  Run the following command to verify the [default resources](default-resources.hbs.md) are created
+  in the namespace:
+
+  ```console
   kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n dev
   ```
 

@@ -53,18 +53,19 @@ For more information about provisioning namespaces for workloads, see [Set up de
 
 ## <a id='credentials'></a> Claim client credentials
 
-Follow these steps to claim credentials for an Application Single Sign-On service so that you can secure your workload:
+Follow these steps to claim credentials for an Application Single Sign-On service so that you can
+secure your workload:
 
 1. Discover the available Application Single Sign-On services with the Tanzu Service CLI:
 
-  ```console
-  $ tanzu service class list
-    NAME      DESCRIPTION
-    sso       Login by AppSSO
-  ```
+   ```console
+   $ tanzu service class list
+     NAME      DESCRIPTION
+     sso       Login by AppSSO
+   ```
 
-    The actual names of your AppSSO services might be different. VMware
-    assumes that there's one AppSSO service with the name `sso`.
+   The actual names of your AppSSO services might be different. VMware assumes that there's one
+   AppSSO service with the name `sso`.
 
 1. Claim credentials for that service by creating a `ClassClaim` named
 `appsso-starter-java` in the `my-apps` namespace.

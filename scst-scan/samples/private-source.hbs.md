@@ -8,31 +8,31 @@ This example shows how you can perform a private source scan for SCST - Scan.
 
 1. Create a Kubernetes secret with an SSH key for cloning a Git repository. See the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret/#use-case-pod-with-ssh-keys).
 
-  ```console
-  cat <<EOF | kubectl create -f -
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: SECRET-SSH-AUTH
-    namespace: DEV-NAMESPACE
-    annotations:
-      tekton.dev/git-0: https://github.com
-      tekton.dev/git-1: https://gitlab.com
-  type: kubernetes.io/ssh-auth
-  stringData:
-    ssh-privatekey: |
-      -----BEGIN OPENSSH PRIVATE KEY-----
-      ....
-      ....
-      -----END OPENSSH PRIVATE KEY-----
-  EOF
-  ```
+   ```console
+   cat <<EOF | kubectl create -f -
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: SECRET-SSH-AUTH
+     namespace: DEV-NAMESPACE
+     annotations:
+       tekton.dev/git-0: https://github.com
+       tekton.dev/git-1: https://gitlab.com
+   type: kubernetes.io/ssh-auth
+   stringData:
+     ssh-privatekey: |
+       -----BEGIN OPENSSH PRIVATE KEY-----
+       ....
+       ....
+       -----END OPENSSH PRIVATE KEY-----
+   EOF
+   ```
 
-  Where:
+   Where:
 
-  - `SECRET-SSH-AUTH` is the name of the secret that is being created.
-  - `DEV-NAMESPACE` is the developer namespace where the scanner is installed.
-  - `.stringData.ssh-privatekey` contains the private key with pull-permissions.
+   - `SECRET-SSH-AUTH` is the name of the secret that is being created.
+   - `DEV-NAMESPACE` is the developer namespace where the scanner is installed.
+   - `.stringData.ssh-privatekey` contains the private key with pull-permissions.
 
 1. Update the `tap-values.yaml` file to include the name of secret created above.
 
@@ -43,9 +43,9 @@ This example shows how you can perform a private source scan for SCST - Scan.
 
 1. Upgrade Tanzu Application Platform with the modified `tap-values.yaml` file.
 
-  ```console
-  tanzu package installed update tap -p tap.tanzu.vmware.com -v ${TAP-VERSION}  --values-file tap-values.yaml -n tap-install
-  ```
+   ```console
+   tanzu package installed update tap -p tap.tanzu.vmware.com -v ${TAP-VERSION}  --values-file tap-values.yaml -n tap-install
+   ```
 
   Where `TAP-VERSION` is the Tanzu Application Platform version.
 

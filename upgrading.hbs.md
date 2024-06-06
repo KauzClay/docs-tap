@@ -118,20 +118,20 @@ If you installed the [full dependencies package](install-online/profile.hbs.md#t
 you can upgrade the package by following these steps:
 
 1. (Optional) If you have an existing installation of the full dependencies from a version earlier
-than TAP v1.6.1, you must uninstall the full dependencies package and remove the package repository.
-Subsequent upgrades will not require a removal:
+   than TAP v1.6.1, you must uninstall the full dependencies package and remove the package
+   repository. Subsequent upgrades will not require a removal:
 
-  Uninstall the package
+   - Uninstall the package by running:
 
-  ```console
-  tanzu package installed delete full-tbs-deps -n tap-install
-  ```
+     ```console
+     tanzu package installed delete full-tbs-deps -n tap-install
+     ```
 
-  Remove the package repository
+   - Remove the package repository by running:
 
-  ```console
-  tanzu package repository delete tbs-full-deps-repository -n tap-install
-  ```
+     ```console
+     tanzu package repository delete tbs-full-deps-repository -n tap-install
+     ```
 
 1. After upgrading Tanzu Application Platform, retrieve the latest version of the
    Tanzu Application Platform package by running:

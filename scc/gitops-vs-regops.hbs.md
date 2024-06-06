@@ -8,16 +8,16 @@ repository or to a container image registry.
 
 For example:
 
-  ```console
-  Supply Chain
+```console
+Supply Chain
 
-    -- fetch source
-      -- test
-        -- build
-          -- scan
-            -- apply-conventions
-              -- push config        * either to Git or Registry
-  ```
+  -- fetch source
+    -- test
+      -- build
+        -- scan
+          -- apply-conventions
+            -- push config        * either to Git or Registry
+```
 
 This topic dives into the specifics of that last phase of the supply chains
 by pushing configuration to a Git repository or a container
@@ -180,38 +180,38 @@ the repository whose name is formed by concatenating
 `gitops.repository_prefix` with the name of the workload. In this case,
 for example, `https://github.com/my-org/$(workload.metadata.name).git`.
 
-  ```console
-  Supply Chain
-    param:
-        - gitops_repository_prefix: GIT-REPO_PREFIX
+```console
+Supply Chain
+  param:
+      - gitops_repository_prefix: GIT-REPO_PREFIX
 
 
-  workload-1:
-    `git push` to GIT-REPO-PREFIX/workload-1.git
+workload-1:
+  `git push` to GIT-REPO-PREFIX/workload-1.git
 
-  workload-2:
-    `git push` to GIT-REPO-PREFIX/workload-2.git
+workload-2:
+  `git push` to GIT-REPO-PREFIX/workload-2.git
 
-  ...
+...
 
-  workload-n:
-    `git push` to GIT-REPO-PREFIX/workload-n.git
-  ```
+workload-n:
+  `git push` to GIT-REPO-PREFIX/workload-n.git
+```
 
 Alternatively, you can force a workload to publish the configuration
 in a Git repository by providing the `gitops_repository` parameter
 to the workload:
 
-  ```console
-  tanzu apps workload create tanzu-java-web-app \
-    --app tanzu-java-web-app \
-    --type web \
-    --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
-    --sub-path tanzu-java-web-app \
-    --git-branch main \
-    --param gitops_credentials_secret=GIT-SECRET-NAME \
-    --param gitops_repository=https://github.com/my-org/config-repo
-  ```
+```console
+tanzu apps workload create tanzu-java-web-app \
+  --app tanzu-java-web-app \
+  --type web \
+  --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+  --sub-path tanzu-java-web-app \
+  --git-branch main \
+  --param gitops_credentials_secret=GIT-SECRET-NAME \
+  --param gitops_repository=https://github.com/my-org/config-repo
+```
 
 In this case, at the end of the supply chain, the configuration for this
 workload is published to the repository provided under the `gitops_repository`
@@ -505,36 +505,36 @@ supply chain progresses, configuration is pushed to a repository named `$(gitops
 For example, configure `gitops.repository_prefix` to `git@github.com/foo/` and
 create a workload as follows:
 
-  ```console
-  tanzu apps workload create tanzu-java-web-app \
-    --git-branch main \
-    --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
-    --sub-path tanzu-java-web-app \
-    --label app.kubernetes.io/part-of=tanzu-java-web-app \
-    --type web
-  ```
+```console
+tanzu apps workload create tanzu-java-web-app \
+  --git-branch main \
+  --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+  --sub-path tanzu-java-web-app \
+  --label app.kubernetes.io/part-of=tanzu-java-web-app \
+  --type web
+```
 
 Expect to see the following output:
 
-  ```console
-  Create workload:
-        1 + |---
-        2 + |apiVersion: carto.run/v1alpha1
-        3 + |kind: Workload
-        4 + |metadata:
-        5 + |  labels:
-        6 + |    apps.tanzu.vmware.com/workload-type: web
-        7 + |    app.kubernetes.io/part-of: tanzu-java-web-app
-        8 + |  name: tanzu-java-web-app
-        9 + |  namespace: default
-      10 + |spec:
-      11 + |  source:
-      12 + |    git:
-      13 + |      ref:
-      14 + |        branch: main
-      15 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples
-      16 + |    subPath: tanzu-java-web-app
-  ```
+```console
+Create workload:
+      1 + |---
+      2 + |apiVersion: carto.run/v1alpha1
+      3 + |kind: Workload
+      4 + |metadata:
+      5 + |  labels:
+      6 + |    apps.tanzu.vmware.com/workload-type: web
+      7 + |    app.kubernetes.io/part-of: tanzu-java-web-app
+      8 + |  name: tanzu-java-web-app
+      9 + |  namespace: default
+    10 + |spec:
+    11 + |  source:
+    12 + |    git:
+    13 + |      ref:
+    14 + |        branch: main
+    15 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples
+    16 + |    subPath: tanzu-java-web-app
+```
 
 As a result, the Kubernetes configuration is pushed to
 `git@github.com/foo/tanzu-java-web-app.git`.
@@ -542,32 +542,25 @@ As a result, the Kubernetes configuration is pushed to
 Regardless of the setup, developers can also manually override the repository
 where configuration is pushed to by tweaking the following parameters:
 
--  `gitops_credentials_secret`: Name of the secret in the same namespace as the
-   workload where SSH credentials exist for pushing the configuration produced
-   by the supply chain to a Git repository.
-   Example: `git-secret`
+- `gitops_credentials_secret`: Name of the secret in the same namespace as the workload where SSH
+  credentials exist for pushing the configuration produced by the supply chain to a Git repository.
+  Example: `git-secret`
 
--  `gitops_ssh_secret`: Deprecated: Name of the secret in the same namespace as the
-   workload where SSH credentials exist for pushing the configuration produced
-   by the supply chain to a Git repository.
-   Example: `git-secret`
+- `gitops_ssh_secret`: Deprecated: Name of the secret in the same namespace as the workload where
+  SSH credentials exist for pushing the configuration produced by the supply chain to a Git
+  repository. Example: `git-secret`
 
--  `gitops_repository`: SSH URL of the Git repository to push the Kubernetes
-   configuration produced by the supply chain to.
-   Example: `ssh://git@foo.com/staging.git`
+- `gitops_repository`: SSH URL of the Git repository to push the Kubernetes configuration produced
+  by the supply chain to. Example: `ssh://git@foo.com/staging.git`
 
--  `gitops_branch`: Name of the branch to push the configuration to.
-   Example: `main`
+- `gitops_branch`: Name of the branch to push the configuration to. Example: `main`
 
--  `gitops_commit_message`: Message to write as the body of the commits
-   produced for pushing configuration to the Git repository.
-   Example: `ci bump`
+- `gitops_commit_message`: Message to write as the body of the commits produced for pushing
+  configuration to the Git repository. Example: `ci bump`
 
--  `gitops_user_name`: User name to use in the commits.
-   Example: `Alice Lee`
+- `gitops_user_name`: User name to use in the commits. Example: `Alice Lee`
 
--  `gitops_user_email`: User email address to use in the commits.
-   Example: `alice@example.com`
+- `gitops_user_email`: User email address to use in the commits. Example: `alice@example.com`
 
 ### Read more on Git
 

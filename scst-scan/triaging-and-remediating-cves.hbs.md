@@ -10,16 +10,16 @@ To confirm that Supply Chain failure is related to policy enforcement:
 
 1. Verify that the status of the workload is `MissingValueAtPath` due to waiting on a `.status.compliantArtifact` from either the SourceScan or ImageScan:
 
-  ```console
-  kubectl describe workload WORKLOAD-NAME -n DEVELOPER-NAMESPACE
-  ```
+   ```console
+   kubectl describe workload WORKLOAD-NAME -n DEVELOPER-NAMESPACE
+   ```
 
 1. Describe the SourceScan or ImageScan to determine what CVE(s) violated the ScanPolicy:
 
-  ```
-  kubectl describe sourcescan NAME -n DEVELOPER-NAMESPACE
-  kubectl describe imagescan NAME -n DEVELOPER-NAMESPACE
-  ```
+   ```console
+   kubectl describe sourcescan NAME -n DEVELOPER-NAMESPACE
+   kubectl describe imagescan NAME -n DEVELOPER-NAMESPACE
+   ```
 
 ## <a id="triage-cve"></a>Triage
 

@@ -58,29 +58,29 @@ Run:
     Use the `-w/--wide` flag to see a more detailed output including a inputs/outputs of each component.
 
 2. To get more information about each component on the cluster, use the
-`tanzu supplychain component get` command. For example, to get the information about the
-`source-git-provider` component, run:
+   `tanzu supplychain component get` command. For example, to get the information about the
+   `source-git-provider` component, run:
 
-  ```console
-  tanzu supplychain component get source-git-provider-1.0.0 --show-details
-  ```
+   ```console
+   tanzu supplychain component get source-git-provider-1.0.0 --show-details
+   ```
 
-  Example output:
+   Example output:
 
-    ```console
-    📡 Overview
-      name:         source-git-provider-1.0.0
-      namespace:    source-provider
-      age:          19h
-      status:       True
-      reason:       Ready
-      description:  Source git provider retrieves source code and monitors a git repository.
+   ```console
+   📡 Overview
+     name:         source-git-provider-1.0.0
+     namespace:    source-provider
+     age:          19h
+     status:       True
+     reason:       Ready
+     description:  Source git provider retrieves source code and monitors a git repository.
 
-    📝 Configuration
-      source:
-        #! Use this object to retrieve source from a git repository.
-        #! The tag, commit and branch fields are mutually exclusive, use only one.
-        #! Required
+   📝 Configuration
+     source:
+       #! Use this object to retrieve source from a git repository.
+       #! The tag, commit and branch fields are mutually exclusive, use only one.
+       #! Required
         git:
           #! A git branch ref to watch for new source
           #! Example: "main"

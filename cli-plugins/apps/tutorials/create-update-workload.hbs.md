@@ -17,7 +17,7 @@ where managing the workload through direct interactions and edits of a `yaml` fi
 The Apps CLI plug-in supports using `yaml` files to meet the requirements.
 
 When a workload is managed using a `yaml` file, that file must contain a single workload definition.
-
+ß
 For example, a valid file looks similar to the following example:
 
 ```yaml
@@ -280,7 +280,8 @@ There are multiple ways to upload local source code to a Tanzu Application
 Platform cluster.
 
 Using Local Source Proxy
-: Use Local Source Proxy to push local source code to the registry configured during Tanzu Application Platform installation.
+: Use Local Source Proxy to push local source code to the registry configured during
+  Tanzu Application Platform installation.
 
   For more information, see [Install Local Source Proxy](../../../local-source-proxy/install.hbs.md).
   To create a workload that pushes to an already configured registry through Local Source Proxy,
@@ -311,17 +312,22 @@ Using Local Source Proxy
   ❓ Do you want to create this workload? [yN]:
   ```
 
-    >**Note** A workload created using Local Source Proxy is easily recognizable because it has the
-    > `local-source-proxy.apps.tanzu.vmware.com` annotation with a value the same as the `spec.source.image` field.
+  A workload created using Local Source Proxy is easily recognizable because it has the
+  `local-source-proxy.apps.tanzu.vmware.com` annotation with a value the same as the
+  `spec.source.image` field.
 
 Using Source Image
 : If the Local Source Proxy component is not installed, upload your local source
   code to a registry of your choice by passing in the `--source-image` flag. Use this flag to
   specify the registry path where the local source code is uploaded as an image.
-     Both the cluster and the developer’s machine must be configured to properly provide credentials
-     for accessing the container image registry where the local source code is published to. For more information about authentication requirements, see [Building from Local Source](../../../scc/building-from-source.hbs.md#authentication).
-     To create a workload using a source image, use `--local-path` flag with `--source-image`,
-     like the following example:
+
+  Both the cluster and the developer’s machine must be configured to properly provide credentials
+  for accessing the container image registry where the local source code is published to. For more
+  information about authentication requirements, see
+  [Building from Local Source](../../../scc/building-from-source.hbs.md#authentication).
+
+  To create a workload using a source image, use `--local-path` flag with `--source-image`, like the
+  following example:
 
   ```console
   tanzu apps workload create tanzu-java-web-app --local-path /path/to/java/app --source-image registry.io/path/to/project/image-name

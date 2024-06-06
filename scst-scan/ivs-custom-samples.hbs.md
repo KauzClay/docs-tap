@@ -28,9 +28,9 @@ To use a custom ImageVulnerabilityScan sample:
 4. Complete any scanner specific changes specified on the sample ImageVulnerabilityScan page.
 5. You can either incorporate your custom ImageVulnerabilityScan into a [ClusterImageTemplate](./clusterimagetemplates.hbs.md) or run a standalone scan using:
 
-  ```console
-  kubectl apply -f custom-ivs.yaml -n DEV-NAMESPACE
-  ```
+   ```console
+   kubectl apply -f custom-ivs.yaml -n DEV-NAMESPACE
+   ```
 
   Where `DEV-NAMESPACE` is the name of the developer namespace where scanning occurs.
 

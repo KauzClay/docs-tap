@@ -136,12 +136,12 @@ For more details about how to create a Supply Chain, see [Build your first Suppl
 
 Generating the supply chain created the following directory structure:
 
-  ```console
-  ├─ supplychains/
-  ├─ components/
-  ├─ pipelines/
-  ├─ tasks/
-  ```
+```console
+├─ supplychains/
+├─ components/
+├─ pipelines/
+├─ tasks/
+```
 
 Apply these directories to the namespace where the workload will run by running.
 

@@ -142,28 +142,28 @@ For more details about how to create a Component, see [Tanzu Supply Chain docs](
 
 This section tells you how to view the available components that were installed or applied.
 
-  ```console
-  kubectl get components -A -l "supply-chain.apps.tanzu.vmware.com/catalog=tanzu"
-  ```
+```console
+kubectl get components -A -l "supply-chain.apps.tanzu.vmware.com/catalog=tanzu"
+```
 
-  Example output:
+Example output:
 
-  ```console
-  $ kubectl get components -A -l "supply-chain.apps.tanzu.vmware.com/catalog=tanzu"
+```console
+$ kubectl get components -A -l "supply-chain.apps.tanzu.vmware.com/catalog=tanzu"
 
-  NAMESPACE                    NAME                              RESUMPTIONS   READY   REASON   AGE
-  alm-catalog                  aggregator-1.0.0                  False         True    Ready    3d
-  alm-catalog                  app-config-server-1.0.0           False         True    Ready    3d
-  alm-catalog                  app-config-web-1.0.0              False         True    Ready    3d
-  alm-catalog                  app-config-worker-1.0.0           False         True    Ready    3d
-  alm-catalog                  carvel-package-1.0.0              False         True    Ready    3d
-  alm-catalog                  deployer-1.0.0                    False         True    Ready    3d
-  alm-catalog                  source-package-translator-1.0.0   False         True    Ready    3d
-  conventions-component        conventions-1.0.0                 False         True    Ready    3d
-  git-writer-catalog           git-writer-1.0.0                  False         True    Ready    3d
-  git-writer-catalog           git-writer-pr-1.0.0               False         True    Ready    3d
-  grype-app-scanning-catalog   grype-image-scan-1.0.0            False         True    Ready    10h
-  source-provider              source-git-provider-1.0.0         True          True    Ready    3d
-  tbs-catalog                  buildpack-build-1.0.0             True          True    Ready    3d
-  trivy-app-scanning-catalog   trivy-image-scan-1.0.0            False         True    Ready    3d
-  ```
+NAMESPACE                    NAME                              RESUMPTIONS   READY   REASON   AGE
+alm-catalog                  aggregator-1.0.0                  False         True    Ready    3d
+alm-catalog                  app-config-server-1.0.0           False         True    Ready    3d
+alm-catalog                  app-config-web-1.0.0              False         True    Ready    3d
+alm-catalog                  app-config-worker-1.0.0           False         True    Ready    3d
+alm-catalog                  carvel-package-1.0.0              False         True    Ready    3d
+alm-catalog                  deployer-1.0.0                    False         True    Ready    3d
+alm-catalog                  source-package-translator-1.0.0   False         True    Ready    3d
+conventions-component        conventions-1.0.0                 False         True    Ready    3d
+git-writer-catalog           git-writer-1.0.0                  False         True    Ready    3d
+git-writer-catalog           git-writer-pr-1.0.0               False         True    Ready    3d
+grype-app-scanning-catalog   grype-image-scan-1.0.0            False         True    Ready    10h
+source-provider              source-git-provider-1.0.0         True          True    Ready    3d
+tbs-catalog                  buildpack-build-1.0.0             True          True    Ready    3d
+trivy-app-scanning-catalog   trivy-image-scan-1.0.0            False         True    Ready    3d
+```

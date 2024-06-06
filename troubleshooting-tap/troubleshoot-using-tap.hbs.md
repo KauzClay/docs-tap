@@ -42,9 +42,9 @@ kubectl describe workload.carto.run <workload-name> -n <workload-ns>
 
 You create a workload, but no logs appear when you run:
 
-  ```console
-  tanzu apps workload tail workload-name --since 10m --timestamp
-  ```
+```console
+tanzu apps workload tail workload-name --since 10m --timestamp
+```
 
 **Explanation:**
 
@@ -184,9 +184,9 @@ This type of error frequently occurs when the URL set for `source image` (IDE) o
 When you view the logs of the `tap-telemetry` controller by running `kubectl logs -n
 tap-telemetry <tap-telemetry-controller-<hash> -f`, you see the following error:
 
-  ```console
-  "Error retrieving secret reg-creds on namespace tap-telemetry","error":"secrets \"reg-creds\" is forbidden: User \"system:serviceaccount:tap-telemetry:controller\" cannot get resource \"secrets\" in API group \"\" in the namespace \"tap-telemetry\""
-  ```
+```console
+"Error retrieving secret reg-creds on namespace tap-telemetry","error":"secrets \"reg-creds\" is forbidden: User \"system:serviceaccount:tap-telemetry:controller\" cannot get resource \"secrets\" in API group \"\" in the namespace \"tap-telemetry\""
+```
 
 **Explanation:**
 

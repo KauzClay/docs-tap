@@ -35,7 +35,7 @@ Do one of the following actions to set `JAVA_TOOL_OPTIONS` property and values:
 
 Use the Tanzu CLI apps plug-in
 : When creating or updating a workload, set a `JAVA_TOOL_OPTIONS` property using the `--env` flag by
-running:
+  running:
 
   ```console
   tanzu apps workload create APP-NAME --env JAVA_TOOL_OPTIONS="-DPROPERTY-NAME=VALUE"

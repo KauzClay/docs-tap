@@ -526,9 +526,9 @@ to troubleshoot inside the container:
 
 9. After you complete troubleshooting, to trigger reconciliation, run:
 
-  ```console
-  kctrl package installed kick -i <PACKAGE-INSTALL-NAME> -n tap-install
-  ```
+   ```console
+   kctrl package installed kick -i <PACKAGE-INSTALL-NAME> -n tap-install
+   ```
 
   Where `PACKAGE-INSTALL-NAME` is the name of the `grype.scanning.apps.tanzu.vmware.com` package, such as Grype.
 

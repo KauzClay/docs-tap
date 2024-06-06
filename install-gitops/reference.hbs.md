@@ -1,7 +1,7 @@
 # Tanzu GitOps RI Reference Documentation
 
-The following diagrams shows you the components that are installed as part of 
-Tanzu GitOps Reference Implementation (RI) and how they work together to automate 
+The following diagrams shows you the components that are installed as part of
+Tanzu GitOps Reference Implementation (RI) and how they work together to automate
 the installation of Tanzu Application Platform (commonly known as TAP):
 
 SOPS
@@ -10,17 +10,17 @@ SOPS
 ESO
 : ![Diagram describing the architecture of GitOps Installer using ESO.](./images/arch-eso.png)
 
->**Caution** Tanzu Application Platform (GitOps) is currently in beta and 
+>**Caution** Tanzu Application Platform (GitOps) is currently in beta and
 > is intended for evaluation and test purposes only. Do not use in a production environment.
 
 ## <a id="tanzu-sync-carvel-app"></a>Tanzu Sync Carvel Application
 
-Tanzu Sync consists of a [Carvel](https://carvel.dev/kapp-controller/docs/latest/app-overview/) 
+Tanzu Sync consists of a [Carvel](https://carvel.dev/kapp-controller/docs/latest/app-overview/)
 application named `sync` that is installed in the `tanzu-sync` namespace. The sync application:
 
 1. Fetches a Git repository that contains configuration for Tanzu Application Platform.
 2. Templates with `ytt` a set of resources and data values.
-3. Deploys with `kapp` a set of resources to install Tanzu Application Platform, 
+3. Deploys with `kapp` a set of resources to install Tanzu Application Platform,
 with any other user specified configuration in the Git Repository.
 
 ## <a id="sops-vs-eso"></a>Choosing Secrets OPerationS (SOPS) or External Secrets Operator (ESO)
@@ -47,35 +47,35 @@ The following table describes a few common use cases and scenarios for SOPS and 
 
 ## <a id="git-repo-structure"></a>Git Repository structure
 
-Tanzu Sync Application fetches our deployable content from a Git repository that 
+Tanzu Sync Application fetches our deployable content from a Git repository that
 must match the following structure:
 
 Git repository for a cluster named `full-tap-cluster`:
 
-  ```console
-  ├── .catalog
-  │   ├── tanzu-sync
-  │   │   └── 0.0.3
-  │   └── tap-install
-  │       └── 1.5.0
-  ├── README.md
-  ├── clusters
-  │   └── full-tap-cluster
-  │       ├── README.md
-  │       ├── cluster-config
-  │       │   ├── config
-  │       │   │   └── tap-install
-  │       │   │       └── .tanzu-managed
-  │       │   └── values
-  │       └── tanzu-sync
-  │           ├── app
-  │           │   ├── config
-  │           │   │   └── .tanzu-managed
-  │           │   └── values
-  │           ├── bootstrap
-  │           └── scripts
-  └── setup-repo.sh
-  ```
+```console
+├── .catalog
+│   ├── tanzu-sync
+│   │   └── 0.0.3
+│   └── tap-install
+│       └── 1.5.0
+├── README.md
+├── clusters
+│   └── full-tap-cluster
+│       ├── README.md
+│       ├── cluster-config
+│       │   ├── config
+│       │   │   └── tap-install
+│       │   │       └── .tanzu-managed
+│       │   └── values
+│       └── tanzu-sync
+│           ├── app
+│           │   ├── config
+│           │   │   └── .tanzu-managed
+│           │   └── values
+│           ├── bootstrap
+│           └── scripts
+└── setup-repo.sh
+```
 
   Where:
 
@@ -198,16 +198,16 @@ Git repository for a cluster named `full-tap-cluster`:
 
 >**Caution**
 >
-> The provided scripts are intended to help set up your Git repository to work with a GitOps approach, 
+> The provided scripts are intended to help set up your Git repository to work with a GitOps approach,
 > they are subject to change or removal between releases.
 
 
-VMware provides a set of convenience bash scripts in `clusters/MY-CLUSTER/tanzu-sync/scripts` 
+VMware provides a set of convenience bash scripts in `clusters/MY-CLUSTER/tanzu-sync/scripts`
 to help you set up your Git repository and configure the values as described in the previous section:
 
-- `setup-repo.sh`: Populates a Git repository with the structure described in the 
+- `setup-repo.sh`: Populates a Git repository with the structure described in the
 [Git Repository structure](#git-repo-structure) section.
-- `configure.sh`: Generates the values files described in the 
+- `configure.sh`: Generates the values files described in the
 [Configuration of values without helper scripts](#configure-values) section.
-- `deploy.sh`: A light wrapper around a simple `kapp deploy` given the data values 
+- `deploy.sh`: A light wrapper around a simple `kapp deploy` given the data values
 from the previous section and sensitive values which must not be stored on disk.

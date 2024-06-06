@@ -3,34 +3,45 @@
 This topic describes how you can install Cloud Native Runtimes, commonly known as CNRs, from the
 Tanzu Application Platform package repository.
 
->**Note** Use the instructions in this topic if you do not want to use a profile to install packages.
-The full profile includes Cloud Native Runtimes.
-For more information about profiles, see [Installing the Tanzu Application Platform Package and Profiles](../../../install-online/profile.hbs.md).
+> **Note** Use the instructions in this topic if you do not want to use a profile to install
+> packages. The full profile includes Cloud Native Runtimes. For more information about profiles,
+> see [Installing the Tanzu Application Platform Package and Profiles](../../../install-online/profile.hbs.md).
 
 ## <a id='cnr-prereqs'></a>Prerequisites
 
 Before installing Cloud Native Runtimes:
 
-- Complete all prerequisites to install Tanzu Application Platform. For more information, see [Prerequisites](../../../prerequisites.hbs.md).
-- Contour is installed in the cluster. You can install Contour from the [Tanzu Application package repository](../../../contour/how-to-guides/install.hbs.md). If you have have an existing Contour installation, see [Installing Cloud Native Runtimes with an Existing Contour Installation](../contour.hbs.md).
+- Complete all prerequisites to install Tanzu Application Platform. For more information, see
+  [Prerequisites](../../../prerequisites.hbs.md).
 
-- By default, Tanzu Application Platform installs and uses a self-signed certificate authority for issuing TLS certificates to components by using ingress issuer. For more information, see [Ingress Certificates](../../../security-and-compliance/about.hbs.md).
-  To install Cloud Native Runtimes, you must set the `shared.ingress_domain` or `cnrs.domain_name` property when you set `ingress_issuer`. For example:
+- Contour is installed in the cluster. You can install Contour from the
+  [Tanzu Application package repository](../../../contour/how-to-guides/install.hbs.md). If you
+  have an existing Contour installation, see
+  [Installing Cloud Native Runtimes with an Existing Contour Installation](../contour.hbs.md).
 
-  ```console
-  shared:
-    ingress_domain: "foo.bar.com"
-  ```
+- By default, Tanzu Application Platform installs and uses a self-signed certificate authority for
+  issuing TLS certificates to components by using ingress issuer. For more information, see
+  [Ingress Certificates](../../../security-and-compliance/about.hbs.md).
+  To install Cloud Native Runtimes, you must set the `shared.ingress_domain` or `cnrs.domain_name`
+  property when you set `ingress_issuer`. For example:
+
+   ```console
+   shared:
+     ingress_domain: "foo.bar.com"
+   ```
 
   or
 
-  ```console
-  cnrs:
-    domain_name: "foo.bar.com"
-  ```
+   ```console
+   cnrs:
+     domain_name: "foo.bar.com"
+   ```
 
-  If the domain name is not available or not what you want, you can set the domain name to any valid value if no process relies on the domain name resolving to the envoy IP.
-  VMware discourages this for production environments. Another alternative to bypass setting domain name is to deactivate auto-TLS. For more information, see [Disabling Automatic TLS Certificate Provisioning](../auto-tls/tls-guides-deactivate-autotls.hbs.md).
+  If the domain name is not available or not what you want, you can set the domain name to any
+  valid value if no process relies on the domain name resolving to the envoy IP. VMware discourages
+  this for production environments. Another alternative to bypass setting domain name is to
+  deactivate auto-TLS. For more information, see
+  [Disabling Automatic TLS Certificate Provisioning](../auto-tls/tls-guides-deactivate-autotls.hbs.md).
 
 ## <a id='cnr-install'></a> Install
 

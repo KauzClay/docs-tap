@@ -8,16 +8,16 @@ You can provide source code for the workload from one of three places:
 2. A directory in your local computer's file system.
 3. A Maven repository.
 
-  ```console
-  Supply Chain
+   ```console
+   Supply Chain
 
-    -- fetch source                 * either from Git or local directory
-      -- test
-        -- build
-          -- scan
-            -- apply-conventions
-              -- push config
-  ```
+     -- fetch source                 * either from Git or local directory
+       -- test
+         -- build
+           -- scan
+             -- apply-conventions
+               -- push config
+   ```
 
 This document provides details about each approach.
 
@@ -40,36 +40,36 @@ For example, after installing `ootb-supply-chain-basic`, to create a
 `github.com/vmware-tanzu/application-accelerator-samples` Git repository,
 and the subdirectory `tanzu-java-web-app` run:
 
-  ```bash
-  tanzu apps workload create tanzu-java-web-app \
-    --app tanzu-java-web-app \
-    --type web \
-    --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
-    --sub-path tanzu-java-web-app \
-    --git-branch main
-  ```
+```console
+tanzu apps workload create tanzu-java-web-app \
+  --app tanzu-java-web-app \
+  --type web \
+  --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+  --sub-path tanzu-java-web-app \
+  --git-branch main
+```
 
 Expect to see the following output:
 
-  ```console
-  Create workload:
-        1 + |---
-        2 + |apiVersion: carto.run/v1alpha1
-        3 + |kind: Workload
-        4 + |metadata:
-        5 + |  labels:
-        6 + |    app.kubernetes.io/part-of: tanzu-java-web-app
-        7 + |    apps.tanzu.vmware.com/workload-type: web
-        8 + |  name: tanzu-java-web-app
-        9 + |  namespace: default
-      10 + |spec:
-      11 + |  source:
-      12 + |    git:
-      13 + |      ref:
-      14 + |        branch: main
-      15 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples
-      16 + |    subPath: tanzu-java-web-app
-  ```
+```console
+Create workload:
+      1 + |---
+      2 + |apiVersion: carto.run/v1alpha1
+      3 + |kind: Workload
+      4 + |metadata:
+      5 + |  labels:
+      6 + |    app.kubernetes.io/part-of: tanzu-java-web-app
+      7 + |    apps.tanzu.vmware.com/workload-type: web
+      8 + |  name: tanzu-java-web-app
+      9 + |  namespace: default
+    10 + |spec:
+    11 + |  source:
+    12 + |    git:
+    13 + |      ref:
+    14 + |        branch: main
+    15 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples
+    16 + |    subPath: tanzu-java-web-app
+```
 
 >**Important** The Git repository URL must include the scheme: `http://`,
 `https://`, or `ssh://`.
@@ -115,40 +115,40 @@ You can also override the default secret name directly in the workload by using
 the `source_credentials_secret` parameter, regardless of how Tanzu Application Platform
 is installed. You can use the `--param` flag in Tanzu CLI. For example:
 
-  ```bash
-  tanzu apps workload create tanzu-java-web-app \
-    --app tanzu-java-web-app \
-    --type web \
-    --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
-    --sub-path tanzu-java-web-app \
-    --git-branch main \
-    --param source_credentials_secret=SECRET-NAME
-  ```
+```console
+tanzu apps workload create tanzu-java-web-app \
+  --app tanzu-java-web-app \
+  --type web \
+  --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+  --sub-path tanzu-java-web-app \
+  --git-branch main \
+  --param source_credentials_secret=SECRET-NAME
+```
 
 Expect to see the following output:
 
-  ```console
-  Create workload:
-        1 + |---
-        2 + |apiVersion: carto.run/v1alpha1
-        3 + |kind: Workload
-        4 + |metadata:
-        5 + |  labels:
-        6 + |    app.kubernetes.io/part-of: tanzu-java-web-app
-        7 + |    apps.tanzu.vmware.com/workload-type: web
-        8 + |  name: tanzu-java-web-app
-        9 + |  namespace: default
-      10 + |spec:
-      11 + |  params:
-      12 + |  - name: source_credentials_secret  #! parameter that overrides the default
-      13 + |    value: GIT-SECRET-NAME     #! secret name
-      14 + |  source:
-      15 + |    git:
-      16 + |      ref:
-      17 + |        branch: main
-      18 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples
-      19 + |    subPath: tanzu-java-web-app
-  ```
+```console
+Create workload:
+      1 + |---
+      2 + |apiVersion: carto.run/v1alpha1
+      3 + |kind: Workload
+      4 + |metadata:
+      5 + |  labels:
+      6 + |    app.kubernetes.io/part-of: tanzu-java-web-app
+      7 + |    apps.tanzu.vmware.com/workload-type: web
+      8 + |  name: tanzu-java-web-app
+      9 + |  namespace: default
+    10 + |spec:
+    11 + |  params:
+    12 + |  - name: source_credentials_secret  #! parameter that overrides the default
+    13 + |    value: GIT-SECRET-NAME     #! secret name
+    14 + |  source:
+    15 + |    git:
+    16 + |      ref:
+    17 + |        branch: main
+    18 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples
+    19 + |    subPath: tanzu-java-web-app
+```
 
 >**Note** A secret reference is only provided to `GitRepository` if
 `source_credentials_secret` is set to a non-empty string in some fashion,
@@ -296,44 +296,42 @@ For example, if a developer has source code under the current directory
 (`.`) and access to a repository in a container image
 registry, you can create a workload as follows:
 
-  ```bash
-  tanzu apps workload create tanzu-java-web-app \
-    --app tanzu-java-web-app \
-    --type web \
-    --local-path . \
-    --source-image $REGISTRY/test
-  ```
+```console
+tanzu apps workload create tanzu-java-web-app \
+  --app tanzu-java-web-app \
+  --type web \
+  --local-path . \
+  --source-image $REGISTRY/test
+```
 
-  ```console
-  Publish source in "." to "REGISTRY-SERVER/REGISTRY-REPOSITORY"?
-  It may be visible to others who can pull images from that repository
+```console
+Publish source in "." to "REGISTRY-SERVER/REGISTRY-REPOSITORY"?
+It may be visible to others who can pull images from that repository
 
-    Yes
+  Yes
 
-  Publishing source in "." to "REGISTRY-SERVER/REGISTRY-REPOSITORY"...
-  Published source
+Publishing source in "." to "REGISTRY-SERVER/REGISTRY-REPOSITORY"...
+Published source
 
-  Create workload:
-        1 + |---
-        2 + |apiVersion: carto.run/v1alpha1
-        3 + |kind: Workload
-        4 + |metadata:
-        5 + |  labels:
-        6 + |    app.kubernetes.io/part-of: tanzu-java-web-app
-        7 + |    apps.tanzu.vmware.com/workload-type: web
-        8 + |  name: tanzu-java-web-app
-        9 + |  namespace: default
-      10 + |spec:
-      11 + |  source:
-      12 + |    image: REGISTRY-SERVER/REGISTRY-REPOSITORY:latest@<digest>
-  ```
+Create workload:
+      1 + |---
+      2 + |apiVersion: carto.run/v1alpha1
+      3 + |kind: Workload
+      4 + |metadata:
+      5 + |  labels:
+      6 + |    app.kubernetes.io/part-of: tanzu-java-web-app
+      7 + |    apps.tanzu.vmware.com/workload-type: web
+      8 + |  name: tanzu-java-web-app
+      9 + |  namespace: default
+    10 + |spec:
+    11 + |  source:
+    12 + |    image: REGISTRY-SERVER/REGISTRY-REPOSITORY:latest@<digest>
+```
 
- Where:
+Where:
 
-   - `REGISTRY-SERVER` is the container image registry.
-   - `REGISTRY-REPOSITORY` is the repository in the container image registry.
-
-
+- `REGISTRY-SERVER` is the container image registry.
+- `REGISTRY-REPOSITORY` is the repository in the container image registry.
 
 ### <a id="auth"></a>Authentication
 
@@ -350,9 +348,9 @@ so the developer must configure their machine accordingly.
 To ensure credentials are available, use `docker` to make the necessary
 credentials available for the Tanzu CLI to perform the image push. Run:
 
-  ```console
-  docker login REGISTRY-SERVER -u REGISTRY-USERNAME -p REGISTRY-PASSWORD
-  ```
+```console
+docker login REGISTRY-SERVER -u REGISTRY-USERNAME -p REGISTRY-PASSWORD
+```
 
 #### <a id="auth"></a>Supply chain components
 
@@ -394,26 +392,26 @@ spec:
 
 Instead of a `GitRepository` object, an `ImageRepository` is created:
 
-  ```diff
-    Workload/app
-    │
-  - ├─GitRepository/app
-  + ├─ImageRepository/app
-    │
-    ├─Image/app
-    │ ├─Build/app-build-1
-    │ │ └─Pod/app-build-1-build-pod
-    │ ├─PersistentVolumeClaim/app-cache
-    │ └─SourceResolver/app-source
-    │
-    ├─PodIntent/app
-    │
-    ├─ConfigMap/app
-    │
-    └─Runnable/app-config-writer
-      └─TaskRun/app-config-writer-2zj7w
-        └─Pod/app-config-writer-2zj7w-pod
-  ```
+```diff
+  Workload/app
+  │
+- ├─GitRepository/app
++ ├─ImageRepository/app
+  │
+  ├─Image/app
+  │ ├─Build/app-build-1
+  │ │ └─Pod/app-build-1-build-pod
+  │ ├─PersistentVolumeClaim/app-cache
+  │ └─SourceResolver/app-source
+  │
+  ├─PodIntent/app
+  │
+  ├─ConfigMap/app
+  │
+  └─Runnable/app-config-writer
+    └─TaskRun/app-config-writer-2zj7w
+      └─Pod/app-config-writer-2zj7w-pod
+```
 
 `ImageRepository` provides the same semantics as `GitRepository`,
 except that it looks for source code in container image registries rather than

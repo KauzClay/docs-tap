@@ -21,7 +21,7 @@ Relying on VMware Tanzu Network for the Tanzu Application Platform images is no 
 **Solution:**
 
 Relocate the Tanzu Application Platform images by following the instructions in
-[Update your installation to use images from your own registry instead of Tanzu Network](../upgrading.hbs.md#switch-from-tanzu-network).
+[Migrate Tanzu Application Platform images from VMware Tanzu Network](../tanzu-network-to-broadcom.hbs.md).
 
 ## <a id='use-events'></a> Use events to find possible causes
 

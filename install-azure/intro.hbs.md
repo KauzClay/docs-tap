@@ -5,7 +5,7 @@ To install Tanzu Application Platform (commonly known as TAP) on Azure:
 |Step|Task|Link|
 |----|----|----|
 |1.| Review the prerequisites to ensure that you have set up everything required before beginning the installation |[Prerequisites](../prerequisites.hbs.md)|
-|2.| Accept Tanzu Application Platform EULAs and install the Tanzu CLI |[Accept Tanzu Application Platform EULAs and installing the Tanzu CLI](../install-tanzu-cli.hbs.md)|
+|2.| Install the Tanzu CLI |[Install the Tanzu CLI](../install-tanzu-cli.hbs.md)|
 |3.| Create Azure Resources |[Create Azure Resources](resources.hbs.md)|
 |4.| Install Cluster Essentials for Tanzu |[Deploy Cluster Essentials](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html)|
 |5.| Add the Tanzu Application Platform package repository, prepare your Tanzu Application Platform profile, and install the profile to the cluster |[Install the Tanzu Application Platform package and profiles](profile.hbs.md)|

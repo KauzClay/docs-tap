@@ -1,12 +1,12 @@
 # Install Tanzu Application Platform (OpenShift)
 
-To install Tanzu Application Platform (commonly known as TAP) on your OpenShift 
+To install Tanzu Application Platform (commonly known as TAP) on your OpenShift
 clusters with internet access:
 
 |Step|Task|Link|
 |----|----|----|
 |1.| Review the prerequisites to ensure you have met all requirements before installing. |[Prerequisites](../prerequisites.hbs.md)|
-|2.| Accept Tanzu Application Platform EULAs and install the Tanzu CLI. |[Accept Tanzu Application Platform EULAs and installing the Tanzu CLI](../install-tanzu-cli.hbs.md)|
+|2.| Install the Tanzu CLI. |[Install the Tanzu CLI](../install-tanzu-cli.hbs.md)|
 |3.| Install Cluster Essentials for Tanzu. |[Deploy Cluster Essentials](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html)|
 |4.| Add the Tanzu Application Platform package repository, prepare your Tanzu Application Platform profile, and install the profile to the cluster. |[Install the Tanzu Application Platform package and profiles](profile.hbs.md)|
 |5.| (Optional) Install any additional packages that were not in the profile. |[Install individual packages](components.hbs.md)|

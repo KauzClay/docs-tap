@@ -8,7 +8,7 @@ Installing individual Tanzu Application Platform packages
 is useful if you do not want to use a profile to install packages
 or if you want to install additional packages after installing a profile.
 Before installing the packages, be sure to complete the prerequisites, configure
-and verify the cluster, accept the EULA, and install the Tanzu CLI with any required plug-ins.
+and verify the cluster, and install the Tanzu CLI with any required plug-ins.
 For more information, see [Prerequisites](/docs-tap/prerequisites.hbs.md).
 
 ## <a id='individual-package-toc'></a> Install pages for individual Tanzu Application Platform packages

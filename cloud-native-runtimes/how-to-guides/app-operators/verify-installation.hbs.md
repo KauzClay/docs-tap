@@ -18,7 +18,7 @@ You can verify that your Cloud Native Runtimes installation was successful by te
     kubectl create namespace ${WORKLOAD_NAMESPACE}
     ```
 
-2. Configure a namespace to use Cloud Native Runtimes. If you relocated images to another registry during Tanzu Application Platform installation, you must grant service accounts that run Knative services using Cloud Native Runtimes access to the image pull secrets. This includes the `default` service account in a namespace, which is created automatically but not associated with any image pull secrets. Without these credentials, attempts to start a service fail with a timeout and the pods report that they are unable to pull the `queue-proxy` image.
+2. Configure a namespace to use Cloud Native Runtimes. You must grant service accounts that run Knative services using Cloud Native Runtimes access to the image pull secrets. This includes the `default` service account in a namespace, which is created automatically but not associated with any image pull secrets. Without these credentials, attempts to start a service fail with a timeout and the pods report that they are unable to pull the `queue-proxy` image.
 
     1. Create an image pull secret in the namespace that Knative services run and fill it from the `tap-registry` secret mentioned in [Add the Tanzu Application Platform package repository](../../../install-online/profile.hbs.md#add-tap-repo). Run the following commands to create an empty secret and annotate it as a target of the secretgen controller:
 

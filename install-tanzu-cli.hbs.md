@@ -1,6 +1,6 @@
-# Install Tanzu CLI
+# Install the Tanzu CLI
 
-This topic tells you how to accept the EULAs, and install the Tanzu CLI and plug-ins on Tanzu Application Platform (commonly known as TAP).
+This topic tells you how to install the Tanzu CLI and plug-ins on Tanzu Application Platform (commonly known as TAP).
 
 ## <a id="set-k8s-context"></a> Set the Kubernetes cluster context
 

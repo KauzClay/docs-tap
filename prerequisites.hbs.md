@@ -154,4 +154,4 @@ Installation requires:
 
 ## <a id='next-steps'></a>Next steps
 
-- [Accept Tanzu Application Platform EULAs and installing the Tanzu CLI](install-tanzu-cli.html)
+- [Install the Tanzu CLI](install-tanzu-cli.html)

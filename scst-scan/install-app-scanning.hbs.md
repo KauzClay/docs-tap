@@ -144,14 +144,14 @@ To configure service accounts and registry credentials, SCST - Scan 2.0 requires
 
 Where:
 
-  - `Tanzu Application Platform bundles registry` is the registry containing the Tanzu Application Platform bundles. This is the registry from the [Relocate images to a registry](../install-online/profile.hbs.md#relocate-images-to-a-registry) step or `registry.tanzu.vmware.com`.
+  - `Tanzu Application Platform bundles registry` is the registry containing the Tanzu Application Platform bundles. This is the registry from the [Relocate images to a registry](../install-online/profile.hbs.md#relocate-images-to-a-registry) step.
   - `Target image registry` is the registry containing the image to scan. This registry credential is required if you are scanning a private image. The `image to scan is` called the `target image` or `TARGET-IMAGE`.
   - `Vulnerability scanner image registry` is the registry containing your vulnerability scanner image. This is only needed if you are bringing your own scanner and your vulnerability scanner image is located in a private registry different from the `Tanzu Application Platform bundles registry`.
   - `Scan results location registry` is the registry where scan results are published.
 
 To configure service accounts and registry credentials:
 
-1. Create a secret `scanning-tap-component-read-creds` with read access to the registry containing the Tanzu Application Platform bundles. This pulls the SCST - Scan 2.0 images. If you previously relocated the Tanzu Application Platform bundles to your own registry, you can also place your vulnerability scanner image in this registry.
+1. Create a secret `scanning-tap-component-read-creds` with read access to the registry containing the Tanzu Application Platform bundles. This pulls the SCST - Scan 2.0 images. You can place your vulnerability scanner image in the registry where you relocated the Tanzu Application Platform bundles to.
 
     ```console
     read -s TAP_REGISTRY_PASSWORD
@@ -220,7 +220,7 @@ To configure service accounts and registry credentials:
     - `secrets.name` is the name of the secret used to pull the target image to scan. This is required if the image you are scanning is private.
 
 6. Apply the service account to your developer namespace by running:
-   
+
    ```console
    kubectl apply -f scanner-sa.yaml
    ```

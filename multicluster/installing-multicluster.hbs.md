@@ -6,9 +6,10 @@ This topic tells you how to install a multicluster topology for your Tanzu Appli
 
 Before installing multicluster Tanzu Application Platform profiles, you must meet the following prerequisites:
 
-- All clusters must satisfy all the requirements to install Tanzu Application Platform. See [Prerequisites](../prerequisites.md).
-- [Accept Tanzu Application Platform EULA and install Tanzu CLI](../install-tanzu-cli.hbs.md) with any required plug-ins.
-- Install Tanzu Cluster Essentials on all clusters. For more information, see [Deploy Cluster Essentials](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html).
+- All clusters must satisfy all the requirements to install Tanzu Application Platform.
+  See the Tanzu Application Platform [Prerequisites](../prerequisites.md).
+- [Install the Tanzu CLI](../install-tanzu-cli.hbs.md) with any required plug-ins.
+- [Install Cluster Essentials](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html) on all clusters.
 
 ## <a id='order-of-operations'></a> Multicluster Installation Order of Operations
 

@@ -1,7 +1,7 @@
 # Install Tanzu Application Platform (GitOps)
 
 GitOps is a set of practices and principles to manage Kubernetes infrastructure and application deployments using Git as the single source of truth. It promotes declarative configurations and automated workflows to ensure consistency, reliability, and traceability for your application deployments.
- 
+
 The key components involved in implementing GitOps with Kubernetes include:
 
 - **Git as the single source of truth**: The desired state is stored in a Git repository. To change the cluster state, you must change it in the Git repository instead of modifying it directly on the cluster.
@@ -17,7 +17,7 @@ The Tanzu GitOps Reference Implementation (RI) is built upon Carvel, which share
 - All the packaging APIs are declarative in nature.
 - Among many options to fetch the manifest to be deployed, it can also pull the content from the Git repository, making Git the source of truth.
 - Packages installed are reconciled every time after the SyncPeriod expires (10 minutes by default). As part of the reconciliation, it fetches the manifest from the Git repository and when the desired state is different from the actual state on Kubernetes, it converges the resources to their desired state declared in Git.
- 
+
 ## <a id="benefits"></a>GitOps benefits
 
 GitOps offers the following benefits:
@@ -48,7 +48,7 @@ Applies to the scenario when you want a simple instance and store sensitive data
 |Step|Task|Link|
 |----|----|----|
 |1.| Review the prerequisites to ensure you have met all requirements before installing. |[Prerequisites](../prerequisites.hbs.md)|
-|2.| Accept Tanzu Application Platform EULAs and install the Tanzu CLI. |[Accept Tanzu Application Platform EULAs and installing the Tanzu CLI](../install-tanzu-cli.hbs.md)|
+|2.| Install the Tanzu CLI. |[Install the Tanzu CLI](../install-tanzu-cli.hbs.md)|
 |3.| Install Cluster Essentials for Tanzu*. |[Deploy Cluster Essentials](https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html)|
 |4.| Install Tanzu Application Platform. |[Install Tanzu Application Platform through Gitops with Secrets OPerationS (SOPS)](sops.hbs.md)
 |5.| (Optional) Install any additional packages that were not in the profile. |[Install individual packages](components.hbs.md)|
@@ -63,7 +63,7 @@ AWS Secrets Manager
     |Step|Task|Link|
     |----|----|----|
     |1.| Review the prerequisites to ensure you have met all requirements before installing. |[Prerequisites](../prerequisites.hbs.md)|
-    |2.| Accept Tanzu Application Platform EULAs and install the Tanzu CLI. |[Accept Tanzu Application Platform EULAs and installing the Tanzu CLI](../install-tanzu-cli.hbs.md)|
+    |2.| Install the Tanzu CLI. |[Install the Tanzu CLI](../install-tanzu-cli.hbs.md)|
     |3.| Create AWS Resources such as EKS cluster and roles)|[Create AWS Resources](../install-aws/resources.hbs.md)|
     |4.| Install Cluster Essentials for Tanzu*. |[Deploy Cluster Essentials](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html)|
     |5.| Install Tanzu Application Platform. |[Install Tanzu Application Platform through GitOps using AWS Secrets Manager](eso/aws-secrets-manager.hbs.md)|
@@ -77,7 +77,7 @@ HashiCorp Vault
     |Step|Task|Link|
     |----|----|----|
     |1.| Review the prerequisites to ensure you have met all requirements before installing. |[Prerequisites](../prerequisites.hbs.md)|
-    |2.| Accept Tanzu Application Platform EULAs and install the Tanzu CLI. |[Accept Tanzu Application Platform EULAs and installing the Tanzu CLI](../install-tanzu-cli.hbs.md)|
+    |2.| Install the Tanzu CLI. |[Installing the Tanzu CLI](../install-tanzu-cli.hbs.md)|
     |3.| Install Cluster Essentials for Tanzu*. |[Deploy Cluster Essentials](https://{{ vars.staging_toggle }}.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/{{ vars.ce_version }}/cluster-essentials/deploy.html)|
     |4.| Install Tanzu Application Platform. |[Install Tanzu Application Platform through GitOps using HashiCorp Vault](eso/hashicorp-vault.hbs.md)|
     |5.| (Optional) Install any additional packages that were not in the profile. |[Install individual packages](components.hbs.md)|

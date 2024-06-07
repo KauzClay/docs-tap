@@ -8,7 +8,7 @@ After you build an ImageVulnerabilityScan to bring your own scanner, you can val
 capabilities to verify the integration.
 
 Ensure that the scan integration is working correctly so that downstream servers such as AMR
-Observer, Tanzu Developer Portal, and the insight CLI can use scan results.
+Observer and Tanzu Developer Portal can use scan results.
 
 To verify scanning:
 

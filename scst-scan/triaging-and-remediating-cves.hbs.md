@@ -27,7 +27,6 @@ The goal of triage is to analyze and prioritize the reported vulnerability data 
 
 During triage, review which packages are impacted by the CVEs that violated your scan policy.
 Use the Supply Chain Choreographer in the Tanzu Developer Portal to visualize your supply chain, including scans, scan policy, and CVEs.
-You can also use the Tanzu CLI Insight plug-in to query packages, vulnerabilities, and create vulnerability analysis. See [Tanzu CLI Insight plug-in](../cli-plugins/insight/cli-overview.hbs.md).
 
 During this stage, VMware recommends reviewing information pertaining to the CVEs from sources such as the [National Vulnerability Database](https://nvd.nist.gov/vuln) or the release page of a package.
 

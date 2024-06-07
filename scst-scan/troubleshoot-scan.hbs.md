@@ -123,7 +123,7 @@ kubectl rollout restart deployment scan-link-controller-manager -n scan-link-sys
 
 ## <a id="troubleshoot-scanner-metadata-config"></a> Troubleshooting scanner to MetadataStore configuration
 
-### Insight CLI failed to post scan results to metadata store due to failed certificate verification
+### Failed to post scan results to metadata store due to failed certificate verification
 
 If you encounter this issue:
 

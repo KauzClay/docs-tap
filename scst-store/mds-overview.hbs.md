@@ -12,12 +12,6 @@ store the resulting source code and image vulnerability reports. The Metadata St
 accepts CycloneDX input and outputs in both human-readable and machine-readable formats,
 including JSON, text, and CycloneDX.
 
-## <a id='using-insight'></a> Using the Tanzu Insight CLI plug-in
-
-The Tanzu Insight CLI plug-in is the primary way to view results from the Supply Chain Security Tools (SCST) - Scan of source code and image files. Use it to query by the source code commit, image digest, and CVE identifier to understand security risks.
-
-For information about installing, configuring, and using `tanzu insight`, see [Overview of Tanzu Insight plug-in](../cli-plugins/insight/cli-overview.hbs.md).
-
 ## <a id='multicluster-config'></a> Multicluster configuration
 
 You can configure the Metadata Store in a multicluster setup.

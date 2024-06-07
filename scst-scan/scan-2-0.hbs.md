@@ -27,7 +27,6 @@ Tanzu Application Platform configurations.
 ### AMR Observer
 
 Downstream services such as 
-[Tanzu CLI Insight plug-in](../cli-plugins/insight/cli-overview.hbs.md),
 [Supply Chain Choreographer](../tap-gui/plugins/scc-tap-gui.hbs.md), and
 [Security Analysis](../tap-gui/plugins/sa-tap-gui.hbs.md) dashboards in the
 Tanzu Developer Portal depend on data being in

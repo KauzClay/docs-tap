@@ -1,6 +1,6 @@
 <!-- Configure port forwarding to connect to the metadata store -->
 
-Configure port-forwarding for the service so that the insight plug-in can access SCST - Store.
+Configure port-forwarding for the service so that the curl command can access SCST - Store.
 You can configure port-forwarding in a separate terminal window or in the background.
 
 From a separate terminal window, run:

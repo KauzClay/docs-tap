@@ -110,4 +110,4 @@ Where `DEV-NAMESPACE` is the developer namespace where the scanner is installed.
 
 ## <a id="view-vuln-reports"></a>View vulnerability reports
 
-After completing the scans, [query the Supply Chain Security Tools - Store](../../cli-plugins/insight/query-data.md) to view your vulnerability results.
+After completing the scans, view the vulnerability results in the [Tanzu Developer Portal](../../tap-gui/plugins/sa-tap-gui.hbs.md).

@@ -11,7 +11,6 @@ For more information about available supply chains, see [Supply chains on Tanzu 
 - Add a Tekton pipeline to the cluster and update the workload to point to the pipeline and resolve errors.
 - Install OOTB Supply Chain with Testing and Scanning.
 - Update the workload to point to the Tekton pipeline and resolve errors.
-- Query for vulnerabilities and dependencies.
 - (Optional) Enable recurring scanning for post-build scans.
 
 ## <a id="overview"></a> Overview
@@ -354,22 +353,6 @@ pipeline:
     ```
 
     > **Important** If the source or image scan has a "Failed" phase this means that the scan failed due to a scan policy violation and the supply chain stops. For information about the CVE triage workflow, see [Out of the Box Supply Chain with Testing and Scanning](../scc/ootb-supply-chain-testing-scanning.hbs.md#cve-triage-workflow).
-
-### <a id="query-for-vuln"></a> Query for vulnerabilities
-
-Scan reports are automatically saved to the [Supply Chain Security Tools - Store](../scst-store/overview.md), and you can query them for vulnerabilities and dependencies. For example, related to open-source software (OSS) or third-party packages.
-
-Query the tanzu-java-web-app image dependencies and vulnerabilities by running:
-
-```console
-tanzu insight image get --digest DIGEST
-tanzu insight image vulnerabilities --digest  DIGEST
-```
-
-Where `DIGEST` is the component version or image digest printed in the `KUBECTL GET` command.
-
-For additional information and examples, see [Tanzu Insight plug-in overview](../cli-plugins/insight/cli-overview.md).
-<br>
 
 Congratulations! You have successfully added testing and security scanning to your application on the Tanzu Application Platform.
 

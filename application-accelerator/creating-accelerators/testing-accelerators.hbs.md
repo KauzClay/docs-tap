@@ -78,38 +78,13 @@ options for each and running different assertions on each generated project.
 
 If the Tanzu CLI is already available in your CI/CD pipeline you can skip this section.
 
-VMware provides an example script that is agnostic to the CI/CD system it is running on.
-The script requires a variable named `TANZU_REFRESH_TOKEN` which holds a personal
-VMware Tanzu Network refresh token. To generate such a token see
-[How to Authenticate](https://network.tanzu.vmware.com/docs/api#how-to-authenticate).
-The script also uses `curl` and `jq`.
+If not, then follow the [Installing the Tanzu CLI](https://github.com/vmware-tanzu/tanzu-cli/blob/main/docs/quickstart/install.md) doc. Install a binary that matches the OS and arch that you are using in you CI.
 
-The script downloads artifacts compatible with Tanzu Application Platform version v1.4 and a Linux operating
-system. Update the script to suit the Tanzu Application Platform version and OS that you are using.
+In your CI script you should also install the `accelerator` plugin using the following commands:
 
-```console
-#!/bin/bash
-
-# Get access token using personal Tanzu Network refresh token
-# See https://network.tanzu.vmware.com/docs/api#how-to-authenticate
-ACCESS_TOKEN=$(curl -X POST https://network.tanzu.vmware.com/api/v2/authentication/access_tokens -d '{"refresh_token":"'"$TANZU_REFRESH_TOKEN"'"}' | jq -r ".access_token")
-
-# Download bundle
-# See https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.7/tap/install-tanzu-cli.html#cli-and-plugin
-# Update url to download desired version
-mkdir -p $HOME/tanzu
-curl -L -X GET https://network.tanzu.vmware.com/api/v2/products/tanzu-application-platform/releases/1205491/product_files/1352407/download -H "Authorization: Bearer $ACCESS_TOKEN" --output bundle.tar
-
-# Unpack bundle
-export TANZU_CLI_NO_INIT=true
-export VERSION=v0.25.0 # Update to desired version
-tar -xvf bundle.tar -C $HOME/tanzu
-cd $HOME/tanzu
-
-# Install CLI
-# Update to use desired OS
-sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
-
-# Install plugins
-tanzu plugin install --local cli accelerator
+```
+tanzu config eula accept
+tanzu ceip-participation set false
+tanzu init
+tanzu plugin install accelerator --target kubernetes
 ```

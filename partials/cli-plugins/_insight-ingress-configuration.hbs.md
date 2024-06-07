@@ -1,4 +1,4 @@
-<!-- Configure certificate and endpoint for insight cli when ingress is enabled -->
+<!-- Configure certificate and endpoint when ingress is enabled -->
 
 Set the endpoint host to:
 
@@ -15,8 +15,7 @@ metadata-store.example.domain.com
 ```
 
 > **Note** In a multicluster setup, a DNS record is required for the domain. The following
-> instructions for single cluster setup do not apply, skip to the [Set the target](#set-target)
-> section.
+> instructions for single cluster setup do not apply.
 
 ## <a id="single-cluster"></a> Single-cluster setup
 
@@ -34,7 +33,3 @@ sudo sed -i '' "/$METADATA_STORE_DOMAIN/d" /etc/hosts
 
 echo "$ENVOY_IP $METADATA_STORE_DOMAIN" | sudo tee -a /etc/hosts > /dev/null
 ```
-
-## <a id="set-target"></a> Set the target
-
-{{> 'partials/cli-plugins/insight-set-target' ingress=true }}

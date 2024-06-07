@@ -13,7 +13,3 @@ This topic describes how you can use your NodePort with Supply Chain Security To
 You must use port forwarding when using the `NodePort` configuration.
 
 {{> 'partials/scst-store/port-forwarding' }}
-
-## Configure the Insight plug-in
-
-{{> 'partials/cli-plugins/insight-set-target' ingress=false }}

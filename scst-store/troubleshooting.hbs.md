@@ -3,18 +3,6 @@
 This topic contains ways you can troubleshoot known issues for Supply Chain Security Tools (SCST) -
 Store.
 
-## <a id='query-cve'></a>Querying by `insight source` returns zero CVEs even though there are CVEs in the source scan
-
-### <a id='query-cve-symptom'></a>Symptom
-
-The `insight source get` and other `insight source` commands return zero results.
-
-### <a id='query-cve-solution'></a> Solution
-
-You might have to include different combinations of `--repo`, `--org`, `--commit` due to how the
-scan-controller populates the software bill of materials (SBOM). For more information, see
-[Query vulnerabilities, images, and packages](../cli-plugins/insight/query-data.hbs.md).
-
 ## <a id='retains-data'></a>Persistent volume retains data
 
 ### <a id='retains-data-symptom'></a>Symptom
@@ -104,7 +92,7 @@ before upgrading to Kubernetes v1.23. For more information, see the
 
 ### <a id="ca-cert-expires-symptom"></a>Symptom
 
-The Insight CLI or Scan Controller fails to communicate with the SCST - Store and receives an error
+The Scan Controller fails to communicate with the SCST - Store and receives an error
 message containing the following text:
 
 ```console
@@ -157,7 +145,7 @@ To solve:
 
 ### <a id="cert-expiries-symptom"></a>Symptom
 
-The Insight CLI or the Scan Controller fails to connect to SCST - Store.
+The Scan Controller fails to connect to SCST - Store.
 
 The logs of the metadata-store-app pod show the following error:
 

@@ -38,7 +38,3 @@ If you want to use port forwarding instead of the external IP address from the
 `LoadBalancer`, follow these steps:
 
 {{> 'partials/scst-store/port-forwarding' }}
-
-## Configure the Insight plug-in
-
-{{> 'partials/cli-plugins/insight-set-target' ingress=false }}

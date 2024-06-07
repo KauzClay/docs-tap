@@ -15,10 +15,6 @@ account installed with an access token generated. This service account is
 cluster-wide. If you want to create your own service accounts, see [Create
 Service Accounts](create-service-account.hbs.md).
 
-## Setting the Access Token
-
-{{> 'partials/insight-set-access-token' }}
-
 ## Additional Resources
 
 - [Retrieve access tokens](retrieve-access-tokens.hbs.md)

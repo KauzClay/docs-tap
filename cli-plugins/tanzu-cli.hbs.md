@@ -30,7 +30,6 @@ NAME              DESCRIPTION                                                   
   apps              Applications on Kubernetes                                       kubernetes  v0.12.1
   build-service     plugin to interact with tanzu build service (tbs) crds           kubernetes  v1.0.0
   external-secrets  interacts with external-secrets.io resources                     kubernetes  v0.1.0
-  insight           post & query image, package, source, and vulnerability data      kubernetes  v1.7.0
   package           Tanzu package management                                         kubernetes  v0.29.0
   secret            Tanzu secret management                                          kubernetes  v0.29.0
   services          Commands for working with service instances, classes and claims  kubernetes  v0.8.0
@@ -47,7 +46,6 @@ Tanzu CLI Product Documentation.
 |[Apps command reference](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/tanzu-apps.html)|[Apps release notes](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/release-notes-apps.html)|
 |[Build Service command reference](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/tanzu-build-service.html)|[Build Service release notes](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/release-notes-build-service.html)|
 |[External Secrets command reference](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/tanzu-external-secrets.html)|[External Secrets release notes](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/release-notes-external-secrets.html)|
-|[Insight command reference](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/tanzu-insight.html)|[Insight release notes](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/release-notes-insight.html)|
 |[Services command reference](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/tanzu-services.html)|[Services release notes](https://docs.vmware.com/en/VMware-Tanzu-CLI/{{ vars.tanzu-cli.url_version }}/tanzu-cli/release-notes-services.html)|
 
 ## <a id="tanzu-cli-install"></a>Tanzu CLI installation

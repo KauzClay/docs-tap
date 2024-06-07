@@ -206,7 +206,7 @@ To install SCST - Scan (Scan controller):
     ingress. This is automatically configured. You do not need to provide an
     ingress connection to the store. For information about troubleshooting
     issues with scanner to metadata store connection configuration, see
-    [Troubleshooting Scanner to MetadataStore Configuration](./troubleshoot-scan.hbs.md#insight-cli-failed-to-post-scan-results-to-metadata-store-due-to-failed-certificate-verification).
+    [Troubleshooting Scanner to MetadataStore Configuration](./troubleshoot-scan.hbs.md#failed-to-post-scan-results-to-metadata-store-due-to-failed-certificate-verification).
 
     >**Important** You must either define both the `METADATA-STORE-URL` and `CA-SECRET-NAME`,
     >or not define them as they depend on each other.

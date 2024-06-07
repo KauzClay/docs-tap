@@ -75,32 +75,56 @@ stringData:
 
 Where:
 
-- `.openID`: The issuer identifier. You can define as many OpenID providers as you like. If the provider supports OpenID Connect Discovery, the value of `openID` auto-configures the provider by using the information from `https://openid.example.com/.well-known/openid-configuration`.
-- `.openID.configurationURI`: The OpenID Connect provider configuration endpoint, which must be suffixed
-  with `/.well-known/openid-configuration`. This endpoint must have the HTTPS scheme. For more information, see [OpenID Connect provider configuration discovery](#oidc-discovery).
-- `.openID.issuerURI` (optional): The issuer URI. This field is deprecated and it relies on `.openID.configurationURI`. The value of `issuerURI` must not contain `.well-known/openid-configuration` and must match the value of the `issuer` field. For more information, see the OpenID Connect documentation for your issuer, for example, at `https://openid.example.com/.well-known/openid-configuration`.
+- `.openID`: The issuer identifier. You can define as many OpenID providers as you like. If the
+  provider supports OpenID Connect Discovery, the value of `openID` auto-configures the provider by
+  using the information from `https://openid.example.com/.well-known/openid-configuration`.
 
-  > **Note** You can retrieve the values of `issuerURI` (`https://openid.example.com`) and `clientID` (`my-client-abcdef`) when registering a client with the provider, which in most cases, is by using a web UI.
+- `.openID.configurationURI`: The OpenID Connect provider configuration endpoint, which must be
+  suffixed with `/.well-known/openid-configuration`. This endpoint must have the HTTPS scheme. For
+  more information, see [OpenID Connect provider configuration discovery](#oidc-discovery).
 
-  You can also run the following to retrieve the correct `issuerURI` value from the upstream identity provider:
+- `.openID.issuerURI` (optional): The issuer URI. This field is deprecated and it relies on
+  `.openID.configurationURI`. The value of `issuerURI` must not contain
+  `.well-known/openid-configuration` and must match the value of the `issuer` field. For more
+  information, see the OpenID Connect documentation for your issuer, for example, at
+  `https://openid.example.com/.well-known/openid-configuration`.
+
+  > **Note** You can retrieve the values of `issuerURI` (`https://openid.example.com`) and
+  > `clientID` (`my-client-abcdef`) when registering a client with the provider, which in most
+  > cases, is by using a web UI.
+
+  You can also run the following to retrieve the correct `issuerURI` value from the upstream
+  identity provider:
 
   ```console
   curl -s "https://openid.example.com/.well-known/openid-configuration" | jq -r ".issuer"
   ```
 
-- `.openID.displayName` (optional): A user-friendly display name for the provider that is rendered on the login page.
-- `.openID.scopes`: The scopes requested to the issuer in the authorization request. Its value must contain `"openid"`. Other common `openID.scopes` values include `"profile"` and `"email"`.
-- `.openID.clientSecretRef`: The issuer's client secret. The value of `clientSecretRef` must be a `Secret` with the entry `clientSecret`.
-- `.openID.authorizationUri` (optional): The URI for performing an authorization request and obtaining an `authorization_code`. If the `configurationURI` and `issuerURI` fields are not set, this field must not be empty.
-- `.openID.tokenUri` (optional): The URI for performing a token request and obtaining a token. If the `configurationURI` and `issuerURI` fields are not set, this field must not be empty.
-- `.openID.jwksUri` (optional): The JSON Web Key Set (JWKS) endpoint for obtaining the JSON Web Keys to verify token signatures. If the `configurationURI` and `issuerURI` fields are not set, this field must not be empty.
-- `.openID.userinfoUri` (optional): The URI for obtaining the additional identity claims from the upstream IdP (identity provider).
-- `.openID.roles.fromUpstream.claim` (optional): Selects which claim in the `id_token` contains the `roles` of
-  the user. `roles` is not a standard OpenID Connect claim. If `ClientRegistrations` or `ClassClaims` have a `roles` scope, it  populates the `roles` claim in the `id_token` issued by the `AuthServer`.
-  For more information, see [OpenID external groups mapping](#openid-external-groups-mapping).
-  - `MY-OIDC-PROVIDER-GROUPS`: Claim from the ID token issued by `my-oidc-provider` is mapped into the `roles` claim in the id tokens issued by AppSSO.
+- `.openID.displayName` (optional): A user-friendly display name for the provider that is rendered
+  on the login page.
+- `.openID.scopes`: The scopes requested to the issuer in the authorization request. Its value must
+  contain `"openid"`. Other common `openID.scopes` values include `"profile"` and `"email"`.
+- `.openID.clientSecretRef`: The issuer's client secret. The value of `clientSecretRef` must be a
+  `Secret` with the entry `clientSecret`.
+- `.openID.authorizationUri` (optional): The URI for performing an authorization request and
+  obtaining an `authorization_code`. If the `configurationURI` and `issuerURI` fields are not set,
+  this field must not be empty.
+- `.openID.tokenUri` (optional): The URI for performing a token request and obtaining a token. If
+  the `configurationURI` and `issuerURI` fields are not set, this field must not be empty.
+- `.openID.jwksUri` (optional): The JSON Web Key Set (JWKS) endpoint for obtaining the JSON Web Keys
+  to verify token signatures. If the `configurationURI` and `issuerURI` fields are not set, this
+  field must not be empty.
+- `.openID.userinfoUri` (optional): The URI for obtaining the additional identity claims from the
+  upstream IdP (identity provider).
+- `.openID.roles.fromUpstream.claim` (optional): Selects which claim in the `id_token` contains the
+  `roles` of the user. `roles` is not a standard OpenID Connect claim. If `ClientRegistrations` or
+  `ClassClaims` have a `roles` scope, it populates the `roles` claim in the `id_token` issued by the
+  `AuthServer`. For more information, see [OpenID external groups mapping](#openid-external-groups-mapping).
+- `MY-OIDC-PROVIDER-GROUPS`: Claim from the ID token issued by `my-oidc-provider` is mapped into the
+  `roles` claim in the id tokens issued by AppSSO.
 - `.openID.idToken.claims`: Allows mapping a claim from an upstream identity provider to the current
-  authorization server. See [Identity token claims mapping](#id-token-claims-mapping) for more details.
+  authorization server. See [Identity token claims mapping](#id-token-claims-mapping) for more
+  details.
 
 Verify the configuration by visiting the `AuthServer`'s issuer URI in your browser and select `my-oidc-provider`.
 
@@ -788,9 +812,9 @@ There are multiple options for generating bcrypt hashes:
 2. On Unix platforms, use `htpasswd`. Note, you may need to install it, for example on Ubuntu by
    running `apt install apache2-utils`
 
-  ```console
-  htpasswd -bnBC 12 "" your-password-here | tr -d ':\n'
-  ```
+   ```console
+   htpasswd -bnBC 12 "" your-password-here | tr -d ':\n'
+   ```
 
 ## <a id="id-token-claims-mapping"></a> Identity token claims mapping
 

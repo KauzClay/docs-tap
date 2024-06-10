@@ -155,7 +155,6 @@ To add the Tanzu Application Platform package repository to your cluster:
       base-jammy-stack-lite.buildpacks.tanzu.vmware.com    base-jammy-stack
       bitnami.services.tanzu.vmware.com                    bitnami-services
       buildservice.tanzu.vmware.com                        Tanzu Build Service
-      carbonblack.scanning.apps.tanzu.vmware.com           VMware Carbon Black for Supply Chain Security Tools - Scan
       cartographer.conventions.apps.tanzu.vmware.com       Convention Service for VMware Tanzu
       cartographer.tanzu.vmware.com                        Cartographer
       cnrs.tanzu.vmware.com                                Cloud Native Runtimes

@@ -17,7 +17,6 @@ To install a new scanner, follow these steps:
 1. Complete scanner specific prerequisites for the scanner you're trying to install. For example, creating an API token to connect to the scanner.
 
    - [Snyk Scanner (Beta)](install-snyk-integration.hbs.md) is available for image scanning.
-   - [Carbon Black Scanner (Beta)](install-carbonblack-integration.hbs.md) is available for image scanning.
 1. List the available packages to discover what scanners you can use by running:
 
     ```console
@@ -32,7 +31,6 @@ To install a new scanner, follow these steps:
       NAME                                                 DISPLAY-NAME                                                              SHORT-DESCRIPTION
       grype.scanning.apps.tanzu.vmware.com                 Grype Scanner for Supply Chain Security Tools - Scan                      Default scan templates using Anchore Grype
       snyk.scanning.apps.tanzu.vmware.com                  Snyk for Supply Chain Security Tools - Scan                               Default scan templates using Snyk
-      carbonblack.scanning.apps.tanzu.vmware.com           Carbon Black Scanner for Supply Chain Security Tools - Scan               Default scan templates using Carbon Black
     ```
 
 1. List version information for the scanner package by running:

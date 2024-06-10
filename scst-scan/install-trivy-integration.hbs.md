@@ -225,7 +225,7 @@ slightly different for each configuration.
 To persist the results found by the Trivy, enable the SCST - Store integration by appending the
 SCST- scan fields to Trivy`values.yaml` file.
 
-The Grype, Snyk, Prisma, Carbon Black, and Trivy integrations enable the Metadata Store. To prevent
+The Grype, Snyk, Prisma, and Trivy integrations enable the Metadata Store. To prevent
 conflicts, the configuration values are slightly different based on whether another scanner
 integration is installed or not. If Tanzu Application Platform is installed using the Full Profile,
 the Grype Scanner Integration is installed unless it is explicitly excluded.

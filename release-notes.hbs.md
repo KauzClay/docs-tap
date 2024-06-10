@@ -121,7 +121,6 @@ For open source component versions in this Tanzu Application Platform release, s
 | Artifact Metadata Repository Observer              |         |
 | AWS Services                                       |         |
 | Bitnami Services                                   |         |
-| Carbon Black Scanner for SCST - Scan (beta)        |         |
 | Cartographer Conventions                           |         |
 | cert-manager                                       |         |
 | Cloud Native Runtimes                              |         |
@@ -167,6 +166,10 @@ For open source component versions in this Tanzu Application Platform release, s
 
 The following features, listed by component, are deprecated.
 Deprecated features remain on this list until they are retired from Tanzu Application Platform.
+
+### <a id='supply-chain-security-tools--scan-v10-deprecation'></a> Supply Chain Security Tools - Scan v1.0 deprecation
+
+- VMware Carbon Black for Supply Chain Security Tools - Scan v1.0 which was deprecated in Tanzu Application Platform version 1.10 is now removed.
 
 ### <a id='COMPONENT-NAME-deprecations'></a> COMPONENT-NAME deprecations
 

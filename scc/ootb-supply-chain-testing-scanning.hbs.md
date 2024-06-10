@@ -298,4 +298,4 @@ vulnerabilities and unblock your Supply Chain, see
 ## <a id="scan-diff-scanner"></a> Scan Images using a different scanner
 
 [Supply Chain Security Tools - Scan](../scst-scan/install-scst-scan.md) includes additional
-integrations for running an image scan using Snyk and VMware Carbon Black.
+integrations for running an image scan using Snyk.

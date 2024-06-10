@@ -532,16 +532,6 @@ For a diagram showing the packages contained in each profile, see
       <td></td>
     </tr>
     <tr>
-      <th scope="row">Carbon Black Scanner for SCST - Scan (beta)</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>&check;</td>
-    </tr>
-    <tr>
       <th scope="row">cert-manager</th>
       <td>&check;</td>
       <td>&check;</td>
@@ -1031,7 +1021,7 @@ Tanzu Application Platform components.
 **Tanzu Developer Tooling:** refers to the developer conventions that enable debugging
 and Live Update function in the inner loop.
 
-**Extended Scanning Coverage:** When building container images with the Tanzu Build Service, the Cloud Native Build Packs used in the build process for the specified languages produce a Software Bill of Materials (SBOM).  Some scan engines support the enhanced ability to use this SBOM as a source for the scan. Out of the Box Supply Chain - Testing and Scanning leverages Anchore's Grype for the image scan, which suppports this capability.  In addition, users have the ability to leverage Carbon Black Container image scans, which also supports this enhanced scan coverage.
+**Extended Scanning Coverage:** When building container images with the Tanzu Build Service, the Cloud Native Build Packs used in the build process for the specified languages produce a Software Bill of Materials (SBOM).  Some scan engines support the enhanced ability to use this SBOM as a source for the scan. Out of the Box Supply Chain - Testing and Scanning leverages Anchore's Grype for the image scan, which suppports this capability.
 
 ## <a id='install'></a> Installing Tanzu Application Platform
 

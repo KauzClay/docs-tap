@@ -108,7 +108,7 @@ customize the task to use your own image with the Maven version you need.
         - computeResources: {}
           ...
           # change this image field to point to your image
-          image: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:a263660b3f2d89af528c9344856121ec26d21e97f09c3f70bf823a3ae5d9c8b1
+          image: maven:latest
           name: scan
     ...
     ```

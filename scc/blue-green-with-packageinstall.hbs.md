@@ -1,4 +1,4 @@
-# Use blue-green deployment with Contour and PackageInstall for Supply Chain Choreographer (beta)
+# Use blue-green deployment with Contour and PackageInstall for Supply Chain Choreographer
 
 Blue-green deployment is an application delivery model that lets you gradually transfer user traffic
 from one version of your app to a later version while both are running in production. This topic
@@ -11,7 +11,7 @@ To use blue-green deployment, you must complete the following prerequisites:
 - Complete the prerequisites in
   [Configure and deploy to multiple environments with custom parameters](./config-deploy-multi-env.hbs.md).
 - Configure Carvel for your supply chain.
-  See [Carvel Package Supply Chains (beta)](./carvel-package-supply-chain.hbs.md).
+  See [Carvel Package Supply Chains](./carvel-package-supply-chain.hbs.md).
 - Configure Flux CD for your supply chain.
   See [Deploy Package and PackageInstall using Flux CD Kustomization](./delivery-with-flux.hbs.md).
 

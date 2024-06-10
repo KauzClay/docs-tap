@@ -1,4 +1,4 @@
-# Carvel Package Supply Chains (beta)
+# Carvel Package Supply Chains
 
 This topic explains what Carvel Package Supply Chains do, how they work, how operators can enable
 them, and how to create a `Workload` that uses them. You can use the Carvel Package Supply Chains

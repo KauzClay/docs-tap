@@ -1,4 +1,4 @@
-# Use canary deployment with Contour and Carvel packages for Supply Chain Choreographer (beta)
+# Use canary deployment with Contour and Carvel packages for Supply Chain Choreographer
 
 This topic tells you how to automate canary releases using Contour ingress controller and Flagger
 with Packages and PackageInstalls.

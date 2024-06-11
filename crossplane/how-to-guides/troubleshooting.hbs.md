@@ -42,3 +42,47 @@ Delete the `validatingwebhookconfiguration` manually by running:
 ```console
 kubectl delete validatingwebhookconfiguration crossplane
 ```
+
+---
+
+## <a id="upgrade-failing-reconcile"></a>Crossplane component failing to reconcile during upgrade
+
+**Symptom:**
+
+When upgrading Crossplane package, if the source of the package has changed without changing its version, providers and function-patch-and-transform fail with error message `cannot resolve package dependencies: missing node in tree` and Crossplane package is not reconciled successfully.
+
+```console
+kubectl get provider.pkg -n crossplane-system -o yaml
+kubectl get functions -n crossplane-system -o yaml
+```
+
+**Solution:**
+
+Edit the lock and update the package source for provider-helm, provider-kubernetes and function-patch-and-transform with the new package source
+```console
+kubectl edit locks.pkg.crossplane.io lock
+
+packages:
+- dependencies: []
+  name: provider-helm-919772e449f3
+  source: tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:provider-helm
+  type: Provider
+  version: ...
+- dependencies: []
+  name: function-patch-and-transform-7799bf5e4e7f
+  source: tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:function-patch-and-transform
+  type: Function
+  version: ...
+- dependencies: []
+  name: provider-kubernetes-28e95f897554
+  source: tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:provider-kubernetes
+  type: Provider
+  version: ...
+```
+
+After editing the lock, verify the providers and functions are healthy, and Crossplane package is reconciled successfully
+```console
+kubectl get provider.pkg -n crossplane-system
+kubectl get functions -n crossplane-system
+kubectl get packageinstall crossplane -n tap-install
+```

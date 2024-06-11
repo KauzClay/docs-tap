@@ -155,7 +155,7 @@ The following prerequisites must be met before a convention is developed and dep
 - Tanzu Application Platform components are installed. For more information, see the
   [Installing the Tanzu CLI](../install-tanzu-cli.hbs.md).
 - The default supply chain is installed. Download Supply Chain Security Tools for VMware Tanzu from
-  the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform&tab=Products).
+  the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Tanzu+Application+Platform+(TAP)).
 - Your kubeconfig context is set to the Tanzu Application Platform-enabled cluster:
 
    ```console

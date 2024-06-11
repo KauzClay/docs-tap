@@ -145,7 +145,7 @@ from within your `app-accelerator-values.yaml` configuration file:
 
 | Property | Default | Description |
 | --- | --- | --- |
-| `registry.secret_ref` | `registry.tanzu.vmware.com` | The secret used for accessing the registry where the App-Accelerator images are located |
+| `registry.secret_ref` | `reg-creds` | The secret used for accessing the registry where the App-Accelerator images are located |
 | `server.service_type` | `ClusterIP` | The service type for the acc-ui-server service including LoadBalancer, NodePort, or ClusterIP |
 | `server.watched_namespace` | `accelerator-system` | The namespace the server watches for accelerator resources |
 | `server.engine_invocation_url` | `http://acc-engine.accelerator-system.svc.cluster.local/invocations` | The URL to use for invoking the accelerator engine |

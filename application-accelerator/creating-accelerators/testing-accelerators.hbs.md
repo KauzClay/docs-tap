@@ -91,8 +91,7 @@ To add the Tanzu CLI to a CI/CD pipeline:
 
 1. Follow the steps in
    [Installing the Tanzu CLI](https://github.com/vmware-tanzu/tanzu-cli/blob/main/docs/quickstart/install.md).
-
-1. Install a binary file that matches the operating system and architecture that you use in your CI.
+   Install the binary file that matches the operating system and architecture that you use in your CI.
 
 1. From your CI script, install the `accelerator` plug-in by running these commands:
 

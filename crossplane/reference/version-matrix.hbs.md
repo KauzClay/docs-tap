@@ -20,7 +20,7 @@ The following table has the component versions for the Crossplane package.
   <tbody>
     <tr>
       <td>Crossplane package</td>
-      <td>0.6.0</td>
+      <td>0.6.1</td>
     </tr>
     <tr>
       <td>Upbound Crossplane (UXP)</td>

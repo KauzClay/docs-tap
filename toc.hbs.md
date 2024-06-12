@@ -216,6 +216,7 @@
                 - [InvokeFragment](application-accelerator/creating-accelerators/transforms/invoke-fragment.hbs.md)
                 - [ReplaceText](application-accelerator/creating-accelerators/transforms/replace-text.hbs.md)
                 - [OpenRewriteRecipe](application-accelerator/creating-accelerators/transforms/open-rewrite-recipe.hbs.md)
+                - [Loop](application-accelerator/creating-accelerators/transforms/loop.hbs.md)
                 - [Provenance](application-accelerator/creating-accelerators/transforms/provenance.hbs.md)
                 - [RewritePath](application-accelerator/creating-accelerators/transforms/rewrite-path.hbs.md)
                 - [UseEncoding](application-accelerator/creating-accelerators/transforms/use-encoding.hbs.md)

@@ -5,19 +5,19 @@ This topic tells you about the Application Accelerator `Loop` transform in Tanzu
 The `Loop` transform iterates over elements in a list and applies the provided transform for every
 element in that list.
 
-Depending on the "style" used (denoted by the optional `+` marker), the transform either behaves in "doArMerge" (`+`) or "doAsChain" (no `+`):
+Depending on the "style" used (denoted by the `chain` or `merge` keyword below), the transform either behaves differently:
 
-- When `doAsMerge` is used, a copy of the `Loop` transform's input is passed to each transform and the
+- When `foreach .. in .. merge {..}` is used, a copy of the `Loop` transform's input is passed to each transform and the
 outputs from each transform are merged using a set union.
 
-- When `doAsChain` is used, each transform is executed sequentially, receiving the previous
+- When `foreach .. in .. chain {..}` is used, each transform is executed sequentially, receiving the previous
 transform's output as its input. The first transform is to receive the `Loop` transform's input as
 its input.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
 ```plaintext
-for VAR-IDENTIFIER [, INDEX-IDENTIFIER] in SPEL-EXPRESSION [+] {
+foreach VAR-IDENTIFIER [, INDEX-IDENTIFIER] in SPEL-EXPRESSION (chain|merge) {
   ... // other transforms
 }
 ```
@@ -32,13 +32,13 @@ for VAR-IDENTIFIER [, INDEX-IDENTIFIER] in SPEL-EXPRESSION [+] {
 
 ## <a id="behavior"></a>Behavior
 
-Consider the following when choosing `doAsMerge` or `doAsChain`:
+Consider the following when choosing the `merge` or `chain` mode:
 
-`doAsMerge` executes the transform on the same input files for every iteration and merges the
+`foreach .. merge` executes the transform on the same input files for every iteration and merges the
 resulting outputs. It is best suited when a transform is executed multiple times on the
 same input and does not have conflicts.
 
-`doAsChain` executes the transform on the initial input files once and then passes the resulting
+`foreach .. chain` executes the transform on the initial input files once and then passes the resulting
 output to the second iteration and so on. It is best suited when a transform must detect any changes
 that occurred in the previous iteration.
 
@@ -52,7 +52,7 @@ Create a new directory for every module in `modules` (a list of strings) based o
 the "template" directory.
 
 ```plaintext
-for m in #modules +{
+foreach m in #modules merge {
   RewritePath(regex: "template/(.*)", rewriteTo: #m + '/' + #g1)
 }
 ```
@@ -66,7 +66,7 @@ The following diagram shows how this example behaves:
 Add every artifactId in `artifacts` (a list of strings) as a Spring dependency.
 
 ```plaintext
-for a in #artifacts {
+foreach a in #artifacts chain {
   OpenRewriteRecipe(
     recipe: 'org.openrewrite.maven.AddDependency',
     options: {
@@ -104,7 +104,7 @@ accelerator:
 ```plaintext
 engine {
   Include({"pom.xml"})
-  for p in #pluginsToAdd {
+  foreach p in #pluginsToAdd chain {
     OpenRewriteRecipe(
       recipe: 'org.openrewrite.maven.AddPlugin',
       options: {

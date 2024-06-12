@@ -215,6 +215,7 @@
                 - [Let](application-accelerator/creating-accelerators/transforms/let.hbs.md)
                 - [InvokeFragment](application-accelerator/creating-accelerators/transforms/invoke-fragment.hbs.md)
                 - [ReplaceText](application-accelerator/creating-accelerators/transforms/replace-text.hbs.md)
+                - [TextPreprocessor](application-accelerator/creating-accelerators/transforms/text-preprocessor.hbs.md)
                 - [OpenRewriteRecipe](application-accelerator/creating-accelerators/transforms/open-rewrite-recipe.hbs.md)
                 - [Loop](application-accelerator/creating-accelerators/transforms/loop.hbs.md)
                 - [Provenance](application-accelerator/creating-accelerators/transforms/provenance.hbs.md)

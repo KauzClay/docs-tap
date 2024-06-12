@@ -14,6 +14,7 @@ You can use:
 - [Let](let.md) to introduce new scoped variables to the model.
 - [InvokeFragment](invoke-fragment.md) allows re-using various fragments across accelerators.
 - [ReplaceText](replace-text.md) to perform simple token replacement in text files.
+- [TextPreprocessor](text-preprocessor.md) to discard parts of text files based on conditions.
 - [RewritePath](rewrite-path.md) to move files around using regular expression (regex) rules.
 - [OpenRewriteRecipe](open-rewrite-recipe.md) to apply [Rewrite](https://docs.openrewrite.org/) recipes, such as package rename.
 - [YTT](ytt.md) to run the `ytt` tool on its input files and gather the result.

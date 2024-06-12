@@ -221,7 +221,7 @@ To add a namespace:
    - Go to **Workload Panel** > **Additional Options** > **Select Namespaces** and then select the
      namespaces that you want.
 
-   ![VS Code Tanzu Workloads Panel additional options menu.](../images/vscode-workload-panel-additional-options.png)
+     ![VS Code Tanzu Workloads Panel additional options menu.](../images/vscode-workload-panel-additional-options.png)
 
 ## <a id="mono-repo"></a> Working with Microservices in a Monorepo
 

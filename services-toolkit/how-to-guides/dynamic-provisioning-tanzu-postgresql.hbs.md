@@ -53,18 +53,17 @@ To set up the namespace:
 
     ```console
     kubectl create secret --namespace=tanzu-psql-service-instances docker-registry regsecret \
-      --docker-server=https://registry.tanzu.vmware.com \
+      --docker-server=MY-REGISTRY \
       --docker-username=`USERNAME` \
       --docker-password=`PASSWORD`
     ```
 
     Where:
 
+    - `MY-REGISTRY` is the registry to which you relocated the VMware Postgres Operator images when
+      you installed the operator.
     - `USERNAME` is your registry username.
     - `PASSWORD` is your registry password.
-
-    > **Note** You must update the `--docker-server` value if you relocated images as part of the installation
-    > of the operator.
 
 ### <a id="compositeresourcedef"></a> Create a CompositeResourceDefinition
 

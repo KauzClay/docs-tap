@@ -163,7 +163,7 @@ Tanzu Developer Portal
       1. Select the host Git repository provider from the **Host** drop-down menu. For example, `github.com`.
       1. Populate the **Owner** and **Repository** text boxes.
 
-          ![Screenshot of the git repository creation form in Tanzu Developer Portal.](../images/getting-started-tap-gui-1-2.png)
+         ![Screenshot of the git repository creation form in Tanzu Developer Portal.](../images/getting-started-tap-gui-1-2.png)
 
       1. While you are populating the form, a dialog box appears asking for permission to provision
          Git repositories. Follow the prompts and continue.

@@ -159,23 +159,23 @@ To install Application Live View back end:
 
       1. Provide the following properties in your `app-live-view-backend-values.yaml`:
 
-         ```yaml
-         appliveview:
-           ingressEnabled: true
-           tls:
-             namespace: "NAMESPACE"
-             secretName: "SECRET-NAME"
-         ```
+          ```yaml
+          appliveview:
+            ingressEnabled: true
+            tls:
+              namespace: "NAMESPACE"
+              secretName: "SECRET-NAME"
+          ```
 
-         Where:
+          Where:
 
-         - `NAMESPACE` is the targeted namespace of TLS secret for the domain.
-         - `SECRET-NAME` is the name of TLS secret for the domain.
+          - `NAMESPACE` is the targeted namespace of TLS secret for the domain.
+          - `SECRET-NAME` is the name of TLS secret for the domain.
 
-         You can edit the values to suit your project needs or leave the default
-         values as is.
+          You can edit the values to suit your project needs or leave the default
+          values as is.
 
-         When `ingressEnabled` is `true`, the HTTPProxy object is created in the cluster.
+          When `ingressEnabled` is `true`, the HTTPProxy object is created in the cluster.
 
       1. Verify the HTTPProxy object with the TLS secret by running:
 

@@ -53,6 +53,10 @@ This release includes the following changes, listed by component and area.
   Make sure you relocate the images to your container image registry as part of the instructions in
   [Upgrade Tanzu Application Platform](upgrading.hbs.md).
 
+### <a id='1-11-0-cb-scanner-bc'></a> v1.11.0 Breaking changes: Carbon Black for SCST - Scan v1.0
+
+- VMware Carbon Black for SCST - Scan v1.0 is now removed.
+
 ---
 
 ### <a id='1-11-0-security-fixes'></a> v1.11.0 Security fixes
@@ -170,10 +174,6 @@ For open source component versions in this Tanzu Application Platform release, s
 
 The following features, listed by component, are deprecated.
 Deprecated features remain on this list until they are retired from Tanzu Application Platform.
-
-### <a id='supply-chain-security-tools--scan-v10-deprecation'></a> Supply Chain Security Tools - Scan v1.0 deprecation
-
-- VMware Carbon Black for Supply Chain Security Tools - Scan v1.0 which was deprecated in Tanzu Application Platform version 1.10 is now removed.
 
 ### <a id='COMPONENT-NAME-deprecations'></a> COMPONENT-NAME deprecations
 

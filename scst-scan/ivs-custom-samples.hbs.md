@@ -6,7 +6,6 @@ This topic gives you sample ImageVulnerabilityScans for various scanners, and an
 
 This section includes ImageVulnerabilityScans (IVS) for various scanners. To use them, copy the YAML content for the scanner you want to use in the following topics:
 
-- [Carbon Black](./ivs-carbon-black.hbs.md)
 - [Snyk](./ivs-snyk.hbs.md)
 - [Prisma](./ivs-prisma.hbs.md)
 - [Trivy](./ivs-trivy.hbs.md)

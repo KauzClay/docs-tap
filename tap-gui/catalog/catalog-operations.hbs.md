@@ -161,14 +161,14 @@ Use static configuration
    1. Update components by changing the catalog location in either the `app_config` section of
       `tap-gui-values.yaml` or the custom values file you used when installing. For example:
 
-       ```yaml
-       tap_gui:
-         app_config:
-           catalog:
-             locations:
-               - type: url
-                 target: UPDATED-CATALOG-LOCATION
-       ```
+      ```yaml
+      tap_gui:
+        app_config:
+          catalog:
+            locations:
+              - type: url
+                target: UPDATED-CATALOG-LOCATION
+      ```
 
    2. Register components by adding the new catalog location in either the `app_config` section of
       `tap-gui-values.yaml` or the custom values file you used when installing. For example:

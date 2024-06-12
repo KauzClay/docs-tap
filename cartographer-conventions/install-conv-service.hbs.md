@@ -89,15 +89,15 @@ To install Source Controller:
      Conventions controller. By default Cartographer Convention controller resource configuration is
      set as following:
 
-      ```yaml
-      resources:
-        limits:
-          cpu: 100m
-          memory: 512Mi
-        requests:
-          cpu: 100m
-          memory: 20Mi
-      ```
+     ```yaml
+     resources:
+       limits:
+         cpu: 100m
+         memory: 512Mi
+       requests:
+         cpu: 100m
+         memory: 20Mi
+     ```
 
       To update the controller's default resource configuration, add the desired configuration to
       `cartographer-conventions-values.yaml`. For example:

@@ -29,8 +29,13 @@ OpenRewriteRecipe(
 )
 ```
 
-where `recipe` is the classname of the OpenRewrite _recipe_ to use and `options` is a map (in SpEL notation) used to configure the recipe.
-Optionally, the `parseOrFail` boolean (default value is `false`) can be used to make the engine fail if input files fed to the transform are not parseable by OpenRewrite according to the recipe used (_e.g._ you try to use a YAML recipe but a `.java` file is presented as input)
+Where:
+
+- `recipe` is the class name of the OpenRewrite recipe to use.
+- `options` is a map, in SpEL notation, used to configure the recipe.
+- (Optional) `parseOrFail` is a boolean with a default value of `false` that you can use to make the
+  engine fail if input files fed to the transform are cannot be parsed by OpenRewrite according to
+  the recipe used. For example, if you try to use a YAML recipe but a `.java` file is presented as input.
 
 ## <a id="example"></a>Example
 

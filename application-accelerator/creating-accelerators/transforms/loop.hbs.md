@@ -1,18 +1,19 @@
 # Loop transform
 
-This topic tells you about the Application Accelerator `Loop` transform in Tanzu Application Platform (commonly known as TAP).
+This topic tells you about the Application Accelerator `Loop` transform in Tanzu Application Platform
+(commonly known as TAP).
 
 The `Loop` transform iterates over elements in a list and applies the provided transform for every
 element in that list.
 
-Depending on the "style" used (denoted by the `chain` or `merge` keyword below), the transform either behaves differently:
+Depending on the style you use, denoted by the `chain` or `merge` keyword, the transform behaves differently:
 
-- When `foreach .. in .. merge {..}` is used, a copy of the `Loop` transform's input is passed to each transform and the
-outputs from each transform are merged using a set union.
+- When you use `foreach .. in .. merge {..}`, a copy of the input for the `Loop` transform is passed
+  to each transform and the outputs from each transform are merged using a set union.
 
-- When `foreach .. in .. chain {..}` is used, each transform is executed sequentially, receiving the previous
-transform's output as its input. The first transform is to receive the `Loop` transform's input as
-its input.
+- When you use `foreach .. in .. chain {..}`, each transform is executed sequentially, receiving the
+  output from the previous transform as its input. The first transform is to receive the input from
+  the `Loop` transform as its input.
 
 ## <a id="syntax-reference"></a>Syntax reference
 
@@ -22,25 +23,23 @@ foreach VAR-IDENTIFIER [, INDEX-IDENTIFIER] in SPEL-EXPRESSION (chain|merge) {
 }
 ```
 
-- `SPEL-EXPRESSION` must be a SpEL expression that evaluates a list. This is the list of elements to be
+- `SPEL-EXPRESSION` is a SpEL expression that evaluates a list. This is the list of elements to be
   iterated over.
 - `VAR-IDENTIFIER` is the name of the variable to be assigned to the current element on each iteration.
-  (required)
-- `INDEX-IDENTIFIER` is the variable's name to be assigned to the index of the current element on
-  each iteration. (optional)
-
+- (optional) `INDEX-IDENTIFIER` is the name of the variable to be assigned to the index of the current
+  element on each iteration.
 
 ## <a id="behavior"></a>Behavior
 
 Consider the following when choosing the `merge` or `chain` mode:
 
-`foreach .. merge` executes the transform on the same input files for every iteration and merges the
-resulting outputs. It is best suited when a transform is executed multiple times on the
-same input and does not have conflicts.
+- `foreach .. merge` executes the transform on the same input files for every iteration and merges the
+  resulting outputs. It is best suited when a transform is executed multiple times on the same input
+  and does not have conflicts.
 
-`foreach .. chain` executes the transform on the initial input files once and then passes the resulting
-output to the second iteration and so on. It is best suited when a transform must detect any changes
-that occurred in the previous iteration.
+- `foreach .. chain` executes the transform on the initial input files once and then passes the resulting
+  output to the second iteration and so on. It is best suited when a transform must detect any changes
+  that occurred in the previous iteration.
 
 ## <a id="examples"></a>Examples
 

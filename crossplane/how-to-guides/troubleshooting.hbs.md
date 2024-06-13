@@ -89,11 +89,13 @@ kubectl get packageinstall crossplane -n tap-install
 
 ---
 
-## <a id="tls-verification-error"></a>Claims never transition to READY=True
+## <a id="tls-verification-error"></a> Claims never transition to READY=True
 
 **Symptom:**
 
-Very rarely it can happen that any tanzu service claim you create will never transition into READY=True. If you inspect the underlying crossplane Managed Resource, you will see a TLS certificate verification error similar to the following:
+On rare occasions, service claims you create do not transition to `READY=True`.
+If you inspect the underlying crossplane managed resource, you find a TLS certificate verification
+error similar to the following:
 
 ```console
 Warning  ComposeResources   39s (x23 over 17m)  defined/compositeresourcedefinition.apiextensions.crossplane.io  cannot compose
@@ -105,9 +107,16 @@ to verify candidate authority certificate \"Crossplane\")"
 
 **Explanation:**
 
-This issue occurs due to the way Crossplane manages the lifecycles of various TLS certificates, in particular the root CA certificate found in the `crossplane-root-ca` Secret in the `crossplane-system` namespace. This cert is used to sign all other certificates used by Crossplane. Occasionally, the certificate can get messed up during the crossplace installation.
-This behaviour is described in [Function: certificate signed by unknown authority "Crossplane" #5456](https://github.com/crossplane/crossplane/issues/5456) in GitHub.
+This issue occurs due to the way Crossplane manages the life cycle of various TLS certificates, in particular,
+the root CA certificate found in the `crossplane-root-ca` secret in the `crossplane-system` namespace.
+This certificate signs all of the other certificates that Crossplane uses.
+
+Occasionally, this certificate can get corrupted during the Crossplane installation.
+This behavior is described in [Function: certificate signed by unknown authority "Crossplane" #5456](https://github.com/crossplane/crossplane/issues/5456) in GitHub.
 
 **Solution:**
 
-As a workaround, you can simply delete all Secrets in the `crossplane-system` namespace and then recreate all pods in the `crossplane-system` namespace by deleting the existing ones.
+As a workaround:
+
+1. Delete all secrets in the `crossplane-system` namespace.
+1. Recreate all pods in the `crossplane-system` namespace by deleting the existing ones.

@@ -16,7 +16,8 @@ To install a new scanner, follow these steps:
 
 1. Complete scanner specific prerequisites for the scanner you're trying to install. For example, creating an API token to connect to the scanner.
 
-   - [Snyk Scanner (Beta)](install-snyk-integration.hbs.md) is available for image scanning.
+    [Snyk Scanner (Beta)](install-snyk-integration.hbs.md) is available for image scanning.
+
 1. List the available packages to discover what scanners you can use by running:
 
     ```console

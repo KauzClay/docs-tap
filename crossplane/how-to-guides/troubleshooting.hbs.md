@@ -89,7 +89,7 @@ kubectl get packageinstall crossplane -n tap-install
 
 ---
 
-## <a id="tls-verification-error"></a> Claims never transition to READY=True
+## <a id="tls-verification-error"></a> Claims never transition to `READY=True`
 
 **Symptom:**
 

@@ -79,7 +79,7 @@ As a workaround:
 
 ---
 
-## <a id="upgrade-failing-reconcile"></a>Crossplane component failing to reconcile during upgrade
+## <a id="upgrade-failing-reconcile"></a>Crossplane component fails to reconcile during upgrade
 
 **Symptom:**
 

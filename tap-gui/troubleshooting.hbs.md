@@ -531,3 +531,19 @@ tap_gui:
 Where `ACCESS-TOKEN` is the token you obtained after creating a read-write service account.
 For more information, see
 [Manually connect Tanzu Developer Portal to Metadata Store](../tap-gui/plugins/scc-tap-gui.hbs.md#scan-manual).
+
+### <a id='sbom-not-working'></a> Deliverables are not shown in the supply chain view of a workload
+
+#### Symptom
+
+When viewing a workload's supply chain, deliverable(s) that are associated with the workload are not shown in the UI.
+
+#### Cause(s)
+
+1.  The deliverable does not have the same name as the workload.
+2.  The logged in user does not have access to the namespace(s) where the deliverables are deployed.
+
+#### Solution
+
+1. Ensure that when applying a deliverable to the cluster that it has the same name as the workload that created it.
+2. Ensure that the logged in user has the correct namespace or cluster scope permissions for the namespace(s) containing the deliverables. For limited scope users, verify that the user has selected the correct namespace(s) in the Workloads View of the supply chain UI.

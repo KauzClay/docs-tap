@@ -53,7 +53,7 @@ This release includes the following changes, listed by component and area.
   Make sure you relocate the images to your container image registry as part of the instructions in
   [Upgrade Tanzu Application Platform](upgrading.hbs.md).
 
-### <a id='1-11-0-cb-scanner-bc'></a> v1.11.0 Breaking changes: Carbon Black for SCST - Scan v1.0
+#### <a id='1-11-0-cb-scanner-bc'></a> v1.11.0 Breaking changes: Carbon Black for SCST - Scan v1.0
 
 - VMware Carbon Black for SCST - Scan v1.0 is now removed.
 

@@ -50,7 +50,7 @@ kubectl delete validatingwebhookconfiguration crossplane
 **Symptom:**
 
 On rare occasions, service claims you create do not transition to `READY=True`.
-If you inspect the underlying crossplane managed resource, you find a TLS certificate verification
+If you inspect the underlying Crossplane managed resource, you find a TLS certificate verification
 error similar to the following:
 
 ```console

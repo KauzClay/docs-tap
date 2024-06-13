@@ -26,7 +26,7 @@ foreach VAR-IDENTIFIER [, INDEX-IDENTIFIER] in SPEL-EXPRESSION (chain|merge) {
 - `SPEL-EXPRESSION` is a SpEL expression that evaluates a list. This is the list of elements to be
   iterated over.
 - `VAR-IDENTIFIER` is the name of the variable to be assigned to the current element on each iteration.
-- (optional) `INDEX-IDENTIFIER` is the name of the variable to be assigned to the index of the current
+- (Optional) `INDEX-IDENTIFIER` is the name of the variable to be assigned to the index of the current
   element on each iteration.
 
 ## <a id="behavior"></a>Behavior

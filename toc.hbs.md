@@ -607,6 +607,7 @@
                     - [Verifying an ImageVulnerabilityScan](scst-scan/verify-app-scanning.hbs.md)
                     - [Authoring a ClusterImageTemplate](scst-scan/clusterimagetemplates.hbs.md)
                     - [ImageVulnerabilityScan Samples](scst-scan/ivs-custom-samples.hbs.md)
+                        - [Carbon Black IVS sample](scst-scan/ivs-carbon-black.hbs.md)
                         - [Snyk IVS sample](scst-scan/ivs-snyk.hbs.md)
                         - [Prisma IVS sample](scst-scan/ivs-prisma.hbs.md)
                         - [Trivy IVS sample](scst-scan/ivs-trivy.hbs.md)

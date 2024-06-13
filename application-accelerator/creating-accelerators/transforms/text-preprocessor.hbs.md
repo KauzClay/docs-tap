@@ -1,8 +1,9 @@
 # TextPreprocessor transform
 
-This topic tells you about the Application Accelerator `TextPreprocessor` transform in Tanzu Application Platform (commonly known as TAP).
+This topic tells you about the Application Accelerator `TextPreprocessor` transform in
+Tanzu Application Platform (commonly known as TAP).
 
-The `TextPreprocessor` transform allows conditional inclusion/exclusion of lines of text
+The `TextPreprocessor` transform allows conditional inclusion or exclusion of lines of text
 in documents, based on SpEL expression conditions. It is inspired by the syntax of C-style
 preprocessor directives (`#IF/#ENDIF`).
 
@@ -13,22 +14,30 @@ TextPreprocessor()
 ```
 
 The `TextPreprocessor` doesn't accept configuration parameter.
-It simply acts on (text) files that are fed to it (typically via `Include()`) and uses 
+It acts on (text) files that are input to it, typically through `Include()`, and uses
 the set of values visible at invocation time to evaluate SpEL expressions.
 
 ## <a id="behavior"></a>Behavior
 
 The `TextPreprocessor` looks for lines that contain the following constructs:
- * `#IF(condition)`: evaluates the _condition_ (using SpEL syntax) and discards all lines until a matching closing directive if it evaluates to `false`
- * `#ELSE`: if the (previous) condition(s) evaluated to `false`, the contents of this branch is retained
- * `#ELIF(condition)`: if the (previous) condition(s) evaluated to `false`, considers a new condition
- * `#ENDIF`: closes an `#IF/#ELSE/#ELIF` block. Every block needs to be correctly balanced with a closing `#ENDIF` directive.
- 
-Those constructs don't have to be at start of the line. In particular, directives can be embedded inside comments in the target language so they don't break parsing of files in raw form). All lines that contain directives are cut out from the resulting file.
 
-Note however that the directives are case sensitive (must appear in CAPITALS) and that at least the `#IF(` characters always need to appear as a block (no space in between).
+- `#IF(condition)`: evaluates the condition, using SpEL syntax, and discards all lines until a
+  matching closing directive if it evaluates to `false`.
 
-Lastly, directives can be nested:
+- `#ELSE`: if the previous conditions evaluated to `false`, the contents of this branch is retained.
+
+- `#ELIF(condition)`: if the previous conditions evaluated to `false`, it considers a new condition.
+
+- `#ENDIF`: closes an `#IF/#ELSE/#ELIF` block. Every block requires a closing `#ENDIF` directive.
+
+These constructs don't have to be at start of the line. In particular, you can embed directives
+inside comments in the target language so that they don't break parsing of files in raw form.
+All lines that contain directives are cut out from the resulting file.
+
+The directives are case-sensitive, they must be in capitals. The `#IF(` characters must always
+appear as a block and have no space in between.
+
+You can also nest directives. For example, the following two snippets are equivalent:
 
 ```plaintext
 #IF(a && b)
@@ -38,8 +47,6 @@ something
 something else
 #ENDIF
 ```
-
-is equivalent to
 
 ```plaintext
 #IF(a)
@@ -52,12 +59,13 @@ something else
 #ENDIF
 ```
 
-## <a id="examples"></a>Examples
+## <a id="examples"></a>Example
 
-Here is an hypothetical example that includes pom.xml dependencies based on the
-value of some accelerator option (`databaseType` in this case):
+This example includes `pom.xml` dependencies based on the value of some accelerator option,
+in this case, `databaseType`.
 
-`pom.xml`:
+Example `pom.xml`:
+
 ```xml
   <!-- #IF(#databaseType == 'postgres') -->
   <dependency>
@@ -75,7 +83,8 @@ value of some accelerator option (`databaseType` in this case):
   <!-- #ENDIF -->
 ```
 
-`accelerator.axl`:
+Example `accelerator.axl`:
+
 ```plaintext
 engine {
   ...

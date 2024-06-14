@@ -1,7 +1,7 @@
 # Migrate Spring Config Server apps to Tanzu Application Platform
 
-Tanzu Application Service (commonly known as TAS) and Tanzu Application Platform (commonly known as TAP) both enable
-you to load Java properties into an app from a configuration repository.
+Tanzu Application Service (commonly known as TAS) and Tanzu Application Platform (commonly known as TAP)
+both enable you to load Java properties into an app from a configuration repository.
 
 You can migrate an app running on TAS with Spring Configuration Service (SCS) to Tanzu Application
 Platform with Application Configuration Service (ACS).

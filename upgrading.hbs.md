@@ -12,7 +12,7 @@ Before you upgrade Tanzu Application Platform:
   Tanzu Application Platform version. If the target Tanzu Application Platform version does not support your existing
   Kubernetes version, VMware recommends upgrading to a supported version before proceeding with the upgrade.
 
-- Review the [Upgrade compatibility and recommendations](upgrade/upgrade-information.hbs.md).
+- Review the [Upgrade compatibility and recommendations](upgrade/compatibility-and-recommendations.hbs.md).
 
 - Ensure that Tanzu CLI is updated to the version recommended by the target Tanzu Application Platform
   version. For information about installing or updating the Tanzu CLI and plug-ins, see

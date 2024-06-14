@@ -13,7 +13,7 @@ instructions in [Installing Tanzu Application Platform](intro.hbs.md).
 Before you upgrade your Tanzu Application Platform:
 
 - Verify that you meet all the [prerequisites](../prerequisites.hbs.md) of the target Tanzu Application Platform version. If the target Tanzu Application Platform version does not support your existing Kubernetes version, VMware recommends upgrading to a supported version before proceeding with the upgrade.
-- Review the [Upgrade compatibility and recommendations](../upgrade/upgrade-information.hbs.md).
+- Review the [Upgrade compatibility and recommendations](../upgrade/compatibility-and-recommendations.hbs.md).
 - For information about installing your Tanzu Application Platform, see [Install Tanzu Application Platform through Gitops with Secrets OPerationS (SOPS)](sops.hbs.md) or [Install Tanzu Application Platform through GitOps with External Secrets Operator (ESO)](eso.hbs.md).
 - For information about Tanzu Developer Portal considerations, see
   [Tanzu Developer Portal Considerations](../tap-gui/upgrades.hbs.md#considerations).

@@ -16,78 +16,104 @@ To enforce a policy in a supply chain you need a `ClusterImageTemplate` that use
 The `TaskRun` queries the Metadata Store to get the list of vulnerabilities for the image.
 Authenticate with the Metadata Store API by obtaining an access token and a certificate:
 
-1. Build an image that contains `curl` and `jq` for the `TaskRun` to use.
+1. Build an image that contains `curl` and `jq` for the tekton `Task` to use.
 
-1. Get the access token from the Metadata Store by running:
+   Note: To get started quicker, you can skip this step and embed the downloading of `curl` and `jq` in the `Task` script and use a base ubuntu image
 
-   ```console
-   ACCESS_TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o yaml \
-   | yq .data.token | base64 -d)
+   Create a `Dockerfile` with the following in a blank directory
+   ```
+   FROM ubuntu:latest
+
+   RUN apt-get update
+   RUN apt-get install -y jq curl
    ```
 
-1. Create the secret `metadata-store-access-token-secret.yaml` and include the access token:
+   Build and Push the image to a registry that is accessible by the build cluster
 
-    ```yaml
-    kind: Secret
-    apiVersion: v1
-    metadata:
-      name: metadata-store-access-token
-    stringData:
-      accessToken: ACCESS_TOKEN
-    ```
+   ```console
+   docker build . -t REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
+   docker push REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
+   ```
 
-    Where `ACCESS_TOKEN` is the access token
+   Where:
+   - `REGISTRY-URL-LOCATION` is the registry url. Example: registry.hub.docker.com/project
+   - `IMAGE-NAME` is the name of the image. Example: curl-jq-bash
+   - `IMAGE-TAG` is the tag of the image. Example: latest
 
-1. Get the Certificate Authority (CA) certificate from the Metadata Store by running:
+   Pushing to a public registry will not require additional steps.
+   Pushing to a private registry will require the following command to be run on the **Build Cluster**:
+
+   ```console
+   tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes --namespace tap-install
+   ```
+
+   Where:
+   - `REGISTRY-SERVER` is the registry url. Example: registry.hub.docker.com
+   - `REGISTRY-USERNAME` the username that is allowed to read the pushed curl jq image
+   - `REGISTRY-PASSWORD` the password that is allowed to read the pushed curl jq image
+
+1. In the **View Cluster** get the access token and the Certificate Authority (CA) certificate from the Metadata Store by running:
+
+   ```console
+   ACCESS_TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o json \
+   | jq -r ".data.token" | base64 -d)
+   ```
 
    ```console
    METADATA_STORE_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"" \
    | base64 -d)
    ```
 
-1. Create the secret `metadata-store-cert-secret.yaml` and include the certificate:
+   Ensure both variable are populated
+   ```console
+   echo $ACCESS_TOKEN
+   echo $METADATA_STORE_CA_CERT
+   ```
 
-    ```yaml
-    kind: Secret
-    apiVersion: v1
-    metadata:
-      name: metadata-store-cert
-    stringData:
-      caCrt: |
-        METADATA_STORE_CA_CERT
-    ```
-
-    Where `METADATA_STORE_CA_CERT` is the Metadata Store CA certificate
-
-1. Apply the created secrets in the developer namespace:
+1. In the **Build Cluster** create `metadata-store-access-token` and `metadata-store-cert` secrets by running:
 
     ```console
-    kubectl apply -f metadata-store-access-token-secret.yaml -n DEVELOPER-NAMESPACE
-    kubectl apply -f metadata-store-cert-secret.yaml -n DEVELOPER-NAMESPACE
+    DEVELOPER_NAMESPACE=DEVELOPER-NAMESPACE
+
+    kubectl create secret generic metadata-store-access-token --from-literal=accessToken="${ACCESS_TOKEN}" -n ${DEVELOPER_NAMESPACE}
+    kubectl create secret generic metadata-store-cert --from-literal=caCrt="${METADATA_STORE_CA_CERT}" -n ${DEVELOPER_NAMESPACE}
     ```
 
-## <a id="task-run-sample"></a> Edit the `TaskRun` sample to enforce the policy
+    Where:
+    - `DEVELOPER-NAMESPACE` is the developer namespace
 
-The following sample `TaskRun` waits until the vulnerability data is available for the image in
+## <a id="task-run-sample"></a> Edit the `Task` sample to enforce the policy
+
+The following sample `Task` waits until the vulnerability data is available for the image in
 the Metadata Store. When the data is available, the vulnerabilities are aggregated by severity.
 The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
 
 Edit the sample for your needs:
 
 ```yaml
+---
 apiVersion: tekton.dev/v1
-kind: TaskRun
+kind: Task
 metadata:
-  generateName: enforce-policy-task-run-
+  name: tekton-policy-enforcement
+  namespace: DEVELOPER-NAMESPACE
 spec:
-  serviceAccountName: SERVICE-ACCOUNT-THAT-CAN-READ-TAP-IMAGES
   params:
     - name: image
-      value: IMAGE-WITH-DIGEST-THAT-WAS-SCANNED
-  taskSpec:
-    steps:
+      type: string
+  steps:
     - name: enforce-policy
       image: TASK-RUN-IMAGE-WITH-CURL-AND-JQ
+      env:
+      - name: GATE
+        value: THRESHOLD
+      - name: METADATA_STORE_URL
+        value: METADATA-STORE-URL
+      - name: ACCESS_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: metadata-store-access-token
+            key: accessToken
       script: |
         if [ ${GATE} -eq "none" ]; then
             exit 0
@@ -95,7 +121,7 @@ spec:
 
         IMAGE_DIGEST=$(echo $(params.image) | cut -d "@" -f 2)
         while true; do
-          response_code=$(curl https://$METADATA_STORE_URL/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
+          response_code=$(curl https://${METADATA_STORE_URL}/api/v1/images/${IMAGE_DIGEST} -H "Authorization: Bearer ${ACCESS_TOKEN}" -H 'accept: application/json' --cacert /var/cert/caCrt -o vulnerabilities.json -w "%{http_code}")
           if [ $response_code -eq 200 ]; then
             echo "Vulnerabilities data is available in AMR"
             break
@@ -130,89 +156,146 @@ spec:
         if [ ${vulnerabilitiesCount} -gt 0 ];then
           exit 1
         fi
-      env:
-      - name: GATE
-        value: "critical"
-      - name: METADATA_STORE_URL
-        value: METADATA-STORE-URL-VALUE
-      - name: ACCESS_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: METADATA-STORE-ACCESS-TOKEN
-            key: accessToken
       volumeMounts:
       - name: cert
         mountPath: /var/cert
-    volumes:
+  volumes:
     - name: cert
       secret:
-        secretName: SECRET-CONTAINING-METADATA-STORE-CERT
+        secretName: metadata-store-cert
 ```
 
 Where:
-
-- `GATE` is an environment variable that sets the threshold for severity in the policy. The accepted
-  values are `low`, `medium`, `high`, and `critical`. For example, if the `GATE` is set to `high`
+- `THRESHOLD` sets the threshold for severity in the policy. The accepted
+  values are `low`, `medium`, `high`, and `critical`. For example, if the `THRESHOLD` is set to `high`
   then the `TaskRun` fails if it finds `high` or `critical` vulnerabilities for the image. If the
-  `GATE` is set to `none`, no policy is enforced and `TaskRun` succeeds.
+  `THRESHOLD` is set to `none`, no policy is enforced and `TaskRun` succeeds.
 
 - `METADATA-STORE-URL-VALUE` is the URL for reaching the Metadata Store.
-  In a single-cluster deployment, the value is `metadata-store-app.metadata-store.svc.cluster.local:8443`.
-  In a multicluster deployment, the value is `metadata-store.VIEW-CLUSTER-INGRESS-DOMAIN`.
+  The value is `metadata-store.` followed by the **View Cluster** ingress domain, ie: `metadata-store.VIEW-CLUSTER-INGRESS-DOMAIN`.
+  Alternatively, the url could be taken from the **View Cluster** by running:
 
-- `IMAGE-WITH-DIGEST-THAT-WAS-SCANNED` is the image that was built and scanned in the previous
-  steps of the supply chain. The environment variable value is set to `#@ data.values.image` while
-  embedding the `TaskRun` in the `ClusterImageTemplate`. Template this value to enable it be passed
-  through the supply chain.
+  ```console
+  kubectl get httpproxy metadata-store-ingress -n metadata-store -o jsonpath='{.spec.virtualhost.fqdn}'
+  ```
 
-- `SERVICE-ACCOUNT-THAT-CAN-READ-TAP-IMAGES` is a service account in the developer namespace that
-  has access to read Tanzu Application Platform images. `TaskRun` uses this service account to pull
-  images for its execution steps.
+- `TASK-RUN-IMAGE-WITH-CURL-AND-JQ` is any image that contains `bash`, `curl`, and `jq` commands.
+  If you skipped creating an image in the first step, you could use the `ubuntu:latest` image and install `jq` and `curl` at the beginning of the script section.
 
-- `TASK-RUN-IMAGE-WITH-CURL-AND-JQ` is any image that contains `curl` and `jq` commands.
+  ```console
+  image: ubuntu:latest
+  ...
+  ...
+  script: |
+    apt-get update
+    apt-get install -y jq curl
 
-- `METADATA-STORE-ACCESS-TOKEN` is the secret that contains the Metadata Store read access token.
+    if [ ${GATE} -eq "none" ]; then
+        exit 0
+    fi
+  ...
+  ...
+  ```
+  Note: We don't recommend this in production environments. An image with `curl` and `jq` should be built with predetermined dependencies and versions.
 
-- `SECRET-CONTAINING-METADATA-STORE-CERT` is the name of the secret that contains the Metadata Store
-  certificate.
+
+- `DEVELOPER-NAMESPACE` is the developer namespace
+
+Once the yaml is replaced with the new values, save it to a file called `task-policy-enforcement.yaml`.
+
+Apply the Task to the `DEVELOPER-NAMESPACE` by running:
+
+```console
+kubectl apply -f task-policy-enforcement.yaml -n DEVELOPER-NAMESPACE
+
+```
+Where:
+- `DEVELOPER-NAMESPACE` is the developer namespace
+
+Note: Apply this to every developer namespace that uses the policy enforcement.
 
 ## <a id="inc-the-policy"></a> Include the policy `ClusterImageTemplate` in the newly authored supply chain
 
 To include the policy `ClusterImageTemplate` in the newly authored supply chain:
 
-1. Create `policy-cluster-image-template.yaml` by embedding the updated `TaskRun` in a `ClusterImageTemplate`.
-   Set the values for environment variables and properties you used when
-   [editing the TaskRun sample to enforce the policy](#task-run-sample):
+1. Create `policy-cluster-image-and-runnable-template.yaml`
 
     ```yaml
-    #@ load("@ytt:data", "data")
-    ---
     apiVersion: carto.run/v1alpha1
     kind: ClusterImageTemplate
     metadata:
-      name: scan-policy-template
+      name: policy-enforcement-template
     spec:
-      imagePath: spec.params[?(@.name=="image")].value
       healthRule:
-        multiMatch:
-          healthy:
-            matchConditions:
-              - type: Succeeded
-                status: "True"
-          unhealthy:
-            matchConditions:
-              - type: Succeeded
-                status: "False"
-      ytt: |
+        singleConditionType: Ready
+      imagePath: .status.outputs.imagePath
+      lifecycle: mutable
+      ytt: |-
         #@ load("@ytt:data", "data")
-        #@ load("@ytt:template", "template")
+
+        #@ def merge_labels(fixed_values):
+        #@   labels = {}
+        #@   if hasattr(data.values.workload.metadata, "labels"):
+        #@     exclusions = ["kapp.k14s.io/app", "kapp.k14s.io/association"]
+        #@     for k,v in dict(data.values.workload.metadata.labels).items():
+        #@       if k not in exclusions:
+        #@         labels[k] = v
+        #@       end
+        #@     end
+        #@   end
+        #@   labels.update(fixed_values)
+        #@   return labels
+        #@ end
+
+        #@ def merged_tekton_params():
+        #@   params = []
+        #@   params.append({ "name": "image", "value": data.values.image })
+        #@   return params
+        #@ end
         ---
+        apiVersion: carto.run/v1alpha1
+        kind: Runnable
+        metadata:
+          name: #@ data.values.workload.metadata.name + "-policy"
+          labels: #@ merge_labels({ "app.kubernetes.io/component": "test" })
+        spec:
+          retentionPolicy:
+            maxFailedRuns: 1
+            maxSuccessfulRuns: 1
+
+          #@ if/end hasattr(data.values.workload.spec, "serviceAccountName"):
+          serviceAccountName: #@ data.values.workload.spec.serviceAccountName
+
+          runTemplateRef:
+            name: tekton-policy-enforcement-taskrun
+            kind: ClusterRunTemplate
+
+          resource:
+            apiVersion: tekton.dev/v1
+            kind: TaskRun
+
+          inputs:
+            tekton-params: #@ merged_tekton_params()
+
+    ---
+    apiVersion: carto.run/v1alpha1
+    kind: ClusterRunTemplate
+    metadata:
+      name: tekton-policy-enforcement-taskrun
+    spec:
+      outputs:
+        imagePath: spec.params[?(@.name=="image")].value
+      template:
         apiVersion: tekton.dev/v1
         kind: TaskRun
         metadata:
-          name: enforce-policy
+          generateName: $(runnable.metadata.name)$-
+          labels: $(runnable.metadata.labels)$
         spec:
-            ....
+          params: $(runnable.spec.inputs.tekton-params)$
+          serviceAccountName: default
+          taskRef:
+            name: tekton-policy-enforcement
     ```
 
 1. Create a new supply chain named `custom-supply-chain.yaml` by following the steps in
@@ -232,6 +315,7 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
     spec:
       resources:
       .... # previous steps
+
       - name: image-scanner
         templateRef:
           kind: ClusterImageTemplate
@@ -248,12 +332,27 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
       - name: policy
         templateRef:
           kind: ClusterImageTemplate
-          name: scan-policy-template
+          name: policy-enforcement-template
         images:
-        - resource: image-scanner
-          name: image
-        ... # supply chain continues
+        - name: image
+          resource: image-scanner
+
+      - name: config-provider
+        params:
+        - default: default
+          name: serviceAccount
+        templateRef:
+          kind: ClusterConfigTemplate
+          name: convention-template
+        images:
+        - name: image
+          resource: policy
+
+      .... # supply chain continues
     ```
+
+    Where:
+    - `CUSTOM-SUPPLY-CHAIN-NAME` is the name of the custom supplychain
 
 ## <a id="apply-generated-yaml"></a> Apply the template, supply chain, and workload
 
@@ -262,7 +361,7 @@ To apply the template, supply chain, and workload:
 1. Apply the generated `ClusterImageTemplate` and `ClusterSupplyChain` by running:
 
     ```console
-    kubectl apply -f policy-cluster-image-template.yaml
+    kubectl apply -f policy-cluster-image-and-runnable-template.yaml
     kubectl apply -f custom-supply-chain.yaml
     ```
 

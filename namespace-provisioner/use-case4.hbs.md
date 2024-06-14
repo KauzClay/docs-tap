@@ -6,7 +6,7 @@ This topic tells you how to deactivate Grype in Namespace Provisioner and how to
 
 Grype is installed with Namespace Provisioner by default. If you prefer to use a different scanner for namespaces instead of Grype, you can deactivate the installation of the default Grype scanner.
 
-### Deactivate Grype for all namespaces
+### <a id='deactivate-grype-for-all'></a>DeDeactivate Grype for all namespaces
 
 To deactivate the default installation of Grype for all namespaces managed by the Namespace Provisioner, set the `skip_grype` parameter to `true` in the `default_parameters` section of the `tap-values.yaml`:
 
@@ -18,7 +18,7 @@ namespace_provisioner:
 
 By enabling the `skip_grype: true` setting, the PackageInstall and the secret `grype-scanner-{namespace}` are not generated in the `tap-install` namespace for any namespaces that are managed by the Namespace Provisioner.
 
-### Deactivate Grype for a specific namespace
+### <a id='deactivate-grype-specific'></a>DeDeactivate Grype for a specific namespace
 
 Using Namespace Provisioner Controller
 : To deactivate the installation of Grype for a specific namespace, annotate or label the namespace

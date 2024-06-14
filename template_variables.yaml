@@ -2,6 +2,7 @@
 template_variables:
   tap_version: 1.11.0
   url_version: 1.11
+  dash_version: 1-11
   ce_version: 1.9
   hide_content: true
   staging_toggle: docs-staging

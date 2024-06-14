@@ -195,6 +195,7 @@ Complete the tasks in the following table before you upgrade Tanzu Application P
   <td>If you are using GitOps RI, tag your GitOps repository to maintain a point in time of your
   Tanzu Application Platform configuration</td>
   <td>Example tag commands:
+  <br><br>
 <pre>
 git tag -a v1.x.x
 git push origin v1.x.x

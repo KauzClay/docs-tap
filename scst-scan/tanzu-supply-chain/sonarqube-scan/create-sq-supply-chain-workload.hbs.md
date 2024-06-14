@@ -41,7 +41,6 @@ Define a workload YAML file
           url: GIT-URL
         subPath: GIT-SUBPATH
       sonarqube:
-         sonar-host-url: SONAR-URL
          sonar-project-name: SONAR-PROJECT-NAME
          sonar-project-key: SONAR-PROJECT-KEY
          sonar-token: SONAR-TOKEN
@@ -59,7 +58,6 @@ Define a workload YAML file
     - `GIT-URL` is the Git repository URL to clone from for the source component.
     - `GIT-BRANCH` is the Git branch reference to watch for the new source.
     - `GIT-SUBPATH` is the path inside the bundle to locate source code.
-    - `SONAR-URL` is the URL to the SonarQube server to upload scan results to.
     - `SONAR-PROJECT-NAME` is the display name of the project being scanned in the SonarQube server.
     - `SONAR-PROJECT-KEY` is the project key for the project in SonarQube. It is optional and is the
       same as `sonar-project-name` if unset.

@@ -7,11 +7,7 @@ This topic gives you general information to help you with upgrading Tanzu Applic
 <!-- Update in each release using https://confluence.eng.vmware.com/pages/viewpage.action?pageId=789919969#TanzuApplicationPlatform(TAP)-N-2Upgradesupportwithnew6weeksminorandLTS -->
 <!-- Do not use a variable. Update version number each release so it's visible if this info becomes outdated.  -->
 
-Tanzu Application Platform v1.11 supports upgrading from the following versions:
-
-- v1.10.1
-- v1.9.1
-- v1.8.x long-term support release
+Tanzu Application Platform v1.6 supports upgrading from v1.5.x.
 
 ## <a id="support"></a> Compatibility
 
@@ -195,6 +191,7 @@ Complete the tasks in the following table before you upgrade Tanzu Application P
   <td>If you are using GitOps RI, tag your GitOps repository to maintain a point in time of your
   Tanzu Application Platform configuration</td>
   <td>Example tag commands:
+  <br><br>
 <pre>
 git tag -a v1.x.x
 git push origin v1.x.x
@@ -223,8 +220,7 @@ Complete the tasks in the following table before you upgrade the Tanzu Applicati
 <tr>
   <td>Platform health monitoring</td>
   <td>Ensure that you have some form of monitoring in place to allow observability into your cluster
-  during an upgrade. If nothing is in place, you can use
-  <a href="../integrations/grafana-dashboard.hbs.md">Grafana for Tanzu Application Platform Observability</a>.</td>
+  during an upgrade. </td>
 </tr>
 
 <tr>
@@ -311,6 +307,22 @@ The following table lists information about upgrading Kubernetes specific to the
 </tr>
 
 <tr>
+  <td>Configure Contour to be a DaemonSet to avoid downtime. If downtime is acceptable set to type deployment.
+  <br><br>
+  This is only applicable if you are upgrading from Tanzu Application Platform v1.6 or earlier.
+  Contour is a deployment by default as of Tanzu Application Platform v1.7.</td>
+  <td>For example:
+  <br><br>
+  <pre>
+  contour:
+    envoy:
+      workload:
+        type: daemonset
+  </pre>
+  </td>
+</tr>
+
+<tr>
   <td>Scale out Tanzu Developer Portal pods for high availability</td>
   <td>For example:
   <br><br>
@@ -387,6 +399,18 @@ The following table lists information about upgrading Tanzu Application Platform
 </tr>
 </thead>
 <tbody>
+
+<tr>
+  <td>If upgrading from Tanzu Application Platform v1.6 or earlier, set up Artifact Metadata Repository (AMR)</td>
+  <td>There are two new endpoints created on the view cluster with AMR. You might need to add them to
+  your allowlist or have custom certificates configured with Tanzu Application Platform v1.7 and later.
+    <ul>
+      <li><code>amr-cloudevent-handler.DOMAIN</code></li>
+      <li><code>amr-graphql.DOMAIN</code></li>
+    </ul>
+  <!-- Note: separate AMR upgrade instructions if opted in to beta version (tap-values review necessary) -->
+  </td>
+</tr>
 
 <tr>
 <td>What to expect during the upgrade on the View cluster</td>
@@ -488,8 +512,7 @@ Complete the tasks in the following table before you upgrade the Tanzu Applicati
   <td>Platform health monitoring</td>
   <td>Ensure that you have some form of monitoring in place to allow observability into your cluster
   during an upgrade.
-  If nothing is in place, you can use
-  <a href="../integrations/grafana-dashboard.hbs.md">Grafana for Tanzu Application Platform Observability</a>.</td>
+  </td>
 </tr>
 
 <tr>
@@ -609,6 +632,84 @@ The following table lists information about upgrading Tanzu Application Platform
 </tr>
 
 <tr>
+  <td>If upgrading from TAP 1.6 or earlier, set up Artifact Metadata Repository (AMR) Observer on
+  the Build cluster</td>
+  <td>Set up the AMR Observer on the Build cluster by following the instructions in
+  <a href="../scst-store/multicluster-setup.hbs.md">Multicluster setup for Supply Chain Security Tools - Store</a>.
+  This communicates with the AMR EventHandler on the View cluster. For example:
+  <br><br>
+  Add the following to the Build cluster <code>tap-values.yaml</code> file:
+  <br><br>
+  <pre>
+  amr:
+    observer:
+      auth:
+        kubernetes_service_accounts:
+          autoconfigure: false
+          enable: true
+      cloudevent_handler:
+        endpoint: https://amr-cloudevent-handler.DOMAIN
+      ca_cert_data: |
+        -----BEGIN CERT------
+  </pre>
+  Run the following commands on the View cluster to retrieve the AMR CA certificate and access token.
+  Apply the CA certificate and access token on the Build cluster.
+  The CA Cert goes into the <code>tap-values.yaml</code> file. Add the edit token as a
+  Kubernetes secret on the Build cluster.
+  <br><br>
+<pre>
+CEH_CA_CERT_DATA=$(kubectl get secret amr-cloudevent-handler-ingress-cert \
+  -n metadata-store -o json | jq -r ".data.\"tls.crt\"" | base64 -d)
+
+CEH_EDIT_TOKEN=$(kubectl get secrets amr-cloudevent-handler-edit-token \
+  -n metadata-store -o jsonpath="{.data.token}" | base64 -d)
+</pre>
+  Example external secret setup:
+  <br><br>
+  <pre>
+  ---
+  apiVersion: external-secrets.io/v1beta1
+  kind: ExternalSecret
+  metadata:
+    name: amr-observer-edit-token
+    namespace: tap-install
+  spec:
+    secretStoreRef:
+      name: tap-install-secrets
+      kind: SecretStore
+    refreshInterval: "1m"
+    target:
+      template:
+        data:
+          token: "\{{ .amr_token }}"
+    data:
+      - secretKey: amr_token
+        remoteRef:
+          key: PATH-TO-EXTERNAL-SECRET-STORE
+          property: amr_token
+
+  ---
+  apiVersion: secretgen.carvel.dev/v1alpha1
+  kind: SecretExport
+  metadata:
+    name: amr-observer-edit-token
+    namespace: tap-install
+  spec:
+    toNamespaces:
+      - amr-observer-system
+  ---
+  apiVersion: secretgen.carvel.dev/v1alpha1
+  kind: SecretImport
+  metadata:
+    name: amr-observer-edit-token
+    namespace: amr-observer-system
+  spec:
+    fromNamespace: tap-install
+  </pre>
+  </td>
+</tr>
+
+<tr>
   <td>Update <code>SupplyChain</code> customizations for any changes</td>
   <td><code>ClusterTasks</code> were removed as of Tanzu Application Platform v1.7. For example,
   if you wrote your own <code>ClusterTemplate</code> that uses the <code>git-writer</code> task,
@@ -679,8 +780,9 @@ The following table lists information about upgrading Tanzu Application Platform
     default_parameters:
       skip_grype: true
   </pre>
-  Note: <a href="../scst-scan/creating-scan-policy-template.hbs.md">Policy Enforcement</a> requires
-  a supply chain change with SCST - Scan 2.0.
+  Note: If you use or you switch between different scanners in Tanzu Application Platform v1.9 and earlier,
+  Metadata Store will show duplicate results in the Tanzu Developer Portal <strong>Security Analysis</strong>
+  UI.
   </td>
 </tr>
 
@@ -783,8 +885,7 @@ Complete the tasks in the following table before you upgrade the Tanzu Applicati
 <tr>
   <td>Platform health monitoring</td>
   <td>Ensure that you have some form of monitoring in place to allow observability into your cluster
-  during an upgrade. If nothing is in place, you can use
-  <a href="../integrations/grafana-dashboard.hbs.md">Grafana for Tanzu Application Platform Observability</a>.</td>
+  during an upgrade. </td>
 </tr>
 
 <tr>
@@ -827,6 +928,22 @@ The following table lists information about upgrading Kubernetes specific to the
 </tr>
 </thead>
 <tbody>
+
+<tr>
+  <td>Configure Contour to be a DaemonSet to avoid downtime. If downtime is acceptable set to type deployment.
+  <br><br>
+  This is only applicable if you are upgrading from Tanzu Application Platform v1.6 or earlier.
+  Contour is a deployment by default as of Tanzu Application Platform v1.7.</td>
+  <td>For example:
+  <br><br>
+  <pre>
+  contour:
+    envoy:
+      workload:
+        type: daemonset
+  </pre>
+  </td>
+</tr>
 
 <tr>
   <td>Scale out your <code>AuthServer</code> and use a <code>PodDisruptionBudget</code> to ensure uptime</td>
@@ -1004,6 +1121,41 @@ The following table lists information about upgrading Tanzu Application Platform
       matchLabels:
         name: application-live-view-connector
   </pre>
+  </td>
+</tr>
+
+<tr>
+  <td>Set up Artifact Metadata Repository (AMR) Observer on the Run cluster</td>
+  <td>Set up the AMR Observer on the Run cluster by following the instructions in
+  <a href="../scst-store/multicluster-setup.hbs.md">Multicluster setup for Supply Chain Security Tools - Store</a>.
+  This communicates with the AMR EventHandler on the View cluster. For example:
+  <br><br>
+  Add the following to the Run cluster <code>tap-values.yaml</code> file:
+  <br><br>
+  <pre>
+  amr:
+    observer:
+      auth:
+        kubernetes_service_accounts:
+          autoconfigure: false
+          enable: true
+      cloudevent_handler:
+        endpoint: https://amr-cloudevent-handler.DOMAIN
+      ca_cert_data: |
+        -----BEGIN CERT------
+  </pre>
+  Run the following commands on the View cluster to retrieve the AMR CA certificate and access token.
+  Apply the CA certificate and access token on the Run cluster.
+  The CA Cert goes into the <code>tap-values.yaml</code> file. Add the edit token as a Kubernetes
+  secret on the Run cluster.
+  <br><br>
+  <pre>
+CEH_CA_CERT_DATA=$(kubectl get secret amr-cloudevent-handler-ingress-cert \
+  -n metadata-store -o json | jq -r ".data.\"tls.crt\"" | base64 -d)
+
+CEH_EDIT_TOKEN=$(kubectl get secrets amr-cloudevent-handler-edit-token \
+  -n metadata-store -o jsonpath="{.data.token}" | base64 -d)
+</pre>
   </td>
 </tr>
 

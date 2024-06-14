@@ -679,10 +679,6 @@ The following table lists information about upgrading Tanzu Application Platform
     default_parameters:
       skip_grype: true
   </pre>
-  Note: If you use or you switch between different scanners in Tanzu Application Platform v1.9 and earlier,
-  Metadata Store will show duplicate results in the Tanzu Developer Portal <strong>Security Analysis</strong>
-  UI.
-  <br><br>
   Note: <a href="../scst-scan/creating-scan-policy-template.hbs.md">Policy Enforcement</a> requires
   a supply chain change with SCST - Scan 2.0.
   </td>

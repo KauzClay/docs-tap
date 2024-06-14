@@ -311,22 +311,6 @@ The following table lists information about upgrading Kubernetes specific to the
 </tr>
 
 <tr>
-  <td>Configure Contour to be a DaemonSet to avoid downtime. If downtime is acceptable set to type deployment.
-  <br><br>
-  This is only applicable if you are upgrading from Tanzu Application Platform v1.6 or earlier.
-  Contour is a deployment by default as of Tanzu Application Platform v1.7.</td>
-  <td>For example:
-  <br><br>
-  <pre>
-  contour:
-    envoy:
-      workload:
-        type: daemonset
-  </pre>
-  </td>
-</tr>
-
-<tr>
   <td>Scale out Tanzu Developer Portal pods for high availability</td>
   <td>For example:
   <br><br>
@@ -403,18 +387,6 @@ The following table lists information about upgrading Tanzu Application Platform
 </tr>
 </thead>
 <tbody>
-
-<tr>
-  <td>If upgrading from Tanzu Application Platform v1.6 or earlier, set up Artifact Metadata Repository (AMR)</td>
-  <td>There are two new endpoints created on the view cluster with AMR. You might need to add them to
-  your allowlist or have custom certificates configured with Tanzu Application Platform v1.7 and later.
-    <ul>
-      <li><code>amr-cloudevent-handler.DOMAIN</code></li>
-      <li><code>amr-graphql.DOMAIN</code></li>
-    </ul>
-  <!-- Note: separate AMR upgrade instructions if opted in to beta version (tap-values review necessary) -->
-  </td>
-</tr>
 
 <tr>
 <td>What to expect during the upgrade on the View cluster</td>
@@ -633,84 +605,6 @@ The following table lists information about upgrading Tanzu Application Platform
   <td>When new buildpacks are applied during an upgrade, expect all workloads to trigger a new build.
   This might flood your cluster with build requests. Ensure that you have scaled out enough nodes and
   the appropriate processors to avoid being starved for CPU or memory.
-  </td>
-</tr>
-
-<tr>
-  <td>If upgrading from TAP 1.6 or earlier, set up Artifact Metadata Repository (AMR) Observer on
-  the Build cluster</td>
-  <td>Set up the AMR Observer on the Build cluster by following the instructions in
-  <a href="../scst-store/multicluster-setup.hbs.md">Multicluster setup for Supply Chain Security Tools - Store</a>.
-  This communicates with the AMR EventHandler on the View cluster. For example:
-  <br><br>
-  Add the following to the Build cluster <code>tap-values.yaml</code> file:
-  <br><br>
-  <pre>
-  amr:
-    observer:
-      auth:
-        kubernetes_service_accounts:
-          autoconfigure: false
-          enable: true
-      cloudevent_handler:
-        endpoint: https://amr-cloudevent-handler.DOMAIN
-      ca_cert_data: |
-        -----BEGIN CERT------
-  </pre>
-  Run the following commands on the View cluster to retrieve the AMR CA certificate and access token.
-  Apply the CA certificate and access token on the Build cluster.
-  The CA Cert goes into the <code>tap-values.yaml</code> file. Add the edit token as a
-  Kubernetes secret on the Build cluster.
-  <br><br>
-<pre>
-CEH_CA_CERT_DATA=$(kubectl get secret amr-cloudevent-handler-ingress-cert \
-  -n metadata-store -o json | jq -r ".data.\"tls.crt\"" | base64 -d)
-
-CEH_EDIT_TOKEN=$(kubectl get secrets amr-cloudevent-handler-edit-token \
-  -n metadata-store -o jsonpath="{.data.token}" | base64 -d)
-</pre>
-  Example external secret setup:
-  <br><br>
-  <pre>
-  ---
-  apiVersion: external-secrets.io/v1beta1
-  kind: ExternalSecret
-  metadata:
-    name: amr-observer-edit-token
-    namespace: tap-install
-  spec:
-    secretStoreRef:
-      name: tap-install-secrets
-      kind: SecretStore
-    refreshInterval: "1m"
-    target:
-      template:
-        data:
-          token: "{{ .amr_token }}"
-    data:
-      - secretKey: amr_token
-        remoteRef:
-          key: PATH-TO-EXTERNAL-SECRET-STORE
-          property: amr_token
-
-  ---
-  apiVersion: secretgen.carvel.dev/v1alpha1
-  kind: SecretExport
-  metadata:
-    name: amr-observer-edit-token
-    namespace: tap-install
-  spec:
-    toNamespaces:
-      - amr-observer-system
-  ---
-  apiVersion: secretgen.carvel.dev/v1alpha1
-  kind: SecretImport
-  metadata:
-    name: amr-observer-edit-token
-    namespace: amr-observer-system
-  spec:
-    fromNamespace: tap-install
-  </pre>
   </td>
 </tr>
 
@@ -939,22 +833,6 @@ The following table lists information about upgrading Kubernetes specific to the
 <tbody>
 
 <tr>
-  <td>Configure Contour to be a DaemonSet to avoid downtime. If downtime is acceptable set to type deployment.
-  <br><br>
-  This is only applicable if you are upgrading from Tanzu Application Platform v1.6 or earlier.
-  Contour is a deployment by default as of Tanzu Application Platform v1.7.</td>
-  <td>For example:
-  <br><br>
-  <pre>
-  contour:
-    envoy:
-      workload:
-        type: daemonset
-  </pre>
-  </td>
-</tr>
-
-<tr>
   <td>Scale out your <code>AuthServer</code> and use a <code>PodDisruptionBudget</code> to ensure uptime</td>
   <td>Consider scaling out your <code>AuthServer</code> to multiple replicas and using a
   <code>PodDisruptionBudget</code> to ensure uptime.
@@ -1130,41 +1008,6 @@ The following table lists information about upgrading Tanzu Application Platform
       matchLabels:
         name: application-live-view-connector
   </pre>
-  </td>
-</tr>
-
-<tr>
-  <td>Set up Artifact Metadata Repository (AMR) Observer on the Run cluster</td>
-  <td>Set up the AMR Observer on the Run cluster by following the instructions in
-  <a href="../scst-store/multicluster-setup.hbs.md">Multicluster setup for Supply Chain Security Tools - Store</a>.
-  This communicates with the AMR EventHandler on the View cluster. For example:
-  <br><br>
-  Add the following to the Run cluster <code>tap-values.yaml</code> file:
-  <br><br>
-  <pre>
-  amr:
-    observer:
-      auth:
-        kubernetes_service_accounts:
-          autoconfigure: false
-          enable: true
-      cloudevent_handler:
-        endpoint: https://amr-cloudevent-handler.DOMAIN
-      ca_cert_data: |
-        -----BEGIN CERT------
-  </pre>
-  Run the following commands on the View cluster to retrieve the AMR CA certificate and access token.
-  Apply the CA certificate and access token on the Run cluster.
-  The CA Cert goes into the <code>tap-values.yaml</code> file. Add the edit token as a Kubernetes
-  secret on the Run cluster.
-  <br><br>
-  <pre>
-CEH_CA_CERT_DATA=$(kubectl get secret amr-cloudevent-handler-ingress-cert \
-  -n metadata-store -o json | jq -r ".data.\"tls.crt\"" | base64 -d)
-
-CEH_EDIT_TOKEN=$(kubectl get secrets amr-cloudevent-handler-edit-token \
-  -n metadata-store -o jsonpath="{.data.token}" | base64 -d)
-</pre>
   </td>
 </tr>
 

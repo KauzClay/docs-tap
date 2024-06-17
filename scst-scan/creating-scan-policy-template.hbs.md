@@ -64,7 +64,6 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
           - `REGISTRY-PASSWORD` the password that is allowed to read the pushed curl jq image.
 
     Use a base Ubuntu image
-
     : To get started quicker and for testing purposes, you can embed the downloading of curl and jq
       in the `Task` script and use a base Ubuntu image.
 

@@ -166,7 +166,9 @@ There are two sections within this view:
 ![Screenshot of details of the Build stage of the application tanzu dash java dash web dash app.](images/build-stage-sample.png)
 
 When a workload is deployed to a cluster that has the `deliverable` package installed, a new section
-appears in the supply chain that shows **Pull Config** boxes and **Delivery** boxes.
+appears in the supply chain that shows **Pull Config** boxes and **Delivery** boxes. 
+
+**Note:** Please ensure that the deliverable name is same as your workload name so that the deliverable is rendered correctly on the Supply Chain UI. 
 
 When you have a `Pull Request` configured in your environment, access the merge request from the
 supply chain by clicking **APPROVE A REQUEST**. This button is displayed after you click

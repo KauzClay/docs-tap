@@ -21,7 +21,7 @@ The following component packages are required if you are authoring a supply chai
 - `buildpack-build.component.apps.tanzu.vmware.com`
 - `alm-catalog.component.apps.tanzu.vmware.com`
 - `git-writer.component.apps.tanzu.vmware.com`
-- `trivy-scanning.component.apps.tanzu.vmware.com`
+- `trivy.app-scanning.component.apps.tanzu.vmware.com`
 
 1. To install these packages, run the following script:
 
@@ -90,11 +90,11 @@ The following component packages are required if you are authoring a supply chai
      -v $GIT_WRITER_COMPONENT_VERSION \
      -n tap-install
 
-   export TRIVY_SCANNING_COMPONENT_VERSION=$(kubectl get package -n tap-install -o=jsonpath='{.items[?(@.spec.refName=="trivy-scanning.component.apps.tanzu.vmware.com")].spec.version}')
+   export TRIVY_SCANNING_COMPONENT_VERSION=$(kubectl get package -n tap-install -o=jsonpath='{.items[?(@.spec.refName=="trivy.app-scanning.component.apps.tanzu.vmware.com")].spec.version}')
    echo $TRIVY_SCANNING_COMPONENT_VERSION
 
-   tanzu package install trivy-scanning-component \
-     -p trivy-scanning.component.apps.tanzu.vmware.com \
+   tanzu package install trivy-app-scanning-component \
+     -p trivy.app-scanning.component.apps.tanzu.vmware.com \
      -v $TRIVY_SCANNING_COMPONENT_VERSION \
      -n tap-install
    ```

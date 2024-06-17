@@ -18,47 +18,47 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
 
 1. Do one of the following:
 
-  Build an image
-  : Build an image that contains curl and jq for the tekton `Task` to use.
+    Build an image
+    : Build an image that contains curl and jq for the tekton `Task` to use.
 
-  Use a base Ubuntu image
-  : To get started quicker, embed the downloading of curl and jq in the `Task` script and use
-    a base Ubuntu image.
+    Use a base Ubuntu image
+    : To get started quicker, embed the downloading of curl and jq in the `Task` script and use
+      a base Ubuntu image.
 
-    1. Create a `Dockerfile` with the following in a blank directory:
+      1. Create a `Dockerfile` with the following in a blank directory:
 
-        ```dockerfile
-        FROM ubuntu:latest
+          ```dockerfile
+          FROM ubuntu:latest
 
-        RUN apt-get update
-        RUN apt-get install -y jq curl
-        ```
+          RUN apt-get update
+          RUN apt-get install -y jq curl
+          ```
 
-    1. Build and push the image to a registry that is accessible by the build cluster by running:
+      1. Build and push the image to a registry that is accessible by the build cluster by running:
 
-        ```console
-        docker build . -t REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
-        docker push REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
-        ```
+          ```console
+          docker build . -t REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
+          docker push REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
+          ```
 
-        Where:
-        - `REGISTRY-URL-LOCATION` is the registry URL. For example, `registry.hub.docker.com/project`.
-        - `IMAGE-NAME` is the name of the image. For example, `curl-jq-bash`.
-        - `IMAGE-TAG` is the tag of the image. For example, `latest`.
+          Where:
+          - `REGISTRY-URL-LOCATION` is the registry URL. For example, `registry.hub.docker.com/project`.
+          - `IMAGE-NAME` is the name of the image. For example, `curl-jq-bash`.
+          - `IMAGE-TAG` is the tag of the image. For example, `latest`.
 
-    1. If you are pushing to a private registry, run the following command on the Build cluster:
+      1. If you are pushing to a private registry, run the following command on the Build cluster:
 
-        ```console
-        tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes --namespace tap-install
-        ```
+          ```console
+          tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes --namespace tap-install
+          ```
 
-        Where:
-        - `REGISTRY-SERVER` is the registry URL. For example, `registry.hub.docker.com`.
-        - `REGISTRY-USERNAME` the user name that is allowed to read the pushed curl jq image.
-        - `REGISTRY-PASSWORD` the password that is allowed to read the pushed curl jq image.
+          Where:
+          - `REGISTRY-SERVER` is the registry URL. For example, `registry.hub.docker.com`.
+          - `REGISTRY-USERNAME` the user name that is allowed to read the pushed curl jq image.
+          - `REGISTRY-PASSWORD` the password that is allowed to read the pushed curl jq image.
 
 1. In the View cluster, get the access token and the Certificate Authority (CA) certificate from
-   the Metadata Store by running:
+   the Metadata Store by running these commands:
 
    ```console
    ACCESS_TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o json \
@@ -82,8 +82,11 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
     ```console
     DEVELOPER_NAMESPACE=DEVELOPER-NAMESPACE
 
-    kubectl create secret generic metadata-store-access-token --from-literal=accessToken="${ACCESS_TOKEN}" -n ${DEVELOPER_NAMESPACE}
-    kubectl create secret generic metadata-store-cert --from-literal=caCrt="${METADATA_STORE_CA_CERT}" -n ${DEVELOPER_NAMESPACE}
+    kubectl create secret generic metadata-store-access-token \
+      --from-literal=accessToken="${ACCESS_TOKEN}" -n ${DEVELOPER_NAMESPACE}
+
+    kubectl create secret generic metadata-store-cert \
+      --from-literal=caCrt="${METADATA_STORE_CA_CERT}" -n ${DEVELOPER_NAMESPACE}
     ```
 
     Where `DEVELOPER-NAMESPACE` is the developer namespace.

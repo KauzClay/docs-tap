@@ -24,8 +24,8 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
     Build your own image
     : Build an image that contains curl and jq for the tekton `Task` to use.
 
-      This option is preferred because the image will have stable versions and dependencies that are deterministic.
-      It will not need to download curl and jq each time the script runs.
+      VMware recommends this option because the image will have stable versions and dependencies that
+      are deterministic. It will not need to download curl and jq each time the script runs.
 
       To build your image:
 
@@ -67,8 +67,8 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
     : To get started quicker and for testing purposes, you can embed the downloading of curl and jq
       in the `Task` script and use a base Ubuntu image.
 
-      > **Note** This is not recommended in production environments. VMware recommends that you build
-      > an image with curl and jq with predetermined dependencies and versions.
+      > **Note** This option is not recommended in production environments. VMware recommends that you
+      > build your own image with curl and jq so that is has predetermined dependencies and versions.
 
       For example, in the `Task` YAML:
 

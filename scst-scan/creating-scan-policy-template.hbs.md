@@ -42,6 +42,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
           ```
 
           Where:
+
           - `REGISTRY-URL-LOCATION` is the registry URL. For example, `registry.hub.docker.com/project`.
           - `IMAGE-NAME` is the name of the image. For example, `curl-jq-bash`.
           - `IMAGE-TAG` is the tag of the image. For example, `latest`.
@@ -53,6 +54,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
           ```
 
           Where:
+
           - `REGISTRY-SERVER` is the registry URL. For example, `registry.hub.docker.com`.
           - `REGISTRY-USERNAME` the user name that is allowed to read the pushed curl jq image.
           - `REGISTRY-PASSWORD` the password that is allowed to read the pushed curl jq image.

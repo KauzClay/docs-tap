@@ -18,14 +18,14 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
 
 1. Do one of the following:
 
-   Build an image
-   : Build an image that contains curl and jq for the tekton `Task` to use.
+  Build an image
+  : Build an image that contains curl and jq for the tekton `Task` to use.
 
-   Use a base Ubuntu image
-   : To get started quicker, embed the downloading of curl and jq in the `Task` script and use
-     a base Ubuntu image.
+  Use a base Ubuntu image
+  : To get started quicker, embed the downloading of curl and jq in the `Task` script and use
+    a base Ubuntu image.
 
-     1. Create a `Dockerfile` with the following in a blank directory:
+    1. Create a `Dockerfile` with the following in a blank directory:
 
         ```dockerfile
         FROM ubuntu:latest
@@ -34,7 +34,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
         RUN apt-get install -y jq curl
         ```
 
-     1. Build and push the image to a registry that is accessible by the build cluster by running:
+    1. Build and push the image to a registry that is accessible by the build cluster by running:
 
         ```console
         docker build . -t REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
@@ -46,7 +46,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
         - `IMAGE-NAME` is the name of the image. For example, `curl-jq-bash`.
         - `IMAGE-TAG` is the tag of the image. For example, `latest`.
 
-     1. If you are pushing to a private registry, run the following command on the Build cluster:
+    1. If you are pushing to a private registry, run the following command on the Build cluster:
 
         ```console
         tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes --namespace tap-install

@@ -16,7 +16,7 @@ To enforce a policy in a supply chain you need a `ClusterImageTemplate` that use
 The `TaskRun` queries the Metadata Store to get the list of vulnerabilities for the image.
 Authenticate with the Metadata Store API by obtaining an access token and a certificate:
 
-1. Generate an image that has the curl, and jq commands. You can either:
+1. Generate an image that has the curl and jq commands. You can either:
 
     - (Recommended) Build your own image.
     - Use a base Ubuntu image. This will get you started faster but is only for testing purposes.

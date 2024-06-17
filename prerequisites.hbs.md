@@ -127,7 +127,7 @@ For more information about the supported Kubernetes versions, see [Kubernetes ve
     - 16&nbsp;vCPUs available across all nodes to Tanzu Application Platform.
     - 100&nbsp;GB of disk space available per node.
 
-    >**Important** Tanzu Application Platform requires a minimum of 120&nbsp;GB per node of ephemeral storage.
+    > **Important** Tanzu Application Platform requires a minimum of 120&nbsp;GB per node of ephemeral storage.
     > If you do not allocate at least this amount of ephemeral storage for kubelet on all cluster nodes,
     > you receive the error `minDiskPerNode: some cluster nodes don't meet minimum disk space requirement of '100Gi'`.
     > For more information about configuring the storage for a TKG cluster on Supervisor, see

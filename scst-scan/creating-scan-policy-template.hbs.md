@@ -16,14 +16,25 @@ To enforce a policy in a supply chain you need a `ClusterImageTemplate` that use
 The `TaskRun` queries the Metadata Store to get the list of vulnerabilities for the image.
 Authenticate with the Metadata Store API by obtaining an access token and a certificate:
 
-1. Do one of the following:
+1. Generate an image that has the curl, and jq commands. You can either:
 
-    Build an image
+    - Build your own image, which the recommended option.
+    - Use a base Ubuntu image, which will get you started faster but is only for testing purposes.
+
+    Build your own image
     : Build an image that contains curl and jq for the tekton `Task` to use.
 
+      This option is preferred because the image will have stable versions and dependencies that are deterministic.
+      It will not need to download curl and jq each time the script runs.
+
+      However, building your own image requires a registry, credentials, and docker build.
+
     Use a base Ubuntu image
-    : To get started quicker, embed the downloading of curl and jq in the `Task` script and use
-      a base Ubuntu image.
+    : To get started quicker and for testing purposes, you can embed the downloading of curl and jq
+      in the `Task` script and use a base Ubuntu image.
+
+      > **Note** This is not recommended in production environments. VMware recommends that you build
+      > an image with curl and jq with predetermined dependencies and versions.
 
       1. Create a `Dockerfile` with the following in a blank directory:
 
@@ -191,9 +202,9 @@ The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
       kubectl get httpproxy metadata-store-ingress -n metadata-store -o jsonpath='{.spec.virtualhost.fqdn}'
       ```
 
-    - `TASK-RUN-IMAGE-WITH-CURL-AND-JQ` is any image that contains the `bash`, `curl`, and `jq` commands.
+    - `TASK-RUN-IMAGE-WITH-CURL-AND-JQ` is any image that contains the bash, curl, and jq commands.
       If you did not build an image in the first step, you can use the `ubuntu:latest` image and
-      install `jq` and `curl` at the beginning of the script section. For example:
+      install jq and curl at the beginning of the script section. For example:
 
         ```console
         image: ubuntu:latest
@@ -210,7 +221,7 @@ The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
         ...
         ```
 
-      > **Important** This is not recommended in production environments. VMware recommends that you build
+      > **Note** This is not recommended in production environments. VMware recommends that you build
       > an image with curl and jq with predetermined dependencies and versions.
 
     - `DEVELOPER-NAMESPACE` is the developer namespace.

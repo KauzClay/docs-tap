@@ -21,7 +21,7 @@ Initialize Tanzu Supply Chain by running:
 tanzu supplychain init --group GROUP-NAME
 ```
 
-Where `GROUP-NAME` is the group name of the supply chains. Default is `supplychains.tanzu.vmware.com`.
+Where `GROUP-NAME` is the group name of the supply chains. The default is `supplychains.tanzu.vmware.com`.
 
 For example:
 

@@ -27,14 +27,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
       This option is preferred because the image will have stable versions and dependencies that are deterministic.
       It will not need to download curl and jq each time the script runs.
 
-      However, building your own image requires a registry, credentials, and docker build.
-
-    Use a base Ubuntu image
-    : To get started quicker and for testing purposes, you can embed the downloading of curl and jq
-      in the `Task` script and use a base Ubuntu image.
-
-      > **Note** This is not recommended in production environments. VMware recommends that you build
-      > an image with curl and jq with predetermined dependencies and versions.
+      To build your image:
 
       1. Create a `Dockerfile` with the following in a blank directory:
 
@@ -69,6 +62,41 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
           - `REGISTRY-SERVER` is the registry URL. For example, `registry.hub.docker.com`.
           - `REGISTRY-USERNAME` the user name that is allowed to read the pushed curl jq image.
           - `REGISTRY-PASSWORD` the password that is allowed to read the pushed curl jq image.
+
+    Use a base Ubuntu image
+
+    : To get started quicker and for testing purposes, you can embed the downloading of curl and jq
+      in the `Task` script and use a base Ubuntu image.
+
+      > **Note** This is not recommended in production environments. VMware recommends that you build
+      > an image with curl and jq with predetermined dependencies and versions.
+
+      For example, in the `Task` YAML:
+
+      ```yaml
+      ---
+      apiVersion: tekton.dev/v1
+      kind: Task
+      metadata:
+        name: tekton-policy-enforcement
+        namespace: DEVELOPER-NAMESPACE
+      spec:
+        params:
+          - name: image
+            type: string
+        steps:
+          - name: enforce-policy
+            image: ubuntu:latest # <-- ubuntu base image
+            ...
+            script: |
+              apt-get update # <-- update download links
+              apt-get install -y jq curl # <-- install jq and curl
+
+              if [ ${GATE} -eq "none" ]; then
+                  exit 0
+              fi
+            ...
+      ```
 
 1. In the View cluster, get the access token and the Certificate Authority (CA) certificate from
    the Metadata Store by running these commands:

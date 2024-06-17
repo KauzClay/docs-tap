@@ -34,7 +34,7 @@ Installation requires:
     - Recommended storage space for container image registry:
 
         - 1&nbsp;GB of available storage if installing Tanzu Build Service with the `lite` set of dependencies.
-        - 10 GB of available storage if installing Tanzu Build Service with the `full` set of dependencies, which are suitable for offline
+        - 10&nbsp;GB of available storage if installing Tanzu Build Service with the `full` set of dependencies, which are suitable for offline
         environments.
 
         >**Note** For production environments, `full` dependencies are recommended to

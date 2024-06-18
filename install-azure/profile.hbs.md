@@ -29,7 +29,7 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
     1. Sign in to the [Broadcom Support Portal](https://support.broadcom.com).
 
-    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP))
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware%20Tanzu%20Application%20Platform)
        and expand the **VMware Tanzu Application Platform** dropdown.
 
     1. Click the Token Download icon next to the Tanzu Application Platform version you want to

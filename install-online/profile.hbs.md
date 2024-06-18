@@ -28,7 +28,7 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
     1. Sign in to the [Broadcom Support Portal](https://support.broadcom.com).
 
-    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP))
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware%20Tanzu%20Application%20Platform)
        and expand the **VMware Tanzu Application Platform** dropdown.
 
     1. Click the Token Download icon next to the Tanzu Application Platform version you want to
@@ -446,7 +446,7 @@ Where:
 
 - `GIT-CATALOG-URL` is the path to the `catalog-info.yaml` catalog definition file. You can download
   either a blank or populated catalog file from the
-  [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)) (file name **Tanzu Application Platform Developer Portal Blank Catalog** or **Tanzu Application Platform Developer Portal Yelb Catalog**).
+  [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware%20Tanzu%20Application%20Platform) (file name **Tanzu Application Platform Developer Portal Blank Catalog** or **Tanzu Application Platform Developer Portal Yelb Catalog**).
   Otherwise, you can use a Backstage-compliant catalog you've already built and posted on the Git infrastructure.
 
 - `MY-DEV-NAMESPACE` is the name of the developer namespace. SCST - Store exports secrets to the

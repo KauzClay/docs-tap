@@ -42,7 +42,7 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
 
     1. Sign in to the [Broadcom Support Portal](https://support.broadcom.com).
 
-    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP))
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware%20Tanzu%20Application%20Platform)
        and expand the **VMware Tanzu Application Platform** dropdown.
 
     1. Click the Token Download icon next to the Tanzu Application Platform version you want to
@@ -161,7 +161,7 @@ Follow these steps to create a new Git repository:
 Follow these steps to download and unpack Tanzu GitOps Reference Implementation (RI):
 
 1. Download **Tanzu GitOps Reference Implementation** for Tanzu Application Platform v{{ vars.tap_version }}
-   from the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)).
+   from the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware%20Tanzu%20Application%20Platform).
 
 1. Unpack the downloaded TGZ file into the `$HOME/tap-gitops` directory by running:
 

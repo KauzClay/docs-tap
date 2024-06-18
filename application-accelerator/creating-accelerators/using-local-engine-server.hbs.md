@@ -20,7 +20,7 @@ a Git repository and then publish them to a cluster to give others access.
 
 To install the local engine server:
 
-1. Go to the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu+Application+Platform+(TAP)), expand the **VMware Tanzu Application Platform**
+1. Go to the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware%20Tanzu%20Application%20Platform), expand the **VMware Tanzu Application Platform**
 dropdown, and click the {{ vars.tap_version }} release.
 
 1. If you have not done so already, select the **I agree to Terms and Conditions** check box.

@@ -8,6 +8,8 @@ Flagger for Supply Chain Choreographer.
 Blue-green deployment is an application delivery model that lets you gradually transfer user traffic
 from one version of your app to a later version while both are running in production.
 
+This currently works with only workloads of type `server`.
+
 ## <a id="prerecs"></a> Prerequisites
 
 To use blue-green deployment, you must complete the following prerequisites:
@@ -34,7 +36,7 @@ Kubernetes namespace, with their current names. For example:
 
 ```console
 NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
-hello-app-00001-deployment   1/1     1            1           103
+hello-app-deployment         1/1     1            1           103
 ```
 
 ## <a id="flagger-canary"></a> Flagger Canary resource
@@ -69,7 +71,3 @@ constant throughout deployment.
 Consequently, performance issues like high latency, errors, or timeouts can arise if the new version
 receives more traffic than it can handle. This situation can also impact the metrics and webhooks
 that Flagger uses to validate the new version, potentially leading to a rollback or promotion delay.
-
-Workloads of type `Web` use Knative, which has its own
-[custom autoscaler](https://knative.dev/docs/serving/autoscaling/autoscaler-types/)
-and doesn't use HPA by default, however you can configure the Knative to use it.

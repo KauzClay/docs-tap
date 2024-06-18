@@ -24,8 +24,8 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
     Build your own image
     : Build an image that contains curl and jq for the tekton `Task` to use.
 
-      VMware recommends this option because the image will have stable versions and dependencies that
-      are deterministic. It will not need to download curl and jq each time the script runs.
+      VMware recommends that you use this option because the image will have stable versions and dependencies
+      that are deterministic. It will not need to download curl and jq each time the script runs.
 
       To build your image:
 
@@ -68,7 +68,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
       in the `Task` script and use a base Ubuntu image.
 
       > **Note** This option is not recommended in production environments. VMware recommends that you
-      > build your own image with curl and jq so that is has predetermined dependencies and versions.
+      > build your own image that contains curl and jq so that it has predetermined dependencies and versions.
 
       For example, in the `Task` YAML:
 
@@ -248,8 +248,8 @@ The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
         ...
         ```
 
-      > **Note** This is not recommended in production environments. VMware recommends that you build
-      > an image with curl and jq with predetermined dependencies and versions.
+      > **Note** This is not recommended in production environments. VMware recommends that you
+      > build your own image that contains curl and jq with predetermined dependencies and versions.
 
     - `DEVELOPER-NAMESPACE` is the developer namespace.
 

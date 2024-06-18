@@ -10,4 +10,5 @@ The following topics are related to app operator tasks:
 - [Manage Knative Serving Resources](./resource_management.hbs.md)
 - [Uninstall Cloud Native Runtimes](./uninstall.hbs.md)
 - [Upgrade Cloud Native Runtimes](./upgrade.hbs.md)
+- [Upgrade Kubernetes Recommendations](./upgrade-kubernetes.hbs.md)
 - [Verify Cloud Native Runtimes Installation](./verify-installation.hbs.md)

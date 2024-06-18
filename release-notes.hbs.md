@@ -32,6 +32,11 @@ This release includes the following changes, listed by component and area.
 
 - Feature description.
 
+#### <a id='1-11-0-cnr'></a> v1.11.0 Features: Cloud Native Runtimes
+
+- Pod anti-affinity rules were added to the Activator deployment.
+- Pod anti-affinity rules are set by default for all Knative services. The configuration can be found in the `config-deployment` configmap.
+
 #### <a id='1-11-0-scc'></a> v1.11.0 Features: Supply Chain Choreographer
 
 - [Carvel Package Supply Chains](scc/carvel-package-supply-chain.hbs.md) are now generally available (GA).

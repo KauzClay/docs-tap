@@ -19,7 +19,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
 1. Generate an image that has the curl and jq commands. You can either:
 
     - (Recommended) Build your own image.
-    - Use a base Ubuntu image. This will get you started faster but is only for testing purposes.
+    - Use a base Ubuntu image. This gets you started faster but is only for testing purposes.
 
     Build your own image
     : Build an image that contains curl and jq for the tekton `Task` to use.

@@ -56,7 +56,7 @@ To relocate images from `tanzu.packages.broadcom.com` to your registry:
     export IMGPKG_REGISTRY_PASSWORD_0=$MY_BROADCOM_SUPPORT_ACCESS_TOKEN
 
     # The user’s registry for copying the Tanzu Application Platform package to.
-    export IMGPKG_REGISTRY_HOSTNAME_1=$INSTALL_REGISTRY_HOSTNAME
+    export IMGPKG_REGISTRY_HOSTNAME_1=$REGISTRY_NAME.azurecr.io
     export IMGPKG_REGISTRY_USERNAME_1=$REGISTRY_NAME
     export IMGPKG_REGISTRY_PASSWORD_1=REGISTRY-PASSWORD
     # These environment variables starting with IMGPKG_* are used by the imgpkg command only.

@@ -108,7 +108,7 @@ To manage a Kubernetes cluster, use the Kubernetes command-line client,
     export REGISTRY_NAME=YOUR-REGISTRY-NAME
     ```
 
-    Where `YOUR-REGISTRY-NAME` is the name you want for your container image registry. Use lowercase.
+    Where `YOUR-REGISTRY-NAME` is the name that you want for your container image registry. Use lowercase.
 
 1. Create the Azure Container Registry by running:
 

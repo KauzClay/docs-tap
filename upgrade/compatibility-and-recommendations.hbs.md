@@ -831,7 +831,7 @@ The following table lists information about upgrading Kubernetes specific to the
 
 <tr>
   <td>Scale out your <code>AuthServer</code> and use a <code>PodDisruptionBudget</code> to ensure uptime</td>
-  <td>Consider scaling out your <code>AuthServer</code> to multiple replicas and using a
+  <td>Consider scaling out your <code>AuthServer</code> to multiple replicas and using a<br>
   <code>PodDisruptionBudget</code> to ensure uptime.
   <br><br>
   Example <code>AuthServer</code>:
@@ -862,8 +862,9 @@ The following table lists information about upgrading Kubernetes specific to the
 
 <tr>
   <td>Scale out Application Configuration Service and use a <code>PodDisruptionBudget</code> to ensure uptime</td>
-  <td>Add replicas to the <code>PackageInstall</code> of Application Configuration Service and a
+  <td>Add replicas to the <code>PackageInstall</code> of Application Configuration Service and a<br>
   <code>PodDisruptionBudget</code>.
+  <br><br>
   Example <code>PackageInstall</code>:
   <br><br>
   <pre>
@@ -913,7 +914,7 @@ The following table lists information about upgrading Kubernetes specific to the
 <tr>
   <td>Consider Bitnami Charts replicas and pod disruption budgets for when running services inside
   the same cluster</td>
-  <td>While Bitnami Charts are not intended for production, if you are using them in that
+  <td>While Bitnami Charts are not intended for production, if you are using them in that<br>
   manner then consider replicas and pod disruption budgets for each component.</td>
 </tr>
 
@@ -921,8 +922,9 @@ The following table lists information about upgrading Kubernetes specific to the
   <td>Consider replicas and pod disruption budgets for workloads.
   <br><br>
   You can use an overlay to create them as part of the <code>SupplyChain</code> by default.</td>
-  <td>Every workload on Tanzu Application Platform must take replica and disruption budgets into
-  consideration. Consider adding logic to the supply chain to create them for each component.
+  <td>Every workload on Tanzu Application Platform must take replica and disruption<br>
+  budgets into consideration. Consider adding logic to the supply chain to create them<br>
+  for each component.
   <br><br>
   Example overlay on ootb-templates package install:
   <br><br>

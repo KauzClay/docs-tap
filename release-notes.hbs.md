@@ -28,14 +28,12 @@ This release includes the following platform-wide enhancements.
 
 This release includes the following changes, listed by component and area.
 
-#### <a id='1-11-0-COMPONENT-NAME'></a> v1.11.0 Features: COMPONENT-NAME
-
-- Feature description.
-
 #### <a id='1-11-0-cnr'></a> v1.11.0 Features: Cloud Native Runtimes
 
-- Pod anti-affinity rules were added to the Activator deployment.
-- Pod anti-affinity rules are set by default for all Knative services. The configuration can be found in the `config-deployment` configmap.
+- Adds Pod anti-affinity rules to the Activator deployment.
+
+- Sets Pod anti-affinity rules by default for all Knative services. You can find the configuration
+  in the `config-deployment` ConfigMap.
 
 #### <a id='1-11-0-scc'></a> v1.11.0 Features: Supply Chain Choreographer
 

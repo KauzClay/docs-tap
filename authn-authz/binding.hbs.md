@@ -6,11 +6,11 @@ After configuring your identity provider for Kubernetes, users can be authentica
 
 ## <a id="prereqs"></a> Prerequisites
 
-Meet these prerequisites:
+Before you can bind a user or group to a default role, you must:
 
-1. Configure kubectl and have admin access to the cluster.
-1. Configure an authentication solution for the cluster.
-You can use [Pinniped](https://pinniped.dev/) or the authentication service native to your Kubernetes distribution.
+- Configure kubectl and have admin access to the cluster.
+- Configure an authentication solution for the cluster. You can use [Pinniped](https://pinniped.dev/)
+  or the authentication service native to your Kubernetes distribution.
 
 ## <a id="user-group-to-role"></a> Manage a user or groups mapping to a role
 
@@ -54,7 +54,7 @@ EOF
 
 Where `DEVELOPER-NAMESPACE` is the namespace for scoping the developers access.
 
-To simplify the management of user to role membership, you can bind a group to a role in Kubernetes and manage a users group membership with an enteprise identity provider. For an example of Azure AD, see [Integrate your Azure Active Directory](azure-ad.hbs.md). 
+To simplify the management of user to role membership, you can bind a group to a role in Kubernetes and manage a users group membership with an enteprise identity provider. For an example of Azure AD, see [Integrate your Azure Active Directory](azure-ad.hbs.md).
 
 The following example demonstrates how to add the group `developers` to the `app-editor` role:
 

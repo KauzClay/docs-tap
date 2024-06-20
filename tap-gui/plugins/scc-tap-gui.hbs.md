@@ -821,8 +821,8 @@ You can use the Supply Chain UI to visualize Carvel packages deployed on the clu
 
 The URL of the service is displayed for the following workload types:
 
-- For `web` type workloads. The URL is obtained from the Knative Service.
-- For `server` type workloads. The URL is obtained from the Kubernetes ingress defined during the
+- `web`: The URL is obtained from the Knative Service.
+- `server`: The URL is obtained from the Kubernetes ingress defined during the
   package install.
 
 ![Screenshot of Carvel deployment details in the Supply Chian UI.](images/carvel-deployment-details.png)

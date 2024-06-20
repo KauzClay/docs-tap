@@ -250,6 +250,11 @@ To export secrets by creating `SecretExport` resources on the developer namespac
 For information about `metadata` configuration, see
 [Cluster-specific scanner configurations](cluster-specific-scanner-configurations.hbs.md).
 
+> **Important** Although in a single cluster configuration using of Namespace Provisioner
+> is recommeneded, however in any multicluster configuration properties mentioned above should
+> be taken from the view cluster manually and copied to the `values.yaml` by which the build
+> cluster would be installed.
+
 ## <a id='resources'></a> Additional resources
 
 - [Ingress support](ingress.hbs.md)

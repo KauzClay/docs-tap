@@ -166,9 +166,10 @@ There are two sections within this view:
 ![Screenshot of details of the Build stage of the application tanzu dash java dash web dash app.](images/build-stage-sample.png)
 
 When a workload is deployed to a cluster that has the `deliverable` package installed, a new section
-appears in the supply chain that shows **Pull Config** boxes and **Delivery** boxes. 
+appears in the supply chain that shows **Pull Config** boxes and **Delivery** boxes.
 
-**Note:** Please ensure that the deliverable name is same as your workload name so that the deliverable is rendered correctly on the Supply Chain UI. 
+> **Important** Ensure that the deliverable name is same as your workload name so that the deliverable
+> renders correctly on the Supply Chain UI.
 
 When you have a `Pull Request` configured in your environment, access the merge request from the
 supply chain by clicking **APPROVE A REQUEST**. This button is displayed after you click
@@ -799,20 +800,30 @@ To see the workload rendered through the Supply Chain plug-in:
 
    ![Screenshot of Rocket Provider JSON.](images/tanzu-rockets-crd-json.png)
 
-### <a id="visualize-carvel-deployment-details"></a> Visualize Carvel Package Deployment Details
+### <a id="visualize-carvel-dep"></a> Visualize Carvel package deployment details
 
-Carvel package deployed in the cluster can be visualized in the supply chain UI. For Carvel packages created by the supply chain no additional configuration is needed other than applying the package and package install to the cluster.
+You can use the Supply Chain UI to visualize Carvel packages deployed on the cluster.
 
-For manually created Carvel packages it is necessary to add the following `part-of` label annotation to the `metadata\labels` section of your package definition so that the package install deployment stage is visible:
+- **For the Carvel packages that the supply chain creates:** You must apply the package and package
+  install to the cluster. No additional configuration is required.
 
-```
-apiVersion: data.packaging.carvel.dev/v1alpha1
-kind: Package
-metadata:
-  labels:
-    app.kubernetes.io/part-of: [YOUR-WORKLOAD-NAME]
-```
+- **For manually created Carvel packages:** You must add the following `part-of` label annotation to
+  the `metadata.labels` section of your package definition to make the package install deployment stage
+  visible:
 
-The url of service is displayed for `web` type workloads (obtained from the Knative Serve) or `server` type workloads (obtained from the kubernetes ingress defined during the package install).
+    ```yaml
+    apiVersion: data.packaging.carvel.dev/v1alpha1
+    kind: Package
+    metadata:
+      labels:
+        app.kubernetes.io/part-of: [YOUR-WORKLOAD-NAME]
+    ```
 
-![Screenshot of Carvel Deployment Details](images/carvel-deployment-details.png)
+The URL of the service is displayed for the following workload types:
+
+- For `web` type workloads. The URL is obtained from the Knative Serve.
+  <!-- Knative Server? Knative Service? -->
+- For `server` type workloads. The URL is obtained from the Kubernetes ingress defined during the
+  package install.
+
+![Screenshot of Carvel deployment details in the Supply Chian UI.](images/carvel-deployment-details.png)

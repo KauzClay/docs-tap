@@ -166,7 +166,9 @@ There are two sections within this view:
 ![Screenshot of details of the Build stage of the application tanzu dash java dash web dash app.](images/build-stage-sample.png)
 
 When a workload is deployed to a cluster that has the `deliverable` package installed, a new section
-appears in the supply chain that shows **Pull Config** boxes and **Delivery** boxes.
+appears in the supply chain that shows **Pull Config** boxes and **Delivery** boxes. 
+
+**Note:** Please ensure that the deliverable name is same as your workload name so that the deliverable is rendered correctly on the Supply Chain UI. 
 
 When you have a `Pull Request` configured in your environment, access the merge request from the
 supply chain by clicking **APPROVE A REQUEST**. This button is displayed after you click
@@ -796,3 +798,21 @@ To see the workload rendered through the Supply Chain plug-in:
 4. Go to the end of the section to see the full resource in JSON format.
 
    ![Screenshot of Rocket Provider JSON.](images/tanzu-rockets-crd-json.png)
+
+### <a id="visualize-carvel-deployment-details"></a> Visualize Carvel Package Deployment Details
+
+Carvel package deployed in the cluster can be visualized in the supply chain UI. For Carvel packages created by the supply chain no additional configuration is needed other than applying the package and package install to the cluster.
+
+For manually created Carvel packages it is necessary to add the following `part-of` label annotation to the `metadata\labels` section of your package definition so that the package install deployment stage is visible:
+
+```
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  labels:
+    app.kubernetes.io/part-of: [YOUR-WORKLOAD-NAME]
+```
+
+The url of service is displayed for `web` type workloads (obtained from the Knative Serve) or `server` type workloads (obtained from the kubernetes ingress defined during the package install).
+
+![Screenshot of Carvel Deployment Details](images/carvel-deployment-details.png)

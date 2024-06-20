@@ -53,7 +53,7 @@ kubectl annotate namespaces NAMESPACE apps.tanzu.vmware.com/tap-managed-ns=""
 
 Where `NAMESPACE` is your namespace
 
-With this annotation the UI can target the scoped namespaces and show you workloads on such
+With this annotation the UI can target the scoped namespaces and show you workloads and deliverables on such
 namespaces.
 
 ![Tanzu Developer Portal showing that role-based access control is enabled on the Secure Supply Chains UI and Security Analysis UI plug-ins.](../images/rbac-on-ssc-and-sagui-plugins.png)

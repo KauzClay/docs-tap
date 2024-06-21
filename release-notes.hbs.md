@@ -180,8 +180,8 @@ Deprecated features remain on this list until they are retired from Tanzu Applic
 
 ### <a id='scst-policy-deprecations'></a> Supply Chain Security Tools - Policy Controller deprecations
 
-- The [Policy Controller](./scst-policy/overview.hbs.md) component is
-deprecated and is marked for removal in a future Tanzu Application Platform version
+- The [Policy Controller](scst-policy/overview.hbs.md) component is deprecated. VMware plans to
+  remove it in a future Tanzu Application Platform version.
 
 ### <a id='COMPONENT-NAME-deprecations'></a> COMPONENT-NAME deprecations
 

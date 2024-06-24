@@ -30,10 +30,11 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-11-0-cnr'></a> v1.11.0 Features: Cloud Native Runtimes
 
-- Adds Pod anti-affinity rules to the Activator deployment.
+- Upgrading Kubernetes requires draining nodes which increases risk of downtime. The enhancements below are designed to minimize the chances of traffic disruptions during upgrades.
+  - Adds Pod anti-affinity rules to the Activator deployment.
 
-- Sets Pod anti-affinity rules by default for all Knative services. You can find the configuration
-  in the `config-deployment` ConfigMap.
+  - Sets Pod anti-affinity rules by default for all Knative services. You can find the configuration
+    in the `config-deployment` ConfigMap.
 
 #### <a id='1-11-0-scc'></a> v1.11.0 Features: Supply Chain Choreographer
 

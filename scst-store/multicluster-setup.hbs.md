@@ -250,7 +250,7 @@ To export secrets by creating `SecretExport` resources on the developer namespac
 For information about `metadata` configuration, see
 [Cluster-specific scanner configurations](cluster-specific-scanner-configurations.hbs.md).
 
-> **Important** In a multicluster configuration, you must manually copy the `metadata-store` values
+> **Important** In a multicluster configuration, make sure you manually copy the Metadata Store values
 > mentioned earlier from the View cluster to the `values.yaml` file you use to install the Build cluster.
 
 ## <a id='resources'></a> Additional resources

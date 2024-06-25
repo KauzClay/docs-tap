@@ -40,6 +40,10 @@ This release includes the following changes, listed by component and area.
 
 - [Carvel Package Supply Chains](scc/carvel-package-supply-chain.hbs.md) are now generally available (GA).
 
+#### <a id='1-11-0-scst'></a> v1.11.0 Features: Supply Chain Security Tools
+
+- [**Vulnerability policy enforcement for Scan 2.0**](scst-scan/creating-scan-policy-template.hbs.md) - define policies that prevent the supply chain from proceeding if a vulnerability is discovered.
+
 ---
 
 ### <a id='1-11-0-breaking-changes'></a> v1.11.0 Breaking changes
@@ -57,9 +61,9 @@ This release includes the following changes, listed by component and area.
   Make sure you relocate the images to your container image registry as part of the instructions in
   [Upgrade Tanzu Application Platform](upgrading.hbs.md).
 
-#### <a id='1-11-0-cb-scanner-bc'></a> v1.11.0 Breaking changes: Carbon Black for SCST - Scan v1.0
+#### <a id='1-11-0-cb-scanner-bc'></a> v1.11.0 Breaking changes: Carbon Black for Supply Chain Security Tools - Scan v1.0
 
-- VMware Carbon Black for SCST - Scan v1.0 is now removed.
+- VMware Carbon Black for Supply Chain Security Tools - Scan v1.0 is now removed.
 
 ---
 

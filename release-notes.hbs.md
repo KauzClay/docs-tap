@@ -30,19 +30,24 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-11-0-cnr'></a> v1.11.0 Features: Cloud Native Runtimes
 
-- Upgrading Kubernetes requires draining nodes which increases risk of downtime. The enhancements below are designed to minimize the chances of traffic disruptions during upgrades.
-  - Adds Pod anti-affinity rules to the Activator deployment.
+- Upgrading Kubernetes requires draining nodes, which increases the risk of downtime. The following
+  enhancements minimize the chances of traffic disruptions during upgrades:
 
-  - Sets Pod anti-affinity rules by default for all Knative services. You can find the configuration
-    in the `config-deployment` ConfigMap.
+  - Pod anti-affinity rules are added to the Activator deployment.
+
+  - Pod anti-affinity rules are set by default for all Knative services. You can find the
+    configuration in the `config-deployment` ConfigMap.
 
 #### <a id='1-11-0-scc'></a> v1.11.0 Features: Supply Chain Choreographer
 
-- [Carvel Package Supply Chains](scc/carvel-package-supply-chain.hbs.md) are now generally available (GA).
+- [Carvel Package Supply Chains](scc/carvel-package-supply-chain.hbs.md) are now generally available
+  (GA).
 
 #### <a id='1-11-0-scst'></a> v1.11.0 Features: Supply Chain Security Tools
 
-- [**Vulnerability policy enforcement for Scan 2.0**](scst-scan/creating-scan-policy-template.hbs.md) - define policies that prevent the supply chain from proceeding if a vulnerability is discovered.
+- [Vulnerability policy enforcement for Scan 2.0](scst-scan/creating-scan-policy-template.hbs.md):
+  Policies that prevent the supply chain from proceeding if a vulnerability is detected are now
+  defined.
 
 ---
 

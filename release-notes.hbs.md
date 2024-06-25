@@ -38,11 +38,6 @@ This release includes the following changes, listed by component and area.
   - Pod anti-affinity rules are set by default for all Knative services. You can find the
     configuration in the `config-deployment` ConfigMap.
 
-#### <a id='1-11-0-cnr'></a> v1.11.0 Features: Supply Chain UI Plugin
-
-- Users can visualize their Carvel package deployments details along with URLs for both Server and Web-type workloads.
-  Ensure your deliverable name is same as workload name for deliverables to be visualized correctly in Supply Chain UI
-
 #### <a id='1-11-0-scc'></a> v1.11.0 Features: Supply Chain Choreographer
 
 - [Carvel Package Supply Chains](scc/carvel-package-supply-chain.hbs.md) are now generally available
@@ -53,6 +48,16 @@ This release includes the following changes, listed by component and area.
 - [Vulnerability policy enforcement for Scan 2.0](scst-scan/creating-scan-policy-template.hbs.md):
   Policies that prevent the supply chain from proceeding if a vulnerability is detected are now
   defined.
+
+#### <a id='1-11-0-tdp'></a> v1.11.0 Features: Tanzu Developer Portal
+
+- **Supply Chain UI plug-in:**
+
+  You can visualize your Carvel package deployments details and URLs for both server and
+  web-type workloads.
+  Ensure that your deliverable name is the same as the workload name for deliverables to be visualized
+  correctly in Supply Chain UI.
+  For more information, see [Visualize Carvel package deployment details](tap-gui/plugins/scc-tap-gui.hbs.md#visualize-carvel-dep).
 
 ---
 

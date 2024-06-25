@@ -38,6 +38,11 @@ This release includes the following changes, listed by component and area.
   - Pod anti-affinity rules are set by default for all Knative services. You can find the
     configuration in the `config-deployment` ConfigMap.
 
+#### <a id='1-11-0-cnr'></a> v1.11.0 Features: Supply Chain UI Plugin
+
+- Users can visualize their Carvel package deployments details along with URLs for both Server and Web-type workloads.
+  Ensure your deliverable name is same as workload name for deliverables to be visualized correctly in Supply Chain UI
+
 #### <a id='1-11-0-scc'></a> v1.11.0 Features: Supply Chain Choreographer
 
 - [Carvel Package Supply Chains](scc/carvel-package-supply-chain.hbs.md) are now generally available

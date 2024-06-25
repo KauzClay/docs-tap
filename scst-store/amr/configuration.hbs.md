@@ -108,6 +108,10 @@ Configuration options:
     - Default: `1`
     - Maximum concurrent reconciles for observing ImageVulnerabilityScans.
 
+- `amr.observer.log_level`
+  - Default: `INFO`
+  - Sets the log level. Can be set to `DEBUG` so more information is acquired through the logs.
+
 ## <a id='amr-graphql'></a> AMR GraphQL
 
 - `amr.graphql.auth.kubernetes_service_accounts`
@@ -127,3 +131,7 @@ Configuration options:
   - `.autoconfigure`
     - Default: `true`
     - Delegate creation of authentication token secret to the artifact metadata repository. By default it is set to true.
+
+- `amr.cloudevent_handler.log_level`
+  - Default: `INFO`
+  - Sets the log level. Can be set to `DEBUG` so more information is acquired through the logs.

@@ -80,6 +80,14 @@ This release includes the following changes, listed by component and area.
 
 - VMware Carbon Black for Supply Chain Security Tools - Scan v1.0 is now removed.
 
+#### <a id='1-11-0-tanzu-cli-bc'></a> v1.11.0 Breaking changes: Tanzu CLI
+
+- The [Tanzu Insight plug-in](cli-plugins/insight/cli-overview.hbs.md) is now removed.
+
+#### <a id='1-11-0-tdp-bc'></a> v1.11.0 Breaking changes: Tanzu Developer Portal
+
+- [Tanzu Developer Portal Configurator](tap-gui/configurator/about.hbs.md) is now removed.
+
 ---
 
 ### <a id='1-11-0-security-fixes'></a> v1.11.0 Security fixes
@@ -198,14 +206,56 @@ For open source component versions in this Tanzu Application Platform release, s
 The following features, listed by component, are deprecated.
 Deprecated features remain on this list until they are retired from Tanzu Application Platform.
 
-### <a id='scst-policy-deprecations'></a> Supply Chain Security Tools - Policy Controller deprecations
+### <a id='cnrs-deprecations'></a> Cloud Native Runtimes deprecations
+
+- **`default_tls_secret` config option**: This config option is now in `contour.default_tls_secret`
+  and is marked for removal in Cloud Native Runtimes. In the meantime, both options are
+  supported, and `contour.default_tls_secret` takes precedence over `default_tls_secret`.
+
+- **`ingress.[internal/external].namespace` config options**: These config options are now in
+  `contour.[internal/external].namespace` are marked for removal in Cloud Native Runtimes. In
+  the meantime, both options are supported, and `contour.[internal/external].namespace` takes
+  precedence over `ingress.[internal/external].namespace`.
+
+### <a id='svc-toolkit-deprecations'></a> Services Toolkit deprecations
+
+- The following APIs are deprecated and are marked for removal in a future Tanzu Application Platform release:
+  - `clusterexampleusages.services.apps.tanzu.vmware.com/v1alpha1`
+  - `clusterresources.services.apps.tanzu.vmware.com/v1alpha1`
+
+### <a id="sc-deprecations"></a> Source Controller deprecations
+
+- The Source Controller `ImageRepository` API is deprecated and is marked for removal. Use the
+  `OCIRepository` API instead. The Flux Source Controller installation includes the `OCIRepository`
+  API. For more information about the `OCIRepository` API, see the
+  [Flux documentation](https://fluxcd.io/flux/components/source/ocirepositories/).
+
+### <a id='scst-policy-deprecations'></a> Supply Chain Security Tools - Policy Controller deprecation
 
 - The [Policy Controller](scst-policy/overview.hbs.md) component is deprecated. VMware plans to
   remove it in a future Tanzu Application Platform version.
 
-### <a id='COMPONENT-NAME-deprecations'></a> COMPONENT-NAME deprecations
+### <a id='scst-scan-deprecations'></a> Supply Chain Security Tools - Scan v1.0 deprecation
 
-- Deprecation description including the release when the feature will be removed.
+- SCST - Scan v1.0 is deprecated, but it remains the default option for online installation. SCST -
+  Scan v2.0 will be the default in Tanzu Application Platform v1.11. SCST - Scan v1.0 will be
+  removed in a future Tanzu Application Platform version. For more information, see
+  [SCST - Scan versions](scst-scan/overview.hbs.md#scst-scan-feat).
+
+### <a id='scst-store-deprecations'></a> Supply Chain Security Tools - Store deprecations
+
+- The [metadata-store (MDS)](scst-store/mds-overview.hbs.md) component within SCST - Store is
+  deprecated and is marked for removal in a future Tanzu Application Platform version.
+
+### <a id='tdp-deprecations'></a> Tanzu Developer Portal deprecations
+
+- [Tanzu Developer Portal Configurator](tap-gui/configurator/about.hbs.md) is deprecated and is
+  marked for removal in Tanzu Application Platform v1.11.
+
+### <a id="tekton-deprecations"></a> Tekton Pipelines deprecations
+
+- Tekton `ClusterTask` is deprecated and marked for removal. Use the `Task` API instead. For more
+  information, see the [Tekton documentation](https://tekton.dev/docs/pipelines/deprecations/).
 
 ---
 

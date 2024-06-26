@@ -72,7 +72,6 @@
   - [Upgrade compatibility and recommendations](upgrade/compatibility-and-recommendations.hbs.md)
   - [Upgrade by Tanzu CLI](upgrading.hbs.md)
   - [Upgrade by GitOps (beta)](install-gitops/upgrading.hbs.md)
-  - [Downgrade to an earlier version](upgrade/downgrading.hbs.md)
 - [Migrate images from VMware Tanzu Network](tanzu-network-to-broadcom.hbs.md)
 - [Scale workloads](scalability.hbs.md)
 - [Security and compliance](security-and-compliance/about.hbs.md)

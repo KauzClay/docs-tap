@@ -82,7 +82,7 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-11-0-tanzu-cli-bc'></a> v1.11.0 Breaking changes: Tanzu CLI
 
-- The [Tanzu Insight plug-in](cli-plugins/insight/cli-overview.hbs.md) is now removed.
+- The Tanzu Insight plug-in is now removed.
 
 ---
 

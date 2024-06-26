@@ -84,10 +84,6 @@ This release includes the following changes, listed by component and area.
 
 - The [Tanzu Insight plug-in](cli-plugins/insight/cli-overview.hbs.md) is now removed.
 
-#### <a id='1-11-0-tdp-bc'></a> v1.11.0 Breaking changes: Tanzu Developer Portal
-
-- [Tanzu Developer Portal Configurator](tap-gui/configurator/about.hbs.md) is now removed.
-
 ---
 
 ### <a id='1-11-0-security-fixes'></a> v1.11.0 Security fixes

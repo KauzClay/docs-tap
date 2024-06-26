@@ -156,15 +156,6 @@ Complete the tasks in the following table before you upgrade Tanzu Application P
   run: <br><br><pre>imgpkg pull -b $(kubectl get $PACKAGE_NAME < -n tap-install \
   -ojson | jq -r '.spec.fetch[0].imgpkgBundle.image') \
   -o /tmp/$PACKAGE_NAME && code /tmp/$PACKAGE_NAME</pre>
-  If you’re using an overlay for Tanzu Developer Portal to surface additional Backstage plug-ins,
-  re-run the steps to rebuild your customized Tanzu Developer Portal image by following the instructions in
-  <a href="../tap-gui/configurator/building.hbs.md">Build your customized Tanzu Developer Portal with Configurator</a>.
-  The re-built image will be referenced in the Tanzu Developer Portal overlay secret.
-  Rebuilding the image is necessary because Tanzu Developer Portal includes a pinned version of Backstage
-  and versions of node.
-  <br><br>
-  Take into account updates to Backstage versions. Review overlays, especially updates to API versions
-  of Kubernetes resources targeted by each overlay.</td>
 </tr>
 
 <tr>

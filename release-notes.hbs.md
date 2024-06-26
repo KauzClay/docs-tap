@@ -84,6 +84,10 @@ This release includes the following changes, listed by component and area.
 
 - The Tanzu Insight plug-in is now removed.
 
+#### <a id='1-11-0-tdp-bc'></a> v1.11.0 Breaking changes: Tanzu Developer Portal
+
+- Tanzu Developer Portal Configurator is now removed.
+
 ---
 
 ### <a id='1-11-0-security-fixes'></a> v1.11.0 Security fixes
@@ -242,11 +246,6 @@ Deprecated features remain on this list until they are retired from Tanzu Applic
 
 - The [metadata-store (MDS)](scst-store/mds-overview.hbs.md) component within SCST - Store is
   deprecated and is marked for removal in a future Tanzu Application Platform version.
-
-### <a id='tdp-deprecations'></a> Tanzu Developer Portal deprecations
-
-- [Tanzu Developer Portal Configurator](tap-gui/configurator/about.hbs.md) is deprecated and is
-  marked for removal in Tanzu Application Platform v1.11.
 
 ### <a id="tekton-deprecations"></a> Tekton Pipelines deprecations
 

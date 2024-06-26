@@ -1,7 +1,7 @@
 # Migrate Tanzu Application Platform images from VMware Tanzu Network
 
-This topic tells you how to update your Tanzu Application Platform installation to use images located
-in your own registry instead of VMware Tanzu Network registry.
+This topic tells you how to update your Tanzu Application Platform (commonly known as TAP)
+installation to use images located in your own registry instead of VMware Tanzu Network registry.
 
 Tanzu Application Platform releases have migrated from VMware Tanzu Network to the Broadcom Support Portal
 and Broadcom registry.

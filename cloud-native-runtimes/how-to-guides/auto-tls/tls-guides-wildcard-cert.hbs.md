@@ -1,6 +1,7 @@
 # Use wildcard certificates with Cloud Native Runtimes
 
-This section describes how to configure, use, and verify wildcard certificates with Cloud Native Runtimes.
+This section describes how to configure, use, and verify wildcard certificates with Cloud Native
+Runtimes (CNRs).
 
 Cloud Native Runtimes uses the cert-manager package by default to automate the process of obtaining,
 managing, and renewing TLS certificates for your services.

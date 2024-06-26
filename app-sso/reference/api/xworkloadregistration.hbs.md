@@ -54,7 +54,7 @@ status:
 > **Note** Crossplane's standard Crossplane Resource Model (commonly called XRM)
 > fields are omitted.
 
-# <a id="example"></a> Examples
+## <a id="example"></a> Examples
 
 If a `Composition` for `XWorkloadRegistration` exists, for example,
 by using a `ClusterWorkloadRegistrationClass`, this is a minimal example:

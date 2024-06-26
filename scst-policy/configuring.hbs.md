@@ -1,6 +1,6 @@
 # Configure Supply Chain Security Tools - Policy
 
-This topic describes how you can configure Supply Chain Security Tools - Policy.
+This topic describes how you can configure Supply Chain Security Tools (SCST) - Policy.
 SCST - Policy requires extra configuration steps to verify your container
 images.
 
@@ -192,7 +192,7 @@ spec:
           data: Certificate Data
         identities:
           - issuer: https://accounts.google.com
-            subjectRegExp: .*@example.com 
+            subjectRegExp: .*@example.com
           - issuer: https://token.actions.githubusercontent.com
             subject: https://github.com/mycompany/*/.github/workflows/*@*
       ctlog:

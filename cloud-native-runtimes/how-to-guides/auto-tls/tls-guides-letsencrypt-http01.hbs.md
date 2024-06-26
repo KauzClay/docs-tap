@@ -1,6 +1,7 @@
 # Configure Cloud Native Runtimes to use a custom Issuer or ClusterIssuer
 
-This topic tells you how to configure Cloud Native Runtimes to use a custom Issuer or ClusterIssuer.
+This topic tells you how to configure Cloud Native Runtimes (CNRs) to use a custom Issuer or
+ClusterIssuer.
 
 ## <a id="overview"></a> Overview
 

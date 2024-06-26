@@ -1,6 +1,7 @@
 # Overview of Cloud Native Runtimes
 
-This topic gives you an overview what Cloud Native Runtimes is and how you can use it with Tanzu Application Platform.
+This topic gives you an overview what Cloud Native Runtimes (CNRs) is and how you can use it with
+Tanzu Application Platform.
 
 ## <a id="overview"></a> Overview
 
@@ -28,7 +29,7 @@ Cloud Native Runtimes uses Knative Serving to provide:
 
 Cloud Native Runtimes increases administrator control and support.
 
-Administrators can:  
+Administrators can:
 
 - Manage infrastructure costs with request driven autoscaling
 - Test deployments with traffic splitting by code version

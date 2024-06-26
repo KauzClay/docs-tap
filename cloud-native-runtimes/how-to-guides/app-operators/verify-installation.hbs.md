@@ -1,7 +1,8 @@
 # Verify Your Installation
 
-This topic tells you how to verify your Cloud Native Runtimes, commonly known as Cloud Native Runtimes, installation.
-You can verify that your Cloud Native Runtimes installation was successful by testing Knative Serving.
+This topic tells you how to verify your Cloud Native Runtimes (CNRs) installation.
+You can verify that your Cloud Native Runtimes installation was successful by testing Knative
+Serving.
 
 ## <a id='prerecs'></a> Prerequisites
 

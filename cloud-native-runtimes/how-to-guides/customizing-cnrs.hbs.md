@@ -1,6 +1,6 @@
 # Customizing Cloud Native Runtimes
 
-This topic tells you how to customize your Cloud Native Runtimes installation.
+This topic tells you how to customize your Cloud Native Runtimes (CNRs) installation.
 
 ## <a id='overview'></a> Overview
 

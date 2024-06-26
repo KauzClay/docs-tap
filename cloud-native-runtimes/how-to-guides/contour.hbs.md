@@ -1,8 +1,8 @@
 # Installing Cloud Native Runtimes with your existing Contour installation
 
-This topic describes how you can configure Cloud Native Runtimes, commonly known
-as CNRs, with your existing Contour instance. Cloud Native Runtimes uses Contour
-to manage internal and external access to the services in a cluster.
+This topic describes how you can configure Cloud Native Runtimes (CNRs) with your existing Contour
+instance. Cloud Native Runtimes uses Contour to manage internal and external access to the services
+in a cluster.
 
 ## <a id='overview'></a> About using Contour with Cloud Native Runtimes
 

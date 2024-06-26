@@ -1,6 +1,7 @@
 # Configure Cloud Native Runtimes with VMware NSX Advanced Load Balancer
 
-This topic tells you how to configure Cloud Native Runtimes, commonly known as CNRs, with VMware NSX Advanced Load Balancer, formerly known as Avi Networks.
+This topic tells you how to configure Cloud Native Runtimes (CNRs) with VMware NSX Advanced Load
+Balancer, formerly known as Avi Networks.
 
 ## <a id="overview"></a> Overview
 

@@ -1,7 +1,7 @@
 # Install Supply Chain Security Tools - Scan
 
-This topic describes how you can install Supply Chain Security Tools - Scan
-from the Tanzu Application Platform package repository.
+This topic describes how you can install Supply Chain Security Tools (SCST) - Scan from the Tanzu
+Application Platform package repository.
 
 Follow the steps in this topic if you do not want to use a profile to install SCST - Scan. For
 information about profiles, see [Components and installation profiles](../about-package-profiles.hbs.md).

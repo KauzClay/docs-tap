@@ -1,7 +1,7 @@
 # Track life cycle using Provenance transform
 
 This topic tells you about the Application Accelerator `Provenance` transform in Tanzu Application
-Platform, commonly known as TAP.
+Platform (commonly known as TAP).
 
 ## <a id="overview"></a> Overview
 

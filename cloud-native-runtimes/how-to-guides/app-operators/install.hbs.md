@@ -1,7 +1,7 @@
 # Install Cloud Native Runtimes
 
-This topic describes how you can install Cloud Native Runtimes, commonly known as CNRs, from the
-Tanzu Application Platform package repository.
+This topic describes how you can install Cloud Native Runtimes (CNRs) from the Tanzu Application
+Platform package repository.
 
 > **Note** Use the instructions in this topic if you do not want to use a profile to install
 > packages. The full profile includes Cloud Native Runtimes. For more information about profiles,

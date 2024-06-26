@@ -1,7 +1,7 @@
 # Run Spring Boot apps on Tanzu Application Platform as GraalVM native images
 
 This topic guides you through how to run Spring Boot applications on Tanzu Application Platform
-as native images using GraalVM, including the available options.
+(commonly known as TAP) as native images using GraalVM, including the available options.
 
 ## <a id="you-will"></a>What you will do
 

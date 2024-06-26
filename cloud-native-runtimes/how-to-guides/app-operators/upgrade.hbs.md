@@ -1,6 +1,6 @@
 # Upgrading Cloud Native Runtimes
 
-This topic tells you how to upgrade Cloud Native Runtimes for Tanzu to the latest version.
+This topic tells you how to upgrade Cloud Native Runtimes (CNRs) for Tanzu to the latest version.
 
 ## <a id='overview'></a> Overview
 

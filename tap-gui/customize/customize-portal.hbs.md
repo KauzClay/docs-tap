@@ -8,8 +8,6 @@ portal, and then re-applying those changes to the running configuration. The act
 depending on how you performed the installation. The basic steps of updating your values file are
 described in [Customize your package installation](../../customize-package-installation.hbs.md).
 
-To learn how to add additional plug-ins and features to your portal by using build-time
-customization, see [Overview of Configurator](../configurator/about.hbs.md).
 
 ## <a id="brand-customizing"></a> Customize branding
 

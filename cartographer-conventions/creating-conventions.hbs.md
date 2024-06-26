@@ -49,25 +49,25 @@ does not exist on the Kubernetes API Server.
 
 For information about an example `PodConventionContext`, see
 [PodConventionContext](https://github.com/vmware-tanzu/cartographer-conventions/blob/main/docs/podconventioncontext-sample.yaml)
-in GitHub.
-For information about a Convention server and the structure of these types, see
+in GitHub. For information about a Convention server and the structure of these types, see
 [OpenAPI Spec](https://github.com/vmware-tanzu/cartographer-conventions/blob/main/api/openapi-spec/conventions-server.yaml)
 in GitHub.
 
 #### <a id='role-of-the-convention-server'></a>How the convention server works
 
-Each convention server can host one or more conventions.
-The application of each convention by a convention server are controlled conditionally.
-The conditional criteria governing the application of a convention is customizable and are based
-on the evaluation of a custom Kubernetes resource called [PodIntent](reference/pod-intent.hbs.md).
-`PodIntent` is the vehicle by which Cartographer Conventions as a whole delivers its value.
+Each convention server can host one or more conventions. The application of each convention by a
+convention server are controlled conditionally. The conditional criteria governing the application
+of a convention is customizable and are based on the evaluation of a custom Kubernetes resource
+called [PodIntent](reference/pod-intent.hbs.md). `PodIntent` is the vehicle by which Cartographer
+Conventions as a whole delivers its value.
 
 A `PodIntent` is created, or updated if already existing, when a workload is run by using a Tanzu
-Application Platform supply chain. The custom resource includes both the `PodTemplateSpec` and the OCI
-image metadata associated with a workload. See the
+Application Platform supply chain. The custom resource includes both the `PodTemplateSpec` and the
+OCI image metadata associated with a workload. See the
 [Kubernetes documentation](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
 The conditional criteria for a convention are based on any property or value found in the
-`PodTemplateSpec` or the Open Containers Initiative (OCI) image metadata available in the `PodIntent`.
+`PodTemplateSpec` or the Open Containers Initiative (OCI) image metadata available in the
+`PodIntent`.
 
 If a convention's criteria are met, the convention server enriches the `PodTemplateSpec` in the
 `PodIntent`. The convention server also updates the `status` section of the `PodIntent` with the
@@ -124,10 +124,11 @@ When the Supply Chain Choreographer creates or updates a `PodIntent` for a workl
 controller retrieves the OCI image metadata from the repository containing the workload's images and
 sets it in the `PodIntent`.
 
-The convention controller then uses a webhook architecture to pass the `PodIntent` to each convention
-server deployed to the cluster. The controller orchestrates the processing of the `PodIntent` by
-the convention servers sequentially, based on the `priority` value that is set on the convention server.
-For more information, see [ClusterPodConvention](reference/cluster-pod-convention.html).
+The convention controller then uses a webhook architecture to pass the `PodIntent` to each
+convention server deployed to the cluster. The controller orchestrates the processing of the
+`PodIntent` by the convention servers sequentially, based on the `priority` value that is set on the
+convention server. For more information, see
+[ClusterPodConvention](reference/cluster-pod-convention.html).
 
 After all convention servers are finished processing a `PodIntent` for a workload, the convention
 controller updates the `PodIntent` with the latest version of the `PodTemplateSpec` and sets
@@ -199,8 +200,8 @@ indicating it is a Spring Boot app.
    - `template` is the predefined `PodTemplateSpec` that the convention edits. For more information
      about `PodTemplateSpec`, see the
      [Kubernetes documentation](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
-   - `images` are the [ImageConfig](reference/image-config.hbs.md) used as reference to make decisions
-     in the conventions. In this example, the type was created within the `model` package.
+   - `images` are the [ImageConfig](reference/image-config.hbs.md) used as reference to make
+     decisions in the conventions. In this example, the type was created within the `model` package.
 
 1. The example `server.go` also configures the convention server to listen for requests:
 
@@ -235,8 +236,8 @@ indicating it is a Spring Boot app.
      server.
    - `port` is the calculated port of the server to listen for requests. It must match the
      deployment if the `PORT` variable is not defined in it.
-   - The `path` or pattern (default to `/`) is the convention server's default path. If it is changed,
-     it must be changed in the `ClusterPodConvention`.
+   - The `path` or pattern (default to `/`) is the convention server's default path. If it is
+     changed, it must be changed in the `ClusterPodConvention`.
 
    > **Note** The Server Handler, `func ConventionHandler(...)`, and the configure or start web
    > server, `func NewConventionServer(...)`, is defined in the convention controller in the
@@ -343,8 +344,8 @@ indicating it is a Spring Boot app.
 ## <a id='define-conv-behavior'></a> Define the convention behavior
 
 Any property or value within the PodTemplateSpec or OCI image metadata associated with a workload
-defines the criteria for applying conventions.
-See [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
+defines the criteria for applying conventions. See
+[PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
 in the Kubernetes documentation. The following are a few examples.
 
 ### <a id='match-crit-labels-annot'></a> Matching criteria by labels or annotations
@@ -401,7 +402,8 @@ conventions author explicitly doing so.
 ### <a id='match-criteria-env-var'></a> Matching criteria by environment variables
 
 When using environment variables to define whether the convention is applicable, it must be present
-in the [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec),
+in the
+[PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec),
 [spec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec),
 [containers](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container),
 and [env](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#environment-variables)
@@ -439,10 +441,10 @@ to validate the value.
 
 ### <a id='match-crit-img-metadata'></a> Matching criteria by image metadata
 
-For each image contained within the `PodTemplateSpec`, the convention controller fetches the OCI image
-metadata and known [bill of materials (BOMs)](reference/bom.hbs.md), providing it to the convention
-server as [ImageConfig](reference/image-config.hbs.md). This metadata is introspected to make
-decisions about how to configure the `PodTemplateSpec`.
+For each image contained within the `PodTemplateSpec`, the convention controller fetches the OCI
+image metadata and known [bill of materials (BOMs)](reference/bom.hbs.md), providing it to the
+convention server as [ImageConfig](reference/image-config.hbs.md). This metadata is introspected to
+make decisions about how to configure the `PodTemplateSpec`.
 
 ## <a id='install'></a> Configure and install the convention server
 

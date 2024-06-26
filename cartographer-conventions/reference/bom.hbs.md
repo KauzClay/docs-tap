@@ -21,12 +21,12 @@ The structure of the `BOM` is defined as follows:
 Where:
 
 - `BOM-NAME` is the prefix `cnb-sbom:`, followed by the location of the BOM definition in the layer
-  for a cloud native buildpack (CNB) SBOM.
-  For example: `cnb-sbom:/layers/sbom/launch/paketo-buildpacks_executable-jar/sbom.cdx.json`.
-  For a non-CNB SBOM, the value of `name` might change.
+  for a cloud native buildpack (CNB) SBOM. For example:
+  `cnb-sbom:/layers/sbom/launch/paketo-buildpacks_executable-jar/sbom.cdx.json`. For a non-CNB SBOM,
+  the value of `name` might change.
 
-- `BYTE-ARRAY`: The content of the BOM. The content may be in any format or encoding.
-  Consult the name to infer how the content is structured.
+- `BYTE-ARRAY`: The content of the BOM. The content may be in any format or encoding. Consult the
+  name to infer how the content is structured.
 
 The convention controller forwards BOMs to the convention servers that it can discover from known
 sources, including:

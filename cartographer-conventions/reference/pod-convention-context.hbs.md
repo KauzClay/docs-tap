@@ -23,15 +23,15 @@ In the `PodConventionContext` API resource:
   [Kubernetes documentation](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
 - Object path `.spec.imageConfig[]` field defines [ImageConfig](image-config.md). Each entry of it
   is populated with the name of the image (`.spec.imageConfig[].image`) and its OCI metadata
-  (`.spec.imageConfig[].config`).
-  These entries are generated for each image referenced in
+  (`.spec.imageConfig[].config`). These entries are generated for each image referenced in
   [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
   (`.spec.template`).
 
 The following is an example of a `PodConventionContext` resource request received by the convention
 server. This resource is generated for a
 [Go language-based application image](https://github.com/paketo-buildpacks/samples/tree/main/go/mod)
-in GitHub. It is built with Cloud Native Paketo Buildpacks that use Go mod for dependency management.
+in GitHub. It is built with Cloud Native Paketo Buildpacks that use Go mod for dependency
+management.
 
 ```yaml
 ---
@@ -70,9 +70,8 @@ spec: # the request
 ## <a id="pcc-structure"></a> PodConventionContext Structure
 
 This section introduces more information about the image configuration in `PodConventionContext`.
-The convention-controller passes this information for each image in good faith.
-The controller is not the source of the metadata, and there is no guarantee that the information is
-correct.
+The convention-controller passes this information for each image in good faith. The controller is
+not the source of the metadata, and there is no guarantee that the information is correct.
 
 The `config` field in the image configuration passes through the
 [OCI Image metadata in GitHub](https://github.com/opencontainers/image-spec/blob/main/config.md)

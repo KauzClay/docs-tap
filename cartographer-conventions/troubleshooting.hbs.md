@@ -10,14 +10,14 @@ When a `PodIntent` is submitted, no `convention` is applied.
 
 ### Cause
 
-When there are no `convention servers` ([ClusterPodConvention](reference/cluster-pod-convention.hbs.md))
-deployed in the cluster or none of the existing convention servers applied any conventions, the
-`PodIntent` is not being mutated.
+When there are no `convention servers`
+([ClusterPodConvention](reference/cluster-pod-convention.hbs.md)) deployed in the cluster or none of
+the existing convention servers applied any conventions, the `PodIntent` is not being mutated.
 
 ### Solution
 
-Deploy a `convention server` ([ClusterPodConvention](reference/cluster-pod-convention.hbs.md)) in the
-cluster.
+Deploy a `convention server` ([ClusterPodConvention](reference/cluster-pod-convention.hbs.md)) in
+the cluster.
 
 ## <a id="wrong-certificates-config"></a>Server with wrong certificates configured
 
@@ -46,9 +46,10 @@ the request to the server.
 
 ### Solution
 
-Ensure that the `convention server` ([ClusterPodConvention](reference/cluster-pod-convention.hbs.md))
-is configured with the correct certificates. To do so, verify the value of annotation
-`conventions.carto.run/inject-ca-from` which must be set to the used Certificate.
+Ensure that the `convention server`
+([ClusterPodConvention](reference/cluster-pod-convention.hbs.md)) is configured with the correct
+certificates. To do so, verify the value of annotation `conventions.carto.run/inject-ca-from` which
+must be set to the used Certificate.
 
 > **Important** Do not set annotation `conventions.carto.run/inject-ca-from` if no certificate is
 > used.
@@ -83,7 +84,7 @@ An unmanaged error occurs in the `convention server` when processing a request.
 
    Where:
 
-   - The convention server was deployed as a `Deployment`
+   - The convention server was deployed as a `Deployment`.
    - `webhook` is the name of the convention server `Deployment`.
    - `convention-template` is the namespace where the convention server is deployed.
 
@@ -99,7 +100,7 @@ An unmanaged error occurs in the `convention server` when processing a request.
 ### Symptoms
 
 - When a `PodIntent` is submitted, the `convention` is not applied.
-- The `convention-controller` [logs](#gathering-logs) reports a connection refused error as follows:
+- The `convention-controller` [logs](#gathering-logs) reports a connection-refused error as follows:
 
    ```console
    {"level":"error","ts":1638202791.5734537,"logger":"controllers.PodIntent.PodIntent.ApplyConventions","msg":"failed to apply convention","Convention":{"Name":"base-convention","Selectors":null,"Priority":"Normal","ClientConfig":{"service":{"namespace":"convention-template","name":"webhook","port":443},"caBundle":"..."}},"error":"Post \"https://webhook.convention-template.svc:443/?timeout=30s\": dial tcp 10.56.13.206:443: connect: connection refused","stacktrace":"reflect.Value.call\n\treflect/value.go:543\nreflect.Value.Call\n\treflect/value.go:339\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).sync\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:287\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:276\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.Sequence.Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:815\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:146\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:120\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:114\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:311\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:266\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:227"}
@@ -115,7 +116,7 @@ An unmanaged error occurs in the `convention server` when processing a request.
 
     Where:
 
-    - The convention server was deployed as a `Deployment`
+    - The convention server was deployed as a `Deployment`.
     - `webhook-594d75d69b-4w4s8` is the name of the `convention server` Pod.
     - `convention-template` is the namespace where the convention server is deployed.
 
@@ -158,7 +159,8 @@ When a `convention server` is provided without using Transport Layer Security (T
 
 ### Symptoms
 
-The self-signed certificate authority (CA) for a registry is not propagated to the Convention Service.
+The self-signed certificate authority (CA) for a registry is not propagated to the Convention
+Service.
 
 ### Cause
 
@@ -408,8 +410,8 @@ different places they are used:
    -n conventions-system
    ```
 
-1. The two webhook configurations are re-created, but their `caBundle` fields might be empty. If
-   the `caBundle` fields are empty then `cert-manager` might be failing. If `cert-manager` is failing,
+1. The two webhook configurations are re-created, but their `caBundle` fields might be empty. If the
+   `caBundle` fields are empty then `cert-manager` might be failing. If `cert-manager` is failing,
    force `cert-manager` deployments to restart by running:
 
    ```console

@@ -10,7 +10,7 @@ applications can run on Kubernetes as a convention. Cartographer Conventions sup
 applying conventions to pods. It applies these opinions to fleets of developer workloads as they are
 deployed to the platform, saving operator and developer time.
 
-The service is composed of two components
+The service is composed of two components:
 
 - **convention controller:**
 
@@ -21,8 +21,8 @@ The service is composed of two components
 
 - **convention server:**
 
-  The convention server receives and evaluates metadata associated with a workload and
-  requests updates to the
+  The convention server receives and evaluates metadata associated with a workload and requests
+  updates to the
   [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
   associated with that workload. You can have one or more convention servers for a single controller
   instance.

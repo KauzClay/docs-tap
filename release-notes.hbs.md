@@ -2,10 +2,6 @@
 
 This topic contains release notes for Tanzu Application Platform v{{ vars.url_version }}.
 
-<!-- The below partial is in the docs-tap/partials/support-notices directory -->
-
-{{> 'partials/support-notices/short-term-support' }}
-
 ## <a id='1-11-0'></a> v1.11.0
 
 **Release Date**: 02 July 2024

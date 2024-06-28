@@ -1027,6 +1027,10 @@ The following issues, listed by component and area, are resolved in this release
 
 This release has the following known issues, listed by component and area.
 
+#### <a id='1-11-0-build-profile-ki'></a> v1.11.0 Known issues: Build Profile
+
+- Upgrades from 1.8.x/1.9.x/1.10.x to TAP 1.11.0 may fail initially on Build profile, but will reconcile automatically within few seconds. There is no current workaround. 
+
 #### <a id='1-11-0-COMPONENT-NAME-ki'></a> v1.11.0 Known issues: COMPONENT-NAME
 
 - Known issue description with link to workaround.

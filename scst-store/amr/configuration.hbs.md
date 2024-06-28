@@ -110,7 +110,7 @@ Configuration options:
 
 - `amr.observer.log_level`
   - Default: `INFO`
-  - Sets the log level. Can be set to `DEBUG` so more information is acquired through the logs.
+  - Sets the log level. Set to `DEBUG` for more information to be acquired through the logs.
 
 ## <a id='amr-graphql'></a> AMR GraphQL
 
@@ -134,4 +134,4 @@ Configuration options:
 
 - `amr.cloudevent_handler.log_level`
   - Default: `INFO`
-  - Sets the log level. Can be set to `DEBUG` so more information is acquired through the logs.
+  - Sets the log level. Set to `DEBUG` for more information to be acquired through the logs.

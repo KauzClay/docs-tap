@@ -370,6 +370,7 @@
                 - [Verify Knative Serving](./cloud-native-runtimes/how-to-guides/app-operators/verifying-serving.hbs.md)
                 - [Manage Knative Serving resources](./cloud-native-runtimes/how-to-guides/app-operators/resource_management.hbs.md)
                 - [Upgrade Cloud Native Runtimes](./cloud-native-runtimes/how-to-guides/app-operators/upgrade.hbs.md)
+                - [Upgrade Kubernetes Recommendations](./cloud-native-runtimes/how-to-guides/app-operators/upgrade-kubernetes.hbs.md)
                 - [Uninstall Cloud Native Runtimes](./cloud-native-runtimes/how-to-guides/app-operators/uninstall.hbs.md)
             - [Securing Web Workloads in Cloud Native Runtimes](./cloud-native-runtimes/how-to-guides/auto-tls/index.hbs.md)
                 - [Setting up AutoTLS](./cloud-native-runtimes/how-to-guides/auto-tls/auto-tls.hbs.md)

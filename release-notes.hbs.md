@@ -26,8 +26,10 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-11-0-cnr'></a> v1.11.0 Features: Cloud Native Runtimes
 
-- Upgrading Kubernetes requires draining nodes, which increases the risk of downtime. The following
-  enhancements minimize the chances of traffic disruptions during upgrades:
+- Adds enhancements to minimize traffic disruptions during upgrades due to the draining of
+  nodes required when upgrading Kubernetes. For more information, see
+  [Recommendations for upgrading Kubernetes](cloud-native-runtimes/how-to-guides/app-operators/upgrade-kubernetes.hbs.md).
+  The following enhancements have been added:
 
   - Pod anti-affinity rules are added to the Activator deployment.
 
@@ -1027,13 +1029,10 @@ The following issues, listed by component and area, are resolved in this release
 
 This release has the following known issues, listed by component and area.
 
-#### <a id='1-11-0-build-profile-ki'></a> v1.11.0 Known issues: Build Profile
+#### <a id='1-11-0-tap-ki'></a> v1.11.0 Known issues: Tanzu Application Platform
 
-- Upgrades from 1.8.x/1.9.x/1.10.x to TAP 1.11.0 may fail initially on Build profile, but will reconcile automatically within few seconds. There is no current workaround. 
-
-#### <a id='1-11-0-COMPONENT-NAME-ki'></a> v1.11.0 Known issues: COMPONENT-NAME
-
-- Known issue description with link to workaround.
+- Upgrading from v1.8.x, v1.9.x, or v1.10.x to Tanzu Application Platform v1.11.0 might fail initially
+  on the Build profile, but will reconcile automatically within few seconds. There is no current workaround.
 
 ---
 

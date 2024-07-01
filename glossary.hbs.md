@@ -611,10 +611,6 @@ Terms beginning with "T".
         and the service status.</td>
     </tr>
     <tr>
-        <td>Tanzu Developer Portal Configurator</td>
-        <td>This tool is used for customizing Tanzu Developer Portal with Backstage plug-ins.</td>
-    </tr>
-    <tr>
         <td>Tanzu Developer Tools for IntelliJ</td>
         <td>This extension for IntelliJ IDEA helps you develop with Tanzu Application Platform and
             enables you to rapidly iterate on your workloads on supported Kubernetes clusters that

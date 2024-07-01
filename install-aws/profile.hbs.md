@@ -194,7 +194,6 @@ To add the Tanzu Application Platform package repository to your cluster:
       tap-telemetry.tanzu.vmware.com                       Telemetry Collector for Tanzu Application Platform
       tap.tanzu.vmware.com                                 Tanzu Application Platform
       tekton.tanzu.vmware.com                              Tekton Pipelines
-      tpb.tanzu.vmware.com                                 Tanzu Portal Builder
       web-servers-lite.buildpacks.tanzu.vmware.com         web-servers-lite
     ```
 

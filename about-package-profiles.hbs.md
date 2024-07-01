@@ -1018,10 +1018,15 @@ Tanzu Application Platform components.
  </tbody>
 </table>
 
-**Tanzu Developer Tooling:** refers to the developer conventions that enable debugging
+**Notes:**
+
+- **Tanzu Developer Tooling:** This refers to the developer conventions that enable debugging
 and Live Update function in the inner loop.
 
-**Extended Scanning Coverage:** When building container images with the Tanzu Build Service, the Cloud Native Build Packs used in the build process for the specified languages produce a Software Bill of Materials (SBOM).  Some scan engines support the enhanced ability to use this SBOM as a source for the scan. Out of the Box Supply Chain - Testing and Scanning leverages Anchore's Grype for the image scan, which suppports this capability.
+- **Extended Scanning Coverage:** When building container images with the Tanzu Build Service, the Cloud Native Build Packs used in the build process for the specified languages produce a Software Bill of Materials (SBOM).  Some scan engines support the enhanced ability to use this SBOM as a source for the scan. Out of the Box Supply Chain - Testing and Scanning leverages Anchore's Grype for the image scan, which suppports this capability.
+
+- **Spring Boot:** To ensure compatibility with all Tanzu Application Platform components, you must
+use a supported version of Spring Boot. For more information, see [Spring Boot Support](https://spring.io/projects/spring-boot#support).
 
 ## <a id='install'></a> Installing Tanzu Application Platform
 

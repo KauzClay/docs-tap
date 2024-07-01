@@ -1,4 +1,4 @@
-# Enable policy enforcement with Scan 2.0 in a supply chain
+# Enable policy enforcement in a supply chain with Scan 2.0
 
 This topic tells you how to enable policy enforcement in a supply chain with Supply Chain Security
 Tools (SCST) - Scan 2.0.

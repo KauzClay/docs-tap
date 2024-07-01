@@ -4,7 +4,7 @@ This topic contains release notes for Tanzu Application Platform v{{ vars.url_ve
 
 ## <a id='1-11-0'></a> v1.11.0
 
-**Release Date**: 02 July 2024
+**Release Date**: 2 July 2024
 
 ### <a id='1-11-0-whats-new'></a> What's new in Tanzu Application Platform v1.11
 
@@ -29,7 +29,7 @@ This release includes the following changes, listed by component and area.
 - Adds enhancements to minimize traffic disruptions during upgrades due to the draining of
   nodes required when upgrading Kubernetes. For more information, see
   [Recommendations for upgrading Kubernetes](cloud-native-runtimes/how-to-guides/app-operators/upgrade-kubernetes.hbs.md).
-  The following enhancements have been added:
+  The following enhancements were added:
 
   - Pod anti-affinity rules are added to the Activator deployment.
 
@@ -51,11 +51,10 @@ This release includes the following changes, listed by component and area.
 
 - **Supply Chain UI plug-in:**
 
-  You can visualize your Carvel package deployments details and URLs for both server and
-  web-type workloads.
-  Ensure that your deliverable name is the same as the workload name for deliverables to be visualized
-  correctly in Supply Chain UI.
-  For more information, see [Visualize Carvel package deployment details](tap-gui/plugins/scc-tap-gui.hbs.md#visualize-carvel-dep).
+  You can visualize your Carvel package deployments details and URLs for both server and web-type
+  workloads. Ensure that your deliverable name is the same as the workload name for deliverables to
+  be visualized correctly in Supply Chain UI. For more information, see
+  [Visualize Carvel package deployment details](tap-gui/plugins/scc-tap-gui.hbs.md#visualize-carvel-dep).
 
 ---
 
@@ -65,13 +64,13 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-11-0-tap-bc'></a> v1.11.0 Breaking changes: Tanzu Application Platform
 
-- Tanzu Application Platform releases have migrated from VMware Tanzu Network to the
-  Broadcom Support Portal and Broadcom registry.
-  Using VMware Tanzu Network to install or upgrade Tanzu Application Platform is no longer supported.
+- Tanzu Application Platform releases have migrated from VMware Tanzu Network to the Broadcom
+  Support Portal and Broadcom registry. Using VMware Tanzu Network to install or upgrade Tanzu
+  Application Platform is no longer supported.
 
-  Before you upgrade, you must relocate the Tanzu Application Platform images from the Broadcom registry
-  `tanzu.packages.broadcom.com` to your own registry.
-  Make sure you relocate the images to your container image registry as part of the instructions in
+  Before you upgrade, you must move the Tanzu Application Platform images from the Broadcom registry
+  `tanzu.packages.broadcom.com` to your own registry. Make sure you move the images to your
+  container image registry as part of the instructions in
   [Upgrade Tanzu Application Platform](upgrading.hbs.md).
 
 #### <a id='1-11-0-cb-scanner-bc'></a> v1.11.0 Breaking changes: Carbon Black for Supply Chain Security Tools - Scan v1.0
@@ -1104,14 +1103,18 @@ Deprecated features remain on this list until they are retired from Tanzu Applic
 
 ### <a id='cnrs-deprecations'></a> Cloud Native Runtimes deprecations
 
-- **`default_tls_secret` config option**: This config option is now in `contour.default_tls_secret`
-  and is marked for removal in Cloud Native Runtimes. In the meantime, both options are
-  supported, and `contour.default_tls_secret` takes precedence over `default_tls_secret`.
+- **`default_tls_secret` config option**:
 
-- **`ingress.[internal/external].namespace` config options**: These config options are now in
-  `contour.[internal/external].namespace` are marked for removal in Cloud Native Runtimes. In
-  the meantime, both options are supported, and `contour.[internal/external].namespace` takes
-  precedence over `ingress.[internal/external].namespace`.
+  This config option is now in `contour.default_tls_secret` and is marked for removal in Cloud
+  Native Runtimes. In the meantime, both options are supported, and `contour.default_tls_secret`
+  takes precedence over `default_tls_secret`.
+
+- **`ingress.[internal/external].namespace` config options**:
+
+  These config options are now in `contour.[internal/external].namespace` are marked for removal in
+  Cloud Native Runtimes. In the meantime, both options are supported, and
+  `contour.[internal/external].namespace` takes precedence over
+  `ingress.[internal/external].namespace`.
 
 ### <a id='svc-toolkit-deprecations'></a> Services Toolkit deprecations
 

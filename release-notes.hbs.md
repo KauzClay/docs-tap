@@ -1041,58 +1041,57 @@ The following table lists the Tanzu Application Platform package versions includ
 For open source component versions in this Tanzu Application Platform release, see
 [Open source component versions](oss-component-versions.hbs.md).
 
-| Component Name                                     | Version |
-| -------------------------------------------------- | ------- |
-| API Auto Registration                              |         |
-| API portal                                         |         |
-| Application Accelerator                            |         |
-| Application Configuration Service                  |         |
-| Application Live View APIServer                    |         |
-| Application Live View back end                     |         |
-| Application Live View connector                    |         |
-| Application Live View conventions                  |         |
-| Application Single Sign-On                         |         |
-| Artifact Metadata Repository Observer              |         |
-| AWS Services                                       |         |
-| Bitnami Services                                   |         |
-| Cartographer Conventions                           |         |
-| cert-manager                                       |         |
-| Cloud Native Runtimes                              |         |
-| Contour                                            |         |
-| Crossplane                                         |         |
-| Default Roles                                      |         |
-| Developer Conventions                              |         |
-| Enterprise Config Server                           |         |
-| External Secrets Operator                          |         |
-| Flux CD Source Controller                          |         |
-| Grype Scanner for SCST - Scan                      |         |
-| Local Source Proxy                                 |         |
-| Managed Resource Controller (beta)                 |         |
-| Namespace Provisioner                              |         |
-| Out of the Box Delivery - Basic                    |         |
-| Out of the Box Supply Chain - Basic                |         |
-| Out of the Box Supply Chain - Testing              |         |
-| Out of the Box Supply Chain - Testing and Scanning |         |
-| Out of the Box Templates                           |         |
-| Service Bindings                                   |         |
-| Service Registry                                   |         |
-| Services Toolkit                                   |         |
-| Snyk Scanner for SCST - Scan (beta)                |         |
-| Source Controller                                  |         |
-| Spring Boot conventions                            |         |
-| Spring Cloud Gateway                               |         |
-| Supply Chain Choreographer                         |         |
-| Supply Chain Security Tools - Policy Controller    |         |
-| Supply Chain Security Tools - Scan                 |         |
-| Supply Chain Security Tools - Scan 2.0             |         |
-| Supply Chain Security Tools - Store                |         |
-| Tanzu Application Platform Telemetry               |         |
-| Tanzu Build Service                                |         |
-| Tanzu CLI                                          |         |
-| Tanzu Developer Portal                             |         |
-| Tanzu Developer Portal Configurator                |         |
-| Tanzu Supply Chain (beta)                          |         |
-| Tekton Pipelines                                   |         |
+| Component Name                                               | Version |
+| ------------------------------------------------------------ | ------- |
+| API Auto Registration                                        |         |
+| API portal                                                   |         |
+| Application Accelerator                                      |         |
+| Application Configuration Service                            |         |
+| Application Live View APIServer                              |         |
+| Application Live View back end                               |         |
+| Application Live View connector                              |         |
+| Application Live View conventions                            |         |
+| Application Single Sign-On                                   |         |
+| Artifact Metadata Repository Observer                        |         |
+| AWS Services                                                 |         |
+| Bitnami Services                                             |         |
+| Cartographer Conventions                                     |         |
+| cert-manager                                                 |         |
+| Cloud Native Runtimes                                        |         |
+| Contour                                                      |         |
+| Crossplane                                                   |         |
+| Default Roles                                                |         |
+| Developer Conventions                                        |         |
+| Enterprise Config Server                                     |         |
+| External Secrets Operator                                    |         |
+| Flux CD Source Controller                                    |         |
+| Grype Scanner for SCST - Scan                                |         |
+| Local Source Proxy                                           |         |
+| Managed Resource Controller (beta)                           |         |
+| Namespace Provisioner                                        |         |
+| Out of the Box Delivery - Basic                              |         |
+| Out of the Box Supply Chain - Basic                          |         |
+| Out of the Box Supply Chain - Testing                        |         |
+| Out of the Box Supply Chain - Testing and Scanning           |         |
+| Out of the Box Templates                                     |         |
+| Service Bindings                                             |         |
+| Service Registry                                             |         |
+| Services Toolkit                                             |         |
+| Snyk Scanner for SCST - Scan (beta)                          |         |
+| Source Controller                                            |         |
+| Spring Boot conventions                                      |         |
+| Spring Cloud Gateway                                         |         |
+| Supply Chain Choreographer                                   |         |
+| Supply Chain Security Tools - Policy Controller (deprecated) |         |
+| Supply Chain Security Tools - Scan (deprecated)              |         |
+| Supply Chain Security Tools - Scan 2.0                       |         |
+| Supply Chain Security Tools - Store                          |         |
+| Tanzu Application Platform Telemetry                         |         |
+| Tanzu Build Service                                          |         |
+| Tanzu CLI                                                    |         |
+| Tanzu Developer Portal                                       |         |
+| Tanzu Supply Chain (beta)                                    |         |
+| Tekton Pipelines                                             |         |
 
 ---
 
@@ -1136,14 +1135,14 @@ Deprecated features remain on this list until they are retired from Tanzu Applic
 
 ### <a id='scst-scan-deprecations'></a> Supply Chain Security Tools - Scan v1.0 deprecation
 
-- SCST - Scan v1.0 is deprecated, but it remains the default option for online installation. SCST -
-  Scan v2.0 will be the default in Tanzu Application Platform v1.11. SCST - Scan v1.0 will be
+- SCST - Scan v1.0 is deprecated, but it remains the default option for online installation.
+  SCST - Scan v2.0 is the default in Tanzu Application Platform v1.11. SCST - Scan v1.0 will be
   removed in a future Tanzu Application Platform version. For more information, see
   [SCST - Scan versions](scst-scan/overview.hbs.md#scst-scan-feat).
 
 ### <a id='scst-store-deprecations'></a> Supply Chain Security Tools - Store deprecations
 
-- The [metadata-store (MDS)](scst-store/mds-overview.hbs.md) component within SCST - Store is
+- The [Metadata Store (MDS)](scst-store/mds-overview.hbs.md) component within SCST - Store is
   deprecated and is marked for removal in a future Tanzu Application Platform version.
 
 ### <a id="tekton-deprecations"></a> Tekton Pipelines deprecations

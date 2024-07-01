@@ -3,8 +3,8 @@
 Supply Chain Security Tools (SCST) - Policy Controller is a security tool that helps you ensure that
 the container images in their registry have not been tampered with.
 
-> **Important** SCST - Policy Controller is deprecated. VMware plans to remove it in a future Tanzu
-> Application Platform version.
+> **Important** SCST - Policy Controller is deprecated. VMware plans to remove it in a future
+> Tanzu Application Platform version.
 
 Policy Controller is a Kubernetes Admission Controller that allows you to apply policies to verify
 signatures on container images before being admitted to a cluster.

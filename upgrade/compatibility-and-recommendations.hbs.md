@@ -7,11 +7,13 @@ This topic gives you general information to help you with upgrading Tanzu Applic
 <!-- Update in each release using https://confluence.eng.vmware.com/pages/viewpage.action?pageId=789919969#TanzuApplicationPlatform(TAP)-N-2Upgradesupportwithnew6weeksminorandLTS -->
 <!-- Do not use a variable. Update version number each release so it's visible if this info becomes outdated.  -->
 
-Tanzu Application Platform v1.11 supports upgrading from the following versions:
+Tanzu Application Platform v1.12 supports upgrading from the following versions:
 
+- v1.11.1
 - v1.10.1
 - v1.9.1
 - v1.8.x long-term support release
+- v1.7.x long-term support release
 
 ## <a id="support"></a> Compatibility
 

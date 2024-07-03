@@ -2,7 +2,9 @@
 
 This topic contains release notes for Tanzu Application Platform v{{ vars.url_version }}.
 
-<!-- Add the relevant support notice partial from partials/support-notices (STS or LTS). -->
+<!-- The below partial is in the docs-tap/partials/support-notices directory -->
+
+{{> 'partials/support-notices/long-term-support' }}
 
 ## <a id='1-12-0'></a> v1.12.0
 

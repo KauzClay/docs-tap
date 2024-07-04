@@ -26,7 +26,7 @@ To install `full` dependencies:
 
         ```console
         imgpkg copy \
-          -b tanzu.packages.broadcom.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
+          -b tanzu-build.packages.broadcom.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
           --to-repo INTERNAL-REPO
         ```
 
@@ -45,7 +45,7 @@ To install `full` dependencies:
 
             ```console
             imgpkg copy \
-              -b tanzu.packages.broadcom.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
+              -b tanzu-build.packages.broadcom.com/build-service-dependency-updater/package-repo:VERSION-CONSTRAINT \
               --to-tar dependency-updater-VERSION-CONSTRAINT.tar \
               --include-non-distributable-layers
             ```

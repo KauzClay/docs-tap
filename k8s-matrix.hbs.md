@@ -13,11 +13,11 @@ cluster versions for Tanzu Application Platform v{{ vars.url_version }}.
 <tbody>
   <tr>
     <td>Kubernetes</td>
-    <td>v1.26, v1.27, v1.28, v1.29</td>
+    <td>v1.26, v1.27, v1.28, v1.29, v1.30</td>
   </tr>
   <tr>
     <td>VMware Tanzu Kubernetes Grid</td>
-    <td>v2.5.0, v2.4.0</td>
+    <td>v2.5.0 or later, v2.4.0 or later</td>
   </tr>
   <tr>
     <td>VMware Tanzu Kubernetes Grid Integrated Edition with vSphere</td>

@@ -45,7 +45,7 @@ In this diagram:
 
 The following steps explain how to work with Bitnami Services.
 
-## <a id="discovery"></a> Step 1: Discover services
+### <a id="discovery"></a> Step 1: Discover services
 
 Application teams can discover the range of services on offer to them by running:
 
@@ -53,7 +53,7 @@ Application teams can discover the range of services on offer to them by running
 tanzu service class list
 ```
 
-The expected output is similar to the following:
+Example output:
 
 ```console
   NAME                  DESCRIPTION
@@ -65,13 +65,13 @@ The expected output is similar to the following:
   redis-unmanaged       Redis by Bitnami
 ```
 
-Here the output shows six classes. These are the six services available in the Bitnami Services package.
+The output shows six classes. These are the six services available in the Bitnami Services package.
 You can see from the names and descriptions that they are all _unmanaged_ services.
 This implies that the resulting service instances run on cluster, that is, they are not a managed
 service running in the cloud.
 Other classes might be listed here as well.
 
-As an Application Operator, you review the classes on offer and choose one that meets your requirements.
+As an application operator, you review the classes on offer and choose one that meets your requirements.
 
 You can learn and discover more about a class by running:
 
@@ -98,66 +98,65 @@ The `postgresql-unmanaged` class here has one parameter, which is `storageGB`.
 You can also see that it is not required to pass this parameter when creating a claim for the class,
 in which case the default value of `1` is used.
 
-## <a id="claiming"></a> Step 2: Claim services
+### <a id="claiming"></a> Step 2: Claim services
 
 In this example, you have an application workload that requires a PostgreSQL database to function correctly.
 You can claim the PostgreSQL Bitnami Service to obtain such a database.
 
-To create the claim in a namespace named `dev-team-1`, you must first create
-the namespace by running:
+1. Create the namespace `dev-team-1` by running:
 
-```console
-kubectl create namespace dev-team-1
-```
+    ```console
+    kubectl create namespace dev-team-1
+    ```
 
-You can use the `tanzu service class-claim create` command to create a claim for the
-`postgresql-unmanaged` class, then bind your application workload to the resulting claim.
-In this example, you are also choosing to override the default value of `1` for the `storageGB`
-parameter, setting it instead to `3`.  You can override any of the options as you see fit.
+1. Create a claim for the `postgresql-unmanaged` class.
 
-```console
-tanzu service class-claim create psql-1 --class postgresql-unmanaged --parameter storageGB=3 -n dev-team-1
-```
+   In the following command, you are also choosing to override the default value of `1` for the `storageGB`
+   parameter, setting it instead to `3`. You can override any of the options as you see fit.
 
-Example output:
+    ```console
+    tanzu service class-claim create psql-1 --class postgresql-unmanaged --parameter storageGB=3 -n dev-team-1
+    ```
 
-```console
-Creating claim 'psql-1' in namespace 'dev-team-1'.
-Please run `tanzu service class-claim get psql-1 --namespace dev-team-1` to see the progress of create.
-```
+    Example output:
 
-As the output states, you can then confirm the status of the claim by using the
-`tanzu service class-claim get` command as follows:
+    ```console
+    Creating claim 'psql-1' in namespace 'dev-team-1'.
+    Please run `tanzu service class-claim get psql-1 --namespace dev-team-1` to see the progress of create.
+    ```
 
-```console
-tanzu service class-claim get psql-1 --namespace dev-team-1
-```
+1. Confirm the status of the claim by running:
 
-Example output:
+    ```console
+    tanzu service class-claim get psql-1 --namespace dev-team-1
+    ```
 
-```console
-Name: psql-1
-Namespace: dev-team-1
-Claim Reference: services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:psql-1
-Class Reference:
-  Name: postgresql-unmanaged
-Parameters:
-  storageGB: 3
-Status:
-  Ready: True
-  Claimed Resource:
-    Name: 7974379c-7b4d-41c3-af57-f4f1ae08c65d
+    Example output:
+
+    ```console
+    Name: psql-1
     Namespace: dev-team-1
-    Group:
-    Version: v1
-    Kind: Secret
-```
+    Claim Reference: services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:psql-1
+    Class Reference:
+      Name: postgresql-unmanaged
+    Parameters:
+      storageGB: 3
+    Status:
+      Ready: True
+      Claimed Resource:
+        Name: 7974379c-7b4d-41c3-af57-f4f1ae08c65d
+        Namespace: dev-team-1
+        Group:
+        Version: v1
+        Kind: Secret
+    ```
 
-It might take a moment or two before the claim reports `Ready: True`.
+    It might take a moment or two before the claim reports `Ready: True`.
+
 After the claim is ready, you then have a successful claim for a PostgreSQL database configured to
 your needs with 3&nbsp;GB of storage.
 
-## <a id="binding"></a> Step 3: Bind the claim to a workload
+### <a id="binding"></a> Step 3: Bind the claim to a workload
 
 After creating the claim, you can bind it to one or more of your application workloads.
 

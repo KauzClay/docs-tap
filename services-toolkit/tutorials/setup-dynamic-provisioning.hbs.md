@@ -427,7 +427,7 @@ Tanzu Application Platform.
 
 The following is a condensed explanation of the most relevant parts of the `Composition`.
 
-##### About `.spec.compositeTypeRef`
+##### **About `.spec.compositeTypeRef`**
 
 The `.spec.compositeTypeRef` is configured to refer to `XRabbitmqCluster` on the
 `messaging.bigcorp.org/v1alpha1` API group and version.
@@ -449,7 +449,7 @@ whenever it observes that a new `XRabbitmqCluster` resource is created in the cl
 Tanzu Application Platform's dynamic provisioning system creates the `XRabbitmqCluster` resources automatically.
 To visualize how these pieces fit together, see the diagram in the [Concepts](#concepts) section.
 
-##### About `.spec.resources`
+##### **About `.spec.resources`**
 
 The `.spec.resources` section is where you specify the managed resources to be created.
 Managed resources are tied to Crossplane's `Providers`, with each `Provider` defining a set of managed

@@ -799,30 +799,3 @@ To see the workload rendered through the Supply Chain plug-in:
 4. Go to the end of the section to see the full resource in JSON format.
 
    ![Screenshot of Rocket Provider JSON.](images/tanzu-rockets-crd-json.png)
-
-### <a id="visualize-carvel-dep"></a> Visualize Carvel package deployment details
-
-You can use the Supply Chain UI to visualize Carvel packages deployed on the cluster.
-
-- **For the Carvel packages that the supply chain creates:** You must apply the package and package
-  install to the cluster. No additional configuration is required.
-
-- **For manually created Carvel packages:** You must add the following `part-of` label annotation to
-  the `metadata.labels` section of your package definition to make the package install deployment stage
-  visible:
-
-    ```yaml
-    apiVersion: data.packaging.carvel.dev/v1alpha1
-    kind: Package
-    metadata:
-      labels:
-        app.kubernetes.io/part-of: [YOUR-WORKLOAD-NAME]
-    ```
-
-The URL of the service is displayed for the following workload types:
-
-- `web`: The URL is obtained from the Knative Service.
-- `server`: The URL is obtained from the Kubernetes ingress defined during the
-  package install.
-
-![Screenshot of Carvel deployment details in the Supply Chian UI.](images/carvel-deployment-details.png)

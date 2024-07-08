@@ -4,8 +4,8 @@ In this Services Toolkit tutorial you learn how [service operators](../reference
 can configure a class that allows for claims to resolve to different backing implementations of a service,
 such as PostgreSQL, depending on which cluster the class is claimed in.
 
-This sort of setup allows the configurations of workloads and class claims to remain unchanged as
-they are promoted through environments, whilst also enabling service operators to change
+This setup allows the configuration for workloads and class claims to remain unchanged as
+they are promoted through environments. It also enables service operators to change
 the implementations of the backing services without further configuration.
 
 ## <a id="about"></a> About this tutorial
@@ -131,157 +131,176 @@ The `ClassClaim` refers to classes by name. The fact that the class name remains
 is what allows for the `ClassClaim`, which the application development teams create, to remain unchanged
 as they are promoted across the clusters.
 
-Create a file named `postgres.class.iterate-cluster.yaml` and copy in the following contents.
+1. Configure a `ClusterInstanceClass` for the `iterate` cluster by creating a file named
+   `postgres.class.iterate-cluster.yaml` with the following contents:
 
-```yaml
-# postgres.class.iterate-cluster.yaml
+    ```yaml
+    # postgres.class.iterate-cluster.yaml
 
----
-apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-kind: ClusterInstanceClass
-metadata:
-  name: bigcorp-postgresql
-spec:
-  description:
-    short: PostgreSQL by BigCorp
-  provisioner:
-    crossplane:
-      compositeResourceDefinition: xpostgresqlinstances.bitnami.database.tanzu.vmware.com
-```
+    ---
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ClusterInstanceClass
+    metadata:
+      name: bigcorp-postgresql
+    spec:
+      description:
+        short: PostgreSQL by BigCorp
+      provisioner:
+        crossplane:
+          compositeResourceDefinition: xpostgresqlinstances.bitnami.database.tanzu.vmware.com
+    ```
 
-This class refers to the `xpostgresqlinstances.bitnami.database.tanzu.vmware.com`
-CompositeResourceDefinition.
-This is installed as part of the [Bitnami Services](../../bitnami-services/about.hbs.md) package and
-powers the PostgreSQL service.
+    This class refers to the `xpostgresqlinstances.bitnami.database.tanzu.vmware.com`
+    CompositeResourceDefinition.
+    This is installed as part of the [Bitnami Services](../../bitnami-services/about.hbs.md) package
+    and powers the PostgreSQL service.
 
-You are reusing the underlying CompositeResourceDefinition here from a different class using the
-class name you want.
+    You are reusing the underlying CompositeResourceDefinition from a different class using the
+    class name you want.
 
-Use kubectl to apply the file to the `iterate` cluster.
+1. Apply the file to the `iterate` cluster by running:
 
-```console
-kubectl apply -f postgres.class.iterate-cluster.yaml
-```
+    ```console
+    kubectl apply -f postgres.class.iterate-cluster.yaml
+    ```
 
-Create a file named `postgres.class.run-test-cluster.yaml` and copy in the following contents.
+1. Configure a `ClusterInstanceClass` for the `run-test` cluster by creating a file named
+   `postgres.class.run-test-cluster.yaml` with the following contents:
 
-```yaml
-# postgres.class.run-test-cluster.yaml
+    ```yaml
+    # postgres.class.run-test-cluster.yaml
 
----
-apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-kind: ClusterInstanceClass
-metadata:
-  name: bigcorp-postgresql
-spec:
-  description:
-    short: PostgreSQL by BigCorp
-  provisioner:
-    crossplane:
-      compositeResourceDefinition: xpostgresqlinstances.database.tanzu.example.org
-```
+    ---
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ClusterInstanceClass
+    metadata:
+      name: bigcorp-postgresql
+    spec:
+      description:
+        short: PostgreSQL by BigCorp
+      provisioner:
+        crossplane:
+          compositeResourceDefinition: xpostgresqlinstances.database.tanzu.example.org
+    ```
 
-This class is almost identical to the previous one, however this one refers instead to the
-`xpostgresqlinstances.database.tanzu.example.org` CompositeResourceDefinition.
+    This class is almost identical to the one for the `iterate` cluster, but this class refers
+    to the `xpostgresqlinstances.database.tanzu.example.org` CompositeResourceDefinition.
 
-Use kubectl to apply the file to the `run-test` cluster.
+1. Apply the file to the `run-test` cluster by running:
 
-```console
-kubectl apply -f postgres.class.run-test-cluster.yaml
-```
+    ```console
+    kubectl apply -f postgres.class.run-test-cluster.yaml
+    ```
 
-Create a file named `postgres.class.run-production-cluster.yaml` and copy in the following contents.
+1. Configure a `ClusterInstanceClass` for the `run-production` cluster by creating a file named
+   `postgres.class.run-production-cluster.yaml` with the following contents:
 
-```yaml
-# postgres.class.run-production-cluster.yaml
+    ```yaml
+    # postgres.class.run-production-cluster.yaml
 
----
-apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-kind: ClusterInstanceClass
-metadata:
-  name: bigcorp-postgresql
-spec:
-  description:
-    short: PostgreSQL by BigCorp
-  provisioner:
-    crossplane:
-      compositeResourceDefinition: xpostgresqlinstances.database.rds.example.org
-```
+    ---
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ClusterInstanceClass
+    metadata:
+      name: bigcorp-postgresql
+    spec:
+      description:
+        short: PostgreSQL by BigCorp
+      provisioner:
+        crossplane:
+          compositeResourceDefinition: xpostgresqlinstances.database.rds.example.org
+    ```
 
-Again, this class is almost identical to the previous two, but this time refers to the
-`xpostgresqlinstances.database.rds.example.org` CompositeResourceDefinition.
+    This class is almost identical to the previous two, but this class refers to the
+    `xpostgresqlinstances.database.rds.example.org` CompositeResourceDefinition.
 
-Use kubectl to apply the file to the `run-production` cluster.
+1. Apply the file to the `run-production` cluster by running:
 
-```console
-kubectl apply -f postgres.class.run-production-cluster.yaml
-```
+    ```console
+    kubectl apply -f postgres.class.run-production-cluster.yaml
+    ```
 
 ### <a id="create-workload-classclaim"></a> Step 4: Create and promote the workload and class claim
 
 After configuring the clusters and classes, switch roles from service operator to application operator
 and developer to create the workload and class claim YAML and promote it through the three clusters.
 
-Create a file named `app-with-postgres.yaml` and copy in the following contents.
+1. Create a `ClassClaim` by creating a file named `app-with-postgres.yaml` with the following contents:
 
-```yaml
-# app-with-postgres.yaml
+    ```yaml
+    # app-with-postgres.yaml
 
----
-apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-kind: ClassClaim
-metadata:
-  name: postgres
-  namespace: default
-spec:
-  classRef:
-    name: bigcorp-postgresql
-
----
-apiVersion: carto.run/v1alpha1
-kind: Workload
-metadata:
-  name: pet-clinic
-  namespace: default
-  labels:
-    apps.tanzu.vmware.com/workload-type: web
-    app.kubernetes.io/part-of: pet-clinic
-spec:
-  params:
-  - name: annotations
-    value:
-      autoscaling.knative.dev/minScale: "1"
-  env:
-  - name: SPRING_PROFILES_ACTIVE
-    value: postgres
-  serviceClaims:
-  - name: db
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ClassClaim
+    ---
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ClassClaim
+    metadata:
       name: postgres
-  source:
-    git:
-      url: https://github.com/sample-accelerators/spring-petclinic
-      ref:
-        branch: main
-        tag: tap-1.2
-```
+      namespace: default
+    spec:
+      classRef:
+        name: bigcorp-postgresql
 
-Then use kubectl to apply the file to the `iterate` cluster.
+    ---
+    apiVersion: carto.run/v1alpha1
+    kind: Workload
+    metadata:
+      name: pet-clinic
+      namespace: default
+      labels:
+        apps.tanzu.vmware.com/workload-type: web
+        app.kubernetes.io/part-of: pet-clinic
+    spec:
+      params:
+      - name: annotations
+        value:
+          autoscaling.knative.dev/minScale: "1"
+      env:
+      - name: SPRING_PROFILES_ACTIVE
+        value: postgres
+      serviceClaims:
+      - name: db
+        ref:
+          apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+          kind: ClassClaim
+          name: postgres
+      source:
+        git:
+          url: https://github.com/sample-accelerators/spring-petclinic
+          ref:
+            branch: main
+            tag: tap-1.2
+    ```
 
-```console
-kubectl apply -f app-with-postgres.yaml
-```
+1. Apply the file to the `iterate` cluster:
 
-Wait for the workload to become ready and then inspect the cluster to see that the workload is bound
-to a Helm-based PostgreSQL service instance.
-Target the `iterate` cluster then run `helm list -A` to confirm.
+    ```console
+    kubectl apply -f app-with-postgres.yaml
+    ```
 
-Next, apply the exact same `app-with-postgres.yaml` to the `run-test` cluster.
-When it is ready, confirm that the workload is bound to a Tanzu-based PostgreSQL service instance.
-Target the `run-test` cluster then run `kubectl get postgres -n tanzu-psql-service-instances` to confirm.
+1. Wait for the workload to become ready and then inspect the cluster to see that the workload is bound
+   to a Helm-based PostgreSQL service instance.
+   Target the `iterate` cluster then confirm by running:
 
-Finally, apply the exact same `app-with-postgres.yaml` to the `run-production` cluster.
-When it is ready, confirm that the workload is bound to a RDS-based PostgreSQL service instance.
-Target the `run-production` cluster then run `kubectl get RDSInstance -A` to confirm.
+   ```console
+   helm list -A
+   ```
+
+1. Apply the `app-with-postgres.yaml` file that you created earlier to the `run-test` cluster.
+
+1. Wait for the workload to become ready and then confirm that the workload is bound to a Tanzu-based
+   PostgreSQL service instance.
+   Target the `run-test` cluster then confirm by running:
+
+   ```console
+   kubectl get postgres -n tanzu-psql-service-instances
+   ```
+
+1. Apply the `app-with-postgres.yaml` file that you created earlier to the `run-production` cluster.
+
+1. Wait for the workload to become ready and then confirm that the workload is bound to a RDS-based
+   PostgreSQL service instance.
+   Target the `run-production` cluster then confirm by running:
+
+  ```console
+  kubectl get RDSInstance -A
+  ```

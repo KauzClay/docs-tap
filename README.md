@@ -10,7 +10,7 @@ Make sure you include in the MR description which branches, if any, you want us 
 For instructions, see [Creating merge requests](https://confluence.eng.vmware.com/display/MIX/Creating+merge+requests)
 in Confluence.
 
-**Note:** If create a branch in the repo, do not begin your branch name with `1-`.
+**Note:** If you create a branch in the repo for your MR, do not begin your branch name with `1-`.
 
 If you need access to send an MR, request Developer level permissions in GitLab then send us a message on the #tap-docs Slack channel.
 

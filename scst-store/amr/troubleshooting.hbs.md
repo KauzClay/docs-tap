@@ -6,11 +6,11 @@ This topic tells you how to troubleshoot issues with Artifact Metadata Repositor
 
 1. Pause reconciliation of the package
 
-    ```console
-    tanzu package installed pause amr-observer -n tap-install
-    # OR
-    kctrl package installed pause -i amr-observer -n tap-install
-    ```
+   ```console
+   tanzu package installed pause amr-observer -n tap-install
+   # OR
+   kctrl package installed pause -i amr-observer -n tap-install
+   ```
 
 1. Change the zap log level.
 
@@ -33,34 +33,39 @@ This topic tells you how to troubleshoot issues with Artifact Metadata Repositor
 
 1. Unpause reconciliation of the package:
 
-```console
-tanzu package installed kick amr-observer -n tap-install
-# OR
-kctrl package installed kick -i amr-observer -n tap-install
-```
+   ```console
+   tanzu package installed kick amr-observer -n tap-install
+   # OR
+   kctrl package installed kick -i amr-observer -n tap-install
+   ```
 
 ## <a id='resource-issue'></a> Resource Issue
 
-If AMR Observer has many restarts, it is a likely symptom of not having enough allocated memory resources.
+If AMR Observer frequently restarts, it might have insufficient allocated memory resources. An
+example symptom of this is an error log reporting failing leader election:
 
-A sample symptom error log would be failing leader election:
-
-```
+```console
 E0530 05:01:20.297972       1 leaderelection.go:367] Failed to update lock: Put "https://10.0.0.1:443/apis/coordination.k8s.io/v1/namespaces/amr-observer-system/leases/3ed94067.gitlab.eng.vmware.com": dial tcp 10.0.0.1:443: i/o timeoutI0530 05:01:20.298127       1 leaderelection.go:283] failed to renew lease amr-observer-system/3ed94067.gitlab.eng.vmware.com: timed out waiting for the condition
 {"level":"error","ts":"2024-05-30T05:01:20.298180924Z","logger":"main.setup","caller":"amr-observer/main.go:294","msg":"problem running manager","error":"leader election lost","stacktrace":"main.main\n\tamr-observer/main.go:294\nruntime.main\n\truntime/proc.go:271"} {"level":"info","ts":"2024-05-30T05:01:20.298227224Z","caller":"manager/internal.go:581","msg":"Stopping and waiting for non leader election runnables"}
 ```
 
-To verify, increase the memory limit and observe if there are reduced restart issues. This can be done by configuring the following TAP values:
-```
+To verify that insufficient allocated memory resources is the issue, increase the memory limit and
+see if there are fewer restarts. To do so, configure the following Tanzu Application Platform values
+as shown:
+
+```yaml
 amr:
     observer:
         app_limit_memory: 2500Mi
 ```
-For more configuration information, see [AMR Observer Values Schema](./install-amr-observer.hbs.md#installing-artifact-metadata-repository-observer-standalone)
+
+For more configuration information, see
+[AMR Observer Values Schema](install-amr-observer.hbs.md#installing-artifact-metadata-repository-observer-standalone)
 
 ## <a id='health-check'></a> Health Check
 
-AMR Observer does not send events to AMR CloudEvent Handler if either the AMRCloudEvent Handler, AMR, or MDS isn’t working.
+AMR Observer does not send events to AMR CloudEvent Handler if either the AMRCloudEvent Handler,
+AMR, or MDS isn’t working.
 
 Sample log in AMR Observer when HealthCheck is working:
 
@@ -97,6 +102,7 @@ Sample log in AMR CloudEvent Handler:
 ```json
 {"level":"error","ts":"2023-06-20T20:13:15.689628865Z","caller":"amr-persister/main.go:102","msg":"MDS is unavailable: Get \"https://metadata-store-app.metadata-store.svc.cluster.local:8443/api/health\": dial tcp 10.28.122.145:8443: connect: connection refused","stacktrace":"..."}
 ```
+
 ---
 
 Unsupported protocol is used for the `amr.observer.cloudevent_handler.endpoint`.
@@ -128,7 +134,7 @@ If the log contains:
 And if the following describe on the pod shows:
 
 ```console
-$ kubectl -n amr-observer-system describe pods "<amr-observer-controller-manager-...>"
+kubectl -n amr-observer-system describe pods "<amr-observer-controller-manager-...>"
 ```
 
 Sample output:
@@ -148,7 +154,8 @@ Events:
   Warning  Unhealthy  3m5s (x10 over 4m25s)  kubelet            Readiness probe failed: Get "http://192.168.45.78:8081/readyz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 ```
 
-This is a symptom of a wrong protocol for `amr.observer.cloudevent_handler.endpoint`. The fix is to use the appropriate `https://` or `http://` prepended protocol depending on the TLS configuration.
+This is a symptom of a wrong protocol for `amr.observer.cloudevent_handler.endpoint`. The fix is to
+use the appropriate `https://` or `http://` prepended protocol depending on the TLS configuration.
 
 ---
 
@@ -157,6 +164,7 @@ This is a symptom of a wrong protocol for `amr.observer.cloudevent_handler.endpo
 ```console
 kubectl -n amr-observer-system logs deployments/amr-observer-controller-manager
 ```
+
 ---
 
 The AMR Observer is not observing `ImageVulnerabilityScan` CRD.
@@ -164,6 +172,7 @@ The AMR Observer is not observing `ImageVulnerabilityScan` CRD.
 ```log
 2023-06-20T15:47:09Z  INFO  ivs.SetupWithManager  Not registering ImageVulnerabilityScans Controller: customresourcedefinitions.apiextensions.k8s.io "imagevulnerabilityscans.app-scanning.apps.tanzu.vmware.com" not found"
 ```
+
 ---
 
 The AMR Observer is observing `ImageVulnerabilityScan` CRD if it is installed.
@@ -171,9 +180,11 @@ The AMR Observer is observing `ImageVulnerabilityScan` CRD if it is installed.
 ```log
 2023-06-28T17:56:43Z  INFO  Starting Controller  {"controller": "imagevulnerabilityscan", "controllerGroup": "app-scanning.apps.tanzu.vmware.com", "controllerKind": "ImageVulnerabilityScan"}
 ```
+
 ---
 
-When Observer first starts up, it registers a Location to the Metadata Store. See [Configure Artifact Metadata Repository](configuration.hbs.md).
+When Observer first starts up, it registers a Location to the Metadata Store. See
+[Configure Artifact Metadata Repository](configuration.hbs.md).
 
 ```log
 2023-06-20T15:47:09Z  INFO  setup  Establishing  {"locationId": "f17f073d-dfec-4624-953e-a133b694ecad"}
@@ -183,6 +194,7 @@ sent: type: vmware.tanzu.apps.location.created.v1
 Extensions:
 map[]
 ```
+
 ---
 
 Information about what CA certificates were added to the Observer's HTTP client.
@@ -190,6 +202,7 @@ Information about what CA certificates were added to the Observer's HTTP client.
 ```log
 2023-06-20T15:47:05Z  INFO  setup  No additional certs read from configured path, continuing with system truststore"  {"path": "/truststore/ca.crt"}
 ```
+
 ---
 
 No valid CA certificates were found.
@@ -197,10 +210,13 @@ No valid CA certificates were found.
 ```log
 2023/06/28 18:41:04 No certs appended, using system certs only
 ```
+
 ---
 
-When the ReplicaSet is observed to be deleted, it attempts to send the result to AMR CloudEvent Handler.
-There is a known minor issue that even non workload replicaSets are sent during create and delete events. The log shows an error, however, it is a no-op because AMR CloudEvent Handler filters out ReplicaSet CloudEvents without a workload container.
+When the ReplicaSet is observed to be deleted, it attempts to send the result to AMR CloudEvent
+Handler. There is a known minor issue that even non workload replicaSets are sent during create and
+delete events. The log shows an error, however, it is a no-op because AMR CloudEvent Handler filters
+out ReplicaSet CloudEvents without a workload container.
 
 ```log
 result: 204: sent: type: dev.knative.apiserver.resource.delete
@@ -211,13 +227,15 @@ Extensions:
 map[kind:ReplicaSet name:amr-graphql-app-7ff9bc58f namespace:metadata-store]
 ```
 
-There is partial legacy support for Knative ApiServerSource CloudEvents which the Observer leverages which is why there are CloudEvents formatted similarly to Knative APIServerSource being sent.
+There is partial legacy support for Knative ApiServerSource CloudEvents which the Observer leverages
+which is why there are CloudEvents formatted similarly to Knative APIServerSource being sent.
 
 ## <a id='cloudevent-logs'></a> AMR CloudEvent Handler Logs
 
 ```console
 kubectl -n metadata-store logs deployments/amr-persister
 ```
+
 ---
 
 When an event is received, there are log entries for an event being handled:
@@ -226,15 +244,19 @@ When an event is received, there are log entries for an event being handled:
 {"level":"debug","ts":"2023-06-20T15:47:09.203079201Z","caller":"persister/persisteradapter.go:76","msg":"Handle single event"}
 {"level":"debug","ts":"2023-06-20T15:47:09.203160964Z","caller":"persister/persisteradapter.go:108","msg":"Handle Event"}
 ```
+
 ---
 
-When the Observer starts up, it sends the Location CloudEvent and the AMR CloudEvent Handler sends the Location information to the Metadata Store. The log entries contain where the request is sent to, the JSON payload, and the response body returned from the Metadata Store:
+When the Observer starts up, it sends the Location CloudEvent and the AMR CloudEvent Handler sends
+the Location information to the Metadata Store. The log entries contain where the request is sent
+to, the JSON payload, and the response body returned from the Metadata Store:
 
 ```json
 {"level":"debug","ts":"2023-06-20T15:47:09.203390152Z","caller":"persister/persisteradapter.go:117","msg":"Registry Location Event"}
 {"level":"info","ts":"2023-06-20T15:47:09.20349837Z","caller":"persister/persisteradapter.go:279","msg":"Sending request to: https://amr-graphql-app.metadata-store.svc.cluster.local:8443/api/v1/locations with payload: {\"alias\":\"f17f073d-dfec-4624-953e-a133b694ecad\",\"reference\":\"f17f073d-dfec-4624-953e-a133b694ecad\"}"}
 {"level":"info","ts":"2023-06-20T15:47:09.238033374Z","caller":"persister/persisteradapter.go:299","msg":"status: 200, responseBody: {\"alias\":\"f17f073d-dfec-4624-953e-a133b694ecad\",\"reference\":\"f17f073d-dfec-4624-953e-a133b694ecad\",\"labels\":null}\n"}
 ```
+
 ---
 
 When there is an error sending Location to the Metadata Store:
@@ -245,6 +267,7 @@ When there is an error sending Location to the Metadata Store:
 {"level":"error","ts":"2023-06-20T15:15:04.304782986Z","caller":"persister/persisteradapter.go:283","msg":"post error: Post \"https://amr-graphql-app.metadata-store.svc.cluster.local:8443/api/v1/locations\": dial tcp 10.28.116.184:8443: connect: connection refused","stacktrace":"<...>"}
 {"level":"error","ts":"2023-06-20T15:15:04.304878714Z","caller":"amr-persister/main.go:72","msg":"Error Handler received error Post \"https://amr-graphql-app.metadata-store.svc.cluster.local:8443/api/v1/locations\": dial tcp 10.28.116.184:8443: connect: connection refused","stacktrace":"..."}
 ```
+
 ---
 
 When the AMR CloudEvent Handler is up and ready to receive CloudEvents:
@@ -252,6 +275,7 @@ When the AMR CloudEvent Handler is up and ready to receive CloudEvents:
 ```json
 {"level":"info","ts":"2023-06-20T15:14:56.308829574Z","caller":"amr-persister/main.go:61","msg":"Start Receiving"}
 ```
+
 ---
 
 When the Artifact Metadata Repository is unavailable:
@@ -259,6 +283,7 @@ When the Artifact Metadata Repository is unavailable:
 ```json
 {"level":"error","ts":"2023-06-20T19:03:47.006718745Z","caller":"amr-persister/main.go:99","msg":"AMR is unavailable: Get \"https://amr-graphql-app.metadata-store.svc.cluster.local:8443/play\": dial tcp 10.28.116.184:8443: connect: connection refused","stacktrace":"..."}
 ```
+
 ---
 
 When the Metadata Store is unavailable.
@@ -266,16 +291,21 @@ When the Metadata Store is unavailable.
 ```json
 {"level":"error","ts":"2023-06-20T20:13:15.689628865Z","caller":"amr-persister/main.go:102","msg":"MDS is unavailable: Get \"https://metadata-store-app.metadata-store.svc.cluster.local:8443/api/health\": dial tcp 10.28.122.145:8443: connect: connection refused","stacktrace":"..."}
 ```
+
 ---
 
-The received ReplicaSet CloudEvent did not contain a "workload" container. AMR only supports ReplicaSets generated during a Workload run and contain a workload named container.
+The received ReplicaSet CloudEvent did not contain a "workload" container. AMR only supports
+ReplicaSets generated during a Workload run and contain a workload named container.
 
 ```json
 {"level":"error","ts":"2023-06-20T20:13:11.60733257Z","caller":"persister/persisteradapter.go:218","msg":"generate application payload error: unable to find workload container","stacktrace":"..."}
 ```
+
 ---
 
-The report already exists. This occurs when you reach the resync period and the controllers are configured to reconcile the ImageVulnerability custom resource. This error is a non-issue if the previous submission of the report was successful.
+The report already exists. This occurs when you reach the resync period and the controllers are
+configured to reconcile the ImageVulnerability custom resource. This error is a non-issue if the
+previous submission of the report was successful.
 
 ```json
 {"level":"info","ts":"2023-06-21T20:54:32.772037121Z","caller":"mds/handle-event.go:107","msg":"Error posting image report: Validation failed: {\"message\":\"a report with uid 'd1625dd5ad94c2c5f83a8de4c3a3c382e4e4774a77c2e71fcf68a0cd3f953f7b' already exists\"}\n"}

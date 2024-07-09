@@ -39,6 +39,25 @@ tanzu package installed kick amr-observer -n tap-install
 kctrl package installed kick -i amr-observer -n tap-install
 ```
 
+## <a id='resource-issue'></a> Resource Issue
+
+If AMR Observer has many restarts, it is a likely symptom of not having enough allocated memory resources.
+
+A sample symptom error log would be failing leader election:
+
+```
+E0530 05:01:20.297972       1 leaderelection.go:367] Failed to update lock: Put "https://10.0.0.1:443/apis/coordination.k8s.io/v1/namespaces/amr-observer-system/leases/3ed94067.gitlab.eng.vmware.com": dial tcp 10.0.0.1:443: i/o timeoutI0530 05:01:20.298127       1 leaderelection.go:283] failed to renew lease amr-observer-system/3ed94067.gitlab.eng.vmware.com: timed out waiting for the condition
+{"level":"error","ts":"2024-05-30T05:01:20.298180924Z","logger":"main.setup","caller":"amr-observer/main.go:294","msg":"problem running manager","error":"leader election lost","stacktrace":"main.main\n\tamr-observer/main.go:294\nruntime.main\n\truntime/proc.go:271"} {"level":"info","ts":"2024-05-30T05:01:20.298227224Z","caller":"manager/internal.go:581","msg":"Stopping and waiting for non leader election runnables"}
+```
+
+To verify, increase the memory limit and observe if there are reduced restart issues. This can be done by configuring the following TAP values:
+```
+amr:
+    observer:
+        app_limit_memory: 2500Mi
+```
+For more configuration information, see [AMR Observer Values Schema](./install-amr-observer.hbs.md#installing-artifact-metadata-repository-observer-standalone)
+
 ## <a id='health-check'></a> Health Check
 
 AMR Observer does not send events to AMR CloudEvent Handler if either the AMRCloudEvent Handler, AMR, or MDS isn’t working.

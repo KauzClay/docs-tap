@@ -31,7 +31,7 @@ The installation order is flexible given the ability to update the installation 
 
 ## <a id='install-view'></a> Install View cluster
 
-Install the View profile cluster first, because some components must exist before installing the Run clusters. For example, the Application Live View back end must be present before installing the Run clusters. For more information about profiles, see [About Tanzu Application Platform package profiles](../overview.md#about-package-profiles).
+Install the View profile cluster first, because some components must exist before installing the Run clusters. For example, the Application Live View back end must be present before installing the Run clusters. For more information about profiles, see [About Tanzu Application Platform package profiles](../about-package-profiles.hbs.md).
 
 To install the View cluster:
 

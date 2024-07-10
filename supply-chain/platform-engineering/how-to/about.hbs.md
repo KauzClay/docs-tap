@@ -6,22 +6,8 @@ This section contains Tanzu Supply Chain how-to guides for platform engineers.
 
 In this section:
 
-## How-to guides: Installing Tanzu Supply Chain
-
-- [Installing Tanzu Supply Chain](installing-supply-chain/about.hbs.md)
-
-## How-to guides: `SupplyChain` authoring
-
-- [Construct a Supply Chain using the CLI](supply-chain-authoring/construct-with-cli.hbs.md)
-
-## How-to guides: Deploying and managing `SupplyChain` resources
-
-- [GitOps Managed SupplyChains](deploying-supply-chains/gitops-managed.hbs.md)
-
-## How-to guides: Starter `SupplyChain` resources
-
+- [Install Tanzu Supply Chain](installing-supply-chain/about.hbs.md)
+- [Construct a Supply Chain using the Tanzu CLI](supply-chain-authoring/construct-with-cli.hbs.md)
+- [Manage Supply Chains with GitOps](deploying-supply-chains/gitops-managed.hbs.md)
 - [Create starter SupplyChains](starter-supply-chains.hbs.md)
-
-## How-to guides: Collecting Telemetry Data (Experimental)
-
-- [Exporting Telemetry Data](exporting-telemetry-data.hbs.md)
+- [Export telemetry data (experimental)](exporting-telemetry-data.hbs.md)

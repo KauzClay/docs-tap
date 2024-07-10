@@ -788,7 +788,7 @@
               - [Deploy and Manage Supply Chains](./supply-chain/platform-engineering/how-to/deploying-supply-chains/about.hbs.md)
                   - [Manage Supply Chains with GitOps](./supply-chain/platform-engineering/how-to/deploying-supply-chains/gitops-managed.hbs.md)
               - [Create starter Supply Chains](./supply-chain/platform-engineering/how-to/starter-supply-chains.hbs.md)
-              - [Export telemetry data](./supply-chain/platform-engineering/how-to/exporting-telemetry-data.hbs.md)
+              - [Export telemetry data](./supply-chain/platform-engineering/how-to/export-telemetry-data.hbs.md)
           - [Explanations](./supply-chain/platform-engineering/explanation/about.hbs.md)
               - [Supply Chains overview](./supply-chain/platform-engineering/explanation/supply-chains.hbs.md)
               - [Workloads overview](./supply-chain/platform-engineering/explanation/workloads.hbs.md)

@@ -9,5 +9,5 @@ In this section:
 - [Install Tanzu Supply Chain](installing-supply-chain/about.hbs.md)
 - [Construct a Supply Chain using the Tanzu CLI](supply-chain-authoring/construct-with-cli.hbs.md)
 - [Manage Supply Chains with GitOps](deploying-supply-chains/gitops-managed.hbs.md)
-- [Create starter SupplyChains](starter-supply-chains.hbs.md)
+- [Create starter Supply Chains](starter-supply-chains.hbs.md)
 - [Export telemetry data (experimental)](export-telemetry-data.hbs.md)

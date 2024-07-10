@@ -21,3 +21,7 @@ In this section:
 ## How-to guides: Starter `SupplyChain` resources
 
 - [Create starter SupplyChains](starter-supply-chains.hbs.md)
+
+## How-to guides: Collecting Telemetry Data (Experimental)
+
+- [Exporting Telemetry Data](exporting-telemetry-data.hbs.md)

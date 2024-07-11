@@ -3,7 +3,7 @@
 This topic gives you example `Composition` resources that you can use to help when integrating cloud
 services into Tanzu Application Platform (commonly known as TAP).
 
-## <a id="aws"></a>  AWS RDS example `Composition`
+## <a id="aws"></a> AWS RDS example `Composition`
 
 The following `Composition` ensures that all RDS PostgreSQL instances are placed in the `us-east-1` 
 region and use the default VPC for the respective AWS account.
@@ -66,7 +66,7 @@ spec:
 EOF
 ```
 
-## <a id="azure"></a>  Azure Flexible Server example `Composition`
+## <a id="azure"></a> Azure Flexible Server example `Composition`
 
 The following `Composition` makes sure that all `FlexibleServers` are placed in the `westeurope` 
 region and under the resource group `tap-psql-demo`.

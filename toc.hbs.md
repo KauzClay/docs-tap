@@ -505,6 +505,7 @@
               - [RBAC](services-toolkit/reference/api/rbac.hbs.md)
           - [Tanzu Service CLI plug-in command reference](services-toolkit/reference/tanzu-service-cli.hbs.md)
           - [Terminology and user roles](services-toolkit/reference/terminology-and-user-roles.hbs.md)
+          - [Example Compositions](./services-toolkit/reference/example-compositions.hbs.md)
           - [Limitations](services-toolkit/reference/known-limitations.hbs.md)
     - [Source Controller](source-controller/about.hbs.md)
       - [Source Controller overview](source-controller/about.hbs.md)

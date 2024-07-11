@@ -91,7 +91,7 @@ The following steps explain how to work with Bitnami Services.
       storageGB  The desired storage capacity of the database, in Gigabytes.  integer  1        false
     ```
 
-    The output shows the name and a short description for the class, its current status, and the parameters.
+    The output shows the name, a short description for the class, its current status, and the parameters.
     The parameters represent the set of configuration options that are available to application teams.
 
     The `postgresql-unmanaged` class here has one parameter, which is `storageGB`.
@@ -163,8 +163,8 @@ your needs with 3&nbsp;GB of storage.
 
 After creating the claim, you can bind it to one or more of your application workloads.
 
-> **Important** If binding to more than one application workload then all application workloads must
-> exist in the same namespace. This is a known limitation. For more information, see
+> **Important** If you are binding to more than one application workload, all application workloads
+> must exist in the same namespace. This is a known limitation. For more information, see
 > [Cannot claim and bind to the same service instance from across multiple namespaces](../../services-toolkit/reference/known-limitations.hbs.md#multi-workloads).
 
 1. Find the reference for the claim by running:

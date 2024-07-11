@@ -1,4 +1,4 @@
-# Integrating cloud services into Tanzu Application Platform
+# Integrate cloud services into Tanzu Application Platform
 
 In this Services Toolkit tutorial you learn how [service operators](../reference/terminology-and-user-roles.hbs.md#so)
 can integrate the cloud services of their choice into Tanzu Application Platform (commonly known as TAP).
@@ -6,7 +6,7 @@ can integrate the cloud services of their choice into Tanzu Application Platform
 There are a multitude of cloud-based services available on the market for consumers today.
 AWS, Azure, and GCP all provide support for a wide range of fully-managed, performant and
 on-demand services ranging from databases, to message queues, to storage solutions and beyond.
-In this tutorial you will learn how to integrate any one of these services into Tanzu Application Platform,
+In this tutorial you learn how to integrate any one of these services into Tanzu Application Platform,
 so that you can offer it for apps teams to consume in a simple and effective way.
 
 This tutorial is written at a slightly higher level than the other tutorials in this documentation.
@@ -33,10 +33,10 @@ for integrating services from AWS into Tanzu Application Platform.
 
 ## <a id="about"></a> About this tutorial
 
-**Target user role**:       Service Operator<br />
+**Target user role**:       Service operator<br />
 **Complexity**:             Advanced<br />
 **Estimated time**:         30 minutes<br />
-**Topics covered**:         Dynamic Provisioning, Cloud-based Services, AWS, Azure, GCP, Crossplane<br />
+**Topics covered**:         Dynamic provisioning, cloud-based services, AWS, Azure, GCP, Crossplane<br />
 **Learning outcomes**:      An understanding of the steps involved in integrating cloud-based services
 into Tanzu Application Platform<br />
 
@@ -45,38 +45,38 @@ into Tanzu Application Platform<br />
 The following is a high-level workflow outlining what is required to integrate a cloud-based service
 into Tanzu Application Platform.
 
-1. [**Install Provider and create ProviderConfig:**](#install-provider)
+1. [**Install a Provider and create a ProviderConfig:**](#install-provider)
 
-    - Follow the official Upbound documentation to install the Provider and create a ProviderConfig.
+    - Follow the official Upbound documentation to install the Provider and create a `ProviderConfig`.
 
-1. [**Create CompositeResourceDefinition:**](#create-xrd)
+1. [**Create a CompositeResourceDefinition:**](#create-xrd)
 
-    - Create a CompositeResourceDefinition to define the shape of a new API type representing the service.
-    - Choose which (if any) configuration parameters to expose to apps teams.
+    - Create a `CompositeResourceDefinition` to define the shape of a new API type representing the service.
+    - Choose which configuration parameters to expose to apps teams, if any.
 
-1. [**Create Composition:**](#create-composition)
+1. [**Create a Composition:**](#create-composition)
 
-    - Create a Composition using managed resources supplied by the Provider.
+    - Create a `Composition` using managed resources supplied by the `Provider`.
     - You can compose as many or as few managed resources as required to generate a service instance
       that application workloads can connect to and use over the network.
-    - (Optional but recommended) Configure the connection secret to adhere to the Service Binding
-      Specification for Kubernetes.
+    - (Optional but recommended) Configure the connection secret to adhere to the service binding
+      specification for Kubernetes.
 
-1. [**Create provisioner-based ClusterInstanceClass:**](#clusterinstanceclass)
+1. [**Create a provisioner-based ClusterInstanceClass:**](#clusterinstanceclass)
 
-    - Create a provisioner-based ClusterInstanceClass pointing to the CompositeResourceDefinition created
-      earlier.
+    - Create a provisioner-based `ClusterInstanceClass` pointing to the `CompositeResourceDefinition`
+      created earlier.
 
 1. [**Create required RBAC:**](#configure-rbac)
 
-    - Create RBAC using the `claim` verb pointing to the provisioner-based ClusterInstanceClass to permit
-      claiming from the class.
+    - Create RBAC using the `claim` verb pointing to the provisioner-based `ClusterInstanceClass` to
+      allow claiming from the class.
 
 1. [**Create ClassClaim:**](#verify)
 
-    - Create a ClassClaim pointing to the provisioner-based ClusterInstanceClass to begin a dynamic
+    - Create a `ClassClaim` pointing to the provisioner-based `ClusterInstanceClass` to begin a dynamic
       provisioning request.
-    - Wait for the ClassClaim to report `READY=True`.
+    - Wait for the `ClassClaim` to report `READY=True`.
 
 ## <a id="procedure"></a> Procedure
 
@@ -85,47 +85,46 @@ to example configurations where appropriate.
 
 ### <a id="install-provider"></a> Step 1: Install a Provider
 
-Install a suitable Crossplane `Provider` for your cloud of choice. Upbound provides support for the
+Install a Crossplane `Provider` for your cloud of choice. Upbound provides support for the
 three main cloud providers:
 
 - [provider-aws](https://marketplace.upbound.io/providers/upbound/provider-aws/latest)
 - [provider-azure](https://marketplace.upbound.io/providers/upbound/provider-azure/latest)
 - [provider-gcp](https://marketplace.upbound.io/providers/upbound/provider-gcp/latest)
 
-> **Note** These cloud-based Providers often install many hundreds of additional CRDs onto the cluster,
-> which can have a negative impact on cluster performance.
-> For more information, see [Cluster performance degradation due to large number of CRDs](../../crossplane/reference/known-limitations.hbs.md#too-many-crds).
+> **Note** These cloud-based `Providers` often install hundreds of additional CRDs onto the cluster.
+> This can have a negative impact on cluster performance.
+> For more information, see [Cluster performance degradation due to a large number of CRDs](../../crossplane/reference/known-limitations.hbs.md#too-many-crds).
 
-Choose the Provider you want, and then follow Upbound's official documentation to install the
+Choose the `Provider` you want, and then follow Upbound's official documentation to install the
 `Provider` and to create a corresponding `ProviderConfig`.
 
-> **Important** The official documentation for the `Provider` includes a step to "Install Universal Crossplane".
+> **Important** The official documentation for the `Provider` includes a step to install Universal Crossplane.
 > You can skip this step because Crossplane is already installed as part of Tanzu Application Platform.
 >
-> The documentation also assumes Crossplane is installed in the `upbound-system` namespace.
+> The `Provider` documentation also assumes Crossplane is installed in the `upbound-system` namespace.
 > However, when working with Crossplane on Tanzu Application Platform, it is installed to the
 > `crossplane-system` namespace by default.
 > Ensure that you use the correct namespace when you create the `Secret` and the `ProviderConfig`
 > with credentials for the `Provider`.
 
-### <a id="create-xrd"></a> Step 2: Create a CompositeResourceDefinition
+### <a id="create-xrd"></a> Step 2: Create a `CompositeResourceDefinition`
 
-Create a `CompositeResourceDefinition`, which defines the shape of a new API type which is used to
-create the cloud-based resources.
+Create a `CompositeResourceDefinition`. This defines the shape of a new API type to create the
+cloud-based resources.
 
-For help creating the `CompositeResourceDefinition`, see the [Crossplane documentation](https://docs.crossplane.io/latest/concepts/composition/#defining-composite-resources),
+For help creating the `CompositeResourceDefinition`, see the [Crossplane documentation](https://docs.crossplane.io/latest/concepts/composition/#defining-composite-resources)
 or see [Create a CompositeResourceDefinition](../how-to-guides/dynamic-provisioning-rds.hbs.md#compositeresourcedef)
 in _Configure dynamic provisioning of AWS RDS service instances_.
 
-### <a id="create-composition"></a> Step 3: Create a Composition
+### <a id="create-composition"></a> Step 3: Create a `Composition`
 
-This step is likely to be the most time-consuming.
-The `Composition` is where you define the configuration for the resources that make up the service
-instances for app teams to claim.
-Configure the necessary resources for usable service instances that users can connect to and use
-over the network.
+This step is likely to be the most time-consuming. The `Composition` is where you define the configuration
+for the resources that make the service instances for app teams to claim.
+This configures the resources required for service instances that users can connect to and use over
+the network.
 
-To get started with creating a `Composition`, first read through Configuring Composition in the
+To get started with creating a `Composition`, first read about configuring the composition in the
 [Upbound documentation](https://docs.crossplane.io/v1.11/concepts/composition/#configuring-composition).
 
 You can also see the following `Composition` examples:
@@ -141,9 +140,9 @@ You can also see the following `Composition` examples:
 
 <!-- Maybe the above examples could be moved to the TAP docs so we don't link to the old version of the STK docs -->
 
-### <a id="clusterinstanceclass"></a> Step 4: Create a provisioner-based ClusterInstanceClass
+### <a id="clusterinstanceclass"></a> Step 4: Create a provisioner-based `ClusterInstanceClass`
 
-Create a provisioner-based `ClusterInstanceClass` which is configured to refer to the
+Create a provisioner-based `ClusterInstanceClass` that is configured to refer to the
 `CompositeResourceDefinition` created earlier. For example:
 
 ```yaml
@@ -157,15 +156,17 @@ spec:
     short: FooDB by cloud provider Foo!
   provisioner:
     crossplane:
-      compositeResourceDefinition: NAME-OF-THE-COMPOSITE-RESOURCE-DEFINITION
+      compositeResourceDefinition: XRD-NAME
 ```
 
-For a real-world example, see [Make the service discoverable](../how-to-guides/dynamic-provisioning-rds.hbs.md#make-discoverable)
+Where `XRD-NAME` is the name of your `CompositeResourceDefinition`.
+
+For an example, see [Make the service discoverable](../how-to-guides/dynamic-provisioning-rds.hbs.md#make-discoverable)
 in _Configure dynamic provisioning of AWS RDS service instances_.
 
 ### <a id="configure-rbac"></a> Step 5: Configure RBAC
 
-Create an Role-Based Access Control (RBAC) rule using the `claim` verb pointing to the
+Create an Role-Based Access Control (RBAC) rule that uses the `claim` verb and points to the
 `ClusterInstanceClass` you created. For example:
 
 ```yaml
@@ -186,7 +187,7 @@ rules:
   - claim
 ```
 
-For a real-world example, see [Configure RBAC](../how-to-guides/dynamic-provisioning-rds.hbs.md#configure-rbac)
+For an example, see [Configure RBAC](../how-to-guides/dynamic-provisioning-rds.hbs.md#configure-rbac)
 in _Configure dynamic provisioning of AWS RDS service instances_.
 
 ### <a id="verify"></a> Step 6: Verify your integration
@@ -209,4 +210,4 @@ spec:
 
 Verify that the `ClassClaim` eventually transitions into a `READY=True` state.
 If it doesn't, debug the `ClassClaim` using kubectl.
-For how to do this, see [Troubleshoot Services Toolkit](../how-to-guides/troubleshooting.hbs.md#debug-dynamic-provisioning).
+For how to do this, see [Debug ClassClaim and provisioner-based ClusterInstanceClass](../how-to-guides/troubleshooting.hbs.md#debug-dynamic-provisioning).

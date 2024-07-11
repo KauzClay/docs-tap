@@ -1,26 +1,26 @@
-# Working with Bitnami Services
+# Work with Bitnami Services
 
 In this tutorial you learn how [application operators](../../services-toolkit/reference/terminology-and-user-roles.hbs.md#ao)
 can discover, claim, and bind services to application workloads.
 
 Tanzu Application Platform has six services that are available in the Bitnami Services package.
 These are MySQL, PostgreSQL, RabbitMQ, Redis, MongoDB, and Kafka.
-The corresponding Bitnami Helm Chart backs each of these services.
+The corresponding Bitnami Helm chart backs each of these services.
 
 ## <a id="about"></a> About this tutorial
 
-**Target user role**:       Application Operator<br />
+**Target user role**:       Application operator<br />
 **Complexity**:             Basic<br />
 **Estimated time**:         15 minutes<br />
-**Topics covered**:         Classes, Claims, Bitnami<br />
-**Learning outcomes**:      An understanding of how work with the standard Bitnami services<br />
+**Topics covered**:         Classes, claims, Bitnami<br />
+**Learning outcomes**:      An understanding of how work with the standard services provided by the Bitnami Services package<br />
 
 ## <a id="prereqs"></a> Prerequisites
 
 To follow this tutorial, you must have:
 
-- Access to a Tanzu Application Platform cluster v1.5.0 and later
-- The Tanzu services CLI plug-in v0.6.0 and later
+- Access to a Tanzu Application Platform cluster v1.5.0 or later
+- Installed the Tanzu services CLI plug-in v0.6.0 or later
 
 ## <a id="concepts"></a> Concepts
 
@@ -31,15 +31,15 @@ how they all fit together.
 
 In this diagram:
 
-- There are only two elements that require user input, which are creating a `ClassClaim` and
-  creating a `Workload`. The workload is configured to refer to the class claim`.
+- There are two elements that require user input. These are creating a `ClassClaim` and
+  creating a `Workload`. The workload is configured to refer to the class claim.
 
 - The life cycles of the `ClassClaim` and the `Workload` are separate.
   This allows you to update one without affecting the other.
 
 - The dynamic provisioning process is simplified.
-  This is intentional because Application Operators and Developers do not need to know
-  about the inner workings and configurations of service instances.
+  This is intentional because application operators and developers do not need to know
+  about the inner workings and configuration of service instances.
 
 ## <a id="procedure"></a> Procedure
 
@@ -47,56 +47,56 @@ The following steps explain how to work with Bitnami Services.
 
 ### <a id="discovery"></a> Step 1: Discover services
 
-Application teams can discover the range of services on offer to them by running:
+1. Application teams can discover the range of available services by running:
 
-```console
-tanzu service class list
-```
+    ```console
+    tanzu service class list
+    ```
 
-Example output:
+    Example output:
 
-```console
-  NAME                  DESCRIPTION
-  kafka-unmanaged       Kafka by Bitnami
-  mongodb-unmanaged     MongoDB by Bitnami
-  mysql-unmanaged       MySQL by Bitnami
-  postgresql-unmanaged  PostgreSQL by Bitnami
-  rabbitmq-unmanaged    RabbitMQ by Bitnami
-  redis-unmanaged       Redis by Bitnami
-```
+    ```console
+      NAME                  DESCRIPTION
+      kafka-unmanaged       Kafka by Bitnami
+      mongodb-unmanaged     MongoDB by Bitnami
+      mysql-unmanaged       MySQL by Bitnami
+      postgresql-unmanaged  PostgreSQL by Bitnami
+      rabbitmq-unmanaged    RabbitMQ by Bitnami
+      redis-unmanaged       Redis by Bitnami
+    ```
 
-The output shows six classes. These are the six services available in the Bitnami Services package.
-You can see from the names and descriptions that they are all _unmanaged_ services.
-This implies that the resulting service instances run on cluster, that is, they are not a managed
-service running in the cloud.
-Other classes might be listed here as well.
+    This output shows six classes. These are the six services available in the Bitnami Services package.
+    You can see from the names and descriptions that they are all _unmanaged_ services.
+    This implies that the resulting service instances run on cluster, that is, they are not a managed
+    service running in the cloud.
+    Other classes might be listed here as well.
 
-As an application operator, you review the classes on offer and choose one that meets your requirements.
+    As an application operator, you review the classes on offer and choose one that meets your requirements.
 
-You can learn and discover more about a class by running:
+1. You can learn more about a class by running:
 
-```console
-tanzu service class get postgresql-unmanaged
-```
+    ```console
+    tanzu service class get postgresql-unmanaged
+    ```
 
-Example output:
+    Example output:
 
-```console
-NAME:           postgresql-unmanaged
-DESCRIPTION:    PostgreSQL by Bitnami
-READY:          true
+    ```console
+    NAME:           postgresql-unmanaged
+    DESCRIPTION:    PostgreSQL by Bitnami
+    READY:          true
 
-PARAMETERS:
-  KEY        DESCRIPTION                                                  TYPE     DEFAULT  REQUIRED
-  storageGB  The desired storage capacity of the database, in Gigabytes.  integer  1        false
-```
+    PARAMETERS:
+      KEY        DESCRIPTION                                                  TYPE     DEFAULT  REQUIRED
+      storageGB  The desired storage capacity of the database, in Gigabytes.  integer  1        false
+    ```
 
-The output shows the name and a short description for the class, its current status, and the parameters.
-The parameters represent the set of configuration options that are available to application teams.
+    The output shows the name and a short description for the class, its current status, and the parameters.
+    The parameters represent the set of configuration options that are available to application teams.
 
-The `postgresql-unmanaged` class here has one parameter, which is `storageGB`.
-You can also see that it is not required to pass this parameter when creating a claim for the class,
-in which case the default value of `1` is used.
+    The `postgresql-unmanaged` class here has one parameter, which is `storageGB`.
+    You can also see that it is not required to pass this parameter when creating a claim for the class,
+    in which case the default value of `1` is used.
 
 ### <a id="claiming"></a> Step 2: Claim services
 
@@ -112,10 +112,13 @@ You can claim the PostgreSQL Bitnami Service to obtain such a database.
 1. Create a claim for the `postgresql-unmanaged` class.
 
    In the following command, you are also choosing to override the default value of `1` for the `storageGB`
-   parameter, setting it instead to `3`. You can override any of the options as you see fit.
+   parameter, setting it instead to `3`. You can override any of the options.
 
     ```console
-    tanzu service class-claim create psql-1 --class postgresql-unmanaged --parameter storageGB=3 -n dev-team-1
+    tanzu service class-claim create psql-1 \
+      --class postgresql-unmanaged \
+      --parameter storageGB=3 \
+      -n dev-team-1
     ```
 
     Example output:
@@ -164,19 +167,21 @@ After creating the claim, you can bind it to one or more of your application wor
 > exist in the same namespace. This is a known limitation. For more information, see
 > [Cannot claim and bind to the same service instance from across multiple namespaces](../../services-toolkit/reference/known-limitations.hbs.md#multi-workloads).
 
-1. Find the reference for the claim by running the following command.
+1. Find the reference for the claim by running:
 
     ```console
     tanzu service class-claim get psql-1
     ```
 
-    The reference is in the output under the heading Claim Reference.
+    The reference is in the output under the heading `Claim Reference`.
 
-1. Bind the claim to a workload of your choice by pass a reference to the claim to the `--service-ref`
+1. Bind the claim to a workload of your choice by passing the reference for the claim to the `--service-ref`
    flag of the `tanzu apps workload create` command. For example:
 
     ```console
-    tanzu apps workload create my-workload --image my-registry/my-app-image --service-ref db=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:psql-1
+    tanzu apps workload create my-workload \
+      --image my-registry/my-app-image \
+      --service-ref db=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:psql-1
     ```
 
     You must pass the claim reference with a corresponding name that follows the format

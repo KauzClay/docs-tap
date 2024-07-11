@@ -5,7 +5,7 @@ This topic tells you about the limitations related to Crossplane on Tanzu Applic
 
 For troubleshooting guidance, see [Troubleshoot Crossplane](../how-to-guides/troubleshooting.hbs.md).
 
-## <a id="too-many-crds"></a> Cluster performance degradation due to large number of CRDs
+## <a id="too-many-crds"></a> Cluster performance degradation due to a large number of CRDs
 
 Take care before installing extra Crossplane Providers into Tanzu Application Platform.
 Some Providers install hundreds of additional CRDs into the cluster.

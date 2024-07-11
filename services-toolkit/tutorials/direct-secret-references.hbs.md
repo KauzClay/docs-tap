@@ -1,7 +1,7 @@
-# Using direct secret references
+# Use direct secret references
 
-In this Services Toolkit tutorial you learn how developers can use direct references to Kubernetes `Secret`
-resources to connect their application workloads to almost any backing service.
+In this Services Toolkit tutorial you learn how developers can use direct references to Kubernetes
+`Secret` resources to connect their application workloads to almost any backing service.
 
 This includes backing services that:
 
@@ -20,11 +20,11 @@ However, the steps are applicable to any backing service that you want to connec
 
 ## <a id="about"></a> About this tutorial
 
-**Target user role**:       Service Operator and Application Operator<br />
+**Target user role**:       Service operator and application operator<br />
 **Complexity**:             Easy<br />
 **Estimated time**:         10 minutes<br />
-**Topics covered**:         Service Binding, Direct Secret References<br />
-**Learning outcomes**:      Ability to bind workloads to almost any backing service using direct secret references<br />
+**Topics covered**:         Service binding, direct secret references<br />
+**Learning outcomes**:      The ability to bind workloads to almost any backing service using direct secret references<br />
 
 ## <a id="prereqs"></a> Prerequisites
 
@@ -40,7 +40,7 @@ Before you can follow this tutorial, you must have:
 ## <a id="create-secret"></a> Create a binding-compatible secret
 
 1. Create a file named `external-azure-db-binding-compatible.yaml` and enter a
-   Kubernetes secret resource similar to the following example:
+   Kubernetes `Secret` resource similar to the following example:
 
     ```yaml
     # external-azure-db-binding-compatible.yaml
@@ -62,21 +62,21 @@ Before you can follow this tutorial, you must have:
 
     Substitute in the values as required.
 
-    When using direct secret references, the `Secret` values must abide by the
+    When using direct secret references, the `Secret` values must follow the
     [Well-known Secret Entries specifications](https://github.com/servicebinding/spec#well-known-secret-entries)
     as defined by the Service Binding Specification for Kubernetes.
     If you plan to bind this secret to a Spring-based application workload and want to take
-    advantage of the auto-wiring feature, this secret must also contain the properties required by
+    advantage of the auto-wiring feature, this `Secret` must also contain the properties required by
     [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings).
 
-2. Apply the YAML file by running:
+2. Apply the `external-azure-db-binding-compatible.yaml` file. If you are using a multicluster
+   Tanzu Application Platform topology, apply the file to all Run clusters.
+
+    Apply the file by running:
 
     ```console
     kubectl apply -f external-azure-db-binding-compatible.yaml
     ```
-
-    If you are using a multicluster Tanzu Application Platform topology, apply the YAML file to all
-    Run clusters.
 
 3. In a file named `stk-secret-reader.yaml`, grant sufficient Role-Based Access Control (RBAC)
    permissions to permit Services Toolkit to read the secrets specified by the class:
@@ -101,16 +101,19 @@ Before you can follow this tutorial, you must have:
       - watch
     ```
 
-4. Apply your changes by running:
+4. Apply the `stk-secret-reader.yaml` file. If you are using a multicluster Tanzu Application Platform
+   topology, apply the file to all Run clusters.
+
+    Apply the file by running:
 
     ```console
     kubectl apply -f stk-secret-reader.yaml
     ```
 
-    If you are using a multicluster Tanzu Application Platform topology, apply the YAML file to all
-    Run clusters.
+5. Create a claim for the newly created secret. If you are using a multicluster Tanzu Application Platform
+   topology, create the claim on the Build cluster.
 
-5. Create a claim for the newly created secret by running:
+    Create the claim by running:
 
     ```console
     tanzu service resource-claim create external-azure-db-claim \
@@ -119,17 +122,14 @@ Before you can follow this tutorial, you must have:
       --resource-api-version v1
     ```
 
-    If you are using a multicluster Tanzu Application Platform topology, create the claim on the
-    Build cluster.
+6. Obtain the claim reference for the claim. If you are using a multicluster Tanzu Application Platform
+   topology, obtain the claim reference on the Build cluster.
 
-6. Obtain the claim reference of the claim by running:
+    To get the claim reference, run:
 
     ```console
     tanzu service resource-claim list -o wide
     ```
-
-    If you are using a multicluster Tanzu Application Platform topology, obtain the claim reference
-    on the Build cluster.
 
     Expected output:
 
@@ -140,7 +140,8 @@ Before you can follow this tutorial, you must have:
 
     From the output, record the value of `CLAIM REF`.
 
-7. Create an application workload by running a command similar to the following example:
+7. Create an application workload. If you are using a multicluster Tanzu Application Platform topology,
+   create the application workload on the Build cluster. Run a command similar to the following example:
 
     ```console
     tanzu apps workload create WORKLOAD-NAME \
@@ -156,9 +157,6 @@ Before you can follow this tutorial, you must have:
 
     Where:
 
-    - `WORKLOAD-NAME` is the name of the application workload. For example, `pet-clinic`.
-    - `REFERENCE` is the value of the `CLAIM REF` for the newly created claim in the output of the
-    last step.
-
-    If you are using a multicluster Tanzu Application Platform topology, create the application workload
-    on the Build cluster.
+    - `WORKLOAD-NAME` is the name of the application workload, for example, `pet-clinic`.
+    - `REFERENCE` is the value of the `CLAIM REF` for the newly created claim from the output of the
+      previous step.

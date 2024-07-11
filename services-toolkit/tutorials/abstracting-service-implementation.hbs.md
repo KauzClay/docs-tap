@@ -10,17 +10,17 @@ the implementations of the backing services without further configuration.
 
 ## <a id="about"></a> About this tutorial
 
-**Target user role**:       Service Operator<br />
+**Target user role**:       Service operator<br />
 **Complexity**:             Medium<br />
 **Estimated time**:         60 minutes<br />
-**Topics covered**:         Classes, Claims, Claim-by-Class, Multi-Cluster<br />
-**Learning outcomes**:      Ability to abstract the implementation (for example, helm, tanzu data service, cloud) of a service (for example, RabbitMQ) across multiple clusters<br />
+**Topics covered**:         Classes, claims, claim-by-class, multicluster<br />
+**Learning outcomes**:      The ability to abstract the implementation (for example, helm, tanzu data service, cloud) of a service (for example, RabbitMQ) across multiple clusters<br />
 
 ## <a id="prereqs"></a> Prerequisites
 
-- Access to three separate Tanzu Application Platform clusters v1.5.0 or later.
-  This tutorial refers to them as `iterate`, `run-test`, and `run-production`, but you can use
-  different names if required.
+Before you can follow this tutorial, you need access to three separate Tanzu Application Platform clusters v1.5.0 or later.
+This tutorial refers to the clusters as `iterate`, `run-test`, and `run-production`, but you can use
+different names if required.
 
 ## <a id="scenario"></a> Scenario
 
@@ -34,14 +34,15 @@ cluster, and then finally to the `run-production` cluster.
 The application development team have asked you for a PostgreSQL service they can use with their
 workloads, which must be available on all three clusters.
 
-You are aware that the service level objectives (SLOs) for each cluster are different and want to
-tailor the implementation of the PostgreSQL service to each of the clusters accordingly.
-The `iterate` cluster has low level SLOs, so you want to offer an unmanaged PostgreSQL service backed by
-simple Helm chart.
-The `run-test` cluster has more robust requirements, so want to offer a PostgreSQL service backed
-by VMware SQL with Postgres for Kubernetes.
-The `run-production` cluster is critically important, so you want to use a fully managed,
-cloud-based PostgreSQL implementation there.
+The service level objectives (SLOs) for each cluster are different, and you want to
+tailor the implementation of the PostgreSQL service to each of the clusters accordingly:
+
+- The `iterate` cluster has low level SLOs, so you want to offer an unmanaged PostgreSQL service backed
+  by a Helm chart.
+- The `run-test` cluster has more robust requirements, so want to offer a PostgreSQL service backed
+  by VMware SQL with Postgres for Kubernetes.
+- The `run-production` cluster is critically important, so you want to use a fully managed,
+  cloud-based PostgreSQL implementation there.
 
 You want to ensure that the differing implementations are completely opaque to development teams.
 They do not need to know about the inner workings of the services, and must be able to keep their
@@ -52,18 +53,18 @@ to make use of them to help you complete your task.
 ## <a id="concepts"></a> Concepts
 
 This section provides a high-level overview of the elements you will use during this tutorial and
-how they all fit together.
+how these elements fit together.
 
 ![Diagram shows a postgres class backed by three different implementations across three clusters.](../../images/stk-psql-class-across-three-clusters.png)
 
 In this diagram:
 
 - There are three clusters: `iterate`, `run-test`, and `run-production`.
-- In each cluster, the service operator creates a `ClusterInstanceClass` called postgres.
+- In each cluster, the service operator creates a `ClusterInstanceClass` called `postgres`.
   - In the `iterate` cluster, this is a provisioner-based class that uses Bitnami Services
     to provision Helm instances of PostgreSQL.
-  - In the `run-test` cluster, this is a provisioner-based class that uses VMware SQL with Postgres for Kubernetes to
-    provision instances of PostgreSQL.
+  - In the `run-test` cluster, this is a provisioner-based class that uses
+    VMware SQL with Postgres for Kubernetes to provision instances of PostgreSQL.
   - In the `run-production` cluster, this is a provisioner-based class that uses Amazon RDS to provision
     instances running in Amazon AWS RDS.
 - The app operator creates a `ClassClaim`. This is applied with a consuming workload.
@@ -80,11 +81,11 @@ Although this tutorial uses provisioner-based classes on all three clusters,
 you can also use a combination of provisioner-based and pool-based classes across the clusters.
 You might want to do this in cases where, for example, you want to allow for
 dynamic provisioning of service instances in the `iterate` cluster, but want to be more considered about
-the approach in the `run-production` cluster where you might want to ensure that workloads only ever
-connect to one specific service instance.
+the approach in the `run-production` cluster to ensure that workloads only connect to a specific
+service instance.
 You can achieve this by using a provisioner-based class on the `iterate` cluster,
 and an identically named pool-based class on the `run-production` cluster that is configured to
-only ever select from a pool that consists of one service instance.
+select from a pool that consists of one service instance.
 
 ## <a id="procedure"></a> Procedure
 
@@ -104,7 +105,7 @@ and complete the steps in the following sections only:
 1. [Create a Composition](../how-to-guides/dynamic-provisioning-tanzu-postgresql.hbs.md#create-composition)
 1. [Configure RBAC](../how-to-guides/dynamic-provisioning-tanzu-postgresql.hbs.md#configure-rbac)
 
-You do not have to do any other sections in that topic.
+You do not need to follow any other sections in that topic.
 
 ### <a id="set-up-run-prod"></a> Step 2: Set up the run-production cluster
 
@@ -119,14 +120,14 @@ and complete the steps in the following sections only:
 1. [Create a Composition](../how-to-guides/dynamic-provisioning-rds.hbs.md#create-composition)
 1. [Configure RBAC](../how-to-guides/dynamic-provisioning-rds.hbs.md#configure-rbac)
 
-You do not have to do any other sections in that topic.
+You do not need to follow any other sections in that topic.
 
 ### <a id="create-class"></a> Step 3: Create the class
 
 The `ClusterInstanceClass` acts as the abstraction fronting the differing service implementations
 across the different clusters.
-You must create a class with the same name on all three of the clusters,
-but the configuration of the class varies slightly on each.
+You must create a class with the same name on all three of the clusters, but the configuration of
+each class will be different.
 The `ClassClaim` refers to classes by name. The fact that the class name remains consistent
 is what allows for the `ClassClaim`, which the application development teams create, to remain unchanged
 as they are promoted across the clusters.
@@ -151,12 +152,10 @@ as they are promoted across the clusters.
     ```
 
     This class refers to the `xpostgresqlinstances.bitnami.database.tanzu.vmware.com`
-    CompositeResourceDefinition.
+    `CompositeResourceDefinition` (XRD).
     This is installed as part of the [Bitnami Services](../../bitnami-services/about.hbs.md) package
     and powers the PostgreSQL service.
-
-    You are reusing the underlying CompositeResourceDefinition from a different class using the
-    class name you want.
+    You are reusing the underlying XRD from a different class using the class name you want.
 
 1. Apply the file to the `iterate` cluster by running:
 
@@ -184,7 +183,7 @@ as they are promoted across the clusters.
     ```
 
     This class is almost identical to the one for the `iterate` cluster, but this class refers
-    to the `xpostgresqlinstances.database.tanzu.example.org` CompositeResourceDefinition.
+    to the `xpostgresqlinstances.database.tanzu.example.org` XRD.
 
 1. Apply the file to the `run-test` cluster by running:
 
@@ -212,7 +211,7 @@ as they are promoted across the clusters.
     ```
 
     This class is almost identical to the previous two, but this class refers to the
-    `xpostgresqlinstances.database.rds.example.org` CompositeResourceDefinition.
+    `xpostgresqlinstances.database.rds.example.org` XRD.
 
 1. Apply the file to the `run-production` cluster by running:
 
@@ -281,9 +280,9 @@ and developer to create the workload and class claim YAML and promote it through
    to a Helm-based PostgreSQL service instance.
    Target the `iterate` cluster then confirm by running:
 
-   ```console
-   helm list -A
-   ```
+    ```console
+    helm list -A
+    ```
 
 1. Apply the `app-with-postgres.yaml` file that you created earlier to the `run-test` cluster.
 
@@ -291,9 +290,9 @@ and developer to create the workload and class claim YAML and promote it through
    PostgreSQL service instance.
    Target the `run-test` cluster then confirm by running:
 
-   ```console
-   kubectl get postgres -n tanzu-psql-service-instances
-   ```
+    ```console
+    kubectl get postgres -n tanzu-psql-service-instances
+    ```
 
 1. Apply the `app-with-postgres.yaml` file that you created earlier to the `run-production` cluster.
 
@@ -301,6 +300,6 @@ and developer to create the workload and class claim YAML and promote it through
    PostgreSQL service instance.
    Target the `run-production` cluster then confirm by running:
 
-  ```console
-  kubectl get RDSInstance -A
-  ```
+    ```console
+    kubectl get RDSInstance -A
+    ```

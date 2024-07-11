@@ -13,7 +13,7 @@ The corresponding Bitnami Helm chart backs each of these services.
 **Complexity**:             Basic<br />
 **Estimated time**:         15 minutes<br />
 **Topics covered**:         Classes, claims, Bitnami<br />
-**Learning outcomes**:      An understanding of how work with the standard services provided by the Bitnami Services package<br />
+**Learning outcomes**:      An understanding of how to work with the standard services provided by the Bitnami Services package<br />
 
 ## <a id="prereqs"></a> Prerequisites
 

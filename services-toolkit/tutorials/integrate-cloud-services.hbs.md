@@ -127,18 +127,7 @@ the network.
 To get started with creating a `Composition`, first read about configuring the composition in the
 [Upbound documentation](https://docs.crossplane.io/v1.11/concepts/composition/#configuring-composition).
 
-You can also see the following `Composition` examples:
-
-- For AWS RDS, see
-  [Define composite resource types (AWS)](https://docs.vmware.com/en/Services-Toolkit-for-VMware-Tanzu-Application-Platform/0.9/svc-tlk/usecases-consuming_aws_rds_with_crossplane.html#def-comp-rsrc-types).
-
-- For Azure Flexible Server, see
-  [Define Composite Resource Types (Azure)](https://docs.vmware.com/en/Services-Toolkit-for-VMware-Tanzu-Application-Platform/0.9/svc-tlk/usecases-consuming_azure_database_with_crossplane.html#define-composite-resource-types-7).
-
-- For GCP Cloud SQL, see
-  [Define Composite Resource Types (GCP)](https://docs.vmware.com/en/Services-Toolkit-for-VMware-Tanzu-Application-Platform/0.9/svc-tlk/usecases-consuming_gcp_sql_with_crossplane.html#define-composite-resource-types-5).
-
-<!-- Maybe the above examples could be moved to the TAP docs so we don't link to the old version of the STK docs -->
+For examples, you can also see [Example Compositions](../reference/example-compositions.hbs.md).
 
 ### <a id="clusterinstanceclass"></a> Step 4: Create a provisioner-based `ClusterInstanceClass`
 

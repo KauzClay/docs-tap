@@ -91,7 +91,7 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
               apt-get update # <-- update download links
               apt-get install -y jq curl # <-- install jq and curl
 
-              if [ ${GATE} -eq "none" ]; then
+              if [ ${GATE} = "none" ]; then
                   exit 0
               fi
             ...
@@ -164,7 +164,7 @@ The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
                 name: metadata-store-access-token
                 key: accessToken
           script: |
-            if [ ${GATE} -eq "none" ]; then
+            if [ ${GATE} = "none" ]; then
                 exit 0
             fi
 
@@ -241,7 +241,7 @@ The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
           apt-get update
           apt-get install -y jq curl
 
-          if [ ${GATE} -eq "none" ]; then
+          if [ ${GATE} = "none" ]; then
               exit 0
           fi
         ...

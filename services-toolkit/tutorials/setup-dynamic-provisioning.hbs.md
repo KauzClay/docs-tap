@@ -25,20 +25,20 @@ Before you can follow this tutorial, you must have:
 
 ## <a id="scenario"></a> Scenario
 
-This tutorial is centered around the following hypothetical scenario.
+This tutorial is centered around the following scenario.
 
 You work at BigCorp and are tasked to provide an on-demand, self-serve RabbitMQ service for BigCorp's
 development teams who are working with Tanzu Application Platform.
-You have already reviewed the RabbitMQ offering that is available with Bitnami Services, but have discovered
-that while it is an excellent service for testing and for quickly getting started,
+You reviewed the RabbitMQ offering that is available with Bitnami Services and discovered
+that it is an excellent service for testing and quickly getting started, but
 it is not quite suitable for BigCorp's stringent and specific needs.
 
-In particular, you must comply with BigCorp's auditing and logging policy, and want to enforce that
+In particular, you must comply with BigCorp's auditing and logging policy. You want to enforce that
 every RabbitMQ cluster in use on the platform adheres to that policy.
-At the same time, you don't want to be a blocker for the application teams and want to offer
+However, you don't want to be a blocker for the application teams and want to offer
 them self-serve access to RabbitMQ whenever they need it, without incurring any untoward delays.
-You have heard great things about Tanzu Application Platform's dynamic provisioning capability, and
-are now looking to make use of it to help you complete your task.
+You have heard about the dynamic provisioning capability in Tanzu Application Platform and
+want to use it to complete your task.
 
 In this tutorial, you learn how to:
 
@@ -64,22 +64,22 @@ The following is a high-level overview of how the system works:
 2. The service operator creates a class pointing to the `CompositeResourceDefinition`.
    This informs application development teams that the service is available.
 3. The service operator applies necessary RBAC to permit the system to
-   create the necessary resources, and to authorize application development teams to create claims
+   create the necessary resources and authorize application development teams to create claims
    for the class.
-4. The application developer creates a claim referring to the class, optionally passing through
+4. The application developer creates a claim referring to the class and optionally passes through
    parameters to override any default configuration where permissible.
-5. The system creates a `CompositeResource`, merging information provided in the claim with default
+5. The system creates a `CompositeResource` that merges information provided in the claim with default
    configuration specified by the system and configuration defined in the `Composition`.
 6. Crossplane reconciles the `CompositeResource` into a service instance and writes credentials for
    the instance into a `Secret`.
-7. The `Secret` is written back to the application developer's namespace, so that application workloads
+7. The `Secret` is written back to the application developer's namespace so that application workloads
    can use it.
 
 As you follow this tutorial, it will address the parts of this diagram in more detail.
 
 ## <a id="procedure"></a> Procedure
 
-The following steps show how to configure dynamic provisioning for a service.
+The following steps show you how to configure dynamic provisioning for a service.
 
 ### <a id="install-operator"></a> Step 1: Install an operator
 
@@ -87,12 +87,12 @@ When adding a new service to Tanzu Application Platform, ensure that there are a
 APIs available in the cluster from which to construct the service instances.
 Usually, this involves installing one or more Kubernetes operators into the cluster.
 
-Given the aim of this tutorial is to set up a new RabbitMQ service, install the RabbitMQ Cluster
+Because the aim of this tutorial is to set up a new RabbitMQ service, install the RabbitMQ Cluster
 Operator for Kubernetes.
 
 > **Note** The steps in this tutorial use the open source version of the operator.
-> For most real-world deployments, VMware recommends using the official, supported version provided
-> by VMware.
+> For most real-world deployments, VMware recommends using the official supported version that VMware
+> provides.
 > For more information, see [VMware RabbitMQ for Kubernetes](https://docs.vmware.com/en/VMware-RabbitMQ-for-Kubernetes/index.html).
 
 Install the Kubernetes operator using the kapp CLI by running:
@@ -101,8 +101,8 @@ Install the Kubernetes operator using the kapp CLI by running:
 kapp -y deploy --app rmq-operator --file https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
 ```
 
-This makes a new API group/version of `rabbitmq.com/v1beta1` and kind named `RabbitmqCluster` available
-in the cluster.
+This makes available in the cluster a new API group/version of `rabbitmq.com/v1beta1` and kind named
+`RabbitmqCluster`.
 You can now use this API to create RabbitMQ cluster instances as part of the dynamic provisioning setup.
 
 ### <a id="create-xrd"></a> Step 2: Create a `CompositeResourceDefinition`
@@ -114,6 +114,8 @@ in the `ClusterInstanceClass` API for Tanzu Application Platform.
 This field references a `CompositeResourceDefinition`, which you create in this step of the procedure.
 The `CompositeResourceDefinition` (XRD) defines the shape of a new, custom API type that encompasses
 the specific set of requirements laid out by the scenario in this tutorial.
+
+To create the `CompositeResourceDefinition`:
 
 1. Configure a `CompositeResourceDefinition` by creating a file named `xrabbitmqclusters.messaging.bigcorp.org.xrd.yaml`
    with the following contents:
@@ -195,9 +197,9 @@ the specific set of requirements laid out by the scenario in this tutorial.
 
 #### <a id="about-xrd"></a> About the `CompositeResourceDefinition`
 
-The following is a condensed explanation of the most relevant parts of the `CompositeResourceDefinition`
-configuration provided in this section as it relates to dynamic provisioning in Tanzu Application Platform.
-For a detailed explanation of `CompositeResourceDefinition` see, the
+The following is a condensed explanation of parts of the `CompositeResourceDefinition` related
+to dynamic provisioning in Tanzu Application Platform.
+For a detailed explanation of `CompositeResourceDefinition`, see the
 [Crossplane documentation](https://docs.crossplane.io/latest/concepts/composite-resource-definitions/).
 
 - **`.spec.claimNames`:**
@@ -213,7 +215,7 @@ For a detailed explanation of `CompositeResourceDefinition` see, the
 
     This field detects the keys that will exist in the `Secret` resulting from the dynamic provisioning
     request. You likely want this `Secret` to conform to the
-    [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec),
+    [Service Binding Specification for Kubernetes](https://github.com/servicebinding/spec)
     because this helps to enable application workloads in Tanzu Application Platform to automatically
     configure service instances.
     This is assumes that the application is using a binding-aware library such as
@@ -222,11 +224,10 @@ For a detailed explanation of `CompositeResourceDefinition` see, the
 
 - **`.spec.properties`:**
 
-    Finally, see the `.spec.properties` section in the schema for `v1alpha1`.
-    This is where you, as the service operator, can set which configuration options you want to expose
-    to application development teams.
+    The `.spec.properties` section in the schema for `v1alpha1` is where you, as the service operator,
+    can set which configuration options you want to expose to application development teams.
     In the example in this section, there are two configuration options: `replicas` and `storageGB`.
-    By adding these properties to the specification, you give the development teams control over these
+    By adding these properties to the specification, you give development teams control over these
     configuration options.
     For example, you might want to add `storageGB` if the development teams have more knowledge about
     how much storage their apps require than you do. By adding `storageGB` you can allow them to decide
@@ -236,23 +237,23 @@ For a detailed explanation of `CompositeResourceDefinition` see, the
     You can also choose to set default values. In highly regulated environments, you might not want to
     allow for any configuration by developers at all.
 
-In the scenario at the beginning of this tutorial, it says that you must comply with the auditing
-and logging policy.
-You do not specify any configuration related to auditing or logging in the XRD in this step.
-This is intentional because in this scenario there are strict auditing and logging requirements and cannot
-permit developers to override those.
-In the next step you learn how to ensure that those requirements get enforced on the resulting
-RabbitMQ clusters.
+    In the scenario at the beginning of this tutorial, it says that you must comply with the auditing
+    and logging policy.
+    You do not specify any configuration related to auditing or logging in the XRD in this step.
+    This is intentional because in this scenario there are strict auditing and logging requirements and
+    cannot permit developers to override those.
+    In the next step you learn how to ensure that those requirements get enforced on the resulting
+    RabbitMQ clusters.
 
 ### <a id="create-composition"></a> Step 3: Create a Crossplane `Composition`
 
 You do most of the configuration for dynamic provisioning when you create the `Composition`.
-
+This section has the basics you must know to start to create a `Composition` for use in
+Tanzu Application Platform.
 For a more detailed explanation about the `Composition`, see the
 [Crossplane documentation](https://docs.crossplane.io/latest/concepts/composition/).
 
-The following are the basics you must know to start to create a `Composition` for use in
-Tanzu Application Platform.
+To create the `Composition`:
 
 1. Configure a `Composition` by creating a file named `xrabbitmqclusters.messaging.bigcorp.org.composition.yaml`
    with the following contents:
@@ -429,10 +430,10 @@ Tanzu Application Platform.
 
 The following is a condensed explanation of the most relevant parts of the `Composition`.
 
-##### **About `.spec.compositeTypeRef`**
+##### **About .spec.compositeTypeRef**
 
 The `.spec.compositeTypeRef` is configured to refer to `XRabbitmqCluster` on the
-`messaging.bigcorp.org/v1alpha1` API group and version.
+`messaging.bigcorp.org/v1alpha1` API group/version.
 
 ```yaml
 ...
@@ -449,36 +450,35 @@ By configuring `.spec.compositeTypeRef` to refer to this API, you are instructin
 to use the configuration contained within this `Composition` to compose subsequent managed resources
 whenever it observes that a new `XRabbitmqCluster` resource is created in the cluster.
 Tanzu Application Platform's dynamic provisioning system creates the `XRabbitmqCluster` resources automatically.
-To visualize how these pieces fit together, see the diagram in the [Concepts](#concepts) section.
+To visualize how these pieces fit together, see the diagram in [Concepts](#concepts) earlier.
 
-##### **About `.spec.resources`**
+##### **About .spec.resources**
 
 The `.spec.resources` section is where you specify the managed resources to be created.
-Managed resources are tied to Crossplane's `Providers`, with each `Provider` defining a set of managed
-resources which can then be used in compositions.
-Tanzu Application Platform includes two `Providers` with the Crossplane package:
+Managed resources are tied to Crossplane's providers. Each provider defines a set of managed
+resources that can then be used in compositions.
+Tanzu Application Platform includes two providers with the Crossplane package:
 [provider-helm](https://github.com/crossplane-contrib/provider-helm) and
 [provider-kubernetes](https://github.com/crossplane-contrib/provider-kubernetes).
-This makes a `Release` managed resource available that manages Helm releases, and makes an `Object`
-manages resource available that manages arbitrary Kubernetes resources.
+This makes a `Release` managed resource available that manages Helm releases. It also makes an `Object`
+managed resource available that manages arbitrary Kubernetes resources.
 
-You can install and use any other `Provider`.
+You can install and use any other provider.
 To find the latest providers, see the [Upbound Marketplace](https://marketplace.upbound.io/providers).
 The more providers you install, the more managed resources you can choose from in your compositions.
 
-##### **The `Object` managed resource**
+##### **The Object managed resource**
 
-The overarching goal is to compose whatever resources are necessary to create functioning, usable
-service instances and to surface the credentials and connectivity information required to connect to
-those instances in a known and repeatable way.
+The goal is to compose the resources required to create service instances and to surface the credentials
+and connectivity information required to connect to those instances in a known and repeatable way.
 This tutorial uses the `RabbitmqCluster` resource, which presents one single API to use to create
-fully functioning RabbitMQ clusters, credentials for which get stored in `Secrets` in the cluster.
+fully functioning RabbitMQ clusters with credentials stored in `Secrets` in the cluster.
 
 However, `RabbitmqCluster` is not a Crossplane managed resource so you cannot refer to this resource
 directly under `.spec.resources`.
 To work around this, use `provider-kubernetes` and its corresponding `Object` managed resource.
 `Object` enables you to wrap any arbitrary Kubernetes resource, such as `RabbitmqCluster`, into a
-Crossplane managed resource and to then use them like any other managed resource inside `Compositions`.
+Crossplane managed resource and then to use them like any other managed resource inside `Compositions`.
 
 ```yaml
 ...
@@ -520,7 +520,7 @@ spec:
 ```
 
 The `Object` managed resource is where you configure `RabbitmqCluster` resources.
-This is the place in which you can now fine-tune the configuration of  the RabbitMQ Clusters to
+This is the place where you can fine-tune the configuration of the RabbitMQ clusters to
 your needs.
 
 The scenario mentions that you are particularly concerned about your company's logging policy.
@@ -530,7 +530,7 @@ This was taken from [one of the examples](https://github.com/rabbitmq/cluster-op
 in the RabbitMQ Cluster Operator GitHub repository.
 You can configure the resource however you want and to whatever requirements necessary.
 
-##### **The `patches` section**
+##### **The patches section**
 
 The `Object` also sets default values for the number of replicas and the amount of persistent storage
 for new `RabbitmqClusters` to one replica and 1&nbsp;Gi.
@@ -547,8 +547,7 @@ patches:
 ...
 ```
 
-The first thing to note is that all the patches are of type `FromCompositeFieldPath`,
-which allows you to take values
+All of the patches are of type `FromCompositeFieldPath`, which allows you to take values
 defined on the composite resource (`XRabbitmqCluster` in this case) and to pass them through to the
 underlying managed resource (an `Object` wrapping `RabbitmqCluster` in this case).
 The first patch sets the name of the `RabbitmqCluster` to the same name as the name of the composite
@@ -603,7 +602,7 @@ The `connectionDetails` sections are where you configure which keys and values t
 resulting `Secret`.
 You must specify the same set of keys as defined in the original XRD.
 
-##### **The `readinessChecks` section**
+##### **The readinessChecks section**
 
 Configuring readiness checks helps to keep consumers of dynamic provisioning, that is,
 the application teams, informed about when the resulting service instances are ready for application
@@ -662,6 +661,8 @@ After creating the XRD and the `Composition`, you must integrate what you config
 Tanzu Application Platform's classes and claims model so that application teams can use it.
 The first step is to create a provisioner-based class and to point it at the XRD you created.
 
+To create the provisioner-based class:
+
 1. Configure a `ClusterInstanceClass` by creating a file named `bigcorp-rabbitmq.class.yaml` with the
    following contents:
 
@@ -701,24 +702,26 @@ There are two parts of RBAC to consider when you set up a new service for dynami
 Tanzu Application Platform.
 
 The first relates to granting permissions to the providers used in the compositions.
-The `Composition` created earlier uses `Object` managed resources ultimately to create
+The `Composition` created earlier uses `Object` managed resources to create
 `RabbitmqCluster` resources.
 Therefore, you must grant `provider-kubernetes` permission to create `RabbitmqCluster` resources.
-You can do this by using an aggregating `ClusterRole` as follows.
+You do this by using an aggregating `ClusterRole`.
 
 The second RBAC element detects who is authorized to use the new service.
-This is an important piece of configuration.
-You are configuring an on-demand service and making it available to application teams.
+This is important because you are configuring an on-demand service and making it available to
+application teams.
 Without any other supporting policy in place, application teams can create as many `RabbitmqClusters`
-as they like. This is of course the whole point of an on-demand service, but you must be conscious of
-resource use, and might want to control who can create new service instances on-demand.
+as they like. However, you must be conscious of resource use and might want to control who can
+create new service instances on-demand.
 
-You can grant authorization by using standard Kubernetes RBAC resources.
+You grant authorization by using standard Kubernetes RBAC resources.
 Dynamic provisioning uses a custom RBAC verb, `claim`, which you can apply to classes to
-permit claiming from classes.
+permit claiming from them.
+
+To configure RBAC:
 
 1. Configure a `ClusterRole` that grants permissions to the providers used in the compositions by
-   creating a file named `provider-kubernetes-rmqcluster-read-writer.rbac.yaml` with the following contents.
+   creating a file named `provider-kubernetes-rmqcluster-read-writer.rbac.yaml` with the following contents:
 
     ```yaml
     # provider-kubernetes-rmqcluster-read-writer.rbac.yaml
@@ -745,11 +748,11 @@ permit claiming from classes.
     kubectl apply -f provider-kubernetes-rmqcluster-read-writer.rbac.yaml
     ```
 
-    While not necessary here, a corresponding label `services.tanzu.vmware.com/aggregate-to-provider-helm: "true"`
-    exists for aggregating RBAC permissions to `provider-helm` as well.
+    > **Note** While not necessary here, a corresponding label `services.tanzu.vmware.com/aggregate-to-provider-helm: "true"`
+    > exists for aggregating RBAC permissions to `provider-helm` as well.
 
 1. Configure a `ClusterRole` to authorize who can use the service by creating a file
-   named `app-operator-claim-class-bigcorp-rabbitmq.rbac.yaml` with the following contents.
+   named `app-operator-claim-class-bigcorp-rabbitmq.rbac.yaml` with the following contents:
 
     ```yaml
     # app-operator-claim-class-bigcorp-rabbitmq.rbac.yaml
@@ -783,12 +786,14 @@ permit claiming from classes.
 
 ### <a id="verify"></a> Step 6: Verify your configuration
 
-To test your configuration, create a claim for the class and thereby trigger the dynamic provisioning
+To test your configuration, create a claim for the class to trigger the dynamic provisioning
 of a new RabbitMQ cluster.
 This step is usually performed by the application operator, rather than the service operator, but
 it is important that you confirm that everything is configured correctly.
 
-1. Create `ClassClaim` by creating a file named `bigcorp-rmq-1.claim.yaml` with the following contents:
+To create the claim:
+
+1. Create a `ClassClaim` by creating a file named `bigcorp-rmq-1.claim.yaml` with the following contents:
 
     ```yaml
     # bigcorp-rmq-1.claim.yaml

@@ -24,31 +24,31 @@ different names if required.
 
 ## <a id="scenario"></a> Scenario
 
-The tutorial is centered around the following hypothetical, but somewhat realistic, real-world scenario.
+This tutorial is centered around the following scenario.
 
 You work at BigCorp as a service operator.
 BigCorp uses three separate Tanzu Application Platform clusters: `iterate`, `run-test`, and
 `run-production`.
 Application workloads begin on the `iterate` cluster, before being promoted to the `run-test`
 cluster, and then finally to the `run-production` cluster.
-The application development team have asked you for a PostgreSQL service they can use with their
-workloads, which must be available on all three clusters.
+The application development team have asked you for a PostgreSQL service to use with their
+workloads that is available on all three clusters.
 
-The service level objectives (SLOs) for each cluster are different, and you want to
+The service level objectives (SLOs) for each cluster are different. You want to
 tailor the implementation of the PostgreSQL service to each of the clusters accordingly:
 
 - The `iterate` cluster has low level SLOs, so you want to offer an unmanaged PostgreSQL service backed
   by a Helm chart.
 - The `run-test` cluster has more robust requirements, so want to offer a PostgreSQL service backed
   by VMware SQL with Postgres for Kubernetes.
-- The `run-production` cluster is critically important, so you want to use a fully managed,
-  cloud-based PostgreSQL implementation there.
+- The `run-production` cluster is critically important, so you want to use a fully managed and
+  cloud-based PostgreSQL implementation.
 
 You want to ensure that the differing implementations are completely opaque to development teams.
-They do not need to know about the inner workings of the services, and must be able to keep their
+They do not need to know about the inner workings of the services and must be able to keep their
 workloads and class claims the same as they are promoted across clusters.
-You have heard great things about Tanzu Application Platform's claims and classes abstractions and want
-to make use of them to help you complete your task.
+You want to use the claims and classes abstractions in Tanzu Application Platform to complete
+your task.
 
 ## <a id="concepts"></a> Concepts
 
@@ -61,12 +61,12 @@ In this diagram:
 
 - There are three clusters: `iterate`, `run-test`, and `run-production`.
 - In each cluster, the service operator creates a `ClusterInstanceClass` called `postgres`.
-  - In the `iterate` cluster, this is a provisioner-based class that uses Bitnami Services
+  - In the `iterate` cluster, `postgres` is a provisioner-based class that uses Bitnami Services
     to provision Helm instances of PostgreSQL.
-  - In the `run-test` cluster, this is a provisioner-based class that uses
+  - In the `run-test` cluster, `postgres` is a provisioner-based class that uses
     VMware SQL with Postgres for Kubernetes to provision instances of PostgreSQL.
-  - In the `run-production` cluster, this is a provisioner-based class that uses Amazon RDS to provision
-    instances running in Amazon AWS RDS.
+  - In the `run-production` cluster, `postgres` is a provisioner-based class that uses Amazon RDS to
+    provision instances running in Amazon AWS RDS.
 - The app operator creates a `ClassClaim`. This is applied with a consuming workload.
   - When it is applied in `iterate` it resolves to a Helm chart instance.
   - When it is promoted to `run-test` it resolves to a VMware PostgreSQL instance.
@@ -129,8 +129,10 @@ across the different clusters.
 You must create a class with the same name on all three of the clusters, but the configuration of
 each class will be different.
 The `ClassClaim` refers to classes by name. The fact that the class name remains consistent
-is what allows for the `ClassClaim`, which the application development teams create, to remain unchanged
-as they are promoted across the clusters.
+is what allows for the `ClassClaim`, which the application development team creates, to remain unchanged
+as it is promoted across the clusters.
+
+To create the class:
 
 1. Configure a `ClusterInstanceClass` for the `iterate` cluster by creating a file named
    `postgres.class.iterate-cluster.yaml` with the following contents:
@@ -224,6 +226,8 @@ as they are promoted across the clusters.
 After configuring the clusters and classes, switch roles from service operator to application operator
 and developer to create the workload and class claim YAML and promote it through the three clusters.
 
+To create and promote the workload and class claim:
+
 1. Create a `ClassClaim` by creating a file named `app-with-postgres.yaml` with the following contents:
 
     ```yaml
@@ -270,7 +274,7 @@ and developer to create the workload and class claim YAML and promote it through
             tag: tap-1.2
     ```
 
-1. Apply the file to the `iterate` cluster:
+1. Apply the `app-with-postgres.yaml` file to the `iterate` cluster by running:
 
     ```console
     kubectl apply -f app-with-postgres.yaml
@@ -284,7 +288,11 @@ and developer to create the workload and class claim YAML and promote it through
     helm list -A
     ```
 
-1. Apply the `app-with-postgres.yaml` file that you created earlier to the `run-test` cluster.
+1. Apply the `app-with-postgres.yaml` file to the `run-test` cluster by running:
+
+    ```console
+    kubectl apply -f app-with-postgres.yaml
+    ```
 
 1. Wait for the workload to become ready and then confirm that the workload is bound to a Tanzu-based
    PostgreSQL service instance.
@@ -294,7 +302,11 @@ and developer to create the workload and class claim YAML and promote it through
     kubectl get postgres -n tanzu-psql-service-instances
     ```
 
-1. Apply the `app-with-postgres.yaml` file that you created earlier to the `run-production` cluster.
+1. Apply the `app-with-postgres.yaml` file to the `run-production` cluster by running:
+
+    ```console
+    kubectl apply -f app-with-postgres.yaml
+    ```
 
 1. Wait for the workload to become ready and then confirm that the workload is bound to a RDS-based
    PostgreSQL service instance.

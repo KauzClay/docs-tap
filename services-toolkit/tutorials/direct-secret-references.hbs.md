@@ -7,7 +7,7 @@ This includes backing services that:
 
 - Run external to Tanzu Application Platform
 - Do not adhere to [ProvisionedService](https://github.com/servicebinding/spec#provisioned-service)
-in the Service Binding Specification for Kubernetes in GitHub.
+in the Service Binding Specification for Kubernetes.
 
 If you are familiar with Cloud Foundry and Tanzu Application Service, this capability is
 similar to the concept of user-provided service instances.
@@ -15,7 +15,7 @@ For more information about user-provided service instances in Cloud Foundry, see
 [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/services/user-provided.html).
 
 This tutorial demonstrates a procedure to bind a new application on Tanzu Application Platform
-to an existing PostgreSQL database that exists in Azure.
+to a PostgreSQL database in Azure.
 However, the steps are applicable to any backing service that you want to connect to.
 
 ## <a id="about"></a> About this tutorial
@@ -63,7 +63,7 @@ Before you can follow this tutorial, you must have:
     Substitute in the values as required.
 
     When using direct secret references, the `Secret` values must follow the
-    [Well-known Secret Entries specifications](https://github.com/servicebinding/spec#well-known-secret-entries)
+    [Well-known Secret Entries specification](https://github.com/servicebinding/spec#well-known-secret-entries)
     as defined by the Service Binding Specification for Kubernetes.
     If you plan to bind this secret to a Spring-based application workload and want to take
     advantage of the auto-wiring feature, this `Secret` must also contain the properties required by

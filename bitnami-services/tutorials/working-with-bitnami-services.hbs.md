@@ -19,13 +19,13 @@ The corresponding Bitnami Helm chart backs each of these services.
 
 To follow this tutorial, you must have:
 
-- Access to a Tanzu Application Platform cluster v1.5.0 or later
-- Installed the Tanzu services CLI plug-in v0.6.0 or later
+- Access to a Tanzu Application Platform cluster v1.5.0 or later.
+- Installed the Tanzu services CLI plug-in v0.6.0 or later.
 
 ## <a id="concepts"></a> Concepts
 
 The following diagram provides an overview of the elements you will use during this tutorial and
-how they all fit together.
+how these elements fit together.
 
 ![Diagram shows a high-level overview of the Bitnami Services that are available in the Bitnami services package.](../../images/stk-dynamic-provisioning-bitnami-services.png)
 
@@ -45,7 +45,7 @@ In this diagram:
 
 The following steps explain how to work with Bitnami Services.
 
-### <a id="discovery"></a> Step 1: Discover services
+### <a id="discovery"></a> Step 1: Discover the services
 
 1. Application teams can discover the range of available services by running:
 
@@ -98,10 +98,12 @@ The following steps explain how to work with Bitnami Services.
     You can also see that it is not required to pass this parameter when creating a claim for the class,
     in which case the default value of `1` is used.
 
-### <a id="claiming"></a> Step 2: Claim services
+### <a id="claiming"></a> Step 2: Claim a service
 
-In this example, you have an application workload that requires a PostgreSQL database to function correctly.
-You can claim the PostgreSQL Bitnami Service to obtain such a database.
+In this example you have an application workload that requires a PostgreSQL database to function correctly.
+You can claim the PostgreSQL Bitnami service to obtain such a database.
+
+To claim a PostgreSQL service:
 
 1. Create the namespace `dev-team-1` by running:
 
@@ -111,8 +113,8 @@ You can claim the PostgreSQL Bitnami Service to obtain such a database.
 
 1. Create a claim for the `postgresql-unmanaged` class.
 
-   In the following command, you are also choosing to override the default value of `1` for the `storageGB`
-   parameter, setting it instead to `3`. You can override any of the options.
+   The following command also overrides the default value of `1` for the `storageGB`
+   parameter by setting it to `3`. You can override any of the options.
 
     ```console
     tanzu service class-claim create psql-1 \
@@ -154,18 +156,20 @@ You can claim the PostgreSQL Bitnami Service to obtain such a database.
         Kind: Secret
     ```
 
-    It might take a moment or two before the claim reports `Ready: True`.
+    Wait for the claim to report `Ready: True`.
 
 After the claim is ready, you then have a successful claim for a PostgreSQL database configured to
 your needs with 3&nbsp;GB of storage.
 
 ### <a id="binding"></a> Step 3: Bind the claim to a workload
 
-After creating the claim, you can bind it to one or more of your application workloads.
+After creating the service claim, you can bind it to one or more of your application workloads.
 
 > **Important** If you are binding to more than one application workload, all application workloads
 > must exist in the same namespace. This is a known limitation. For more information, see
 > [Cannot claim and bind to the same service instance from across multiple namespaces](../../services-toolkit/reference/known-limitations.hbs.md#multi-workloads).
+
+To bind the claim to your workload:
 
 1. Find the reference for the claim by running:
 
@@ -175,7 +179,7 @@ After creating the claim, you can bind it to one or more of your application wor
 
     The reference is in the output under the heading `Claim Reference`.
 
-1. Bind the claim to a workload of your choice by passing the reference for the claim to the `--service-ref`
+1. Bind the claim to your workload by passing the reference for the claim to the `--service-ref`
    flag of the `tanzu apps workload create` command. For example:
 
     ```console

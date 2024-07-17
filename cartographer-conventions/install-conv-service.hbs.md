@@ -146,7 +146,7 @@ To install Source Controller:
            | directories:
            | - contents:
            |   - imgpkgBundle:
-           |       image: registry.tanzu.vmware.com/tanzu-application-platform/constellation/cartographer.conventions.apps.tanzu.vmware.com@sha256:c4bc900b883537f168f64ac6b725751752bcbe5cb522cd75abde96a1aa9cbfd5
+           |       image: tanzu.packages.broadcom.com/tanzu-application-platform/constellation/cartographer.conventions.apps.tanzu.vmware.com@sha256:c4bc900b883537f168f64ac6b725751752bcbe5cb522cd75abde96a1aa9cbfd5
            |     path: .
            |   path: "0"
            | kind: LockConfig

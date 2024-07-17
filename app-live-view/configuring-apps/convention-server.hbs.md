@@ -89,7 +89,7 @@ spec:
         carto.run/workload-name: steeltoe-app
     spec:
       containers:
-      - image: dev.registry.tanzu.vmware.com/app-live-view/test/steeltoe-app-default@sha256:c8ea14d8714ec31ad978085ebff43d15679613a0c12df37812adf22cb47b5232
+      - image: registry.example.com/app-live-view/test/steeltoe-app-default@sha256:c8ea14d8714ec31ad978085ebff43d15679613a0c12df37812adf22cb47b5232
         name: workload
         resources: {}
         securityContext:
@@ -128,7 +128,7 @@ status:
         tanzu.app.live.view.application.name: steeltoe-app
     spec:
       containers:
-      - image: dev.registry.tanzu.vmware.com/app-live-view/test/steeltoe-app-default@sha256:c8ea14d8714ec31ad978085ebff43d15679613a0c12df37812adf22cb47b5232
+      - image: registry.example.com/app-live-view/test/steeltoe-app-default@sha256:c8ea14d8714ec31ad978085ebff43d15679613a0c12df37812adf22cb47b5232
         name: workload
         resources: {}
         securityContext:

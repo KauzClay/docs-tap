@@ -106,7 +106,7 @@ spec:
         carto.run/workload-name: tanzu-java-web-app-prometheus-without-annotations
     spec:
       containers:
-      - image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-default@sha256:552c7f86b410b700716c709742434e0ea9e022934bc4fe66a5bb12a5241ea644
+      - image: registry.example.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-default@sha256:552c7f86b410b700716c709742434e0ea9e022934bc4fe66a5bb12a5241ea644
         name: workload
         resources: {}
         securityContext:
@@ -173,7 +173,7 @@ status:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true"
             -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-default@sha256:552c7f86b410b700716c709742434e0ea9e022934bc4fe66a5bb12a5241ea644
+        image: registry.example.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-default@sha256:552c7f86b410b700716c709742434e0ea9e022934bc4fe66a5bb12a5241ea644
         livenessProbe:
           httpGet:
             path: /livez
@@ -256,7 +256,7 @@ spec:
         carto.run/workload-name: tanzu-java-web-app-prometheus-without-annotations-auto-configure-actuators
     spec:
       containers:
-      - image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-auto-configure-actuators-default@sha256:25bac27dd331267a48eda30dfb7d9f96294ec88ce225a4294c7d2377f6765ee0
+      - image: registry.example.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-auto-configure-actuators-default@sha256:25bac27dd331267a48eda30dfb7d9f96294ec88ce225a4294c7d2377f6765ee0
         name: workload
         resources: {}
         securityContext:
@@ -326,7 +326,7 @@ status:
             -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include="*"
             -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081"
             -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-auto-configure-actuators-default@sha256:25bac27dd331267a48eda30dfb7d9f96294ec88ce225a4294c7d2377f6765ee0
+        image: registry.example.com/app-live-view/test/tanzu-java-web-app-prometheus-without-annotations-auto-configure-actuators-default@sha256:25bac27dd331267a48eda30dfb7d9f96294ec88ce225a4294c7d2377f6765ee0
         livenessProbe:
           httpGet:
             path: /livez

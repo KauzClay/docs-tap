@@ -137,7 +137,7 @@ To configure service accounts and registry credentials, SCST - Scan 2.0 requires
 
 | Registry | Permission | Service Account | Example |
 |:--- |:--- |:--- |:--- |
-| Tanzu Application Platform bundles registry| Read | scanner | `registry.tanzu.vmware.com` |
+| Tanzu Application Platform bundles registry| Read | scanner | `tanzu.packages.broadcom.com` |
 | Target image registry | Read | scanner | `your-registry.io` |
 | Vulnerability scanner image registry | Read | scanner | `your-registry.io` |
 | Scan results location registry | Write | publisher | `your-registry.io` |

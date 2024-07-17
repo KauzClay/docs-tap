@@ -167,25 +167,25 @@ chain that you want to apply the modification to is `source-to-url` provided by 
    For example:
 
    ```console
-   registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:f2ad401bb3e850940...
+   tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages@sha256:f2ad401bb3e850940...
    ```
 
 2. Pull the contents of the bundle into a directory named `ootb-supply-chain-basic`:
 
    ```console
    imgpkg pull \
-     -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:f2ad401bb3e850940... \
+     -b tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages@sha256:f2ad401bb3e850940... \
      -o ootb-supply-chain-basic
    ```
 
    For example:
 
    ```console
-   Pulling bundle 'registry.tanzu.vmware.com/tanzu-...
+   Pulling bundle 'tanzu.packages.broadcom.com/tanzu-...
      Extracting layer 'sha256:542f2bb8eb946fe9d2c8a...
 
    Locating image lock file images...
-   The bundle repo (registry.tanzu.vmware.com/tanzu...
+   The bundle repo (tanzu.packages.broadcom.com/tanzu...
 
    Succeeded
    ```
@@ -284,25 +284,25 @@ provides a template for creating `kpack/Image`s to hardcode an environment varia
    For example:
 
    ```console
-   registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:a5e177f38d7287f2ca7ee2afd67ff178645d8f1b1e47af4f192a5ddd6404825e
+   tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages@sha256:a5e177f38d7287f2ca7ee2afd67ff178645d8f1b1e47af4f192a5ddd6404825e
    ```
 
 1. Pull the contents of the bundle into a directory named `ootb-templates`:
 
    ```console
    imgpkg pull \
-     -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:a5e177f38d7.. \
+     -b tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages@sha256:a5e177f38d7.. \
      -o ootb-templates
    ```
 
    For example:
 
    ```console
-   Pulling bundle 'registry.tanzu.vmware.com/tanzu-...
+   Pulling bundle 'tanzu.packages.broadcom.com/tanzu-...
      Extracting layer 'sha256:a5e177f38d7...
 
    Locating image lock file images...
-   The bundle repo (registry.tanzu.vmware.com/tanzu...
+   The bundle repo (tanzu.packages.broadcom.com/tanzu...
 
    Succeeded
    ```

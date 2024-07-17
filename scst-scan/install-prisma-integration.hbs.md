@@ -47,14 +47,14 @@ only.
 
 For information about supported registries, see each registry's documentation.
 
-To relocate images from the VMware Project Registry to your registry:
+To relocate images from the Broadcom registry to your registry:
 
 1. Set up environment variables for installation:
 
    ```console
-   export IMGPKG_REGISTRY_HOSTNAME_0=registry.tanzu.vmware.com
-   export IMGPKG_REGISTRY_USERNAME_0=MY-TANZUNET-USERNAME
-   export IMGPKG_REGISTRY_PASSWORD_0=MY-TANZUNET-PASSWORD
+   export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
+   export IMGPKG_REGISTRY_USERNAME_0=MY-USERNAME
+   export IMGPKG_REGISTRY_PASSWORD_0=MY-PASSWORD
    export INSTALL_REGISTRY_USERNAME=MY-REGISTRY-USER
    export INSTALL_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
    export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY

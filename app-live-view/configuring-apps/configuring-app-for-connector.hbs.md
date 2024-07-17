@@ -71,7 +71,7 @@ To verify the label:
     ```console
     kubectl get builds
     NAME                         IMAGE                                                                                                                                                 SUCCEEDED
-    spring-petclinic-build-1     dev.registry.tanzu.vmware.com/app-live-view/test/spring-petclinic-default@sha256:9db2a8a8e77e9215239431fd8afe3f2ecdf09cce8afac565dad7b5f0c5ac0cdf     True
+    spring-petclinic-build-1     registry.example.com/app-live-view/test/spring-petclinic-default@sha256:9db2a8a8e77e9215239431fd8afe3f2ecdf09cce8afac565dad7b5f0c5ac0cdf     True
     ```
 
 1. Verify the PodIntent of your workload by ensuring `status.template.metadata.labels`

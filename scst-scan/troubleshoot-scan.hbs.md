@@ -245,7 +245,7 @@ If a private image scan is triggered and the secret is not configured, the scan 
 `step-scan-plugin` container fails with the following error:
 
 ```console
-Error: GET https://dev.registry.tanzu.vmware.com/v2/vse-dev/spring-petclinic/manifests/sha256:128e38c1d3f10401a595c253743bee343967c81e8f22b94e30b2ab8292b3973f: \
+Error: GET https://tanzu.packages.broadcom.com/v2/vse-dev/spring-petclinic/manifests/sha256:128e38c1d3f10401a595c253743bee343967c81e8f22b94e30b2ab8292b3973f: \
 UNAUTHORIZED: unauthorized to access repository: vse-dev/spring-petclinic, action: pull: unauthorized to access repository: vse-dev/spring-petclinic, action: pull
 ```
 

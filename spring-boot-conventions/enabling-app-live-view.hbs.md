@@ -81,7 +81,7 @@ spec:
         carto.run/workload-name: tanzu-java-web-app
     spec:
       containers:
-      - image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-java-web-app-default@sha256:444686bb8bfbaba5552676140619b00f43c8f85b6823b87676c0ccdcdead65ac
+      - image: registry.example.com/app-live-view/test/tanzu-java-web-app-default@sha256:444686bb8bfbaba5552676140619b00f43c8f85b6823b87676c0ccdcdead65ac
         name: workload
         resources: {}
         securityContext:
@@ -137,7 +137,7 @@ status:
             -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include="*"
             -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081"
             -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-java-web-app-default@sha256:444686bb8bfbaba5552676140619b00f43c8f85b6823b87676c0ccdcdead65ac
+        image: registry.example.com/app-live-view/test/tanzu-java-web-app-default@sha256:444686bb8bfbaba5552676140619b00f43c8f85b6823b87676c0ccdcdead65ac
         livenessProbe:
           httpGet:
             path: /livez
@@ -203,7 +203,7 @@ spec:
         carto.run/workload-name: tanzu-scg-web-app
     spec:
       containers:
-      - image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-scg-web-app-default@sha256:7656f4ca56b7d0d6376b374643d6ac09c8cdcdbcc13d065f9224651b12724d0b
+      - image: registry.example.com/app-live-view/test/tanzu-scg-web-app-default@sha256:7656f4ca56b7d0d6376b374643d6ac09c8cdcdbcc13d065f9224651b12724d0b
         name: workload
         resources: {}
         securityContext:
@@ -260,7 +260,7 @@ status:
             -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include="*"
             -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081"
             -Dserver.port="8080"
-        image: dev.registry.tanzu.vmware.com/app-live-view/test/tanzu-scg-web-app-default@sha256:7656f4ca56b7d0d6376b374643d6ac09c8cdcdbcc13d065f9224651b12724d0b
+        image: registry.example.com/app-live-view/test/tanzu-scg-web-app-default@sha256:7656f4ca56b7d0d6376b374643d6ac09c8cdcdbcc13d065f9224651b12724d0b
         livenessProbe:
           httpGet:
             path: /livez

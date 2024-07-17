@@ -1,6 +1,6 @@
 # Uninstall your Tanzu Application Platform by using Tanzu CLI
 
-This document tells you how to uninstall Tanzu Application Platform (commonly known as TAP) 
+This document tells you how to uninstall Tanzu Application Platform (commonly known as TAP)
 packages from your Tanzu Application Platform package repository by using Tanzu CLI.
 
 To uninstall Tanzu Application Platform:
@@ -12,14 +12,14 @@ To uninstall Tanzu Application Platform:
 
 ## <a id='del-packages'></a> Delete the packages
 
-- If you installed Tanzu Application Platform through predefined profiles, 
+- If you installed Tanzu Application Platform through predefined profiles,
 delete the `tap` metadata package by running:
 
     ```console
     tanzu package installed delete tap --namespace tap-install
     ```
 
-- If you installed any additional packages that were not in the predefined profiles, 
+- If you installed any additional packages that were not in the predefined profiles,
 delete the individual packages by running:
 
     1. List the installed packages by running:
@@ -46,7 +46,7 @@ delete the individual packages by running:
         | Deleting admin role 'cloud-native-runtimes-tap-install-cluster-role'
         | Deleting role binding 'cloud-native-runtimes-tap-install-cluster-rolebinding'
         | Deleting secret 'cloud-native-runtimes-tap-install-values'
-        / Deleting service account 'cloud-native-runtimes-tap-install-sa'    
+        / Deleting service account 'cloud-native-runtimes-tap-install-sa'
 
          Uninstalled package 'cloud-native-runtimes' from namespace 'tap-install'
         ```
@@ -71,7 +71,7 @@ To delete the Tanzu Application Platform package repository:
     $ tanzu package repository list --namespace tap-install
     - Retrieving repositories...
       NAME                  REPOSITORY                                                         STATUS               DETAILS
-      tanzu-tap-repository  registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:0.2.0  Reconcile succeeded
+      tanzu-tap-repository  tanzu.packages.broadcom.com/tanzu-application-platform/tap-packages:0.2.0  Reconcile succeeded
     ```
 
 2. Remove the Tanzu Application Platform package repository by running:
@@ -109,7 +109,7 @@ To completely remove the Tanzu CLI, plug-ins, and associated files, run the scri
 + Uninstall tanzu cli installed using package manager:
 
     + On mac:
-    
+
         ```console
         brew uninstall vmware-tanzu/tanzu/tanzu-cli
         ```

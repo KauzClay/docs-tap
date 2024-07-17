@@ -372,7 +372,7 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
         params:
           - name: registry
             default:
-              server: dev.registry.tanzu.vmware.com
+              server: tanzu.packages.broadcom.com
               repository: tanzu-image-signing/test-policy
         images:
           - resource: image-provider

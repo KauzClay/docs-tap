@@ -74,7 +74,7 @@ $ tanzu package install app-live-view -p appliveview.tanzu.vmware.com -v 0.1.0 -
 
 Error: package reconciliation failed: vendir: Error: Syncing directory '0':
   Syncing directory '.' with imgpkgBundle contents:
-    Imgpkg: exit status 1 (stderr: Error: Checking if image is bundle: Collecting images: Working with registry.tanzu.vmware.com/app-live-view/application-live-view-install-bundle@sha256:b13b9ba81bcc985d76607cfc04bcbb8829b4cc2820e64a99e0af840681da12aa: GET https://registry.tanzu.vmware.com/v2/app-live-view/application-live-view-install-bundle/manifests/sha256:b13b9ba81bcc985d76607cfc04bcbb8829b4cc2820e64a99e0af840681da12aa: UNAUTHORIZED: unauthorized to access repository: app-live-view/application-live-view-install-bundle, action: pull: unauthorized to access repository: app-live-view/application-live-view-install-bundle, action: pull
+    Imgpkg: exit status 1 (stderr: Error: Checking if image is bundle: Collecting images: Working with tanzu.packages.broadcom.com/app-live-view/application-live-view-install-bundle@sha256:b13b9ba81bcc985d76607cfc04bcbb8829b4cc2820e64a99e0af840681da12aa: GET https://tanzu.packages.broadcom.com/v2/app-live-view/application-live-view-install-bundle/manifests/sha256:b13b9ba81bcc985d76607cfc04bcbb8829b4cc2820e64a99e0af840681da12aa: UNAUTHORIZED: unauthorized to access repository: app-live-view/application-live-view-install-bundle, action: pull: unauthorized to access repository: app-live-view/application-live-view-install-bundle, action: pull
 ```
 
 >**Note** This example shows an error received when with Application Live View as the package. This error can also occur with other packages.

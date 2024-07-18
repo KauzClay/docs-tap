@@ -32,6 +32,12 @@ This release includes the following changes, listed by component and area.
 
 - Feature description.
 
+#### <a id='1-12-0-appsso'></a> v1.12.0 Features: Application Single Sign-On
+
+* Upgrades to _Spring Boot_@3.3.1, and many more dependency upgrades
+* Supports Kubernetes 1.30
+* Human-readable capability metadata
+
 ---
 
 ### <a id='1-12-0-breaking-changes'></a> v1.12.0 Breaking changes
@@ -110,7 +116,7 @@ For open source component versions in this Tanzu Application Platform release, s
 | Application Live View back end                               |         |
 | Application Live View connector                              |         |
 | Application Live View conventions                            |         |
-| Application Single Sign-On                                   |         |
+| Application Single Sign-On                                   | 5.2.1   |
 | Artifact Metadata Repository Observer                        |         |
 | AWS Services                                                 |         |
 | Bitnami Services                                             |         |

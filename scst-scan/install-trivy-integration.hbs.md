@@ -52,7 +52,7 @@ image registry before installing.
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 Trivy is in the Alpha development phase, is not packaged as part of the Tanzu Application Platform
-package, and is hosted on the VMware Project Repository instead of `tanzu.packages.broadcom.com`.
+package, and is hosted on `tanzu.packages.broadcom.com`.
 
 For information about supported registries, see the registry's documentation.
 

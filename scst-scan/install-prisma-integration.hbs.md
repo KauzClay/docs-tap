@@ -36,7 +36,7 @@ image registry before installing.
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 The Prisma Scanner is in the Alpha development phase, and not packaged as part of Tanzu Application
-Platform. It is hosted on the VMware Project Repository instead of `tanzu.packages.broadcom.com`.
+Platform. It is hosted on `tanzu.packages.broadcom.com`.
 
 For information about supported registries, see each registry's documentation.
 

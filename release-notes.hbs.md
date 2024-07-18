@@ -32,6 +32,18 @@ This release includes the following changes, listed by component and area.
 
 - Feature description.
 
+#### <a id='1-12-0-appsso'></a> v1.12.0 Features: Application Single Sign-On
+
+* Upgrades to _Spring Boot_@3.3.1, and many more dependency upgrades
+* Supports Kubernetes 1.30
+* Human-readable capability metadata
+
+#### <a id='1-12-0-cert-manager'></a> v1.12.0 Features: cert-manager
+
+* Upgrades to _cert-manager_@1.15.1
+* Gateway API supports is auto-toggled when the relevant APIs are present on the cluster
+* Introduces `controller.gateway_api_support` as an explicit toggle for Gateway API support
+
 ---
 
 ### <a id='1-12-0-breaking-changes'></a> v1.12.0 Breaking changes
@@ -110,12 +122,12 @@ For open source component versions in this Tanzu Application Platform release, s
 | Application Live View back end                               |         |
 | Application Live View connector                              |         |
 | Application Live View conventions                            |         |
-| Application Single Sign-On                                   |         |
+| Application Single Sign-On                                   | 5.2.1   |
 | Artifact Metadata Repository Observer                        |         |
 | AWS Services                                                 |         |
 | Bitnami Services                                             |         |
 | Cartographer Conventions                                     |         |
-| cert-manager                                                 |         |
+| cert-manager                                                 | 2.10.0  |
 | Cloud Native Runtimes                                        |         |
 | Contour                                                      |         |
 | Crossplane                                                   |         |

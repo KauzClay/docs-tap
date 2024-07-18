@@ -595,7 +595,7 @@ earlier than Tanzu Application Platform v1.6.1, you must uninstall the full depe
     tanzu package repository delete tbs-full-deps-repository -n tap-install
     ```
 
-{{> 'partila/full-deps' }}
+{{> 'partials/full-deps' }}
 
 For more information about the differences between `lite` and `full` dependencies, see
 [About lite and full dependencies](../tanzu-build-service/dependencies.html#lite-vs-full).

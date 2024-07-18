@@ -30,44 +30,60 @@ imgpkg tag list -i projects.registry.vmware.com/tanzu_practice/tap-scanners-pack
 
 ## Relocate images to a registry
 
-VMware recommends relocating the images from `tanzu.packages.broadcom.com` to your own container
+You must relocate the images from `tanzu.packages.broadcom.com` to your own container
 image registry before installing.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 The Prisma Scanner is in the Alpha development phase, and not packaged as part of Tanzu Application
-Platform. It is hosted on the VMware Project Repository instead of `tanzu.packages.broadcom.com`. If
-you relocated the Tanzu Application Platform images, you can also relocate the Prisma Scanner
-package.
-
-If you don’t relocate the images, the Prisma Scanner installation depends on
-`tanzu.packages.broadcom.com` for continued operation, and `tanzu.packages.broadcom.com` offers no
-uptime guarantees. The option to skip relocation is documented for evaluation and proof-of-concept
-only.
+Platform. It is hosted on the VMware Project Repository instead of `tanzu.packages.broadcom.com`.
 
 For information about supported registries, see each registry's documentation.
 
-To relocate images from the Broadcom registry to your registry:
+To relocate images from `tanzu.packages.broadcom.com` to your registry:
+
+1. Retrieve your Broadcom registry API token:
+
+    1. Sign in to the [Broadcom Support Portal](https://support.broadcom.com).
+
+    1. Go to [Tanzu Application Platform (TAP)](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware%20Tanzu%20Application%20Platform)
+       and expand the **VMware Tanzu Application Platform** dropdown.
+
+    1. Click the Token Download icon next to the Tanzu Application Platform version you want to
+       download.
+
+        ![Screenshot of the Tanzu Application Platform download page in the Broadcom Support Portal
+          with the Token Download icon highlighted.](../images/download-token-icon.png)
+
+    1. Follow the instructions in the dialog box. Save the token as a variable named
+       `MY_BROADCOM_SUPPORT_ACCESS_TOKEN`. For example:
+
+        ```console
+        export MY_BROADCOM_SUPPORT_ACCESS_TOKEN=API-TOKEN
+        ```
+
+        Where `API-TOKEN` is your token from the Broadcom Support Portal.
 
 1. Set up environment variables for installation:
 
    ```console
    export IMGPKG_REGISTRY_HOSTNAME_0=tanzu.packages.broadcom.com
-   export IMGPKG_REGISTRY_USERNAME_0=MY-USERNAME
-   export IMGPKG_REGISTRY_PASSWORD_0=MY-PASSWORD
+   export IMGPKG_REGISTRY_USERNAME_0=MY-BROADCOM-SUPPORT-USERNAME
+   export IMGPKG_REGISTRY_PASSWORD_0=${MY_BROADCOM_SUPPORT_ACCESS_TOKEN}
+   export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY
    export INSTALL_REGISTRY_USERNAME=MY-REGISTRY-USER
    export INSTALL_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
-   export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY
    export VERSION=VERSION-NUMBER
    export INSTALL_REPO=TARGET-REPOSITORY
    ```
 
    Where:
 
-   - `MY-REGISTRY-USER` is the user with write access to MY-REGISTRY.
+   - `MY-BROADCOM-SUPPORT-USERNAME` is the user with access to the images in `tanzu.packages.broadcom.com`.
+   - `MY-REGISTRY` is your own registry.   
+   - `MY-REGISTRY-USER` is the user with write access to `MY-REGISTRY`.
    - `MY-REGISTRY-PASSWORD` is the password for `MY-REGISTRY-USER`.
-   - `MY-REGISTRY` is your own registry.
-   - `VERSION` is your Prisma Scanner version. For example, `0.1.4-alpha.12`.
+   - `VERSION-NUMBER` is your Prisma Scanner version. For example, `0.1.4-alpha.12`.
    - `TARGET-REPOSITORY` is your target repository, a directory or repository on `MY-REGISTRY` that
      serves as the location for the installation files for Prisma Scanner.
 
@@ -85,10 +101,6 @@ To relocate images from the Broadcom registry to your registry:
 
 Tanzu CLI packages are available on repositories. Adding the Prisma Scanning package repository
 makes the Prisma Scanning bundle and its packages available for installation.
-
-> **Note** VMware recommends, but does not require, relocating images to a registry for
-> installation. This section assumes that you relocated images to a registry. See the earlier
-> section to fill in the variables.
 
 VMware recommends installing the Prisma Scanner objects in the existing `tap-install` namespace to
 keep the Prisma Scanner grouped logically with the other Tanzu Application Platform components.

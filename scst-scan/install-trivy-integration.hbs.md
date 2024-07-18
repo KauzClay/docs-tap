@@ -46,19 +46,13 @@ using TAP 1.7, use `0.1.7-alpha.1`.
 
 ## <a id='relocate'></a> Relocate images to a registry
 
-VMware recommends relocating the images from `tanzu.packages.broadcom.com` to your own container
+You must relocate the images from `tanzu.packages.broadcom.com` to your own container
 image registry before installing.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 Trivy is in the Alpha development phase, is not packaged as part of the Tanzu Application Platform
-package, and is hosted on the VMware Project Repository instead of `tanzu.packages.broadcom.com`. If
-you relocated the Tanzu Application Platform images, you might also want to relocate the Trivy
-package.
-
-If you don’t relocate the images, Trivy installation depends on `tanzu.packages.broadcom.com` for
-continued operation, and `tanzu.packages.broadcom.com` offers no uptime guarantees. The option to
-skip relocation is documented for evaluation and proof-of-concept only.
+package, and is hosted on the VMware Project Repository instead of `tanzu.packages.broadcom.com`.
 
 For information about supported registries, see the registry's documentation.
 
@@ -102,10 +96,6 @@ To relocate images from the VMware Project Registry to your registry:
 
 Tanzu CLI packages are available on repositories. Adding the Trivy scanning package repository makes
 the Trivy scanning bundle and its packages available for installation.
-
-> **Note** VMware recommends, but does not require, relocating images to a registry for
-> installation. The following section requires that you relocated images to a registry. See the
-> earlier section to fill in the variables.
 
 VMware recommends installing Trivy objects in the existing `tap-install` namespace to keep Trivy
 grouped logically with the other Tanzu Application Platform components.

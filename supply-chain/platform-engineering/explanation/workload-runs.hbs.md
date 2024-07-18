@@ -6,6 +6,6 @@ For reference information, see [WorkloadRun CRD](../../reference/api/workloadrun
 {{> 'partials/supply-chain/beta-banner' }}
 
 
-![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](images/core-concepts-workloadruns.jpg)
+![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](images/core-concepts-workloadruns.png)
 
 The `SupplyChain` resource defines the `WorkloadRun` custom resource definition (CRD).

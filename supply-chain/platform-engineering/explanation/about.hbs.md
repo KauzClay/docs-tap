@@ -8,7 +8,7 @@ on authoring a platform for application development.
 Tanzu Supply Chain enables platform engineers to author a seamless experience for development work
 without expertise in Kubernetes.
 
-![core-concepts-about.jpg](images/core-concepts-about.jpg)
+![Diagram that shows the namespace-scoped supply-chain resource progressing toward a Tekton task and also toward a cluster-scoped workload.](images/core-concepts-about.png)
 
 ## <a id="primitives"></a> About the primitives of Tanzu Supply Chain
 

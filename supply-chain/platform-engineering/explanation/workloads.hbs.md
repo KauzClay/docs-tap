@@ -6,6 +6,6 @@ For reference information, see [Workload CRD](../../reference/api/workload.hbs.m
 {{> 'partials/supply-chain/beta-banner' }}
 
 
-![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](images/core-concepts-workloads.jpg)
+![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](images/core-concepts-workloads.png)
 
 The `SupplyChain` resource defines the `Workload` custom resource definition (CRD).

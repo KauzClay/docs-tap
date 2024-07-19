@@ -41,7 +41,8 @@ This release includes the following changes, listed by component and area.
 
 - Upgrades to cert-manager v1.15.1.
 - Gateway API support is automatically enabled when the relevant APIs are present on the cluster.
-- You can configure `controller.gateway_api_support` to manually activate or deactivate Gateway API support.
+- You can manually activate or deactivate Gateway API support by configuring the `controller.gateway_api_support`
+  field.
 
 ---
 

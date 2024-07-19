@@ -34,15 +34,14 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-12-0-appsso'></a> v1.12.0 Features: Application Single Sign-On
 
-* Upgrades to _Spring Boot_@3.3.1, and many more dependency upgrades
-* Supports Kubernetes 1.30
-* Human-readable capability metadata
+- Upgrades to Spring Boot v3.3.1 and other dependency upgrades.
+- Supports Kubernetes v1.30.
 
 #### <a id='1-12-0-cert-manager'></a> v1.12.0 Features: cert-manager
 
-* Upgrades to _cert-manager_@1.15.1
-* Gateway API supports is auto-toggled when the relevant APIs are present on the cluster
-* Introduces `controller.gateway_api_support` as an explicit toggle for Gateway API support
+- Upgrades to cert-manager v1.15.1.
+- Gateway API support is automatically enabled when the relevant APIs are present on the cluster.
+- You can configure `controller.gateway_api_support` to manually activate or deactivate Gateway API support.
 
 ---
 

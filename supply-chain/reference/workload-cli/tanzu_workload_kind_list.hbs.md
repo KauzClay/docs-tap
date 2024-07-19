@@ -1,12 +1,13 @@
 # tanzu workload kind list
 
-Lists all workload kinds
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Lists all workload kinds
-		
+
 kind list configuration options include:
+
 - Output the kind list formatted
 
 ```console
@@ -34,5 +35,4 @@ tanzu workload kind list
 
 ## SEE ALSO
 
-* [tanzu workload kind](tanzu_workload_kind.hbs.md)	 - View supported workload types (kinds)
-
+- [tanzu workload kind](tanzu_workload_kind.hbs.md) - View supported workload types (kinds)

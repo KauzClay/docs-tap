@@ -1,6 +1,7 @@
 # Deploy and Manage Supply Chains
 
-This section contains guides for platform engineers about deploying and managing SupplyChain resources.
+This section has topics, aimed at platform engineers, that tell you about deploying and managing
+SupplyChain resources.
 
 {{> 'partials/supply-chain/beta-banner' }}
 

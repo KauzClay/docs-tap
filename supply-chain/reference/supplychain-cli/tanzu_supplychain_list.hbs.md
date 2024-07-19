@@ -1,12 +1,13 @@
 # tanzu supplychain list
 
-Lists all supplychains
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Lists all supplychains
-		
+
 list configuration options include:
+
 - Output the list for all namespaces
 - Output the list for a specific namespace
 - Output the list formatted
@@ -42,5 +43,4 @@ tanzu supplychain list
 
 ## SEE ALSO
 
-* [tanzu supplychain](tanzu_supplychain.hbs.md)	 - supplychain management
-
+- [tanzu supplychain](tanzu_supplychain.hbs.md) - supplychain management

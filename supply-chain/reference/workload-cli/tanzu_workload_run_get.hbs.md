@@ -1,12 +1,13 @@
 # tanzu workload run get
 
-Get workload run
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Get the details of the specified workload run within a namespace.
 
 workload run get configuration options include:
+
 - Specify the namespace of the workload run
 - Output the workload run formatted
 - Show more details of the workload run
@@ -41,5 +42,4 @@ tanzu workload run get NAME
 
 ## SEE ALSO
 
-* [tanzu workload run](tanzu_workload_run.hbs.md)	 - View workload runs
-
+- [tanzu workload run](tanzu_workload_run.hbs.md) - View workload runs

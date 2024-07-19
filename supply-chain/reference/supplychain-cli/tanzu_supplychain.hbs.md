@@ -1,5 +1,9 @@
 # tanzu supplychain
 
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
+
+## Synopsis
+
 supplychain management
 
 ## Options
@@ -12,9 +16,8 @@ supplychain management
 
 ## SEE ALSO
 
-* [tanzu supplychain component](tanzu_supplychain_component.hbs.md)	 - Interacting with supplychain components
-* [tanzu supplychain generate](tanzu_supplychain_generate.hbs.md)	 - Generate a supplychain scaffold
-* [tanzu supplychain get](tanzu_supplychain_get.hbs.md)	 - Get supplychain
-* [tanzu supplychain init](tanzu_supplychain_init.hbs.md)	 - Initialize supplychain
-* [tanzu supplychain list](tanzu_supplychain_list.hbs.md)	 - Lists all supplychains
-
+- [tanzu supplychain component](tanzu_supplychain_component.hbs.md) - Interacting with supplychain components
+- [tanzu supplychain generate](tanzu_supplychain_generate.hbs.md) - Generate a supplychain scaffold
+- [tanzu supplychain get](tanzu_supplychain_get.hbs.md) - Get supplychain
+- [tanzu supplychain init](tanzu_supplychain_init.hbs.md) - Initialize supplychain
+- [tanzu supplychain list](tanzu_supplychain_list.hbs.md) - Lists all supplychains

@@ -14,7 +14,7 @@ The concrete resources are:
 - `Component`, which describes a reusable operation to apply to source, images, configuration, and
   other artifacts.
 
-The Duck type resources are:
+The Duck-typed resources are:
 
 - `Workload`: This resource CRD is created on the cluster when a valid supply chain is applied. This
   is the API that your `SupplyChain` describes for users to consume.

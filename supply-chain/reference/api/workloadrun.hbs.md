@@ -82,11 +82,10 @@ The majority of the `WorkloadRun` specification appears again in `status.workloa
 
 This image shows the static and dynamic sections of a WorkloadRun.
 
-![duck-type.png](images/duck-type.png)
+![Diagram of a Workload Run. The workload properties are labeled as dynamic. The stages and conditions properties are labeled as static.](images/duck-type.png)
 
-> **Note** The duplication of the `WorkloadRun` `spec` into `spec.status.workloadRun.spec` is shown here.
-
-> **Note** The `status` is not duplicated again into the `status.workloadRun` field.
+> **Note** The duplication of the `WorkloadRun` `spec` into `spec.status.workloadRun.spec` is shown
+> here. The `status` is not duplicated again into the `status.workloadRun` field.
 
 ## Static WorkloadRun API
 

@@ -1,6 +1,7 @@
 # Tanzu Supply Chain tutorials for Platform Engineering
 
-This section contains tutorials for Tanzu Supply Chain platform engineers.
+This section has tutorial topics, aimed at platform engineers, that teach you about Tanzu Supply
+Chain.
 
 {{> 'partials/supply-chain/beta-banner' }}
 

@@ -1,12 +1,13 @@
 # tanzu workload get
 
-Get details of a workload
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Get the details of the specified workload within a namespace.
 
 workload get configuration options include:
+
 - Specify the namespace of the workload
 - Specify the kind of the workload
 - Output the workload formatted
@@ -41,5 +42,4 @@ tanzu workload get NAME
 
 ## SEE ALSO
 
-* [tanzu workload](tanzu_workload.hbs.md)	 - create, update, view and list Tanzu Workloads.
-
+- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads

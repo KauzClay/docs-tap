@@ -1,12 +1,13 @@
 # tanzu workload generate
 
-Generate a workload manifest with specified configuration
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Generate a workload manifest with specified configuration.
 
 workload configuration options include:
+
 - kind of the workload to generate
 
 ```console
@@ -36,5 +37,4 @@ tanzu workload generate NAME
 
 ## SEE ALSO
 
-* [tanzu workload](tanzu_workload.hbs.md)	 - create, update, view and list Tanzu Workloads.
-
+- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads

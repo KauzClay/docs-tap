@@ -2,17 +2,17 @@
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-This section introduces the catalog of components shipped with TAP. You will find all of these components in the "authoring" profile.
+This section introduces the catalog of components shipped with TAP. You will find all of these
+components in the "authoring" profile.
 
 ## app-config-server
 
 Version: 1.0.0
 
 ### Description:
+
 Generates configuration for a Server application from a Conventions PodIntent.
 Server applications contain a K8s Deployment and Service and can be configured with Ingress.
-
-
 
 ### Inputs
 
@@ -41,17 +41,16 @@ spec:
     repository:
 ```
 
-
 ---
+
 ## app-config-web
 
 Version: 1.0.0
 
 ### Description:
+
 Generates configuration for a Web application from a Conventions PodIntent.
 Web applications contain a Knative Service.
-
-
 
 ### Inputs
 
@@ -80,17 +79,16 @@ spec:
     server:
 ```
 
-
 ---
+
 ## app-config-worker
 
 Version: 1.0.0
 
-### Description:
+### Description
+
 Generates configuration for a Worker application from a Conventions PodIntent.
 Worker applications contain a K8s Deployment.
-
-
 
 ### Inputs
 
@@ -119,15 +117,15 @@ spec:
     server:
 ```
 
-
 ---
+
 ## buildpack-build
 
 Version: 1.0.0
 
-### Description:
-Builds an app with buildpacks using kpack
+### Description
 
+Builds an app with buildpacks using kpack
 
 ### Inputs
 
@@ -176,16 +174,15 @@ spec:
     subPath:
 ```
 
-
 ---
+
 ## carvel-package
 
 Version: 1.0.0
 
-### Description:
+### Description
+
 Generates a carvel package from OCI images containing raw YAML files and YTT files.
-
-
 
 ### Inputs
 
@@ -235,24 +232,24 @@ spec:
     server:
 ```
 
-
 ---
+
 ## conventions
 
 Version: 1.0.0
 
-### Description:
+### Description
+
 The Conventions component analyzes the `image` input as described in the
 [Cartographer Conventions](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/cartographer-conventions-about.html)
 documentation and produces a `conventions` output image.
 
 Depends on:
+
 - Managed Resource Controller.
-    - Tanzu Carvel Package: `managed-resource-controller.apps.tanzu.vmware.com @ >=0.1.2`
+  - Tanzu Carvel Package: `managed-resource-controller.apps.tanzu.vmware.com @ >=0.1.2`
 - Conventions Controller
-    - Tanzu Carvel Package: `cartographer.tanzu.vmware.com @ >= 0.8.10`
-
-
+  - Tanzu Carvel Package: `cartographer.tanzu.vmware.com @ >= 0.8.10`
 
 ### Inputs
 
@@ -275,15 +272,15 @@ spec:
   env:
 ```
 
-
 ---
+
 ## deployer
 
 Version: 1.0.0
 
-### Description:
-Deploys K8s resources to the cluster.
+### Description
 
+Deploys K8s resources to the cluster.
 
 ### Inputs
 
@@ -306,15 +303,15 @@ spec:
     path:
 ```
 
-
 ---
+
 ## git-writer
 
 Version: 1.0.0
 
-### Description:
-Writes carvel package config directly to a gitops repository
+### Description
 
+Writes carvel package config directly to a gitops repository
 
 ### Inputs
 
@@ -340,15 +337,15 @@ spec:
     subPath:
 ```
 
-
 ---
+
 ## git-writer-pr
 
 Version: 1.0.0
 
-### Description:
-Writes carvel package config to a gitops repository and opens a PR
+### Description
 
+Writes carvel package config to a gitops repository and opens a PR
 
 ### Inputs
 
@@ -377,6 +374,7 @@ spec:
 ```
 
 ---
+
 ## kaniko-build
 
 Version: 1.0.0
@@ -419,6 +417,7 @@ spec:
 ```
 
 ---
+
 ## sonarqube-sast-scan
 
 Version: 1.0.0
@@ -459,13 +458,14 @@ spec:
 ```
 
 ---
+
 ## source-git-provider
 
 Version: 1.0.0
 
-### Description:
-Source git provider retrieves source code and monitors a git repository.
+### Description
 
+Source git provider retrieves source code and monitors a git repository.
 
 ### Inputs
 
@@ -500,16 +500,15 @@ spec:
     subPath:
 ```
 
-
 ---
+
 ## source-package-translator
 
 Version: 1.0.0
 
-### Description:
+### Description
+
 Takes the type source and immediately outputs it as type package.
-
-
 
 ### Inputs
 
@@ -527,15 +526,15 @@ Takes the type source and immediately outputs it as type package.
 
 _none_
 
-
 ---
+
 ## trivy-image-scan
 
 Version: 1.0.0
 
-### Description:
-Performs a trivy image scan using the scan 2.0 components
+### Description
 
+Performs a trivy image scan using the scan 2.0 components
 
 ### Inputs
 
@@ -587,13 +586,14 @@ spec:
 ```
 
 ---
+
 ## sonarqube-sast-scan
 
 Version: 1.0.0
 
-### Description:
-Performs a SonarQube sast scan
+### Description
 
+Performs a SonarQube sast scan
 
 ### Inputs
 
@@ -629,15 +629,15 @@ spec:
   sonarqube:
     # SonarQube server url
     # +required
-    sonar-host-url: 
+    sonar-host-url:
     # The project display name in the SonarQube server
     # +required
-    sonar-project-name: 
+    sonar-project-name:
     # The project key defined in the SonarQube server
-    sonar-project-key: 
+    sonar-project-key:
     # SonarQube project token
     # +required
-    sonar-token: 
+    sonar-token:
     # Path to the directory to scan from the source code root
-    sonar-project-base-dir: 
+    sonar-project-base-dir:
 ```

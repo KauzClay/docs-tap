@@ -6,7 +6,7 @@ For reference information about resumptions, see [Component API](../../reference
 {{> 'partials/supply-chain/beta-banner' }}
 
 
-![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](./images/core-concepts-resumptions.png)
+![Diagram of the relationships between Tanzu Supply Chain resources. Some resources are namespace-scoped. Others are cluster-scoped.](./images/core-concepts-resumptions.png)
 
 Resumptions are an important part of the Tanzu Supply Chain `Component` resource.
 

@@ -1,10 +1,11 @@
 # Manage Supply Chains with GitOps
 
-This topic tells you how to manage SupplyChains using GitOps.
+This topic tells you how to manage SupplyChains by using GitOps.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-SupplyChains, especially the authoring resources SupplyChain, Component, and Tekton Pipeline/Tekton Task, are delivered to clusters using a Git repository and GitOps source promotion style.
+SupplyChains, especially the authoring resources SupplyChain, Component, and Tekton Pipeline/Tekton
+Task, are delivered to clusters using a Git repository and GitOps source promotion style.
 
 The expected flow is as follows:
 
@@ -14,12 +15,13 @@ The expected flow is as follows:
 4. Using continuous integration, test, and approve the pull request.
 5. Using continuous deployment, deliver your edits to build clusters.
 
->**Note** Both the integration and deployment of your SupplyChains should be managed by SupplyChains.
-VMware will release examples of integration and delivery SupplyChains for SupplyChains in a future release.
+> **Note** Use SupplyChains to manage the integration and deployment of your SupplyChains. VMware
+> plans to release examples of integration and delivery SupplyChains for SupplyChains in a future
+> release.
 
 <!--
 [Component]: ./components.hbs.md
-[SupplyChain]: ./supply-chains.hbs.md 
+[SupplyChain]: ./supply-chains.hbs.md
 
 [Tekton Pipeline]: https://tekton.dev/docs/pipelines/pipelines/
 [Tekton Task]: https://tekton.dev/docs/pipelines/tasks/

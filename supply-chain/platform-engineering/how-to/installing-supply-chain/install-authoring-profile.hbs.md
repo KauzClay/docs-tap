@@ -1,7 +1,7 @@
 # Install Tanzu Supply Chain with the authoring profile
 
-This topic describes the recommended method for installing Tanzu Supply Chain, which is by using the
-Authoring profile (beta). This profile installs all the required packages.
+This topic tells you about the recommended method for installing Tanzu Supply Chain, which is by
+using the Authoring profile (beta). The Authoring profile installs all the required packages.
 
 {{> 'partials/supply-chain/beta-banner' }}
 

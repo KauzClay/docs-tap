@@ -1,11 +1,12 @@
 # tanzu workload logs
 
-Watch workload-related logs
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
-Stream logs for a workload until canceled. To cancel, press Ctrl+C in the shell or stop the process.
-As new workload pods start, the logs appear. To see historical logs, use `--since`.
+Watch workload-related logs. Stream logs for a workload until canceled. To cancel, press Ctrl+C in
+the shell or stop the process. As new workload pods start, the logs appear. To see historical logs,
+use `--since`.
 
 ```console
 tanzu workload logs <NAME> [flags]
@@ -40,4 +41,4 @@ tanzu workload logs NAME
 
 ## SEE ALSO
 
-[tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads.
+[tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads

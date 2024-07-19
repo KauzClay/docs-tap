@@ -106,7 +106,7 @@ To create a workload:
          2 + |apiVersion: vmware.com/v1
          3 + |kind: BuildWebApp
          4 + |metadata:
-         5 + |  name: my-web-app
+         5 + |  name: <my-web-app>
          6 + |  namespace: build
          7 + |spec:
          8 + |  source:

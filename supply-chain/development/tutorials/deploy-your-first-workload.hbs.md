@@ -47,7 +47,7 @@ To get started:
    sample application.
 
    Use the `tanzu workload generate` command to create a `Workload` of the kind
-   `AppBuildV1`. A selector is displayed if multiple kinds are available. If a single kind is
+   `AppBuildV1`. A drop-down menu is displayed if multiple kinds are available. If a single kind is
    available, it is used to generate the scaffold of the `Workload`. Run:
 
    ```console
@@ -84,7 +84,7 @@ To get started:
    tanzu workload generate tanzu-java-web-app --kind appbuildv1s.supplychains.tanzu.vmware.com > workload.yaml
    ```
 
-1. Add the appropriate values in the `workload.yaml` file for each required entry. For example:
+1. Add the necessary values in the `workload.yaml` file for each required entry. For example:
 
     ```yaml
     apiVersion: supplychains.tanzu.vmware.com/v1alpha1
@@ -117,7 +117,7 @@ To get started:
    > as the registry details. These entries are not part of the `generate` command output because that
    > is something a platform engineer does not want a developer to override.
    >
-   > This results in a much smaller `Workload` spec and one that only has values that a developer can
+   > This causes a much smaller `Workload` specification that only has values that a developer can
    > provide for the `SupplyChain`. This helps to keep the platform engineering role and the developer
    > role separate.
 

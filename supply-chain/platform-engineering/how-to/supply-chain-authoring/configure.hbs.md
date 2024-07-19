@@ -10,7 +10,7 @@ To prepare:
 
 - Ensure that the [Tanzu CLI](../../../../install-tanzu-cli.hbs.md#install-tanzu-cli), and
   [Tanzu Supply Chain CLI plug-in](../../../platform-engineering/how-to/install-the-cli.hbs.md)
-  are installed on your local machine.
+  are installed on your computer.
 
 - Ensure that Tanzu Supply Chain packages and Catalog Component packages are installed on the Tanzu
   Application Platform cluster that you are using to author your supply chain.
@@ -25,7 +25,7 @@ To prepare:
 
 SupplyChains can be configured to supply default and override values for each component. This allows
 a platform engineer to either pre-populate common default values for a component or override values
-to always be some value that the developer cannot modify.
+to always be some value that the developer cannot edit.
 
 ### Generate SupplyChain with overrides
 
@@ -125,8 +125,9 @@ registry.
    structure where all desired child fields must be set. For example:
 
     Full path
-    : Example path `spec.registry.repository`. As this example does not provide a value for
-     `spec.registry.server`, it will not be available to modify in the `Workload`.
+    : Example path `spec.registry.repository`. In this example, there is no value for
+      `spec.registry.server`, and therefore `spec.registry.server` is not available to edit later in
+      the `Workload`.
 
       ```yaml
       config:
@@ -147,7 +148,8 @@ registry.
       ```
 
       This example is for the path `spec`. In this example, there is no value for
-      `spec.registry.server`, it will not be available to modify in the `Workload`.
+      `spec.registry.server`, and therefore `spec.registry.server` is not available to edit later in
+      the `Workload`.
 
       ```yaml
       config:
@@ -158,8 +160,8 @@ registry.
                 repository: "https://my-registry.url.com"
       ```
 
-      This example is for the path `spec` with empty value. This example results in a `Workload`
-      without a spec.
+      This example is for the path `spec` with an empty value. This example causes a `Workload`
+      without a specification.
 
       ```yaml
       config:
@@ -170,22 +172,21 @@ registry.
 
 ### Generate SupplyChain with defaults
 
-Platform engineers generate SupplyChains with defaults to allow them to define default values that
-can be changed by developers using the `Workload` (Developer API). By configuring defaults for each
-component in the SupplyChain, the generated `Workload` will contain default values.
+Platform engineers generate SupplyChains with `defaults` to allow them to define default values that
+can be changed by developers using the `Workload` (Developer API). By configuring `defaults` for each
+component in the SupplyChain, the generated `Workload` contains default values.
 
-Defaults consist of:
+`defaults` consist of:
 
-- `path`: path to the configuration value, formatted as either:
+- `path`, which is the path to the configuration value. `path` is formatted as either the full path
+  to the field you want to set or the path to any structure where all desired child fields must be
+  set.
 
-  1. The full path to the field you want to set.
-  2. The path to any structure where all desired child fields must be set.
+- `value`, which is a string or YAML-structured value.
 
-- `value`: String or YAML structured value.
+#### `defaults` use case
 
-#### Defaults use case
-
-For the defaults use case:
+For the `defaults` use case:
 
 1. Generate the SupplyChain by supplying the `--allow-defaults` flag:
 
@@ -210,8 +211,8 @@ For the defaults use case:
    ...
    ```
 
-1. To configure defaults, open the `supplychains/appbuildv1.yaml` file in your editor and go to the
-   following section:
+1. To configure `defaults`, open the `supplychains/appbuildv1.yaml` file in your editor and go to
+   the following section:
 
     ```yaml
     ...
@@ -258,7 +259,7 @@ For the defaults use case:
           value: "YOUR-GITOPS-REPO-URL"
     ```
 
-1. Configure defaults using either a full path to the field you want to set or a path to any
+1. Configure `defaults` using either a full path to the field you want to set or a path to any
    structure where all desired child fields must be set.
 
     Full path

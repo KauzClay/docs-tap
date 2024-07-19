@@ -6,14 +6,14 @@ For reference information, see [Component API](../../reference/api/component.hbs
 {{> 'partials/supply-chain/beta-banner' }}
 
 
-![Diagram of the relationships between key Tanzu Supply Chain resources. Some resources are grouped together as namespace-scoped. Other resources are grouped together as cluster-scoped.](./images/core-concepts-component.png)
+![Diagram of the relationships between Tanzu Supply Chain resources. Some resources are namespace-scoped. Others are cluster-scoped.](./images/core-concepts-component.png)
 
 Components encapsulate the work to be performed in composable and reusable pieces.
 Components are analogous to steps, stages, jobs, and tasks in other CI/CD offerings.
 Components are different to other CI/CD offerings in three distinct ways:
 
 - Component configuration requirements are declared, static, and enforced. The configuration is used
-  to build a `Workload` resource that is strongly-typed and well-documented.
+  to build a `Workload` resource that is strongly typed and well documented.
 
 - Components are observed by users through a strict error-reporting API.
 

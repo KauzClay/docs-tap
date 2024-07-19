@@ -21,7 +21,7 @@ kind: SupplyChain
 
 - `plural-name` must match the plural form of `defines.kind`, without the version.
   For example: `kind: JavaServerAppV3` would have a `plural-name` of `javaserverappv3s`
-- `group` must mach `defines.group` (see [`spec.defines.group`](#specdefines) below )
+- `group` must match `defines.group`. See [spec.defines.group](#specdefines) later in the topic.
 - `<Major>.<minor>.<patch>` is the version definition.
 
 ```yaml
@@ -33,7 +33,7 @@ metadata:
 
 ### <a id='spec-config'></a>`spec.config`
 
-The [`spec.stages`](#specstages) structure introduces `Components` where the aggregated
+The [spec.stages](#specstages) structure introduces `Components` where the aggregated
 [config sections](component.hbs.md#specconfig), form the SupplyChain's configuration and become the
 [Workload spec](workload.hbs.md#spec).
 
@@ -200,7 +200,7 @@ spec:
 Every `status.conditions[]` in Tanzu Supply Chain resources follows a
 [strict set of conventions](statuses.hbs.md).
 
-The top-level condition type is `Ready` as SupplyChain is a "living" resource.
+The top-level condition type is `Ready` as SupplyChain is a Living resource.
 
 The sub-types are:
 
@@ -208,7 +208,7 @@ The sub-types are:
 
 | Reason        | Meaning                                                                                                                                                  |
 |---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ready         | The RoleBindings for the kind declared in [`spec.defines`](#specdefines) was created on cluster                                                          |
+| Ready         | The RoleBindings for the kind declared in [spec.defines](#specdefines) was created on cluster                                                          |
 | AlreadyExists | The RoleBinding record already exists.<br/>Most common cause of this issue is another Supply Chain with the same [`spec.defines`](#specdefines) section. |
 | UnknownError  | The RoleBinding record failed due to an exceptional error. Look at the reconciler logs and contact Tanzu Support                                         |
 
@@ -216,7 +216,7 @@ The sub-types are:
 
 | Reason        | Meaning                                                                                                                                                                         |
 |---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ready         | The CRD for the kind declared in [`spec.defines`](#specdefines) was created on cluster                                                                                          |
+| Ready         | The CRD for the kind declared in [spec.defines](#specdefines) was created on cluster                                                                                          |
 | Conflict      | The CRD already exists and is managed by another SupplyChain.<br/>Most common cause of this issue is another Supply Chain with the same [`spec.defines`](#specdefines) section. |
 | Invalid       | The CRD is invalid<br/>Most common cause of this is an illegal OpenAPIV3Schema in the [Component].                                                                              |
 | Unknown error | The CRD could not be created due to an exceptional error. Look at the reconciler logs and contact Tanzu Support                                                                 |

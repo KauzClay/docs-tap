@@ -1,6 +1,6 @@
 # Tanzu Supply Chain Reference
 
-This section provides reference information for Tanzu Supply Chain.
+This section has topics that give you reference information for Tanzu Supply Chain.
 
 {{> 'partials/supply-chain/beta-banner' }}
 

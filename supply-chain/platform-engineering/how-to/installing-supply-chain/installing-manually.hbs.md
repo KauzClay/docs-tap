@@ -99,7 +99,7 @@ The following component packages are required if you are authoring a supply chai
      -n tap-install
    ```
 
-1. Confirm that the required packages are installed and reconciled successfully by running:
+1. Confirm that the required packages were installed and reconciled by running:
 
    ```console
    kubectl get pkgi -A

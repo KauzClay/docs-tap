@@ -1,12 +1,13 @@
 # tanzu supplychain component list
 
-Lists all supplychain components
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Lists all available supplychain components
-		
+
 component list configuration options include:
+
 - Output the component list formatted
 
 ```console
@@ -38,5 +39,4 @@ tanzu supplychain component list
 
 ## SEE ALSO
 
-* [tanzu supplychain component](tanzu_supplychain_component.hbs.md)	 - Interacting with supplychain components
-
+- [tanzu supplychain component](tanzu_supplychain_component.hbs.md) - Interacting with supplychain components

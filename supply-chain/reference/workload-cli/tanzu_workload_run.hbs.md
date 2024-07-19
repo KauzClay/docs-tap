@@ -1,5 +1,9 @@
 # tanzu workload run
 
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
+
+## Synopsis
+
 View workload runs
 
 ## Options
@@ -17,6 +21,6 @@ View workload runs
 
 ## SEE ALSO
 
-* [tanzu workload](tanzu_workload.hbs.md)	 - create, update, view and list Tanzu Workloads.
-* [tanzu workload run get](tanzu_workload_run_get.hbs.md)	 - Get workload run
+- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads.
+- [tanzu workload run get](tanzu_workload_run_get.hbs.md) - Get workload run
 

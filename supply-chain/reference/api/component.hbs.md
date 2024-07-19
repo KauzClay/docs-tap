@@ -15,7 +15,7 @@ kind: Component
 
 ### `metadata.name`
 
-`metadata.name:` must have a `-M.m.p` suffix, representing the major, minor and patch of this
+`metadata.name:` must have a `-M.m.p` suffix, representing the major, minor, and patch of this
 version of the component. Changes to the config section should coincide with a bump to major or
 minor versions. Reserve patch increments for changes that do not alter the API, or the behavior
 significantly.
@@ -27,7 +27,7 @@ metadata:
 
 ## Spec
 
-### <a id='spec-config'></a>`spec.config`
+### <a id='spec-config'></a> `spec.config`
 
 `spec.config` defines the configuration in a workload (`spec` of the workload) that is required for
 the component to operate.

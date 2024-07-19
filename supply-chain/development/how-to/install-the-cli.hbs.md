@@ -27,7 +27,7 @@ To install the Tanzu Workload CLI plug-in:
    tanzu plugin install workload
    ```
 
-1. Verify that you installed the plug-in successfully by running:
+1. Verify that you installed the plug-in by running:
 
    ```console
    tanzu workload version

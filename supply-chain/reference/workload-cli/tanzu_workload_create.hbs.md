@@ -1,5 +1,9 @@
 # tanzu workload create
 
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
+
+## Synopsis
+
 Create a workload of specific kind on the cluster from the file
 
 ```console
@@ -32,5 +36,4 @@ tanzu workload create --file workload.yaml
 
 ## SEE ALSO
 
-* [tanzu workload](tanzu_workload.hbs.md)	 - create, update, view and list Tanzu Workloads.
-
+- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads

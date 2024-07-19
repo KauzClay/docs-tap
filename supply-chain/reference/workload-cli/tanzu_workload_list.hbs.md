@@ -1,12 +1,13 @@
 # tanzu workload list
 
-Lists all workloads
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Lists all workloads
-		
+
 list configuration options include:
+
 - Output the list for all namespaces
 - Output the list for a specific namespace
 - Output the list for a specific kind
@@ -21,8 +22,8 @@ tanzu workload list [flags]
 ```console
 tanzu workload list
   tanzu workload list --all-namespaces,
-  tanzu workload list --namespace my-namepsace,		
-  tanzu workload list --kind my-workload-kind,		
+  tanzu workload list --namespace my-namepsace,
+  tanzu workload list --kind my-workload-kind,
   tanzu workload list --output yaml
 ```
 
@@ -45,5 +46,4 @@ tanzu workload list
 
 ## SEE ALSO
 
-* [tanzu workload](tanzu_workload.hbs.md)	 - create, update, view and list Tanzu Workloads.
-
+- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads

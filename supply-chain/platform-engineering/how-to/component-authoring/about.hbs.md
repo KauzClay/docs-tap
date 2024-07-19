@@ -1,6 +1,6 @@
 # Component Authoring How Tos
 
-This section contains how to guides for platform engineers about authoring Components.
+This section has how-to topics, aimed at platform engineers, that tell you how to author Components.
 
 {{> 'partials/supply-chain/beta-banner' }}
 

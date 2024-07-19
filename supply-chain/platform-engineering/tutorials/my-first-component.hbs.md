@@ -92,8 +92,8 @@ To create a Tekton `Pipeline`:
     ```
 
 1. Add two tasks to the `Pipeline` resource. Task 1 pulls the output from `source-git-provider` and
-   puts it in the workspace `shared-data` that was defined in the `Pipeline` resource earlier. Task 2
-   runs the unit tests and records the output as a Tekton Result.
+   puts it in the workspace `shared-data` that was defined in the `Pipeline` resource earlier. Task
+   2 runs the unit tests and records the output as a Tekton Result.
 
    See the following example YAML:
 
@@ -168,8 +168,8 @@ To create a Tekton `Pipeline`:
                 workspace: shared-data
     ```
 
-1. Add the version of the pipeline in the name of the YAML file and the name of the pipeline.
-   This enables you to create new versions of the pipelines without interfering with the old one.
+1. Add the version of the pipeline in the name of the YAML file and the name of the pipeline. This
+   enables you to create new versions of the pipelines without interfering with the old one.
 
 1. Store the `Pipeline` resource in the `pipelines` directory created by the CLI as
    `maven-unit-tester-1.0.0.yaml`, as shown in the following YAML:
@@ -279,8 +279,8 @@ The section describes how to write a `Component` manifest that defines the follo
   can provide by using the `Workload` if a platform engineer does not override it at the
   `SupplyChain` level.
 
-- `Inputs`, which is a list of named `Outputs` from a previous stage in a `SupplyChain` resource that
-  the current `Component` resource depends on.
+- `Inputs`, which is a list of named `Outputs` from a previous stage in a `SupplyChain` resource
+  that the current `Component` resource depends on.
 
 - `Outputs`, which are named outputs from this component another `Component` resource can use as
   `Inputs`.

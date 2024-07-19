@@ -1,12 +1,13 @@
 # tanzu supplychain component get
 
-Get details of a component
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Get the details of the specified component within a namespace.
 
-component get configuration options include:
+`component get` configuration options include:
+
 - Specify the namespace of the component (optional)
 - Output the component formatted
 - Show more details of the component
@@ -41,5 +42,4 @@ tanzu supplychain component get NAME
 
 ## SEE ALSO
 
-* [tanzu supplychain component](tanzu_supplychain_component.hbs.md)	 - Interacting with supplychain components
-
+- [tanzu supplychain component](tanzu_supplychain_component.hbs.md)	- Interacting with supplychain components

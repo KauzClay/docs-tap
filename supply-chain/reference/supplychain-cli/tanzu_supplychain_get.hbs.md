@@ -1,12 +1,13 @@
 # tanzu supplychain get
 
-Get supplychain
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Get the details of the specified supplychain within a namespace.
 
-supplychain get configuration options include:
+`supplychain get` configuration options include:
+
 - Specify the namespace of the supplychain
 - Output the supplychain formatted
 
@@ -37,5 +38,4 @@ tanzu supplychain get NAME
 
 ## SEE ALSO
 
-* [tanzu supplychain](tanzu_supplychain.hbs.md)	 - supplychain management
-
+- [tanzu supplychain](tanzu_supplychain.hbs.md) - supplychain management

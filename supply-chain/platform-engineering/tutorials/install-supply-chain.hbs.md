@@ -133,7 +133,7 @@ To install an authored Supply Chain:
    ```
 
 > **Note** By default, the `make install` command installs in the default namespace in your
-> `kubeconfig` file.
+> kubeconfig file.
 
 ## <a id="useful-links"></a> Useful links
 

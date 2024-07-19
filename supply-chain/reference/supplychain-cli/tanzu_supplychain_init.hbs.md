@@ -1,12 +1,13 @@
 # tanzu supplychain init
 
-Initialize supplychain
+This topic gives you command-specific information for the Tanzu Supply Chain CLI.
 
 ## Synopsis
 
 Initialize supplychain
-		
+
 Initialize configuration options include:
+
 - group name and the description
 
 ```console
@@ -36,5 +37,4 @@ tanzu supplychain init --group supplychains.tanzu.vmware.com --description DESCR
 
 ## SEE ALSO
 
-* [tanzu supplychain](tanzu_supplychain.hbs.md)	 - supplychain management
-
+- [tanzu supplychain](tanzu_supplychain.hbs.md) - supplychain management

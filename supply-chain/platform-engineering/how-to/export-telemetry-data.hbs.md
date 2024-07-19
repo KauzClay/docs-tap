@@ -1,7 +1,6 @@
 # Export telemetry data (experimental)
 
-This topic tells you how to export the Open Telemetry data, and what information is currently
-exported.
+This topic tells you how to export Open Telemetry data and what information is currently exported.
 
 > **Caution** This feature is experimental, and might change substantially as development continues.
 

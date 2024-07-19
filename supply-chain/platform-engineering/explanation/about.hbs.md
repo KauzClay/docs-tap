@@ -32,7 +32,7 @@ similar to pipelines in other CI/CD systems, but with some key differences:
 - Users are typically unaware of the inner workings of the `SupplyChain` and `Component` resources.
 
 - `Component` resources encapsulate the work of generating a final or intermediate artifact and,
-  importantly, the work of discovering new work to be performed.
+  importantly, the work of detecting new work to be performed.
 
 The flow of operations is as follows:
 

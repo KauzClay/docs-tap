@@ -11,7 +11,7 @@ To prepare:
 
 - Ensure that the [Tanzu CLI](../../../../install-tanzu-cli.hbs.md#install-tanzu-cli), and
   [Tanzu Supply Chain CLI plug-in](../../../platform-engineering/how-to/install-the-cli.hbs.md)
-  are installed on your local machine.
+  are installed on your computer.
 
 - Ensure that Tanzu Supply Chain packages and Catalog Component packages are installed on the Tanzu
   Application Platform cluster that you are using to author your first supply chain.
@@ -28,19 +28,19 @@ Deploy SupplyChain authoring resources such as `SupplyChain`, `Component`, and t
 `Pipeline`/`Task` to clusters through a Git repository by using the GitOps source promotion
 methodology.
 
-For a Platform Engineer, the recommended approach is:
+For a platform engineer, the recommended approach is:
 
 - Author the `SupplyChain` by using a set of YAML files within a Git-backed file system.
 - Test and debug by pushing all files to a single namespace on the `authoring` profile cluster.
 - When you are satisfied with the new or modified `SupplyChain`, use a pull request to commit to Git.
 
 Managing a potentially large number of YAML manifests manually can be error-prone. Platform
-Engineers can use the Tanzu Supplychain CLI plug-in to streamline the authoring process for
+engineers can use the Tanzu SupplyChain CLI plug-in to streamline the authoring process for
 `SupplyChains` tailored to their developers.
 
 ### Initialize the local directory
 
-First use the `tanzu supplychain init` command to initialize the local directory for the
+Use the `tanzu supplychain init` command to initialize the local directory for the
 `tanzu supplychain generate` command. Run:
 
 ```console
@@ -57,12 +57,12 @@ Where:
 The `tanzu supplychain init` command creates:
 
 - `config.yaml` file that contains the information about the group name, and the description of the
-  Supplychain group.
+  SupplyChain group.
 - `supplychains`, `components`, `pipelines`, and `tasks` directories which are auto-populated by the
   authoring wizard later in this tutorial.
 - `Makefile` which has the targets to install or uninstall the SupplyChain and related dependencies
   on any Build or Full profile clusters.
-- `README.md` file which has instructions on how to use the targets in the `Makefile`.
+- `README.md` file which has instructions for how to use the targets in the `Makefile`.
 
 > **Important** After being set up with the designated `group`, the local directory becomes a hub
 > for shipping one or more `SupplyChains`. Within this local directory, every `SupplyChain` shares
@@ -93,7 +93,7 @@ Writing group configuration to config.yaml
 
 To inspect component available to author Supply Chains:
 
-1. As a Platform Engineer, you want to know which components are available to use in your
+1. As a platform engineer, you want to know which components are available to use in your
    SupplyChain. Run:
 
    ```console
@@ -203,50 +203,50 @@ To inspect component available to author Supply Chains:
 
 The Tanzu Supply Chain CLI plug-in supports two modes of operation for generating SupplyChains.
 
-- Interactive: Use a guided wizard.
-- Non-Interactive: Use flags.
+- Interactive: Use a guided wizard
+- Non-interactive: Use flags
 
 Interactive
 : Start the wizard by running:
 
-    ```console
-    tanzu supplychain generate
-    ```
+  ```console
+  tanzu supplychain generate
+  ```
 
-    The wizard prompts for the following:
+  The wizard prompts for the following:
 
-    | **Prompt**                                                  | **Example value**                                                                                                                                    |
-    |:------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
-    | What Kind would you like to use as the developer interface? | `AppBuildV1` (This value is used for auto-populating the `spec.defines` section of the [SupplyChain API](../../../reference/api/supplychain.hbs.md)) |
-    | Give Supply chain a description?                            | `Supply chain that pulls the source code from Git repository, builds it using buildpacks and package the output as Carvel package.`                  |
-    | Select a component as the first stage of the supply chain?  | `source-git-provider-1.0.0`                                                                                                                          |
-    | Select a component as the first stage of the supply chain?  | `buildpack-build-1.0.0`                                                                                                                              |
-    | Select a component as the first stage of the supply chain?  | `conventions-1.0.0`                                                                                                                                  |
-    | Select a component as the first stage of the supply chain?  | `app-config-server-1.0.0`                                                                                                                            |
-    | Select a component as the first stage of the supply chain?  | `carvel-package-1.0.0`                                                                                                                               |
-    | Select a component as the first stage of the supply chain?  | `git-writer-pr-1.0.0`                                                                                                                                |
-    | Select a component as the first stage of the supply chain?  | `Done`                                                                                                                                               |
+  | **Prompt**                                                  | **Example value**                                                                                                                                    |
+  |-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | What Kind would you like to use as the developer interface? | `AppBuildV1` (This value is used for auto-populating the `spec.defines` section of the [SupplyChain API](../../../reference/api/supplychain.hbs.md)) |
+  | Give Supply chain a description?                            | `Supply chain that pulls the source code from Git repository, builds it using buildpacks and package the output as Carvel package.`                  |
+  | Select a component as the first stage of the supply chain?  | `source-git-provider-1.0.0`                                                                                                                          |
+  | Select a component as the first stage of the supply chain?  | `buildpack-build-1.0.0`                                                                                                                              |
+  | Select a component as the first stage of the supply chain?  | `conventions-1.0.0`                                                                                                                                  |
+  | Select a component as the first stage of the supply chain?  | `app-config-server-1.0.0`                                                                                                                            |
+  | Select a component as the first stage of the supply chain?  | `carvel-package-1.0.0`                                                                                                                               |
+  | Select a component as the first stage of the supply chain?  | `git-writer-pr-1.0.0`                                                                                                                                |
+  | Select a component as the first stage of the supply chain?  | `Done`                                                                                                                                               |
 
-    The Tanzu Supply Chain CLI knows what stages are already part of the SupplyChain and removes
-    them from the list of stages to add.
+  The Tanzu Supply Chain CLI knows what stages are already part of the SupplyChain and removes
+  them from the list of stages to add.
 
 Non-interactive
-: Generate the Supply chain by using flags:
+: Generate the Supply Chain by using flags:
 
-    ```console
-    tanzu supplychain generate \
-    --kind AppBuildV1 \
-    --description "Supply chain that pulls the source code from git repo, builds it using buildpacks \
-    and package the output as Carvel package." \
-    --component "source-git-provider-1.0.0" \
-    --component "buildpack-build-1.0.0" \
-    --component "conventions-1.0.0" \
-    --component "app-config-server-1.0.0" \
-    --component "carvel-package-1.0.0" \
-    --component "git-writer-pr-1.0.0"
-    ```
+  ```console
+  tanzu supplychain generate \
+  --kind AppBuildV1 \
+  --description "Supply chain that pulls the source code from git repo, builds it using buildpacks \
+  and package the output as Carvel package." \
+  --component "source-git-provider-1.0.0" \
+  --component "buildpack-build-1.0.0" \
+  --component "conventions-1.0.0" \
+  --component "app-config-server-1.0.0" \
+  --component "carvel-package-1.0.0" \
+  --component "git-writer-pr-1.0.0"
+  ```
 
-When you have selected the components, the Tanzu Supply Chain CLI plug-in creates the required files
+After you select the components, the Tanzu Supply Chain CLI plug-in creates the required files
 to deploy your SupplyChain in the current directory.
 
 For example:
@@ -295,24 +295,24 @@ Non-interactive
 : The SupplyChain returns an error if a component expects an input that has not been output by a
   previous stage. For example:
 
-    ```console
-    $ tanzu supplychain generate \
-    --kind AppBuildV1 \
-    --description "Supply chain that pulls the source code from Git repository, builds it using \
-    buildpacks and packages the output as Carvel package." \
-    --component "buildpack-build-1.0.0" \
-    --component "conventions-1.0.0" \
-    --component "app-config-server-1.0.0" \
-    --component "carvel-package-1.0.0" \
-    --component "git-writer-pr-1.0.0"
-    ```
+  ```console
+  $ tanzu supplychain generate \
+  --kind AppBuildV1 \
+  --description "Supply chain that pulls the source code from Git repository, builds it using \
+  buildpacks and packages the output as Carvel package." \
+  --component "buildpack-build-1.0.0" \
+  --component "conventions-1.0.0" \
+  --component "app-config-server-1.0.0" \
+  --component "carvel-package-1.0.0" \
+  --component "git-writer-pr-1.0.0"
+  ```
 
   Example error output:
 
-    ```console
-    Error: unable to find the component buildpack-build-1.0.0 or the component buildpack-build-1.0.0 \
-    does not match expected input value
-    ```
+  ```console
+  Error: unable to find the component buildpack-build-1.0.0 or the component buildpack-build-1.0.0 \
+  does not match expected input value
+  ```
 
 For detailed information about the API specification for SupplyChain, see the
 [SupplyChain API](./../../../reference/api/supplychain.hbs.md) reference documentation.

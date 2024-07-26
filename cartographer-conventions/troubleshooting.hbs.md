@@ -12,7 +12,7 @@ When a `PodIntent` is submitted, no `convention` is applied.
 
 When there are no `convention servers`
 ([ClusterPodConvention](reference/cluster-pod-convention.hbs.md)) deployed in the cluster or none of
-the existing convention servers applied any conventions, the `PodIntent` is not being mutated.
+the existing convention servers applied any conventions, the `PodIntent` is not mutating.
 
 ### Solution
 
@@ -24,7 +24,7 @@ the cluster.
 ### Symptoms
 
 - When a `PodIntent` is submitted, the `conventions` are not applied.
-- The `convention-controller` [logs](#gathering-logs) report an error `failed to get CABundle` as
+- The `convention-controller` logs report an error `failed to get CABundle` as
   follows:
 
    ```console
@@ -59,12 +59,12 @@ must be set to the used Certificate.
 ### Symptoms
 
 - When a `PodIntent` is submitted, the `convention` is not applied.
-- The `convention-controller` [logs](#gathering-logs) reports `failed to apply convention` error
+- The `convention-controller` logs report `failed to apply convention` error
   like this.
 
-    ```json
-    {"level":"error","ts":1638205387.8813763,"logger":"controllers.PodIntent.PodIntent.ApplyConventions","msg":"failed to apply convention","Convention":{"Name":"base-convention","Selectors":null,"Priority":"Normal","ClientConfig":{"service":{"namespace":"convention-template","name":"webhook","port":443},"caBundle":"..."}},"error":"Post \"https://webhook.convention-template.svc:443/?timeout=30s\": EOF","stacktrace":"reflect.Value.call\n\treflect/value.go:543\nreflect.Value.Call\n\treflect/value.go:339\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).sync\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:287\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:276\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.Sequence.Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:815\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:146\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:120\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:114\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:311\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:266\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:227"}
-    ```
+   ```json
+   {"level":"error","ts":1638205387.8813763,"logger":"controllers.PodIntent.PodIntent.ApplyConventions","msg":"failed to apply convention","Convention":{"Name":"base-convention","Selectors":null,"Priority":"Normal","ClientConfig":{"service":{"namespace":"convention-template","name":"webhook","port":443},"caBundle":"..."}},"error":"Post \"https://webhook.convention-template.svc:443/?timeout=30s\": EOF","stacktrace":"reflect.Value.call\n\treflect/value.go:543\nreflect.Value.Call\n\treflect/value.go:339\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).sync\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:287\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:276\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.Sequence.Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:815\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:146\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:120\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:114\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:311\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:266\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:227"}
+   ```
 
 - When a `PodIntent` status message is updated with
   `failed to apply convention from source base-convention: Post "https://webhook.convention-template.svc:443/?timeout=30s": EOF`.
@@ -74,6 +74,8 @@ must be set to the used Certificate.
 An unmanaged error occurs in the `convention server` when processing a request.
 
 ### Solution
+
+Identify the error and deploy a fixed version of `convention server`:
 
 1. Inspect the `convention server` logs to identify the cause of the error. Retrieve the
    `convention server` logs by running:
@@ -90,23 +92,22 @@ An unmanaged error occurs in the `convention server` when processing a request.
 
 1. Identify the error and deploy a fixed version of `convention server`.
 
-   - The new deployment is not applied to the existing `PodIntent`s. It is only applied to the new
-     `PodIntent` resources.
-   - To apply new deployment to exiting `PodIntent`, you must update the `PodIntent`, so the
-     reconciler applies if it matches the criteria.
+   The new deployment is not applied to the existing `PodIntent`s. It is only applied to the new
+   `PodIntent` resources. To apply a new deployment to an existing `PodIntent`, update the
+   `PodIntent` so that the reconciler applies if it matches the criteria.
 
-## <a id="server-not-secure"></a> Connection refused due to unsecured connection
+## <a id="server-not-secure"></a> Connection refused because of an unsecured connection
 
 ### Symptoms
 
 - When a `PodIntent` is submitted, the `convention` is not applied.
-- The `convention-controller` [logs](#gathering-logs) reports a connection-refused error as follows:
+- The `convention-controller` logs report a connection-refused error as follows:
 
    ```console
    {"level":"error","ts":1638202791.5734537,"logger":"controllers.PodIntent.PodIntent.ApplyConventions","msg":"failed to apply convention","Convention":{"Name":"base-convention","Selectors":null,"Priority":"Normal","ClientConfig":{"service":{"namespace":"convention-template","name":"webhook","port":443},"caBundle":"..."}},"error":"Post \"https://webhook.convention-template.svc:443/?timeout=30s\": dial tcp 10.56.13.206:443: connect: connection refused","stacktrace":"reflect.Value.call\n\treflect/value.go:543\nreflect.Value.Call\n\treflect/value.go:339\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).sync\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:287\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*SyncReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:276\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.Sequence.Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:815\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:146\ngithub.com/vmware-labs/reconciler-runtime/reconcilers.(*ParentReconciler).Reconcile\n\tgithub.com/vmware-labs/reconciler-runtime@v0.3.0/reconcilers/reconcilers.go:120\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:114\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:311\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:266\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2\n\tsigs.k8s.io/controller-runtime@v0.10.0/pkg/internal/controller/controller.go:227"}
    ```
 
-- The `convention server` fails to start due to `server gave HTTP response to HTTPS client`:
+- The `convention server` fails to start because `server gave HTTP response to HTTPS client`:
 
   - When checking the `convention server` events by running:
 
@@ -123,6 +124,8 @@ An unmanaged error occurs in the `convention server` when processing a request.
     For example:
 
     ```console
+    $ kubectl -n convention-template describe pod webhook-594d75d69b-4w4s8
+
     Name:         webhook-594d75d69b-4w4s8
     Namespace:    convention-template
     ...
@@ -151,21 +154,22 @@ When a `convention server` is provided without using Transport Layer Security (T
 
 ### Solution
 
+Create a differently configured `ClusterPodConvention` resource:
+
 1. Deploy a `convention server` with TLS enabled.
 1. Create `ClusterPodConvention` resource for the convention server with annotation
    `conventions.carto.run/inject-ca-from` as a pointer to the deployed `Certificate` resource.
 
-## <a id="ca-not-propagated"></a> Self-signed certificate authority (CA) not propagated to the Convention Service
+## <a id="ca-not-propagated"></a> A self-signed certificate authority (CA) is not propagated to Convention Service
 
 ### Symptoms
 
-The self-signed certificate authority (CA) for a registry is not propagated to the Convention
-Service.
+The self-signed CA for a registry is not propagated to the Convention Service.
 
 ### Cause
 
-When you provide the self-signed certificate authority (CA) for a registry through
-`convention-controller.ca_cert_data`, it cannot be propagated to the Convention Service.
+When you provide the self-signed CA for a registry through `convention-controller.ca_cert_data`, the
+self-signed CA cannot be propagated to the Convention Service.
 
 ### Solution
 
@@ -184,7 +188,7 @@ When a `PodIntent` is submitted:
 
 ### Cause
 
-The errors are seen when a `workload` is created in a developer namespace where `imagePullSecrets`
+The errors appear when a `workload` is created in a developer namespace where `imagePullSecrets`
 are not defined on the `default` serviceAccount or on the preferred serviceAccount.
 
 ### Solution
@@ -208,12 +212,12 @@ secrets:
 
 ### Symptoms
 
-While processing workloads with large SBOM, the Cartographer Convention controller manager pod can
+While processing workloads with a large SBOM, the Cartographer Convention controller manager pod can
 fail with the status `CrashLoopBackOff` or `OOMKilled`.
 
 To work around this problem you can increase the memory limit to `512Mi` to fix the pod crash.
 
-For example:
+Symptom example:
 
 ```console
 NAME                                                          READY   STATUS             RESTARTS          AGE
@@ -245,8 +249,8 @@ conventions which can lead to the controller pod crashing.
 
 ### Solution
 
-To increase the Cartographer Convention controller manager memory limit via the TAP values.yaml. For
-example:
+Increase the Cartographer Convention controller manager memory limit through `tap-values.yaml`.
+For example:
 
 - To increase the memory limit for convention server, see
   [Increase the memory limit for convention server](#increase-server).
@@ -254,16 +258,18 @@ example:
   spring-boot-webhook, and developer-conventions/webhook, see
   [Increase the memory limit for convention webhook servers](#increase-webhook).
 
-#### <a id='increase-server'></a> Increase the memory limit for convention server
+#### <a id='increase-server'></a> Increase the memory limit for the convention server
 
-To increase the memory limit, add the desired resource limit under key `cartographer_conventions` in
-`tap-values.yaml`:
+To increase the memory limit for the convention server:
 
-```yaml
-cartographer_conventions:
-  resource:
-    memory: 512Mi
-```
+1. Increase the memory limit, add the desired resource limit under key `cartographer_conventions` in
+   `tap-values.yaml`:
+
+    ```yaml
+    cartographer_conventions:
+      resource:
+        memory: 512Mi
+    ```
 
 1. Update Tanzu Application Platform by running:
 
@@ -352,7 +358,7 @@ Use this procedure to increase the memory limit:
                       memory: 512Mi
     ```
 
-1. Update the Tanzu Application Platform values YAML file to include a `package_overlays` field:
+1. Update `tap-values.yaml` to include a `package_overlays` field as follows:
 
     ```yaml
     package_overlays:
@@ -392,9 +398,9 @@ message: >-unable to apply object [workload-name] for resource [config-provider]
 
 ### Cause
 
-CA certificate used to secure TLS communications to the Cartographer Conventions webhook pod might
-have fallen out of sync between the running webhook pod and the certificate configured by the
-`MutatingWebhookConfiguration` and `ValidatingWebhookConfiguration` resources.
+The CA certificate used to secure TLS communications to the Cartographer Conventions webhook pod
+might have fallen out of sync between the running webhook pod and the certificate that the
+`MutatingWebhookConfiguration` and `ValidatingWebhookConfiguration` resources configured.
 
 ### Solution
 

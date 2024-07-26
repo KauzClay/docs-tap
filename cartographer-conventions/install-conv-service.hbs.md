@@ -7,7 +7,7 @@ This topic tells you how to install Cartographer Conventions from the Tanzu Appl
 > Source Controller. For more information about profiles, see
 > [Components and installation profiles](../about-package-profiles.hbs.md).
 
-## <a id='cc-prereqs'></a>Prerequisites
+## <a id='cc-prereqs'></a> Before you begin
 
 Before installing Source Controller:
 
@@ -41,12 +41,12 @@ To install Source Controller:
    tanzu package available get cartographer.conventions.apps.tanzu.vmware.com/VERSION-NUMBER --values-schema --namespace tap-install
    ```
 
-   Where `VERSION-NUMBER` is the version of the package listed in step 1 above.
+   Where `VERSION-NUMBER` is the version of the package listed earlier.
 
    For example:
 
    ```console
-   tanzu package available get cartographer.conventions.apps.tanzu.vmware.com/0.8.0-build.2 --values-schema --namespace tap-install
+   $ tanzu package available get cartographer.conventions.apps.tanzu.vmware.com/0.8.0-build.2 --values-schema --namespace tap-install
 
      KEY               DEFAULT  TYPE    DESCRIPTION
      aws_iam_role_arn  ""       string  Optional: Arn role that has access to pull images from ECR container registry
@@ -65,14 +65,14 @@ To install Source Controller:
      To provide a custom certificate, add the PEM-encoded CA certificate data to `source-controller-values.yaml`.
      For example:
 
-       ```yaml
-       ca_cert_data: |
-           -----BEGIN CERTIFICATE-----
-           MIICpTCCAYUCBgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDgQIYg9x6gkCAggA
-           ...
-           9TlA7A4FFpQqbhAuAVH6KQ8WMZIrVxJSQ03c9lKVkI62wQ==
-           -----END CERTIFICATE-----
-       ```
+     ```yaml
+     ca_cert_data: |
+         -----BEGIN CERTIFICATE-----
+         MIICpTCCAYUCBgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDgQIYg9x6gkCAggA
+         ...
+         9TlA7A4FFpQqbhAuAVH6KQ8WMZIrVxJSQ03c9lKVkI62wQ==
+         -----END CERTIFICATE-----
+     ```
 
    - `aws_iam_role_arn`: Annotates the Cartographer Conventions controller service with an AWS
      Identity and Access Management (IAM) role. This allows Cartographer Conventions controller to
@@ -81,9 +81,9 @@ To install Source Controller:
      To add the AWS IAM role Amazon Resource Name (ARN) to the Cartographer Conventions controller
      service, add the ARN to `cartographer-conventions-values.yaml`. For example:
 
-       ```yaml
-       aws_iam_role_arn: "eks.amazonaws.com/role-arn: arn:aws:iam::112233445566:role/cartographer-conventions-controller-manager"
-       ```
+     ```yaml
+     aws_iam_role_arn: "eks.amazonaws.com/role-arn: arn:aws:iam::112233445566:role/cartographer-conventions-controller-manager"
+     ```
 
    - `resources`: Allows updating the default resource configuration for the Cartographer
      Conventions controller. By default Cartographer Convention controller resource configuration is
@@ -99,15 +99,15 @@ To install Source Controller:
          memory: 20Mi
      ```
 
-      To update the controller's default resource configuration, add the desired configuration to
-      `cartographer-conventions-values.yaml`. For example:
+     To update the controller's default resource configuration, add the desired configuration to
+     `cartographer-conventions-values.yaml`. For example:
 
-        ```yaml
-        resources:
-          limits:
-            cpu: 100m
-            memory: 1Gi
-        ```
+     ```yaml
+     resources:
+       limits:
+         cpu: 100m
+         memory: 1Gi
+     ```
 
 4. Install the package by running:
 
@@ -121,8 +121,8 @@ To install Source Controller:
 
    Where:
 
-   - `VERSION-NUMBER` is the version of the package listed in step 1 above.
-   - `VALUES-FILE` is the path to the file created in step 3.
+   - `VERSION-NUMBER` is the version of the package listed earlier.
+   - `VALUES-FILE` is the path to the file you created earlier.
 
    For example:
 
@@ -197,7 +197,7 @@ To install Source Controller:
    For example:
 
    ```console
-   tanzu package installed get cartographer-conventions -n tap-install
+   $ tanzu package installed get cartographer-conventions -n tap-install
 
    NAMESPACE:          tap-install
    NAME:               cartographer-conventions
@@ -208,7 +208,7 @@ To install Source Controller:
      type: ReconcileSucceeded
    ```
 
-   Verify that `STATUS` is `Reconcile succeeded`:
+6. Verify that `STATUS` is `Running` by running:
 
    ```console
    kubectl get pods -n conventions-system
@@ -221,5 +221,3 @@ To install Source Controller:
    NAME                                                         READY   STATUS    RESTARTS   AGE
    cartographer-conventions-controller-manager-6cc74788-2z2v9   1/1     Running   0          5m6s
    ```
-
-   Verify that `STATUS` is `Running`.

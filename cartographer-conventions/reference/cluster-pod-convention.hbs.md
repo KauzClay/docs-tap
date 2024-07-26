@@ -9,7 +9,7 @@ A `ClusterPodConvention` defines how to connect to convention servers. It provid
 set of conventions to a
 [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
 and artifact metadata. A convention typically focuses on a particular application framework, but
-might be cross cutting. Applied conventions must be pure functions.
+might be cross-cutting. Applied conventions must be pure functions.
 
 ## Define conventions
 

@@ -5,11 +5,13 @@ Conventions.
 
 The Pod convention context specification is a wrapper of the
 [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
-and the [ImageConfig](image-config.md) provided in the request body of the server. It represents the
-original `PodTemplateSpec`. For more information on `PodTemplateSpec`, see the
+and the [ImageConfig](image-config.hbs.md) provided in the request body of the server. It represents
+the original `PodTemplateSpec`. For more information about `PodTemplateSpec`, see the
 [Kubernetes documentation](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
 
-```console
+For example:
+
+```json
 {
 "template": {
     "metadata": {

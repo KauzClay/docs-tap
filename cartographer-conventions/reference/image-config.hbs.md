@@ -1,17 +1,17 @@
 # ImageConfig for Cartographer Conventions
 
-This reference topic describes the ImageConfig object you can use with Cartographer Conventions.
+This reference topic describes the `ImageConfig` object you can use with Cartographer Conventions.
 
 ## Overview
 
-The image configuration object holds the name of the image, the [BOM](bom.md), and the
+The image configuration object holds the name of the image, the [BOM](bom.hbs.md), and the
 [OCI image configuration](https://github.com/opencontainers/image-spec/blob/main/config.md) with
 image metadata from the repository.
 
 [OCI image configuration](https://github.com/opencontainers/image-spec/blob/main/config.md) contains
 the metadata from the image repository.
 
-The [BOM](bom.md) represents the content of the image and may be zero or more per image.
+The [BOM](bom.hbs.md) represents the content of the image and can be zero or more per image.
 
 ```json
 {

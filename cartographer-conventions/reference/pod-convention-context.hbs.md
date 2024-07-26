@@ -5,30 +5,32 @@ Conventions.
 
 ## Overview
 
-The Pod convention context is the body of the webhook request and response. The specification is
-provided by the convention controller and the status is set by the convention server.
+The Pod convention context is the body of the webhook request and response. The convention
+controller provides the specification. The convention server sets the status.
 
-The context is a wrapper of the individual object description in an API (TypeMeta), the persistent
-metadata of a resource
-([ObjectMeta](https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/object-meta/#ObjectMeta)),
-the [PodConventionContextSpec](pod-convention-context-spec.md) and the
-[PodConventionContextStatus](pod-convention-context-status.md).
+The context consists of:
+
+- A wrapper of the individual object description in an API (TypeMeta)
+- The persistent metadata of a resource
+  ([ObjectMeta](https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/object-meta/#ObjectMeta))
+- The [PodConventionContextSpec](pod-convention-context-spec.hbs.md)
+- The [PodConventionContextStatus](pod-convention-context-status.hbs.md)
 
 ## PodConventionContext Objects
 
 In the `PodConventionContext` API resource:
 
-- Object path `.spec.template` field defines the `PodTemplateSpec` to be enriched by conventions.
-  For more information about `PodTemplateSpec`, see the
+- The object path `.spec.template` field defines the `PodTemplateSpec` to be enriched by
+  conventions. For more information about `PodTemplateSpec`, see the
   [Kubernetes documentation](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec).
-- Object path `.spec.imageConfig[]` field defines [ImageConfig](image-config.md). Each entry of it
+- The object path `.spec.imageConfig[]` field defines [ImageConfig](image-config.hbs.md). Each entry
   is populated with the name of the image (`.spec.imageConfig[].image`) and its OCI metadata
   (`.spec.imageConfig[].config`). These entries are generated for each image referenced in
   [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
   (`.spec.template`).
 
-The following is an example of a `PodConventionContext` resource request received by the convention
-server. This resource is generated for a
+The following snippet is an example of a `PodConventionContext` resource request that the convention
+server receives. This resource is generated for a
 [Go language-based application image](https://github.com/paketo-buildpacks/samples/tree/main/go/mod)
 in GitHub. It is built with Cloud Native Paketo Buildpacks that use Go mod for dependency
 management.
@@ -70,13 +72,14 @@ spec: # the request
 ## <a id="pcc-structure"></a> PodConventionContext Structure
 
 This section introduces more information about the image configuration in `PodConventionContext`.
-The convention-controller passes this information for each image in good faith. The controller is
-not the source of the metadata, and there is no guarantee that the information is correct.
+The convention controller passes this information for each image in good faith. The convention
+controller is not the source of the metadata, and there is no guarantee that the information is
+correct.
 
 The `config` field in the image configuration passes through the
 [OCI Image metadata in GitHub](https://github.com/opencontainers/image-spec/blob/main/config.md)
 loaded from the registry for the image.
 
-The `boms` field in the image configuration passes through the [BOM](bom.md)s of the image.
+The `boms` field in the image configuration passes through the [BOM](bom.hbs.md)s of the image.
 Conventions might parse the BOMs they want to inspect. There is no guarantee that an image contains
-a BOM or that the BOM is in a certain format.
+a BOM or that the BOM is in a specific format.

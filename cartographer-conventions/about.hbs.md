@@ -10,16 +10,16 @@ applications can run on Kubernetes as a convention. Cartographer Conventions sup
 applying conventions to pods. It applies these opinions to fleets of developer workloads as they are
 deployed to the platform, saving operator and developer time.
 
-The service is composed of two components:
+The service has two components:
 
-- **convention controller:**
+- **The convention controller:**
 
-  The convention service's convention controller provides the metadata to the convention server and
-  executes the updates to a
+  The convention controller provides the metadata to the convention server and
+  runs the updates to a
   [PodTemplateSpec](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec)
   in accordance with convention server's requests.
 
-- **convention server:**
+- **The convention server:**
 
   The convention server receives and evaluates metadata associated with a workload and requests
   updates to the
@@ -29,7 +29,7 @@ The service is composed of two components:
 
 ## <a id="about-apply-conventions"></a> About applying conventions
 
-The convention server uses criteria defined in the convention to discover whether the configuration
+The convention server uses criteria defined in the convention to detect whether the configuration
 of a workload must change. The server receives the OCI metadata from the convention controller. If
 the metadata meets the criteria defined by the convention server, the conventions are applied. A
 convention can apply to all workloads regardless of metadata.
@@ -67,6 +67,8 @@ uses of this type of convention include:
 These kinds of conventions ensure that infrastructure uniformity exists across workloads deployed on
 the cluster while reducing developer toil.
 
-> **Important** Adding a sidecar alone does not make the log or metrics collection work. This
-> requires having collector agents deployed and accessible from the Kubernetes cluster, and
-> configuring required access by using role-based access control (RBAC) policy.
+> **Important** Adding a sidecar alone does not make the log or metrics collection work. To enable
+> the log or metrics collection:
+>
+> - Deploy collector agents that are accessible from the Kubernetes cluster
+> - Configure the required access by using the role-based access control (RBAC) policy

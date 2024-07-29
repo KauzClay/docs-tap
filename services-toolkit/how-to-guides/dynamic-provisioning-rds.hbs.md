@@ -19,7 +19,7 @@ integrating AWS RDS into Tanzu Application Platform.
 Before you configure dynamic provisioning, you must have:
 
 - Access to a Tanzu Application Platform cluster v1.6.1 or later.
-- The Tanzu services CLI plug-in v0.7.0 or later.
+- The Tanzu Services CLI plug-in v0.7.0 or later.
 - Access to AWS.
 
 ## <a id="config-dynamic-provisioning"></a> Configure dynamic provisioning

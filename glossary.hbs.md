@@ -634,7 +634,7 @@ Terms beginning with "T".
         Carvel packaging APIs support all the GitOps features and enables a native GitOps flow.</td>
     </tr>
     <tr>
-        <td>Tanzu Service CLI plug-in</td>
+        <td>Tanzu Services CLI plug-in</td>
         <td>A plug-in for the Tanzu CLI used by application operators and application developers to
         create claims for service instances.</td>
     </tr>

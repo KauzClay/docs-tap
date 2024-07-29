@@ -45,7 +45,7 @@ you are want to achieve:
 - [Tutorials](tutorials/index.hbs.md): To learn through following examples.
 - [How-to guides](how-to-guides/index.hbs.md): To find a set of steps to solve a specific problem.
 - [Reference material](reference/index.hbs.md): To find specific information such as Services Toolkit's
-APIs, the Tanzu Service CLI plug-in, and troubleshooting information.
+APIs, the Tanzu Services CLI plug-in, and troubleshooting information.
 
 Tutorials and concepts are of most relevance when studying, while how-to guides and reference material
 are of most use while working.

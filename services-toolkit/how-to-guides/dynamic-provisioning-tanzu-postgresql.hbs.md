@@ -15,7 +15,7 @@ might be help you understand the steps presented in this topic.
 Before you configure dynamic provisioning, you must have:
 
 - Access to a Tanzu Application Platform cluster v1.5.0 or later.
-- The Tanzu services CLI plug-in v0.6.0 or later.
+- The Tanzu Services CLI plug-in v0.6.0 or later.
 
 ## <a id="config-dynamic-provisioning"></a> Configure dynamic provisioning
 

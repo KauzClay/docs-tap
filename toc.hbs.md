@@ -503,7 +503,7 @@
               - [ResourceClaim and ResourceClaimPolicy](services-toolkit/reference/api/resourceclaim-and-resourceclaimpolicy.hbs.md)
               - [InstanceQuery](services-toolkit/reference/api/instancequery.hbs.md)
               - [RBAC](services-toolkit/reference/api/rbac.hbs.md)
-          - [Tanzu Service CLI plug-in command reference](services-toolkit/reference/tanzu-service-cli.hbs.md)
+          - [Tanzu Services CLI plug-in command reference](services-toolkit/reference/tanzu-service-cli.hbs.md)
           - [Terminology and user roles](services-toolkit/reference/terminology-and-user-roles.hbs.md)
           - [Example Compositions](./services-toolkit/reference/example-compositions.hbs.md)
           - [Limitations](services-toolkit/reference/known-limitations.hbs.md)

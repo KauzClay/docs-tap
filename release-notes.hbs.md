@@ -58,7 +58,7 @@ This release includes the following changes, listed by component and area.
 
 ### <a id='1-12-0-security-fixes'></a> v1.12.0 Security fixes
 
-This release has the following security fixes, listed by component and area.
+This release has the following security fixes, listed by package.
 
 #### <a id='1-12-0-COMPONENT-NAME-fixes'></a> v1.12.0 Security fixes: COMPONENT-NAME
 

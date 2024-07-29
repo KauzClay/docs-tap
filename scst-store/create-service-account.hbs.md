@@ -1,26 +1,26 @@
 # Retrieve and create service accounts for Supply Chain Security Tools - Store
 
-This topic explains how you can create service accounts for Supply Chain Security Tools (SCST) - Store.
+This topic explains how you can create service accounts for Supply Chain Security Tools (SCST) -
+Store.
 
 ## Overview
 
-When you install Tanzu Application Platform, the Supply Chain Security
-Tools (SCST) - Store deployment automatically includes a read-write service
-account.
-This service account is bound to the `metadata-store-read-write` role.
+When you install Tanzu Application Platform, the SCST - Store deployment automatically includes a
+read-write service account. This service account is bound to the `metadata-store-read-write` role.
 
 There are two types of SCST - Store service accounts:
 
-1. Read-write service account - full access to the `POST` and `GET` API requests
-2. Read-only service account - can only use `GET` API requests
+- The read-write service account, which is for full access to the `POST` and `GET` API requests
+- The read-only service account, which can only use `GET` API requests
 
 ## <a id='rw-serv-accts'></a> Create read-write service account
 
-When you install Tanzu Application Platform, the SCST - Store deployment automatically includes a read-write service account.
-This service account is already bound to the `metadata-store-read-write` role.
+When you install Tanzu Application Platform, the SCST - Store deployment automatically includes a
+read-write service account. This service account is already bound to the `metadata-store-read-write`
+role.
 
-To create an additional read-write service account, run the following command.
-The command creates a service account called `metadata-store-read-write-client`:
+To create an additional read-write service account, create a service account called
+`metadata-store-read-write-client` by running:
 
 ```console
 kubectl apply -f - -o yaml << EOF
@@ -75,9 +75,9 @@ You can create a read-only service account with a default cluster role or with a
 
 ### With a default cluster role
 
-During Store installation, the `metadata-store-read-only` cluster role
-is created by default. This cluster role allows the bound user to have `get`
-access to all resources. To bind to this cluster role, run the following command:
+During Store installation, the `metadata-store-read-only` cluster role is created by default. This
+cluster role permits the bound user to have `get` access to all resources. To bind to this cluster
+role, run the following command:
 
 ```console
 kubectl apply -f - -o yaml << EOF
@@ -118,7 +118,8 @@ EOF
 
 ### With a custom cluster role
 
-If using the default role is not sufficient, see [Create a service account with a custom cluster role](custom-role.hbs.md).
+If the default role is not enough for your needs, see
+[Create a service account with a custom cluster role](custom-role.hbs.md).
 
 ## Additional Resources
 

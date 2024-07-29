@@ -1,10 +1,11 @@
 # Database backup recommendations for Supply Chain Security Tools - Store
 
-This topic describes database backup recommendations for Supply Chain Security Tools (SCST) - Store.
+This topic tells you about database backup recommendations for Supply Chain Security Tools (SCST) -
+Store.
 
-By default, the metadata store uses a `PersistentVolume` mounted on a Postgres instance, making it a
-stateful component of Tanzu Application Platform. VMware recommends implementing a regular backup
-strategy as part of your disaster recovery plan when using the provided Postgres instance.
+By default, the metadata store uses a `PersistentVolume` mounted on a PostgreSQL instance, making it
+a stateful component of Tanzu Application Platform. VMware recommends implementing a regular backup
+strategy as part of your disaster recovery plan when using the provided PostgreSQL instance.
 
 ## <a id='backup-store'></a> Backup
 
@@ -32,26 +33,30 @@ namespace, including `PersistentVolumeClaim` and `PersistentVolume`.
 velero backup create metadata-store-$(date '+%s') --include-namespaces=metadata-store
 ```
 
-## <a id='restore-store'></a>Restore
+## <a id='restore-store'></a> Restore
 
-Velero CLI can restore the Store in the same or a different cluster. The same namespace can be used
-to restore, but may collide with other Supply Chain Security Tools – Store installations.
-Furthermore, restoring into the same namespace restores a fully functional instance of Supply Chain
-Security Tools – Store; however, this instance is not managed by Tanzu Application Platform and can
-cause conflicts with future installations.
+You can use Velero CLI to restore the Store in the same cluster or a different cluster.
+
+You can use the same namespace for the restore, but there is a risk of collision with other SCST –
+Store installations. Furthermore, Tanzu Application Platform does not manage a restored SCST - Store
+instance within the same namespace, which can cause conflicts with future installations.
+
+To restore the Store, run:
 
 ```console
 velero restore create restore-metadata-store-$timestamp --from-backup metadata-store-$timestamp \
 --namespace-mappings metadata-store:metadata-store
 ```
 
-Alternatively, a different namespace can be used to restore Supply Chain Security Tools – Store. In
-this case, Supply Chain Security Tools – Store API is not available due to conflicting definitions
-in the RBAC proxy configuration, causing all requests to fail with an `Unauthorized` error.
+Alternatively, a different namespace can be used to restore SCST – Store. In this case, SCST – Store
+API is not available because of conflicting definitions in the role-based access control (RBAC)
+proxy configuration. These conflicting definitions cause all requests to fail with an `Unauthorized`
+error.
 
-In this scenario, the postgres instance is still accessible, and tools such as `pg_dump` can be used
-to retrieve table contents and restore in a new live installation of Supply Chain Security Tools –
-Store.
+In this scenario, the PostgreSQL instance is still accessible, and tools such as `pg_dump` can be
+used to retrieve table contents and restore in a new live installation of SCST – Store.
+
+To restore the Store, run:
 
 ```console
 velero restore create restore-metadata-store-$timestamp --from-backup metadata-store-$timestamp \
@@ -62,5 +67,5 @@ Currently, mounting an existing `PersistentVolume` or `PersistentVolumeClaim` du
 not supported.
 
 The minimum suggested resources for backups are `PersistentVolume`, `PersistentVolumeClaim` and
-`Secret`. The database password `Secret` is needed to set up a Postgres instance with the correct
+`Secret`. The database password `Secret` is needed to set up a PostgreSQL instance with the correct
 password to properly read data from the restored volume.

@@ -1,4 +1,4 @@
-# Use external PostgreSQL database for Supply Chain Security Tools - Store
+# Use an external PostgreSQL database for Supply Chain Security Tools - Store
 
 This topic describes how you configure Tanzu Application Platform to use an
 external database.

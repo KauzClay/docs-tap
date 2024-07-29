@@ -1,11 +1,13 @@
 # Create a service account with a custom cluster role for Supply Chain Security Tools - Store
 
-This topic describes how you can create a service account with a custom cluster role for Supply Chain Security Tools (SCST)- Store.
+This topic describes how you can create a service account with a custom cluster role for Supply
+Chain Security Tools (SCST) - Store.
 
 ## Example service account
 
-If you do not want to bind to the default cluster role, create a read-only role in the `metadata-store` namespace with a service account.
-The following example creates a service account named `metadata-store-read-client`:
+If you do not want to bind to the default cluster role, create a read-only role in the
+`metadata-store` namespace with a service account. The following command creates a service account
+named `metadata-store-read-client`:
 
 ```console
 kubectl apply -f - -o yaml << EOF

@@ -719,7 +719,6 @@
       - [Add integrations](tap-gui/integrations.hbs.md)
       - [Database configuration](tap-gui/database.hbs.md)
       - [Generate and publish TechDocs](tap-gui/techdocs/usage.hbs.md)
-      - [Tanzu Developer Portal Configurator](tap-gui/configurator/about.hbs.md)
       - [Tanzu Developer Portal plug-ins](tap-gui/plugins/about.hbs.md)
          - [Tanzu Developer Portal plug-ins overview](tap-gui/plugins/about.hbs.md)
          - [Runtime resources visibility](tap-gui/plugins/runtime-resource-visibility.hbs.md)

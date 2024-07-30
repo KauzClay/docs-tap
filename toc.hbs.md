@@ -657,7 +657,7 @@
           - [Overview](scst-store/additional.hbs.md)
           - [Connect to the PostgreSQL Database](scst-store/connect-to-database.hbs.md)
           - [Deployment details and configuration](scst-store/deployment-details.hbs.md)
-          - [AWS RDS PostgreSQL configuration](scst-store/use-aws-rds.hbs.md)
+          - [Edit your AWS RDS PostgreSQL configuration](scst-store/use-aws-rds.hbs.md)
           - [Use an external PostgreSQL database](scst-store/use-external-database.hbs.md)
           - [Database backup recommendations](scst-store/backups.hbs.md)
           - [Log configuration and usage](scst-store/logs.hbs.md)

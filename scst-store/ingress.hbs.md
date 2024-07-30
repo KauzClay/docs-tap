@@ -1,25 +1,23 @@
 # Ingress support for Supply Chain Security Tools - Store
 
-This topic describes how to configure ingress for Supply Chain Security Tools (SCST) - Store.
+This topic tells you how to configure ingress for Supply Chain Security Tools (SCST) - Store.
 
 ## Ingress configuration
 
-Supply Chain Security Tools (SCST) - Store has ingress support by using
-Contour's HTTPProxy resources. To enable ingress support, a Contour installation
-must be available in the cluster.
+SCST - Store has ingress support by using the Contour HTTPProxy resources. To enable ingress support,
+a Contour installation must be available in the cluster.
 
-To change ingress configuration, edit your `tap-values.yaml` when you install a
-Tanzu Application Platform profile. When you configure the `shared.ingress_domain`
-property, SCST - Store automatically uses that setting.
+To change ingress configuration, edit your `tap-values.yaml` when you install a Tanzu Application
+Platform profile. When you configure the `shared.ingress_domain` property, SCST - Store
+automatically uses that setting.
 
-Alternatively, you can customize SCST - Store's configuration under the
-`metadata_store` property. Under `metadata_store`, there are two values to
-configure the proxy:
+Alternatively, you can customize the SCST - Store configuration under the `metadata_store` property.
+Under `metadata_store`, there are two values to configure the proxy:
 
 - `ingress_enabled`
 - `ingress_domain`
 
-This is an example snippet in a `tap-values.yaml`:
+This is an example snippet in `tap-values.yaml`:
 
 ```yaml
 ...
@@ -30,18 +28,17 @@ metadata_store:
 ...
 ```
 
-SCST - Store installation creates an HTTPProxy entry with host routing by using
-the qualified name `METADATA-STORE.INGRESS-DOMAIN`. For example,
-`metadata-store.example.com`. The route supports HTTPS communication using a
-certificate. By default, a self-signed certificate is used with the same subject
-`alternative name`.
-For more information, see [Custom certificate configuration](custom-cert.hbs.md).
+The SCST - Store installation creates an HTTPProxy entry with host routing by using the qualified
+name `METADATA-STORE.INGRESS-DOMAIN`. For example, `metadata-store.example.com`. The route supports
+HTTPS communication using a certificate. By default, a self-signed certificate is used with the same
+subject `alternative name`. For more information, see
+[Custom certificate configuration](custom-cert.hbs.md).
 
-Contour and DNS setup are not part of SCST - Store installation. Access to SCST - Store using Contour depends on the correct configuration of these two
-components.
+Contour and DNS setup are not part of SCST - Store installation. Access to SCST - Store using
+Contour depends on the correct configuration of these two components.
 
-Make the proper DNS record available to clients to resolve `metadata-store` and
-set `ingress_domain` to Envoy service's external IP address.
+Make the proper DNS record available to clients to resolve `metadata-store` and set `ingress_domain`
+to Envoy service's external IP address.
 
 DNS setup example:
 
@@ -69,15 +66,14 @@ $ curl https://metadata-store.example.com/api/health -k -v
   ...
 ```
 
->**Note** The preceding `curl` example uses the not secure `-k` flag to skip
->TLS verification because the Store installs a self-signed certificate. The
->following section shows how to access the CA certificate to enable TLS
->verification for HTTP clients.
+> **Note** The preceding `curl` example uses the insecure `-k` flag to skip TLS verification
+> because the Store installs a self-signed certificate. The following section shows how to access
+> the CA certificate to enable TLS verification for HTTP clients.
 
-## <a id="tls"></a>Get the TLS CA certificate
+## <a id="tls"></a> Get the TLS CA certificate
 
-To get SCST - Store's TLS CA certificate, use `kubectl get secret`. In this
-example, you save the certificate for the environment variable to a file.
+To get SCST - Store's TLS CA certificate, save the certificate for the environment variable to a
+file by running:
 
 ```console
 kubectl get secret CERT-NAME -n metadata-store -o json | jq -r '.data."ca.crt"' | base64 -d > OUTPUT-FILE
@@ -85,9 +81,9 @@ kubectl get secret CERT-NAME -n metadata-store -o json | jq -r '.data."ca.crt"' 
 
 Where:
 
-- `CERT-NAME` is the name of the certificate. This must be `ingress-cert` if no
-  custom certificate is used.
-- `OUTPUT-FILE` is the file you want to create to store the certificate.
+- `CERT-NAME` is the name of the certificate. This must be `ingress-cert` if no custom certificate
+  is used.
+- `OUTPUT-FILE` is the file you want to create to store the certificate in.
 
 For example:
 

@@ -37,7 +37,7 @@ This topic lists extra topics for explaining Supply Chain Security Tools (SCST) 
 ### Database
 
 - [Use external postgres database](use-external-database.hbs.md)
-- [AWS RDS postgres configuration](use-aws-rds.hbs.md)
+- [Edit your AWS RDS PostgreSQL configuration](use-aws-rds.hbs.md)
 - [Database backup recommendations](backups.hbs.md)
 
 ## Other

@@ -100,7 +100,7 @@ scaling, redundancy, and failover. However, it is a secure deployment.
 #### <a id='aws-rds-postgresql-data'></a> Use an AWS RDS PostgreSQL database
 
 You can configure the deployment to use your own RDS database instead of the default. For more
-information, see [Configure your AWS RDS PostgreSQL configuration](use-aws-rds.hbs.md).
+information, see [Edit your AWS RDS PostgreSQL configuration](use-aws-rds.hbs.md).
 
 #### <a id='ex-sql-db'></a> Use an external PostgreSQL database
 

@@ -104,7 +104,10 @@ VS Code features such as syntax highlighting and code folding.
 To enable these features, you must start the local server. For instructions, see
 [Use a local Application Accelerator engine server](./creating-accelerators/using-local-engine-server.hbs.md).
 After you have enabled the local server, these features are available while editing an `accelerator.axl`
-file in VS Code.
+file in VS Code. 
+
+If the language features are not present after opening an `accelerator.axl` file, you may have to first
+manually activate the Application Accelerator VS Code extension by clicking the Tanzu Application Accelerator extension icon in the Activity Bar, and then re-open the `accelerator.axl` file.
 
 ## <a id="fqdn-tap-gui-url"></a> Retrieve the URL for the Tanzu Developer Portal
 

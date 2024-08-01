@@ -1,6 +1,7 @@
 # Glossary
 
-This topic gives you definitions of terms used in the Tanzu Application Platform documentation.
+This topic gives you definitions of terms used in the Tanzu Application Platform (commonly referred
+to as TAP) documentation.
 
 ## <a id="a"></a> A
 
@@ -26,9 +27,9 @@ Terms beginning with "A".
     </tr>
     <tr>
         <td>API Scoring and Validation</td>
-        <td>This Tanzu Application Platform component focuses on scanning and validating OpenAPI specifications.
-        It ensures your APIs are secure and robust by providing feedback and recommendations early on
-        in the software development life cycle.</td>
+        <td>This Tanzu Application Platform component focuses on scanning and validating OpenAPI
+        specifications. It ensures your APIs are secure and robust by providing feedback and
+        recommendations early on in the software development life cycle.</td>
     </tr>
     <tr>
         <td>Application Accelerator</td>
@@ -191,7 +192,8 @@ Terms beginning with "C".
     </tr>
     <tr>
         <td>Cloud Native Runtimes</td>
-        <td>This Tanzu Application Platform component that is a serverless application runtime for Kubernetes. It is based on Knative and runs on a single Kubernetes cluster.</td>
+        <td>This Tanzu Application Platform component is a serverless application runtime for
+        Kubernetes. It is based on Knative and runs on a single Kubernetes cluster.</td>
     </tr>
         <tr>
         <td>Component</td>
@@ -521,8 +523,7 @@ Terms beginning with "S".
     </tr>
     <tr>
         <td>Service resource</td>
-        <td>A Kubernetes resource that provides some of the functions related to
-        a Service.</td>
+        <td>A Kubernetes resource that provides some of the functions related to a Service.</td>
     </tr>
     <tr>
         <td>Service resource life cycle API</td>
@@ -531,10 +532,10 @@ Terms beginning with "S".
     </tr>
     <tr>
         <td>Services Toolkit</td>
-        <td>This Tanzu Application Platform component provides backing for service
-        capabilities. This includes the integration of an extensive list of cloud-based and on-prem services,
-        through to the offering and discovery of those services, and finally to the claiming and binding
-        of service instances to application workloads.</td>
+        <td>This Tanzu Application Platform component provides backing for service capabilities.
+        This includes the integration of an extensive list of cloud-based and on-premise services,
+        through to the offering and discovery of those services, and finally to the claiming and
+        binding of service instances to application workloads.</td>
     </tr>
     <tr>
         <td>Supply Chain Choreographer</td>
@@ -661,8 +662,8 @@ Terms beginning with "U".
   <tbody>
     <tr>
         <td>Unmanaged service</td>
-        <td>The services available in the Bitnami Services package where the resulting service instances
-        run on the cluster, that is, they are not a managed service running in the cloud.</td>
+        <td>The services available in the Bitnami Services package where the resulting service
+        instances run on the cluster. The services are not managed services running in the cloud.</td>
     </tr>
   </tbody>
 </table>
@@ -691,7 +692,8 @@ Terms beginning with "V".
     <tr>
         <td>View profile</td>
         <td>This Tanzu Application Platform profile is intended for instances of applications related
-        to centralized developer experiences. Specifically, Tanzu Developer Portal and Metadata Store.</td>
+        to centralized developer experiences. Specifically, Tanzu Developer Portal and the Metadata
+        Store.</td>
     </tr>
   </tbody>
 </table>

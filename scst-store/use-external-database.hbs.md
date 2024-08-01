@@ -1,13 +1,13 @@
 # Use an external PostgreSQL database for Supply Chain Security Tools - Store
 
-This topic describes how you configure Tanzu Application Platform to use an
+This topic tells you how to configure Tanzu Application Platform (commonly known as TAP) to use an
 external database.
 
-For production deployments, VMware recommends you use an external PostgreSQL database rather than the
-one packaged with Tanzu Application Platform. This allows you to manage the external database using
+For production deployments, VMware recommends that you use an external PostgreSQL database rather
+than the one packaged with Tanzu Application Platform. You can manage an external database by using
 the best practices and processes that your organization has established.
 
-## <a id='prereqExtrenalDB'></a>Prerequisites
+## <a id='prereqExtrenalDB'></a> Before you begin
 
 Gather the following connection information for the external PostgreSQL database:
 
@@ -18,9 +18,9 @@ Gather the following connection information for the external PostgreSQL database
 
 If migrating from the internal database to an external database, back up the data before proceeding.
 
-## Configure Artifact Metadata Repository (AMR) and Metadata Store (MDS) to use the external database
+## Configure Artifact Metadata Repository (AMR) and the Metadata Store (MDS) to use the external database
 
-To configure Artifact Metadata Repository (AMR) and Metadata Store (MDS) to use the external database:
+To configure AMR and MDS to use the external database:
 
 1. Update your `tap-values.yaml` file:
 
@@ -47,20 +47,21 @@ To configure Artifact Metadata Repository (AMR) and Metadata Store (MDS) to use 
         ...
     ```
 
-   > **Note** If you initially deployed Tanzu Application Platform with an internal database and
-   > are migrating to an external database, be aware that setting `deploy_internal_db` to `false,`
-   > removes the internal instance of PostgreSQL. Back up and migrate your data to the database before
-   > setting this value to false or it might cause data loss.
+   > **Caution** If you initially deployed Tanzu Application Platform with an internal database and
+   > are migrating to an external database, setting `deploy_internal_db` to `false` removes the
+   > internal instance of PostgreSQL. Back up and migrate your data to the database before setting
+   > this value to `false` or you might lose data.
 
-2. Apply the new configuration:
+2. Apply the new configuration by running:
 
    ```console
-   tanzu package installed update tap -p tap.tanzu.vmware.com -v {{ vars.tap_version }}  --values-file tap-values.yaml -n tap-install
+   tanzu package installed update tap -p tap.tanzu.vmware.com -v {{ vars.tap_version }}  \
+   --values-file tap-values.yaml -n tap-install
    ```
 
 3. (Optional) If you are migrating from the internal database to an external database, the
-reconciliation might fail. You must manually delete the secret the
-cert-manager created and cycle the AMR and MDS Services so that the new secret is picked up.
+   reconciliation might fail. To manually delete the secret that cert-manager created, and cycle
+   the AMR and MDS Services so that the new secret is picked up, run:
 
    ```console
    kubectl delete secret -n metadata_store postgres-db-tls-cert
@@ -69,4 +70,5 @@ cert-manager created and cycle the AMR and MDS Services so that the new secret i
 
 ## Validation
 
-Use Bitnami PostgreSQL to verify. For more information, see the [Bitnami](https://github.com/bitnami/charts/tree/main/bitnami/postgresql) documentation.
+Use Bitnami PostgreSQL to validate. For more information, see the
+[Bitnami](https://github.com/bitnami/charts/tree/main/bitnami/postgresql) documentation.

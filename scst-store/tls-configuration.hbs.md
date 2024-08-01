@@ -6,7 +6,7 @@ This topic describes how you can configure TLS for Supply Chain Security Tools (
 
 ## Setting up custom ingress TLS ciphers
 
-In the `tap-values.yaml` file, `tls.server.rfcCiphers` are set as shown in the following YAML:
+In `tap-values.yaml`, `tls.server.rfcCiphers` are set as shown in the following YAML:
 
 ```yaml
 metadata_store:
@@ -21,10 +21,9 @@ metadata_store:
         - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 ```
 
-Where `tls.server.rfcCiphers` is a list of cipher suites for the server. Values
-are from the [Go TLS package
-constants](https://golang.org/pkg/crypto/tls/#pkg-constants). If you omit
-values, the default Go cipher suites are used. These are the default values:
+Where `tls.server.rfcCiphers` is a list of cipher suites for the server. Values are from the
+[Go TLS package constants](https://golang.org/pkg/crypto/tls/#pkg-constants). If you omit values,
+the default Go cipher suites are used. These are the default values:
 
 - `TLS_AES_128_GCM_SHA256`
 - `TLS_AES_256_GCM_SHA384`

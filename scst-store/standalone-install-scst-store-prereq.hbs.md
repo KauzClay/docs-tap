@@ -1,10 +1,13 @@
 
-# Prerequisite for Standalone SCST - Store
+# Prerequisites for installing Supply Chain Security Tools - Store
 
-The following prerequisites are required to install SCST - Store individually, instead of by using a
-profile:
+The following prerequisites are required to install Supply Chain Security Tools (SCST) - Store by
+itself, instead of installing it as part of a
+[Tanzu Application Platform profile](../about-package-profiles.hbs.md).
 
-1. Install the SelfSigned Cluster Issuer:
+These steps ensure that you have a valid certificate after installing SCST - Store.
+
+1. Install the SelfSigned Cluster Issuer by running:
 
    ```console
    # Install `tap-ingress-selfsigned` ClusterIssuer
@@ -20,7 +23,7 @@ profile:
    kapp deploy -a issuer -f /tmp/tap-ingress-selfsigned-cluster-issuer.yaml -y
    ```
 
-1. Install SCST - Store and update the certificate:
+1. Install SCST - Store and update the certificate by running:
 
    ```console
    cat << EOF > /tmp/ingress-issuer-cert.yaml
@@ -44,5 +47,3 @@ profile:
    # `ingress-cert` is deleted. It will be automatically created again with newly applied ClusterIssuer cert
    kubectl delete secret ingress-cert -n metadata-store
    ```
-
-These steps ensure that you have valid certificate after SCST - Store installation is complete.

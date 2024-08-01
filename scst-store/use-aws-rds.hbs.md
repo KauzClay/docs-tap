@@ -3,7 +3,7 @@
 This topic describes how you can edit your AWS RDS PostgreSQL configuration for Supply Chain
 Security Tools (SCST) - Store.
 
-## <a id='prereq'></a> Prerequisite
+## <a id='prereq'></a> Before you begin
 
 You must have an AWS account.
 
@@ -11,8 +11,8 @@ You must have an AWS account.
 
 To set up a certificate and configuration:
 
-1. Create an Amazon RDS Postgres using the
-   [Amazon RDS Getting Started Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html#CHAP_GettingStarted.Creating.PostgreSQL)
+1. Create an Amazon RDS PostgreSQL DB instance by using the
+   [Amazon RDS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html#CHAP_GettingStarted.Creating.PostgreSQL)
 
 2. After the database instance starts, retrieve the following information:
 
@@ -23,12 +23,12 @@ To set up a certificate and configuration:
 
    > **Note** If the database name is `-` in the AWS RDS UI, the value is likely to be `postgres`.
 
-3. Create a security group to allow inbound connections from the cluster to the Postgres DB
+3. Create a security group to allow inbound connections from the cluster to the PostgreSQL DB.
 
-4. Retrieve the corresponding CA Certificate that signed the Postgres TLS Certificate using the
-   following [link](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html)
+4. Retrieve the corresponding CA Certificate that signed the PostgreSQL TLS Certificate by using the
+   [Amazon RDS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html)
 
-5. In the `metadata-store-values.yaml` fill the following settings:
+5. In `metadata-store-values.yaml` replace the following placeholders with your values:
 
     ```yaml
     db_host: "<DB Instance Endpoint>"
@@ -48,5 +48,5 @@ To set up a certificate and configuration:
     deploy_internal_db: "false"
     ```
 
-> **Note** If `deploy_internal_db` is set to `false,` an instance of Postgres will not be deployed
-> in the cluster.
+> **Note** If `deploy_internal_db` is set to `false,` an instance of PostgreSQL is not deployed in
+> the cluster.

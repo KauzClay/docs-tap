@@ -1,46 +1,49 @@
 # Upgrading from AMR Beta to AMR GA release
 
-This topic tells you how to upgrade from Tanzu Application Platform 1.6 to
-Tanzu Application Platform 1.7 or later with Artifact Metadata Repository (AMR) beta
-enabled. Because AMR is not enabled by default in Tanzu Application Platform
-1.6, most users will not encounter this scenario. To upgrade without AMR, see
-[Supply Chain Security Tools - Store - Upgrading](upgrading.hbs.md).
+This topic tells you how to upgrade from Tanzu Application Platform v1.6 to Tanzu Application
+Platform 1.7 or later with Artifact Metadata Repository (AMR) beta enabled. Because AMR is not
+enabled by default in Tanzu Application Platform v1.6, most users will not encounter this scenario.
+To upgrade without AMR, see [Supply Chain Security Tools - Store - Upgrading](upgrading.hbs.md).
 
-## <a id='ki'></a>Known issues and workarounds
+## <a id='ki'></a> Known issues and workarounds
 
-Because AMR was in beta in Tanzu Application Platform v1.6, there are breaking
-changes when upgrading to Tanzu Application Platform v{{ vars.url_version }}. This section lists all
-the known issues and workarounds.
+Because AMR was in beta in Tanzu Application Platform v1.6, there are breaking changes when
+upgrading to Tanzu Application Platform v{{ vars.url_version }}. This section lists all the known
+issues and workarounds.
 
-### <a id='config-changes'></a>Configuration Changes
+### <a id='config-changes'></a> Configuration Changes
 
-In the AMR Beta release, most of the AMR configurations are in-line with `metadata_store` section inside `values.yaml` file. You must remove `metadata_store.amr` from the `values.yaml` file.
+In the AMR Beta release, most of the AMR configurations are in line with the `metadata_store` section
+in `values.yaml`. To configure a workaround:
 
-1. Remove `metadata_store.amr` from the values file.
-    
-    ```code
-    metadata_store:
-      amr:
-        deploy: true
-        graphql:
-        app_service_type: "ClusterIP"
-    ```
+1. Remove `metadata_store.amr` from the values file as seen in this example:
 
-2. Remove `amr.deploy_observer: true` from the values file
-3. Remove Alias from the `amr.observer.location` configmap
-  
-  ```code observer:
-    location: |
-      alias: my-cluster
-  ```
+   ```yaml
+   metadata_store:
+     amr:
+       deploy: true
+       graphql:
+       app_service_type: "ClusterIP"
+   ```
 
-### <a id='db-changes'></a>Database changes
+2. Remove `amr.deploy_observer: true` from `values.yaml`.
+3. Remove `alias` from the `amr.observer.location` config map, as seen in this example:
 
-In the AMR Beta release, the `Alias` field was introduced in the `Location` table. The `Alias` field is removed in Tanzu Application Platform v{{ vars.url_version }}. To drop this field from Tanzu Application Platform v{{ vars.url_version }}:
+   ```code
+   observer:
+     location: |
+       alias: my-cluster
+   ```
 
-1. Connect to the [Postgres database](./connect-to-database.hbs.md).
+### <a id='db-changes'></a> Database changes
+
+In the AMR Beta release, the `Alias` field was introduced in the `Location` table. The `Alias` field
+was removed from Tanzu Application Platform v{{ vars.url_version }}. To drop this field from Tanzu
+Application Platform v{{ vars.url_version }}:
+
+1. [Connect to the PostgreSQL Database](connect-to-database.hbs.md).
 1. Run the following SQL command:
-  
-  ```code
-  ALTER TABLE artifact_locations DROP COLUMN IF EXISTS alias;
-  ```
+
+   ```sql
+   ALTER TABLE artifact_locations DROP COLUMN IF EXISTS alias;
+   ```

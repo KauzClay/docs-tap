@@ -1,75 +1,68 @@
 # Upgrade Supply Chain Security Tools - Store
 
 This topic tells you how to upgrade Supply Chain Security Tools (SCST) - Store and how to
-troubleshoot upgrade issues.
+troubleshoot upgrading issues.
 
-## <a id="upgrading-1-7"></a>Upgrading to v1.7 and later
+## <a id="upgrading-1-7"></a> Upgrading to v1.7 and later
 
 In Tanzu Application Platform v1.7 and later, VMware introduces Artifact Metadata Repository (AMR)
 to SCST - Store. Tanzu Application Platform installs AMR components by default after upgrading.
 
-How you must configure AMR depends on if:
+How you must configure AMR depends on how you installed Tanzu Application Platform:
 
-- Tanzu Application Platform is installed in a single cluster, Full profile, deployment.
-  See [Single cluster or Full profile upgrade](#full-profile-upgrade).
-- Tanzu Application Platform is installed in a multicluster deployment.
-  See [Multicluster upgrade](#multicluster-upgrade).
+Single-cluster or Full profile
+: If Tanzu Application Platform is installed on a single cluster, or if it was installed through the
+  Full profile, you do not need to configure AMR further. For more information, see
+  [AMR architecture](amr/architecture.hbs.md) and [deployment details](deployment-details.hbs.md).
 
-### <a id="full-profile-upgrade"></a> Single cluster or Full profile upgrade
+Multicluster
+: If Tanzu Application Platform is installed in a multicluster deployment, AMR components are
+  installed on the View, Build and Run clusters. AMR Observer is installed on the Build and Run
+  clusters. You must configure  AMR Observer to communicate with AMR CloudEvent Handler, which is
+  installed on the View cluster.
 
-In a Full profile, AMR does not need any additional user configuration. See
-[AMR architecture](amr/architecture.hbs.md) and
-[deployment details](deployment-details.hbs.md).
+  See [Multicluster setup for SCST - Store](multicluster-setup.hbs.md) to learn how to configure both
+  the new AMR and the existing Metadata Store. The relevant new configurations in the topic for
+  Tanzu Application Platform v1.7 and later are:
 
-### <a id="multicluster-upgrade"></a> Multicluster upgrade
+  1. [Copy AMR CloudEvent Handler CA certificate data from the View cluster](multicluster-setup.hbs.md#copy-ceh-ca)
+  2. [Copy AMR CloudEvent Handler edit token from the View cluster](multicluster-setup.hbs.md#copy-ceh-token)
+  3. [Apply the CloudEvent Handler CA certificate data and edit token to the Build and Run clusters](multicluster-setup.hbs.md#apply-ceh-ca-token)
 
-In a multicluster deployment, AMR components are installed on the View, Build and Run clusters. The
-AMR Observer is installed on the Build and Run clusters, and must be configured to talk to the AMR
-CloudEvent Handler installed on the View cluster.
+## <a id="upgrading-1-7"></a> Upgrading AMR Beta to v1.7 and later
 
-Read [SCST - Store multicluster setup](multicluster-setup.hbs.md) for the new configuration in
-detail. The documentation includes instructions for configuring both the new AMR and the existing
-Metadata Store. The new configurations for 1.7 and later are:
-
-1. [Copy AMR CloudEvent Handler CA certificate data from the View cluster](multicluster-setup.hbs.md#copy-ceh-ca)
-2. [Copy AMR CloudEvent Handler edit token from the View cluster](multicluster-setup.hbs.md#copy-ceh-token)
-3. [Apply the CloudEvent Handler CA certificate data and edit token to the Build and Run clusters](multicluster-setup.hbs.md#apply-ceh-ca-token)
-
-## <a id="upgrading-1-7"></a>Upgrading AMR Beta to v1.7 and later
-
-This topic is about a special upgrade scenario for AMR: Upgrading from Tanzu Application Platform
-v1.6 with AMR beta enabled to Tanzu Application Platform v1.7 and later. Because AMR was not enabled
-by default in Tanzu Application Platform 1.6, most users will not encounter this scenario.
-See [Upgrading from AMR Beta to AMR GA release](./upgrading-amr-beta.hbs.md).
+If you want to upgrade from Tanzu Application Platform v1.6 with AMR beta enabled to Tanzu
+Application Platform v1.7 and later, see
+[Upgrading from AMR Beta to AMR GA release](upgrading-amr-beta.hbs.md).
 
 ## <a id="troubleshoot"></a>Troubleshoot upgrading
 
 The following sections tell you how to troubleshoot AMR upgrades.
 
-### <a id="observer-cannot-talk-to-ceh"></a> AMR Observer cannot talk to AMR CloudEvent Handler
+### <a id="observer-cannot-talk-to-ceh"></a> AMR Observer cannot communicate with AMR CloudEvent Handler
 
-To see the AMR Observer pod:
+To see the AMR Observer pod, run:
 
 ```console
 kubectl get pods -n amr-observer-system
 ```
 
-To view AMR Observer logs:
+To view AMR Observer logs, run:
 
 ```console
 kubectl logs OBSERVER-POD-NAME -n amr-observer-system
 ```
 
-Where `OBSERVER-POD-NAME` is the name of the AMR observer pod.
+Where `OBSERVER-POD-NAME` is the name of the AMR Observer pod.
 
-If you encounter errors relating to the authentication token, verify that you configured the AMR
-Observer correctly. It might be missing the edit token for the AMR CloudEvent Handler. For
-information about how to configure the edit token, and the CA certificate and endpoint, see
-[SCST - Store multicluster setup](multicluster-setup.hbs.md).
+If you encounter errors related to the authentication token, verify that you configured AMR Observer
+correctly. It might be missing the edit token for AMR CloudEvent Handler. For information about how
+to configure the edit token, and the CA certificate and endpoint, see
+[Multicluster setup for SCST - Store](multicluster-setup.hbs.md).
 
 ### <a id="deploy-does-not-exist"></a> Database deployment does not exist
 
-To prevent issues with the metadata store database, such as the ones described in this topic, the
+To prevent issues with the `metadata-store` database, such as the ones described in this topic, the
 database deployment is `StatefulSet` in:
 
 - Tanzu Application Platform v1.2 and later
@@ -104,10 +97,11 @@ The log shows a database pod in a failure loop. For information about how to fix
 ### <a id="upgraded-pod-hanging"></a> Upgraded pod stops responding
 
 Because the default access mode in the PVC is `ReadWriteOnce`, if you are deploying in an
-environment with multiple nodes then each pod might be on a different node. This causes the upgraded
-pod to spin up but then get stuck initializing because the original pod does not stop. To resolve
-this issue, find, and delete the original pod so that the new pod can attach to the persistent
-volume:
+environment with multiple nodes then each pod might be on a different node.
+
+This causes the upgraded pod to spin up but then get stuck initializing because the original pod
+does not stop. To resolve this issue, find and delete the original pod so that the new pod can
+attach to the persistent volume:
 
 1. Discover the name of the app pod that is not in a pending state by running:
 

@@ -1,24 +1,28 @@
 # Troubleshooting Supply Chain Security Tools - Store
 
-This topic contains ways you can troubleshoot known issues for Supply Chain Security Tools (SCST) -
+This topic tells you how to troubleshoot known issues for Supply Chain Security Tools (SCST) -
 Store.
 
-## <a id='retains-data'></a>Persistent volume retains data
+## <a id='retains-data'></a> Persistent volume retains data
 
-### <a id='retains-data-symptom'></a>Symptom
+### <a id='retains-data-symptom'></a> Symptom
 
-If SCST - Store is deployed, deleted, redeployed, and the database password is changed during the
-redeployment, the `metadata-store-db` pod fails to start. The persistent volume used by PostgreSQL
-retaining old data, even though the retention policy is set to `DELETE`, causes this issue.
+If SCST - Store is deployed, deleted, and then redeployed, and the database password is changed
+during the redeployment, the `metadata-store-db` pod fails to start.
+
+### <a id='retains-data-explan'></a> Explanation
+
+The persistent volume that PostgreSQL uses retains old data, even though the retention policy is set
+to `DELETE`.
 
 ### <a id='retains-data-solution'></a>Solution
 
+To redeploy the app, either use the same database password or follow these steps to erase the data
+on the volume.
+
 > **Caution** Changing the database password deletes your SCST - Store data.
 
-To redeploy the app, either use the same database password or follow these steps to erase the data
-on the volume:
-
-1. Deploy metadata-store app by using `kapp`.
+1. Deploy the `metadata-store` app by using `kapp`.
 2. Verify that the `metadata-store-db-*` pod fails.
 3. Run:
 
@@ -35,88 +39,92 @@ on the volume:
 5. Delete the `metadata-store` app by using `kapp`.
 6. Deploy the `metadata-store` app by using `kapp`.
 
-## <a id='missing-pv'></a>Missing persistent volume
+## <a id='missing-pv'></a> Missing persistent volume
 
-### <a id='missing-pv-symptom'></a>Symptom
+### <a id='missing-pv-symptom'></a> Symptom
 
-After SCST - Store is deployed, `metadata-store-db` pod might fail for missing volume while
-`postgres-db-pv-claim` pvc is in `PENDING` state.
+After SCST - Store is deployed, the `metadata-store-db` pod might fail for missing volume while
+`postgres-db-pv-claim` pvc is in the `PENDING` state.
 
-This is because the cluster where SCST - Store is deployed does not have `storageclass` defined.
-`storageclass`'s provisioner is responsible for creating the persistent volume after
-`metadata-store-db` attaches `postgres-db-pv-claim`.
+### <a id='missing-pv-explan'></a> Explanation
 
-### <a id='missing-pv-solution'></a>Solution
+The cluster where SCST - Store is deployed does not have `storageclass` defined. `storageclass`'s
+provisioner is responsible for creating the persistent volume after `metadata-store-db` attaches
+`postgres-db-pv-claim`.
+
+### <a id='missing-pv-solution'></a> Solution
 
 To solve:
 
-1. Verify that your cluster has `storageclass` by running `kubectl get storageclass`.
-2. Create a `storageclass` in your cluster before deploying SCST - Store. For example:
+1. Verify that your cluster has `storageclass` by running
+
+   ```console
+   kubectl get storageclass
+   ```
+
+1. Create a `storageclass` in your cluster before deploying SCST - Store. For example:
 
    ```console
    # This is the storageclass that Kind uses
-   kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+   $ kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
 
    # set the storage class as default
    kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
 
-## <a id="eks-1-23-vol"></a> Builds fail due to volume errors on EKS running Kubernetes v1.23
+## <a id="eks-1-23-vol"></a> Builds fail because of volume errors on EKS running Kubernetes v1.23
 
 ### <a id="eks-1-23-vol-symptom"></a>Symptom
 
-When installing SCST - Store on or upgrading an existing EKS cluster to Kubernetes v1.23, the
-satabase pod shows:
+When installing SCST - Store on an EKS cluster or upgrading an EKS cluster to Kubernetes v1.23, the
+database pod shows:
 
 ```console
 running PreBind plugin "VolumeBinding": binding volumes: provisioning failed for PVC "postgres-db-pv-claim"
 ```
 
-### <a id="eks-1-23-vol-explanation"></a>Explanation
+### <a id="eks-1-23-vol-explanation"></a> Explanation
 
-This is due to the
-[CSIMigrationAWS in this Kubernetes version](https://aws.amazon.com/blogs/containers/amazon-eks-now-supports-kubernetes-1-23/),
-which requires users to install the Amazon Elastic Block Store (EBS) CSI Driver to use EBS volumes.
+[CSIMigrationAWS in this Kubernetes version](https://aws.amazon.com/blogs/containers/amazon-eks-now-supports-kubernetes-1-23/)
+requires users to install the Amazon Elastic Block Store (EBS) CSI Driver to use EBS volumes.
 For more information, see the
 [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html).
 
-SCST - Store uses the default storage class which uses EBS volumes by default on EKS.
+SCST - Store uses the default storage class, which uses EBS volumes by default on EKS.
 
-### <a id="eks-1-23-vol-solution"></a>Solution
+### <a id="eks-1-23-vol-solution"></a> Solution
 
-Follow the AWS documentation to install the Amazon EBS CSI Driver before installing SCST - Store or
-before upgrading to Kubernetes v1.23. For more information, see the
-[AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html).
+Follow the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html) to
+install the Amazon EBS CSI Driver before installing SCST - Store or upgrading to Kubernetes v1.23.
 
-## <a id="ca-cert-expires"></a> CA Cert expires
+## <a id="ca-cert-expires"></a> CA certificate expires
 
 ### <a id="ca-cert-expires-symptom"></a>Symptom
 
-The Scan Controller fails to communicate with the SCST - Store and receives an error
-message containing the following text:
+The Scan Controller fails to communicate with SCST - Store and receives an error message containing
+the following text:
 
 ```console
 tls: failed to verify certificate: x509: certificate has expired or is not yet valid
 ```
 
-### <a id="ca-cert-expires-explanation"></a>Explanation
+### <a id="ca-cert-expires-explanation"></a> Explanation
 
 The CA certificate expired before the app certificate expires, which causes the error even though
-the app certificate is still valid. Certmanager will rotate the expired CA certificate, but it
-doesn't rotate the certificates that were previously created by the expired CA certificate. So this
-leads to contour being in a bad state and the certificates won't be refreshed properly.
+the app certificate is still valid. cert-manager rotates the expired CA certificate, but it
+does not rotate the certificates that were previously created by the expired CA certificate.
 
-### <a id="ca-cert-expires-solution"></a>Solution
+### <a id="ca-cert-expires-solution"></a> Solution
 
 To solve:
 
-1. Delete the existing expired cacert by running:
+1. Delete the existing expired `cacert` by running:
 
    ```console
    kubectl delete secret cacert contourcert envoycert -n projectcontour
    ```
 
-1. Delete the contour-certgen job by running:
+1. Delete the `contour-certgen` job by running:
 
    ```console
    kubectl delete job contour-certgen -n projectcontour
@@ -128,14 +136,15 @@ To solve:
    kctrl package installed kick --package-install contour -n tap-install
    ```
 
-1. Restart envoy pods. First find the name of the envoy pod by running:
+1. Learn the name of the envoy pod by running:
 
    ```console
    kubectl get pods -n projectcontour
    ```
 
-1. Find the pod that is named in the format `envoy-<some-random-id>`. Use that name and restart the
-   pods by running:
+   Find the pod that is named in the format `envoy-<some-random-id>`.
+
+1. Restart the pods, using the envoy pod name you learned, by running:
 
    ```console
    kubectl delete pod <envoy-pod-name> -n projectcontour
@@ -143,11 +152,11 @@ To solve:
 
 ## <a id="cert-expiries"></a> Certificate Expires
 
-### <a id="cert-expiries-symptom"></a>Symptom
+### <a id="cert-expiries-symptom"></a> Symptom
 
 The Scan Controller fails to connect to SCST - Store.
 
-The logs of the metadata-store-app pod show the following error:
+The logs of the `metadata-store-app` pod show the following error:
 
 ```console
 $ kubectl logs deployment/metadata-store-app -c metadata-store-app -n metadata-store
@@ -156,9 +165,7 @@ $ kubectl logs deployment/metadata-store-app -c metadata-store-app -n metadata-s
 ...
 ```
 
-or
-
-The logs of metadata-store-db show the following error:
+or the logs of `metadata-store-db` show the following error:
 
 ```console
 $ kubectl logs statefulset/metadata-store-db -n metadata-store
@@ -168,42 +175,48 @@ $ kubectl logs statefulset/metadata-store-db -n metadata-store
 ...
 ```
 
-### <a id="cert-expiries-explanation"></a>Explanation
+### <a id="cert-expiries-explanation"></a> Explanation
 
-cert-manager rotates the certificates, but the metadata-store and the PostgreSQL db are unaware of
-the change, and are using the old certificates.
+cert-manager rotates the certificates, but the `metadata-store` and the PostgreSQL database are
+unaware of the change and are using the old certificates.
 
-### <a id="cert-expiries-solution"></a>Solution
+### <a id="cert-expiries-solution"></a> Solution
 
-If you see `TLS handshake error` in the metadata-store-app logs, delete the metadata-store-app pod
-and wait for it to come back up.
+If `TLS handshake error` is in the `metadata-store-app` logs, delete the `metadata-store-app` pod by
+running:
 
 ```console
 kubectl delete pod metadata-store-app-xxxx -n metadata-store
 ```
 
-If you see `could not accept SSL connection` in the metadata-store-db logs, delete the
-`metadata-store-db` pod and wait for it to come back up.
+Wait for it to come back up.
+
+If `could not accept SSL connection` is in the `metadata-store-db` logs, delete the
+`metadata-store-db` pod by running:
 
 ```console
 kubectl delete pod metadata-store-db-0 -n metadata-store
 ```
 
-## <a id="db-index-corrupt"></a>Database index corruption issue in SCST - Store
+Wait for it to come back up.
 
-Metadata Store unable to reconcile because the metadata store pod complains about potential database
-index corruption issue.
+## <a id="db-index-corrupt"></a> Database index corruption issue in SCST - Store
+
+## <a id="db-index-corrupt-symptom"></a> Symptom
+
+The Metadata Store was unable to reconcile because the `metadata-store` pod reports suspected
+database index corruption. For example:
 
 ```console
-kubectl logs metadata-store-app-pod_name -n metadata-store
-```
+$ kubectl logs metadata-store-app-pod_name -n metadata-store
 
-```console
 {“level”:“error”,“ts”:“2023-08-15T16:38:31.528115988Z”,“logger”:“MetadataStore”,“msg”:“unable to check index corruption since user is not a superuser to perform \“CREATE EXTENSION amcheck\“. Please create this extension and check for index corruption using following sql command \“SELECT bt_index_check(oid) FROM pg_class WHERE relname in (SELECT indexrelid::regclass::text FROM (SELECT indexrelid, indrelid, indcollation[i] coll FROM pg_index, generate_subscripts(indcollation, 1) g(i)) s JOIN pg_collation c ON coll=c.oid WHERE collprovider IN (‘d’, ‘c’) AND collname NOT IN (‘C’, ‘POSIX’));\“”,“hostname”:“metadata-store-app-77c9fb59c8-qplxt”}
 {“level”:“error”,“ts”:“2023-08-15T16:38:31.528139637Z”,“logger”:“MetadataStore”,“msg”:“Found corrupted database indexes but unable to fix them”,“hostname”:“metadata-store-app-77c9fb59c8-qplxt”,“error”:“unable to check index corruption since user is not a superuser to perform \“CREATE EXTENSION amcheck\“. Please create this extension and check for index corruption using following sql command \“SELECT bt_index_check(oid) FROM pg_class WHERE relname in (SELECT indexrelid::regclass::text FROM (SELECT indexrelid, indrelid, indcollation[i] coll FROM pg_index, generate_subscripts(indcollation, 1) g(i)) s JOIN pg_collation c ON coll=c.oid WHERE collprovider IN (‘d’, ‘c’) AND collname NOT IN (‘C’, ‘POSIX’));\“”}
 ```
 
-For information about the solution, see [Postgres Database Index Corruption](./database-index-corruption.hbs.md).
+### <a id="db-index-corrupt-solution"></a> Solution
+
+See [SCST - Store Database Index Corruption](database-index-corruption.hbs.md).
 
 ## <a id="error-dev-portal"></a> Errors from Tanzu Developer Portal related to SCST - Store
 

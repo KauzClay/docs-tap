@@ -7,10 +7,11 @@ This topic tells you how to configure Artifact Metadata Repository (AMR).
 You can obtain the Tanzu Application Platform values schema by running:
 
 ```console
-tanzu package available get amr-observer.apps.tanzu.vmware.com/${VERSION} --values-schema --namespace tap-install
+tanzu package available get amr-observer.apps.tanzu.vmware.com/${VERSION} --values-schema \
+--namespace tap-install
 ```
 
-The following example is an AMR Observer configuration, located under the `amr` key in the
+The following example is AMR Observer configuration that is located under the `amr` key in the
 Tanzu Application Platform values file:
 
 ```yaml
@@ -44,94 +45,104 @@ Where `DOMAIN` is the domain you want to target.
 Configuration options:
 
 - `amr.observer.location`
-  - Default: ""
+  - Default value: `""`
   - Location is the multiline string configuration for the location content.
   - The YAML string can contain a single field:
-    - `labels`: Consists of an array for key and value pairing. Useful for adding searchable and
-    identifiable metadata. For enabling DORA functionality, it is important to have a label named `env`.
-    For more information, see [DORA metrics in Tanzu Developer Portal](../../tap-gui/plugins/dora.hbs.md).
+    - `labels`, which consists of an array for a key and value pairing. It is useful for adding
+      searchable and identifiable metadata. For enabling DORA functions, include a label named
+      `env`. For more information, see
+      [DORA metrics in Tanzu Developer Portal](../../tap-gui/plugins/dora.hbs.md).
 
 - `amr.observer.resync_period`
-  - Default: "10h"
-  - `resync_period` decides the minimum frequency at which watched resources reconcile. A lower period corrects entropy more quickly, but reduce responsiveness to change if there are many watched resources. Change this value only if you know what you are doing. Defaults to 10 hours if unset.
+  - Default value: `"10h"`
+  - `resync_period` decides the minimum frequency at which watched resources reconcile. A lower
+    period corrects entropy more quickly, but reduces responsiveness to change if there are many
+    watched resources. Change this value with caution. It is 10 hours by default if unset.
 
 - `amr.observer.ca_cert_data` or `shared.ca_cert_data`
-  - Default: ""
-  - `ca_cert_data` adds certificates to the truststore that amr-observer uses.
+  - Default value: `""`
+  - `ca_cert_data` adds certificates to the `truststore` that `amr-observer` uses.
 
     ```console
-    kubectl -n metadata-store get secrets/amr-cloudevent-handler-ingress-cert -o jsonpath='{.data."crt.ca"}' | base64 -d
+    kubectl -n metadata-store get secrets/amr-cloudevent-handler-ingress-cert -o \
+    jsonpath='{.data."crt.ca"}' | base64 -d
     ```
 
 - `amr.observer.cloudevent_handler.endpoint`
-  - Default: `http://amr-cloudevent-handler.metadata-store.svc.cluster.local:80`
+  - Default value: `http://amr-cloudevent-handler.metadata-store.svc.cluster.local:80`
   - The URL of the AMR CloudEvent Handler endpoint.
-  - On the view or full Tanzu Application Platform profile cluster, obtain the AMR CloudEvent Handler ingress address to configure this property:
+  - On the Tanzu Application Platform View or Full profile cluster, obtain the AMR CloudEvent
+    Handler ingress address to configure this property by running:
 
     ```console
-    kubectl -n metadata-store get httpproxies.projectcontour.io amr-cloudevent-handler-ingress -o jsonpath='{.spec.virtualhost.fqdn}'
+    kubectl -n metadata-store get httpproxies.projectcontour.io amr-cloudevent-handler-ingress -o \
+    jsonpath='{.spec.virtualhost.fqdn}'
     ```
 
-  >**Note** Ensure that you set the correct protocol. If there is TLS, you must prepend `https://`. If there is no TLS, you must prepend `http://`.
+  > **Note** Ensure that you set the correct protocol. If there is TLS, you must prepend `https://`.
+  > If there is no TLS, you must prepend `http://`.
 
 - `amr.observer.cloudevent_handler.liveness_period_seconds`
   - Default: `10`
-  - The period in seconds between executed health checks to the AMR CloudEvent Handler endpoint.
+  - This is the period in seconds between executed health checks to the AMR CloudEvent Handler endpoint.
 
 - `amr.observer.auth.kubernetes_service_accounts`
   - `.enable`
-    - Default: `true`
-    - Include an Authorization header when communicating with AMR CloudEvent Handler.
+    - Default value: `true`
+    - This includes an authorization header when communicating with AMR CloudEvent Handler.
   - `.autoconfigure`
-    - Default: `true`
-    - Delegate creation of authentication token secret to the artifact metadata repository. Only applicable on Full and View clusters.
+    - Default value: `true`
+    - This delegates creation of an authentication token secret to the AMR. It is only applicable on
+      Full and View clusters.
   - `.secret`
-    - The secret with the access token for communicating with the cloudevent-handler
+    - This is the secret with the access token for communicating with `cloudevent-handler`
     - `.ref`
-      - Default: ""
-      - Secret name which contains the access token.
+      - Default value: `""`
+      - This is the secret name that contains the access token.
     - `.value`
-      - Default: ""
-      - Secret as a plain text string. This allows integrating with TMC secret imports.
+      - Default value: `""`
+      - This is the secret as a plaintext string. This allows integration with TMC secret imports.
 
 - `amr.observer.deployed_through_tmc`
-  - Default: `null`
-  - Tanzu Application Platform multicluster deployment happens through Tanzu Mission Control when
-    you set `deployed_through_tmc` to true.
+  - Default value: `null`
+  - The Tanzu Application Platform multicluster deployment happens through Tanzu Mission Control
+    when you set `deployed_through_tmc` to `true`.
   - When deploying with TMC, `MultiClusterPropertyCollector` overwrites existing Observer package
     configuration values. For the workaround, see the
     [known issue](../../release-notes.hbs.md#1-10-0-scst-store-ki).
 
 - `amr.observer.max_concurrent_reconciles`
-  - Configure maximum concurrent reconciles for controllers.
+  - This configures maximum concurrent reconciles for controllers.
   - `.image_vulnerability_scans`
-    - Default: `1`
-    - Maximum concurrent reconciles for observing ImageVulnerabilityScans.
+    - Default value: `1`
+    - This is the maximum concurrent reconciles for observing `ImageVulnerabilityScans`.
 
 - `amr.observer.log_level`
-  - Default: `INFO`
-  - Sets the log level. Set to `DEBUG` for more information to be acquired through the logs.
+  - Default value: `INFO`
+  - This sets the log level. Set it to `DEBUG` to acquire more information through the logs.
 
 ## <a id='amr-graphql'></a> AMR GraphQL
 
 - `amr.graphql.auth.kubernetes_service_accounts`
   - `.enable`
-    - Default: true
-    - Enable authentication for artifact metadata repository GraphQL server. By default it is set to true.
+    - Default value: `true`
+    - Enable authentication for the AMR GraphQL server. By default it is set to `true`.
   - `.autoconfigure`
-    - Default: `true`
-    - Delegate creation of authentication token secret to the artifact metadata repository. By default it is set to true.
+    - Default value: `true`
+    - This delegates creation of the authentication token secret to the AMR. By default it is set to
+      `true`.
 
 ## <a id='amr-cloudevent-handler'></a> AMR CloudEvent Handler
 
 - `amr.cloudevent_handler.auth.kubernetes_service_accounts`
   - `.enable`
-    - Default: true
-    - Enable authentication and authorization for services accessing Artifact Metadata Repository.
+    - Default value: `true`
+    - This enables authentication and authorization for services accessing AMR.
   - `.autoconfigure`
-    - Default: `true`
-    - Delegate creation of authentication token secret to the artifact metadata repository. By default it is set to true.
+    - Default value: `true`
+    - This delegates creation of an authentication token secret to the AMR. By default it is set to
+      `true`.
 
 - `amr.cloudevent_handler.log_level`
-  - Default: `INFO`
-  - Sets the log level. Set to `DEBUG` for more information to be acquired through the logs.
+  - Default value: `INFO`
+  - This sets the log level. Set it to `DEBUG` to acquire more information through the logs.

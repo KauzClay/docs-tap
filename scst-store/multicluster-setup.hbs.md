@@ -10,7 +10,7 @@ copy some configurations from the View cluster to the Build and Run Kubernetes c
 topic explains how to add these configurations, which allow components in the Build and Run clusters
 to communicate with SCST - Store in the View cluster.
 
-![Screenshot of Supply Chain Security Tools - Store in a multi cluster deployment.](images/multicluster-deployment.jpg)
+![Screenshot of Supply Chain Security Tools - Store in a multi cluster deployment.](images/multicluster-deployment.png)
 
 ## <a id='prereqs'></a> Before you begin
 

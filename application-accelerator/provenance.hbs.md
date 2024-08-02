@@ -68,7 +68,7 @@ accelerator.
 When invocations are recorded, use the
 GraphQL capability to query the system about
 accelerator use and gain insights about generated applications. For more information,
-see [Run query with GraphQL](../scst-store/amr/graphql-query.hbs.md)
+see [Run queries with GraphQL](../scst-store/amr/graphql-query.hbs.md)
 
 For more information about how to use the Artifact Metadata Repository,
 and some sample queries relevant to `AppAcceleratorRuns`, see

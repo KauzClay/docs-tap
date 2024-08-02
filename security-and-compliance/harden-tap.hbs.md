@@ -129,9 +129,9 @@ amr:
         autoconfigure: false
 ```
 
-For best practice, users on the Kubernetes clusters must create resources with Kubernetes roles
-that limit access in a least privilege model.
-For more information, see [User-defined Kubernetes Service Account Configuration](../scst-store/amr/auth-k8s-sa-user-defined.hbs.md).
+For best practice, users on the Kubernetes clusters must create resources with Kubernetes roles that
+limit access in a least privilege model. For more information, see
+[Configure a user-defined Kubernetes service account](../scst-store/amr/auth-k8s-sa-user-defined.hbs.md).
 
 ## <a id="protection"></a> Encryption
 

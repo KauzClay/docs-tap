@@ -1,55 +1,77 @@
 # Artifact Metadata Repository Observer for Supply Chain Security Tools - Store
 
-This topic tells you how to install Artifact Metadata Repository (AMR) Observer for Supply Chain Security Tools (SCST) - Store.
+This topic tells you how to install Artifact Metadata Repository (AMR) Observer for Supply Chain
+Security Tools (SCST) - Store.
 
-## <a id='prerecs'></a> Prerequisites
+## <a id='prerecs'></a> Before you begin
 
-The AMR Observer is deployed by default on the Tanzu Application Platform Full, Build and Run profiles.
+The AMR Observer is deployed by default on the Tanzu Application Platform Full, Build, and Run
+profiles.
 
-## <a id='switch-context'></a> Switching Context
+## <a id='switch-context'></a> Switch context
 
-If Artifact Metadata Repository Observer is installed on a separate cluster from AMR CloudEvent Handler, you must ensure that the correct cluster is targeted before updating package values.
+If AMR Observer is installed on a separate cluster from AMR CloudEvent Handler, target the correct
+cluster before updating package values by running:
 
-```console
-# 1. Switch context to cluster with AMR Observer
-kubectl config use-context OBSERVER-CLUSTER-NAME
+1. Switch context by running:
 
-# 2. Update the tap-values.yaml in an editor according to the desired configuration
+   ```console
+   kubectl config use-context OBSERVER-CLUSTER-NAME
+   ```
 
-# 3. Update the installed TAP package on the cluster
-tanzu package installed update tap --values-file tap-values.yaml -n tap-install
-```
+   Where `OBSERVER-CLUSTER-NAME` is the name of the cluster you want to use.
 
-Where `OBSERVER-CLUSTER-NAME` is the name of the cluster you want to use.
+1. Update `tap-values.yaml` for your desired configuration.
 
-## <a id='install'></a> Configuring AMR Observer in a multicluster deployment
+1. Update the installed Tanzu Application Platform package on the cluster by running:
 
-When you install AMR Observer on a different cluster from the AMR CloudEvent
-Handler, the following values are required:
+   ```console
+   tanzu package installed update tap --values-file tap-values.yaml -n tap-install
+   ```
 
-- `amr.observer.cloudevent_handler.endpoint` is required for the Observer to send to the AMR CloudEvent Handler.
-- `amr.observer.cloudevent_handler.ca_cert_data` or `shared.ca_cert_data` are required for AMR CloudEvent Handlers that use Custom CA certificates to generate the associated TLS certificate for the ingress endpoint.
+## <a id='install'></a> Configure AMR Observer in a multicluster deployment
 
->**Note** If SCST - Scan 2.0 is installed after AMR Observer has already been deployed, a deployment you must restart AMR Observer to observe the new ImageVulnerabilityScan Custom Resource that was installed with SCST - Scan 2.0.
+When you install AMR Observer on a different cluster from the AMR CloudEvent Handler, the following
+values are required:
 
-```console
-kubectl -n amr-observer-system rollout restart deployment amr-observer-controller-manager
-```
+- `amr.observer.cloudevent_handler.endpoint`, which is required for the Observer to send to the AMR
+  CloudEvent Handler.
+- `amr.observer.cloudevent_handler.ca_cert_data` or `shared.ca_cert_data`, which is required for AMR
+  CloudEvent Handlers that use Custom CA certificates to generate the associated TLS certificate for
+  the ingress endpoint.
 
-The following log appears if the AMR Observer is observing the ImageVulnerabilityScan Custom Resource:
+> **Note** If SCST - Scan 2.0 is installed after AMR Observer has already been deployed, you must
+> restart AMR Observer to observe the new `ImageVulnerabilityScan` Custom Resource that was
+> installed with SCST - Scan 2.0.
 
-```log
-2023-06-28T17:56:43Z  INFO  Starting Controller  {"controller": "imagevulnerabilityscan", "controllerGroup": "app-scanning.apps.tanzu.vmware.com", "controllerKind": "ImageVulnerabilityScan"}
-```
+1. Configure AMR Observer by running:
 
-For information about logging, see [Troubleshoot - AMR Observer Logs](./troubleshooting.hbs.md#amr-observer-logs).
+   ```console
+   kubectl -n amr-observer-system rollout restart deployment amr-observer-controller-manager
+   ```
 
-See [Configuration - AMR Observer](./configuration.hbs.md#amr-observer).
+1. Verify that the following log appears if the AMR Observer is observing the
+   `ImageVulnerabilityScan` Custom Resource:
 
-## <a id='standalone-install'></a> Installing Artifact Metadata Repository Observer Standalone
+   ```log
+   2023-06-28T17:56:43Z  INFO  Starting Controller  {"controller": "imagevulnerabilityscan", "controllerGroup": "app-scanning.apps.tanzu.vmware.com", "controllerKind": "ImageVulnerabilityScan"}
+   ```
 
-1. To install AMR Observer standalone from a Tanzu Application Platform profile, verify the
-   available version:
+For information about logging, see
+[Troubleshoot - AMR Observer Logs](troubleshooting.hbs.md#amr-observer-logs) and
+[Configuration - AMR Observer](configuration.hbs.md#amr-observer).
+
+## <a id='standalone-install'></a> Install standalone AMR Observer
+
+To install AMR Observer outside a Tanzu Application Platform profile:
+
+1. See the available version by running:
+
+   ```console
+   tanzu package available list amr-observer.apps.tanzu.vmware.com -n tap-install
+   ```
+
+   For example:
 
    ```console
    $ tanzu package available list amr-observer.apps.tanzu.vmware.com -n tap-install
@@ -58,8 +80,15 @@ See [Configuration - AMR Observer](./configuration.hbs.md#amr-observer).
      amr-observer.apps.tanzu.vmware.com  0.7.0          2024-06-13 21:49:57 -0400 EDT
    ```
 
-1. Look at the package values-schema to create the values file. For more
-   information, see [Configuration](./configuration.hbs.md#Configuration).
+1. Look at the package `values-schema` needed to create the values file by running:
+
+   ```console
+   tanzu package available get amr-observer.apps.tanzu.vmware.com/VERSION --values-schema --namespace tap-install
+   ```
+
+   Where `VERSION` is the version you saw earlier.
+
+   For example:
 
    ```console
    $ tanzu package available get amr-observer.apps.tanzu.vmware.com/0.7.0 --values-schema --namespace tap-install
@@ -88,6 +117,13 @@ See [Configuration - AMR Observer](./configuration.hbs.md#amr-observer).
    observer.auth.kubernetes_service_accounts.autoconfigure       true                                                               boolean  Delegate creation of auth token secret to AMR Observer. By default it is set to
                                                                                                                                              true.
    observer.auth.kubernetes_service_accounts.enable              true                                                               boolean  Include Authorization header when communicating with AMR CloudEvent Handler.
-  ```
+   ```
 
-1. Install the package using `tanzu package install`.
+   For more information, see
+   [Configure Artifact Metadata Repository](configuration.hbs.md#Configuration).
+
+1. Install the package by running:
+
+   ```console
+   tanzu package install
+   ```

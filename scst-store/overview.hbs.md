@@ -24,7 +24,7 @@ Repository or the Metadata Store. You can deploy this component on Full and View
 
 - [Artifact Metadata Repository architecture](amr/architecture.hbs.md)
 - [Configure Artifact Metadata Repository](amr/configuration.hbs.md)
-- [AMR GraphQL Query](amr/graphql-query.hbs.md)
+- [Run queries with GraphQL](amr/graphql-query.hbs.md)
 
 ## <a id='store'></a> The Metadata Store
 

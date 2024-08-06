@@ -13,82 +13,86 @@ To prepare:
 
 ## <a id="sonarqube-scan"></a> Create a supply chain with the SonarQube Scan component
 
-Create a Supply Chain with the SonarQube Scan component by using the Tanzu Supply Chain CLI plug-in:
+To create a Supply Chain with the SonarQube Scan component by using the Tanzu Supply Chain CLI
+plug-in:
 
-Initialize Tanzu Supply Chain by running:
+1. Initialize Tanzu Supply Chain by running:
 
-```console
-tanzu supplychain init --group GROUP-NAME
-```
+   ```console
+   tanzu supplychain init --group GROUP-NAME
+   ```
 
-Where `GROUP-NAME` is the group name of the supply chains. The default is `supplychains.tanzu.vmware.com`.
+   Where `GROUP-NAME` is the group name of the supply chains. The default is
+   `supplychains.tanzu.vmware.com`.
 
-For example:
+   For example:
 
-```console
-$ tanzu supplychain init --group example.com
-Initializing group example.com
-Creating directory structure
-├─ supplychains/
-├─ components/
-├─ pipelines/
-├─ tasks/
-└─ config.yaml
-Writing group configuration to config.yaml
-```
+   ```console
+   $ tanzu supplychain init --group example.com
+   Initializing group example.com
+   Creating directory structure
+   ├─ supplychains/
+   ├─ components/
+   ├─ pipelines/
+   ├─ tasks/
+   └─ config.yaml
+   Writing group configuration to config.yaml
+   ```
 
-As a platform engineer, there are two options when generating a supply chain with SonarQube scan:
+1. As a platform engineer, use one of these options for generating a supply chain with SonarQube
+   Scan:
 
-- [Generate SonarQube supply chain with overrides](#sonarqube-overrides):
-  This option sets the SonarQube host URL and does not allow developers to provide a different host URL.
+   - [Generate SonarQube supply chain with overrides](#sonarqube-overrides): This option sets the
+     SonarQube host URL and does not allow developers to provide a different host URL.
 
-- [Generate SonarQube supply chain with default](#sonarqube-defaults):
-  This sets the default value for the SonarQube host URL, but developers can provide their own URL
-  if needed.
+   - [Generate SonarQube supply chain with default](#sonarqube-defaults): This sets the default
+     value for the SonarQube host URL, but developers can provide their own URL if needed.
 
 ### <a id="sonarqube-overrides"></a> Option 1: Generate SonarQube supply chain with overrides
 
+To generate SonarQube supply chain with overrides:
+
 1. Generate a supply chain by running:
 
-    ```console
-    tanzu supplychain generate --kind SUPPLY-CHAIN-NAME \
-    --description DESCRIPTION \
-    --component source-git-provider-1.0.0 \
-    --component sonarqube-sast-scan-1.0.0 \
-    --allow-overrides
-    ```
+   ```console
+   tanzu supplychain generate --kind SUPPLY-CHAIN-NAME \
+   --description DESCRIPTION \
+   --component source-git-provider-1.0.0 \
+   --component sonarqube-sast-scan-1.0.0 \
+   --allow-overrides
+   ```
 
-    Where:
+   Where:
 
-    - `SUPPLY-CHAIN-NAME` is the name of your supply chain.
-    - `DESCRIPTION` is the description for your supply chain.
+   - `SUPPLY-CHAIN-NAME` is the name of your supply chain.
+   - `DESCRIPTION` is the description for your supply chain.
 
-    For example:
+   For example:
 
-    ```console
-    $ tanzu supplychain generate --kind SonarQubeSC \
-      --description SonarQube \
-      --component source-git-provider-1.0.0 \
-      --component sonarqube-sast-scan-1.0.0 \
-      --allow-overrides
+   ```console
+   $ tanzu supplychain generate --kind SonarQubeSC \
+     --description SonarQube \
+     --component source-git-provider-1.0.0 \
+     --component sonarqube-sast-scan-1.0.0 \
+     --allow-overrides
 
-    ✓ Successfully fetched all component dependencies
-    Created file supplychains/sonarqubesc.yaml
-    Created file components/sonarqube-sast-scan-1.0.0.yaml
-    Created file components/source-git-provider-1.0.0.yaml
-    Created file pipelines/sonarqube-sast-scan.yaml
-    Created file pipelines/source-git-provider.yaml
-    Created file tasks/fetch-tgz-content-oci.yaml
-    Created file tasks/sonarqube-maven-scan.yaml
-    Created file tasks/source-git-check.yaml
-    Created file tasks/source-git-clone.yaml
-    Created file tasks/store-content-oci.yaml
-    ```
+   ✓ Successfully fetched all component dependencies
+   Created file supplychains/sonarqubesc.yaml
+   Created file components/sonarqube-sast-scan-1.0.0.yaml
+   Created file components/source-git-provider-1.0.0.yaml
+   Created file pipelines/sonarqube-sast-scan.yaml
+   Created file pipelines/source-git-provider.yaml
+   Created file tasks/fetch-tgz-content-oci.yaml
+   Created file tasks/sonarqube-maven-scan.yaml
+   Created file tasks/source-git-check.yaml
+   Created file tasks/source-git-clone.yaml
+   Created file tasks/store-content-oci.yaml
+   ```
 
 1. Open the generated YAML file `supplychains/sonarqubesc.yaml`, uncomment the overrides section
    with the `sonar-host-url`, and provide the host URL.
 
-    Example supply chain YAML file:
+   Example supply chain YAML file:
 
     ```yaml
     apiVersion: supply-chain.apps.tanzu.vmware.com/v1alpha1
@@ -118,49 +122,51 @@ As a platform engineer, there are two options when generating a supply chain wit
 
    Where `SONAR-URL` is the URL for the SonarQube server to upload scan results to.
 
-### <a id="sonarqube-defaults"></a> Option 2: Generate SonarQube supply chain with defaults
+### <a id="sonarqube-defaults"></a> Option 2: Generate SonarQube supply chain with default values
+
+To generate a SonarQube supply chain with default values:
 
 1. Generate a supply chain by running:
 
-    ```console
-    tanzu supplychain generate --kind SUPPLY-CHAIN-NAME \
-    --description DESCRIPTION \
-    --component source-git-provider-1.0.0 \
-    --component sonarqube-sast-scan-1.0.0 \
-    --allow-defaults
-    ```
+   ```console
+   tanzu supplychain generate --kind SUPPLY-CHAIN-NAME \
+   --description DESCRIPTION \
+   --component source-git-provider-1.0.0 \
+   --component sonarqube-sast-scan-1.0.0 \
+   --allow-defaults
+   ```
 
-    Where:
+   Where:
 
-    - `SUPPLY-CHAIN-NAME` is the name of your supply chain.
-    - `DESCRIPTION` is the description for your supply chain.
+   - `SUPPLY-CHAIN-NAME` is the name of your supply chain.
+   - `DESCRIPTION` is the description for your supply chain.
 
-    For example:
+   For example:
 
-    ```console
-    $ tanzu supplychain generate --kind SonarQubeSC \
-      --description SonarQube \
-      --component source-git-provider-1.0.0 \
-      --component sonarqube-sast-scan-1.0.0 \
-      --allow-defaults
+   ```console
+   $ tanzu supplychain generate --kind SonarQubeSC \
+     --description SonarQube \
+     --component source-git-provider-1.0.0 \
+     --component sonarqube-sast-scan-1.0.0 \
+     --allow-defaults
 
-    ✓ Successfully fetched all component dependencies
-    Created file supplychains/sonarqubesc.yaml
-    Created file components/sonarqube-sast-scan-1.0.0.yaml
-    Created file components/source-git-provider-1.0.0.yaml
-    Created file pipelines/sonarqube-sast-scan.yaml
-    Created file pipelines/source-git-provider.yaml
-    Created file tasks/fetch-tgz-content-oci.yaml
-    Created file tasks/sonarqube-maven-scan.yaml
-    Created file tasks/source-git-check.yaml
-    Created file tasks/source-git-clone.yaml
-    Created file tasks/store-content-oci.yaml
-    ```
+   ✓ Successfully fetched all component dependencies
+   Created file supplychains/sonarqubesc.yaml
+   Created file components/sonarqube-sast-scan-1.0.0.yaml
+   Created file components/source-git-provider-1.0.0.yaml
+   Created file pipelines/sonarqube-sast-scan.yaml
+   Created file pipelines/source-git-provider.yaml
+   Created file tasks/fetch-tgz-content-oci.yaml
+   Created file tasks/sonarqube-maven-scan.yaml
+   Created file tasks/source-git-check.yaml
+   Created file tasks/source-git-clone.yaml
+   Created file tasks/store-content-oci.yaml
+   ```
 
-1. Open the generated YAML file `supplychains/sonarqubesc.yaml`, uncomment the defaults section
+1. Open the generated YAML file `supplychains/sonarqubesc.yaml`, uncomment the `defaults` section
    with the `sonar-host-url`, and provide the host URL.
 
-    Example supply chain YAML file:
+   Example supply chain YAML file:
 
     ```yaml
     apiVersion: supply-chain.apps.tanzu.vmware.com/v1alpha1
@@ -188,9 +194,9 @@ As a platform engineer, there are two options when generating a supply chain wit
       ...
     ```
 
-    Where `SONAR-URL` is the URL for the SonarQube server to upload scan results to.
+   Where `SONAR-URL` is the URL for the SonarQube server to upload scan results to.
 
-### <a id="apply-supply-chain"></a> Apply Supply Chain
+### <a id="apply-supply-chain"></a> Apply the supply chain
 
 By generating the supply chain, you created the following directory structure:
 

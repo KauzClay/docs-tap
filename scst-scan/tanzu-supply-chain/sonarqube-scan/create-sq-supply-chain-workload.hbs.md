@@ -23,8 +23,8 @@ This section tells you how to create a workload from an existing supply chain th
 SonarQube Scan component. For more information, see
 [Work with workloads](../../../supply-chain/development/how-to/discover-workloads.hbs.md).
 
-You can define a workload directly in a YAML file or use the Tanzu Workload CLI plug-in to generate a
-workload manifest.
+You can define a workload directly in a YAML file or use the Tanzu Workload CLI plug-in to generate
+a workload manifest.
 
 Define a workload YAML file
 : To define `workload.yaml`:
@@ -47,28 +47,27 @@ Define a workload YAML file
          sonar-project-base-dir: SONAR-PROJECT-BASE-DIR
     ```
 
-    Where:
+  Where:
 
-    - `KIND` is the kind defined in the SonarQube supply chain.
-      The kind can also be found in the `supplychain` YAML generated in the `supplychains` directory.
-    - `API-VERSION` is defined in the SonarQube Supply Chain.
-      `API-VERSION` is `<group>`/`<version>` found in the `supplychain` YAML in the `supplychains`
-      directory.
-    - `WORKLOAD-NAME` is your workload name.
-    - `GIT-URL` is the Git repository URL to clone from for the source component.
-    - `GIT-BRANCH` is the Git branch reference to watch for the new source.
-    - `GIT-SUBPATH` is the path inside the bundle to locate source code.
-    - `SONAR-PROJECT-NAME` is the display name of the project being scanned in the SonarQube server.
-    - `SONAR-PROJECT-KEY` is the project key for the project in SonarQube. It is optional and is the
-      same as `sonar-project-name` if unset.
-    - `SONAR-TOKEN` is the SonarQube project token generated in the SonarQube server. For more
-      information, see the
-      [SonarQube documentation](https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/).
-    - `SONAR-PROJECT-BASE-DIR` is the path to the directory to scan from the source code root. It is
-      empty by default.
+  - `KIND` is the `kind` defined in the SonarQube supply chain. The kind can also be found in the
+    `supplychain` YAML generated in the `supplychains` directory.
+  - `API-VERSION` is defined in the SonarQube Supply Chain. `API-VERSION` is `<group>`/`<version>`
+    found in the `supplychain` YAML in the `supplychains` directory.
+  - `WORKLOAD-NAME` is your workload name.
+  - `GIT-URL` is the Git repository URL to clone from for the source component.
+  - `GIT-BRANCH` is the Git branch reference to watch for the new source.
+  - `GIT-SUBPATH` is the path inside the bundle to locate source code.
+  - `SONAR-PROJECT-NAME` is the display name of the project being scanned in the SonarQube server.
+  - `SONAR-PROJECT-KEY` is the project key for the project in SonarQube. It is optional and is the
+    same as `sonar-project-name` if unset.
+  - `SONAR-TOKEN` is the SonarQube project token generated in the SonarQube server. For more
+    information, see the
+    [SonarQube documentation](https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/).
+  - `SONAR-PROJECT-BASE-DIR` is the path to the directory to scan from the source code root. It is
+    empty by default.
 
-    For more information about any of the `GIT-*` values, see
-    [Source Git Provider](../../../supply-chain/reference/catalog/about.hbs.md#source-git-provider).
+  For more information about any of the `GIT-*` values, see
+  [Source Git Provider](../../../supply-chain/reference/catalog/about.hbs.md#source-git-provider).
 
 Generate a workload manifest
 : To render sample workload YAML that you can configure and put in `workload.yaml`:
@@ -83,7 +82,7 @@ Generate a workload manifest
      [Create a supply chain with the SonarQube Scan component](create-supply-chain-with-sq.hbs.md#sonarqube-scan)
      section:
 
-  1. Pass the kind into the Tanzu Workload CLI plug-in to generate a workload by running:
+  1. Pass the `kind` into the Tanzu Workload CLI plug-in to generate a workload by running:
 
      ```console
      tanzu workload generate NAME --kind KIND

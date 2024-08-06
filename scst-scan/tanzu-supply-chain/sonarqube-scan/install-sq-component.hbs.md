@@ -1,17 +1,17 @@
 # Install the SonarQube Scan component (alpha)
 
-This topic tells you how to install the SonarQube Scan component and customize the image to run the
-SonarQube scan on.
+This topic tells you how to install the SonarQube Scan component and customize the image on which to
+run the SonarQube scan.
 
 > **Note** The SonarQube Scan component is in the alpha stage and only supports Maven projects at
 > this time.
 
-If you used the `authoring` profile, the SonarQube Scan component is installed by default. For more
+If you used the Authoring profile, the SonarQube Scan component is installed by default. For more
 information, see
 [Install Tanzu Supply Chain with the authoring profile](../../../supply-chain/platform-engineering/how-to/installing-supply-chain/install-authoring-profile.hbs.md#tsc-packages).
 
-This section describes how to install the SonarQube Scan component by itself, without using
-the `authoring` profile.
+This topic describes how to install the SonarQube Scan component by itself, without using the
+Authoring profile.
 
 1. List version information for the SonarQube Scan component package by running:
 

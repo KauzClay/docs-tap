@@ -13,7 +13,7 @@ template_variables:
     url_version: 1.3
     plugin_group_version: 1.11
   api-portal:
-    version: 1.4
+    version: 1.5
   api-auto-registration:
     scg-version: 2.1
   tap_gui:

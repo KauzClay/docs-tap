@@ -43,8 +43,11 @@ Define a workload YAML file
       sonarqube:
          sonar-project-name: SONAR-PROJECT-NAME
          sonar-project-key: SONAR-PROJECT-KEY
-         sonar-token: SONAR-TOKEN
+         sonar-token-secret-name: SONAR-TOKEN-SECRET-NAME
          sonar-project-base-dir: SONAR-PROJECT-BASE-DIR
+         project-type: PROJECT-TYPE
+         jdk-url: JDK-URL
+         debug-mode: DEBUG-MODE
     ```
 
   Where:
@@ -60,11 +63,12 @@ Define a workload YAML file
   - `SONAR-PROJECT-NAME` is the display name of the project being scanned in the SonarQube server.
   - `SONAR-PROJECT-KEY` is the project key for the project in SonarQube. It is optional and is the
     same as `sonar-project-name` if unset.
-  - `SONAR-TOKEN` is the SonarQube project token generated in the SonarQube server. For more
-    information, see the
-    [SonarQube documentation](https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/).
-  - `SONAR-PROJECT-BASE-DIR` is the path to the directory to scan from the source code root. It is
-    empty by default.
+  - `SONAR-TOKEN-SECRET-NAME` is the name of the k8s secret that contains the SonarQube project token generated in the SonarQube server. The secret must store the token under the key `sonar-token`. For more
+     information on generating the token, see the [SonarQube documentation](https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/).
+  - `SONAR-PROJECT-BASE-DIR` is the path to the directory to scan from the source code root. It is empty by default.
+  - `PROJECT-TYPE` is either "maven" or "gradle" depending on the source code project. Only maven and gradle projects are currently supported.
+  - `JDK-URL` is the url to download the jdk version compatible with the source project. If not given, the default jdk version installed in the task image will be used.
+  - `DEBUG-MODE` is for enabling debug logs in the scan, expects "true" or "false". It is false by default.
 
   For more information about any of the `GIT-*` values, see
   [Source Git Provider](../../../supply-chain/reference/catalog/about.hbs.md#source-git-provider).
@@ -109,6 +113,12 @@ watch -n 0.5 kubectl get pipelineruns,taskruns,pods, supplychain -n DEV-NAMESPAC
 ```
 
 Where `DEV-NAMESPACE` is the developer namespace.
+
+To see the detailed output of the supply chain, run:
+
+```console
+tanzu workload run get WORKLOAD-RUN-NAME -n DEV-NAMESPACE --show-details
+```
 
 For more information, see
 [Work with workloads](../../../supply-chain/development/how-to/discover-workloads.hbs.md).

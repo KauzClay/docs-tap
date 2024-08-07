@@ -3,7 +3,7 @@
 This topic tells you how to install the SonarQube Scan component and customize the image on which to
 run the SonarQube scan.
 
-> **Note** The SonarQube Scan component is in the alpha stage and only supports Maven projects at
+> **Note** The SonarQube Scan component is in the alpha stage and only supports Maven and Gradle projects at
 > this time.
 
 If you used the Authoring profile, the SonarQube Scan component is installed by default. For more

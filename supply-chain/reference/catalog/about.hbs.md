@@ -425,7 +425,7 @@ Version: 1.0.0
 ### Description
 
 The SonarQube Supply Chain component performs a Static Application Security Testing (SAST) scan by
-using the Maven CLI and the Sonar plug-in against the source input.
+using the Maven or Gradle Sonar plug-in against the source input.
 
 ### Inputs
 
@@ -452,9 +452,16 @@ spec:
     # This is the display name of the project in the sonar server.
     # +required
     sonar-project-name:
-    # This is the Sonarqube project token. See the Sonarqube documentation for more details: https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/.
+    # This is the name of the secret that contains the Sonarqube project token. See the Sonarqube documentation for more details: https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/.
     # +required
-    sonar-token:
+    sonar-token-secret-name:
+    # This is the project type of source, only "maven" or "gradle" are supported.
+    # +required
+    project-type:
+    # This is the url to download the jdk version compatible with the source project. If not given, the default jdk version installed in the task image will be used.
+    jdk-url:
+    # This is for enabling debug logs in the scan, expects "true" or "false". It is false by default.
+    debug-mode:
 ```
 
 ---
@@ -635,9 +642,16 @@ spec:
     sonar-project-name:
     # The project key defined in the SonarQube server
     sonar-project-key:
-    # SonarQube project token
+    # The name of the secret that contains the SonarQube project token
     # +required
-    sonar-token:
+    sonar-token-secret-name:
     # Path to the directory to scan from the source code root
     sonar-project-base-dir:
+    # The project type of source, only "maven" or "gradle" are supported
+    # +required
+    project-type:
+    # The url to download the jdk version compatible with the source project
+    jdk-url:
+    # Enable debug logs in the scan, expects "true" or "false"
+    debug-mode:
 ```

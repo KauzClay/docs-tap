@@ -84,7 +84,7 @@ SCST - Scan v1.0.
 
 If you want to create a scan integration for a scan tool that does not exist, use SCST - Scan v2.0 as the
 process is greatly simplified. For more information, see
-[Bring your own scanner with Supply Chain Security Tools - Scan 2.0](./bring-your-own-scanner.hbs.md).
+[Bring your own scanner to use with Supply Chain Security Tools - Scan 2.0](./bring-your-own-scanner.hbs.md).
 
 If you are using the Tanzu Supply Chain component, use SCST - Scan v2.0 as only SCST - Scan v2.0 is supported with
 Tanzu Supply Chain. For more information, see [Overview of Tanzu Supply Chain](../supply-chain/about.hbs.md).

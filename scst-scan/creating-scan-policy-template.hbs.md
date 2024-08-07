@@ -7,70 +7,73 @@ Policy enforcement is not built into SCST - Scan 2.0 and is not in any of the Ou
 chains. You must [author a custom supply chain](../scc/authoring-supply-chains.hbs.md) to enable
 policy enforcement.
 
-To enforce a policy in a supply chain you need a `ClusterImageTemplate` that uses a Tekton
-`TaskRun` to evaluate the vulnerabilities and enforces the set policy. This topic provides a sample
-`TaskRun` and a sample `ClusterImageTemplate` for you to edit.
+To enforce a policy in a supply chain you need a `ClusterImageTemplate` that uses a Tekton `TaskRun`
+to evaluate the vulnerabilities and enforce the set policy. This topic provides a sample `TaskRun`
+and a sample `ClusterImageTemplate` for you to edit.
 
 ## <a id="prepare"></a> Prepare for the `TaskRun`
 
 The `TaskRun` queries the Metadata Store to get the list of vulnerabilities for the image.
 Authenticate with the Metadata Store API by obtaining an access token and a certificate:
 
-1. Generate an image that has the curl and jq commands. You can either:
-
-    - (Recommended) Build your own image.
-    - Use a base Ubuntu image. This gets you started faster but is only for testing purposes.
+1. Generate an image that has the `curl` and `jq` commands. You can build your own image
+   (recommended) or use a base Ubuntu image that gets you started faster but is only for testing
+   purposes.
 
     Build your own image
-    : Build an image that contains curl and jq for the tekton `Task` to use.
+    : Build an image that contains `curl` and `jq` for the Tekton `Task` to use.
 
-      VMware recommends that you use this option because the image will have stable versions and dependencies
-      that are deterministic. It will not need to download curl and jq each time the script runs.
+      VMware recommends that you use this option because the image has stable versions and
+      dependencies that are deterministic. The image does not need to download `curl` and `jq` each
+      time the script runs.
 
       To build your image:
 
       1. Create a `Dockerfile` with the following in a blank directory:
 
-          ```dockerfile
-          FROM ubuntu:latest
+         ```dockerfile
+         FROM ubuntu:latest
 
-          RUN apt-get update
-          RUN apt-get install -y jq curl
-          ```
+         RUN apt-get update
+         RUN apt-get install -y jq curl
+         ```
 
-      1. Build and push the image to a registry that is accessible by the build cluster by running:
+      1. Build and push the image to a registry that the Build cluster can access by running:
 
-          ```console
-          docker build . -t REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
-          docker push REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
-          ```
+         ```console
+         docker build . -t REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
+         docker push REGISTRY-URL-LOCATION/IMAGE-NAME:IMAGE-TAG
+         ```
 
-          Where:
+         Where:
 
-          - `REGISTRY-URL-LOCATION` is the registry URL. For example, `registry.hub.docker.com/project`.
-          - `IMAGE-NAME` is the name of the image. For example, `curl-jq-bash`.
-          - `IMAGE-TAG` is the tag of the image. For example, `latest`.
+         - `REGISTRY-URL-LOCATION` is the registry URL. For example, `registry.hub.docker.com/project`.
+         - `IMAGE-NAME` is the name of the image. For example, `curl-jq-bash`.
+         - `IMAGE-TAG` is the tag of the image. For example, `latest`.
 
-      1. If you are pushing to a private registry, run the following command on the Build cluster:
+      1. If you are pushing to a private registry, on the Build cluster run:
 
-          ```console
-          tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes --namespace tap-install
-          ```
+         ```console
+         tanzu secret registry add registry-credentials --server REGISTRY-SERVER --username \
+         REGISTRY-USERNAME --password REGISTRY-PASSWORD --export-to-all-namespaces --yes \
+         --namespace tap-install
+         ```
 
-          Where:
+         Where:
 
-          - `REGISTRY-SERVER` is the registry URL. For example, `registry.hub.docker.com`.
-          - `REGISTRY-USERNAME` the user name that is allowed to read the pushed curl jq image.
-          - `REGISTRY-PASSWORD` the password that is allowed to read the pushed curl jq image.
+         - `REGISTRY-SERVER` is the registry URL. For example, `registry.hub.docker.com`.
+         - `REGISTRY-USERNAME` the user name that is allowed to read the pushed `curl` `jq` image.
+         - `REGISTRY-PASSWORD` the password that is allowed to read the pushed `curl` `jq` image.
 
     Use a base Ubuntu image
-    : To get started quicker and for testing purposes, you can embed the downloading of curl and jq
-      in the `Task` script and use a base Ubuntu image.
+    : To get started quicker you can embed the downloading of `curl` and `jq` in the `Task` script
+      and use a base Ubuntu image.
 
-      > **Note** This option is not recommended in production environments. VMware recommends that you
-      > build your own image that contains curl and jq so that it has predetermined dependencies and versions.
+      > **Caution** Do not use this option in production environments. VMware recommends that you
+      > build your own image that contains `curl` and `jq` so that it has predetermined dependencies
+      > and versions.
 
-      For example, in the `Task` YAML:
+      Here is example `Task` YAML:
 
       ```yaml
       ---
@@ -97,8 +100,8 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
             ...
       ```
 
-1. In the View cluster, get the access token and the Certificate Authority (CA) certificate from
-   the Metadata Store by running these commands:
+1. In the View cluster, get the access token and the Certificate Authority (CA) certificate from the
+   Metadata Store by running these commands:
 
    ```console
    ACCESS_TOKEN=$(kubectl get secrets -n metadata-store  metadata-store-read-write-client -o json \
@@ -117,7 +120,8 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
    echo $METADATA_STORE_CA_CERT
    ```
 
-1. In the Build cluster, create `metadata-store-access-token` and `metadata-store-cert` secrets by running:
+1. In the Build cluster, create `metadata-store-access-token` and `metadata-store-cert` secrets by
+   running:
 
     ```console
     DEVELOPER_NAMESPACE=DEVELOPER-NAMESPACE
@@ -133,11 +137,11 @@ Authenticate with the Metadata Store API by obtaining an access token and a cert
 
 ## <a id="task-run-sample"></a> Edit the `Task` sample to enforce the policy
 
-The following sample `Task` waits until the vulnerability data is available for the image in
-the Metadata Store. When the data is available, the vulnerabilities are aggregated by severity.
-The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
+The following sample `Task` waits until the vulnerability data is available for the image in the
+Metadata Store. When the data is available, the vulnerabilities are aggregated by severity. The
+policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
 
-1. Create a file named `task-policy-enforcement.yaml` using the following template, and edit it for your needs:
+1. Create a file named `task-policy-enforcement.yaml` by editing this template for your needs:
 
     ```yaml
     ---
@@ -214,60 +218,62 @@ The policy that `GATE` sets determines whether `TaskRun` succeeds or fails.
             secretName: metadata-store-cert
     ```
 
-    Where:
+   Where:
 
-    - `THRESHOLD` sets the threshold for severity in the policy. The accepted
-      values are `low`, `medium`, `high`, and `critical`. For example, if the `THRESHOLD` is set to `high`
-      then the `TaskRun` fails if it finds `high` or `critical` vulnerabilities for the image. If the
-      `THRESHOLD` is set to `none`, no policy is enforced and `TaskRun` succeeds.
+   - `THRESHOLD` sets the threshold for severity in the policy. The accepted values are `low`,
+     `medium`, `high`, and `critical`. For example, if the `THRESHOLD` is set to `high`, the
+     `TaskRun` fails if it finds `high` or `critical` vulnerabilities for the image. If the
+     `THRESHOLD` is set to `none`, no policy is enforced and `TaskRun` succeeds.
 
-    - `METADATA-STORE-URL-VALUE` is the URL for reaching the Metadata Store.
-      The format is `metadata-store.` followed by the View cluster ingress domain, that is, `metadata-store.VIEW-CLUSTER-INGRESS-DOMAIN`.
-      Alternatively, you can get the URL from the View cluster by running:
+   - `METADATA-STORE-URL-VALUE` is the URL for reaching the Metadata Store. The format is
+     `metadata-store.` followed by the View cluster ingress domain. For example,
+     `metadata-store.VIEW-CLUSTER-INGRESS-DOMAIN`. Alternatively, you can get the URL from the View
+     cluster by running:
 
-      ```console
-      kubectl get httpproxy metadata-store-ingress -n metadata-store -o jsonpath='{.spec.virtualhost.fqdn}'
-      ```
+     ```console
+     kubectl get httpproxy metadata-store-ingress -n metadata-store -o jsonpath='{.spec.virtualhost.fqdn}'
+     ```
 
-    - `TASK-RUN-IMAGE-WITH-CURL-AND-JQ` is any image that contains the bash, curl, and jq commands.
-      If you did not build an image in the first step, you can use the `ubuntu:latest` image and
-      install jq and curl at the beginning of the script section. For example:
+   - `TASK-RUN-IMAGE-WITH-CURL-AND-JQ` is any image that contains the `bash`, `curl`, and `jq`
+     commands. If you did not build an image in the first step, you can use the `ubuntu:latest`
+     image and install `jq` and `curl` at the beginning of the script section.
 
-        ```console
-        image: ubuntu:latest
-        ...
-        ...
-        script: |
-          apt-get update
-          apt-get install -y jq curl
+     > **Caution** Do not use this option in production environments. VMware recommends that you
+     > build your own image that contains `curl` and `jq` so that it has predetermined dependencies
+     > and versions.
 
-          if [ ${GATE} = "none" ]; then
-              exit 0
-          fi
-        ...
-        ...
-        ```
+     For example:
 
-      > **Note** This is not recommended in production environments. VMware recommends that you
-      > build your own image that contains curl and jq with predetermined dependencies and versions.
+     ```console
+     image: ubuntu:latest
+     ...
+     ...
+     script: |
+       apt-get update
+       apt-get install -y jq curl
 
-    - `DEVELOPER-NAMESPACE` is the developer namespace.
+       if [ ${GATE} = "none" ]; then
+           exit 0
+       fi
+     ...
+     ...
+     ```
 
-1. Apply the Task to the `DEVELOPER-NAMESPACE` by running:
+1. Apply the `Task` to the `DEVELOPER-NAMESPACE` by running:
 
-    ```console
-    kubectl apply -f task-policy-enforcement.yaml -n DEVELOPER-NAMESPACE
-    ```
+   ```console
+   kubectl apply -f task-policy-enforcement.yaml -n DEVELOPER-NAMESPACE
+   ```
 
-    Where `DEVELOPER-NAMESPACE` is the developer namespace.
+   Where `DEVELOPER-NAMESPACE` is the developer namespace.
 
-    Apply this to every developer namespace that uses the policy enforcement.
+1. Apply the `Task` to every other developer namespace that uses the policy enforcement.
 
 ## <a id="inc-the-policy"></a> Include the policy `ClusterImageTemplate` in the newly authored supply chain
 
 To include the policy `ClusterImageTemplate` in the newly authored supply chain:
 
-1. Create a file named `policy-cluster-image-and-runnable-template.yaml` as follows:
+1. Create a file named `policy-cluster-image-and-runnable-template.yaml` with this content:
 
     ```yaml
     apiVersion: carto.run/v1alpha1
@@ -352,8 +358,8 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
 
    The scan step generates the vulnerability data that the policy step queries the Metadata Store
    for. Therefore the policy step must be after the scan step and must take the image produced by
-   the scan step as an input image. You can place any step that requires an image as an input after
-   the policy step.
+   the scan step as an input image. You can place any step that requires an image as input after the
+   policy step. For example:
 
     ```yaml
     ---
@@ -400,7 +406,7 @@ To include the policy `ClusterImageTemplate` in the newly authored supply chain:
       .... # supply chain continues
     ```
 
-    Where `CUSTOM-SUPPLY-CHAIN-NAME` is the name of the custom supply chain.
+   Where `CUSTOM-SUPPLY-CHAIN-NAME` is the name of the custom supply chain.
 
 ## <a id="apply-generated-yaml"></a> Apply the template, supply chain, and workload
 
@@ -408,10 +414,10 @@ To apply the template, supply chain, and workload:
 
 1. Apply the generated `ClusterImageTemplate` and `ClusterSupplyChain` by running:
 
-    ```console
-    kubectl apply -f policy-cluster-image-and-runnable-template.yaml
-    kubectl apply -f custom-supply-chain.yaml
-    ```
+   ```console
+   kubectl apply -f policy-cluster-image-and-runnable-template.yaml
+   kubectl apply -f custom-supply-chain.yaml
+   ```
 
 1. Create a workload in the developer namespace that can trigger the supply chain.
    For more information about selectors and how to use them with a custom supply chain, see
@@ -419,7 +425,8 @@ To apply the template, supply chain, and workload:
 
 ## <a id="troubleshooting-policy"></a> Troubleshoot the policy
 
-If the policy is still waiting to find the vulnerabilities data for the image in the Metadata Store:
+If the policy is still waiting to find the vulnerabilities data for the image in the Metadata Store,
+troubleshoot the policy:
 
 1. Verify that the observer is healthy and running.
 1. Verify that the observer registered the controller to monitor the `ImageVulnerabilityScan` kind.

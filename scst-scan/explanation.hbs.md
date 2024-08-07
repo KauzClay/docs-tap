@@ -1,11 +1,12 @@
 # Spec reference
 
-This topic describes the specifications and custom resources you can use with Supply Chain Security Tools (SCST) - Scan.
+This topic describes the specifications and custom resources you can use with Supply Chain Security
+Tools (SCST) - Scan.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
-With the Scan Controller and Grype Scanner installed
-the following Custom Resource Definitions (CRDs) are now available:
+With the Scan Controller and Grype Scanner installed the following Custom Resource Definitions
+(CRDs) are now available:
 
 ```console
 $ kubectl get crds | grep scanning.apps.tanzu.vmware.com
@@ -16,42 +17,54 @@ sourcescans.scanning.apps.tanzu.vmware.com               2021-09-09T15:22:07Z
 ```
 
 For more information about installing SCST - Scan, see
-[Installing Individual
-Packages](../install-online/components.hbs.md#install-scst-scan).
+[Installing Individual Packages](../install-online/components.hbs.md#install-scst-scan).
 
-## <a id="about-src-and-image-scans"></a>About source and image scans
+## <a id="about-src-and-image-scans"></a> About source and image scans
 
-Both SourceScan (`sourcescans.scanning.apps.tanzu.vmware.com`) and ImageScan (`imagescans.scanning.apps.tanzu.vmware.com`) define what will be scanned, and ScanTemplate (`scantemplates.scanning.apps.tanzu.vmware.com`) will define how to run a scan. We have provided five custom resources (CRs) pre-installed for use. You can either use them as-is or as samples to create your own.
+`SourceScan` (`sourcescans.scanning.apps.tanzu.vmware.com`) and `ImageScan`
+(`imagescans.scanning.apps.tanzu.vmware.com`) define what is scanned. `ScanTemplate`
+(`scantemplates.scanning.apps.tanzu.vmware.com`) defines how to run a scan. VMware has provided five
+custom resources (CRs) preinstalled for use. You can either use them as they are or as samples for
+creating your own CRs.
 
-To view the pre-installed Scan Template CRs, run:
+To view the pre-installed `ScanTemplate` CRs, run:
 
 ```console
 kubectl get scantemplates
 ```
 
-You will see the following scan templates:
+You see the following scan templates:
 
-| CR Name | Use Case|
-|---|---|
-|`public-source-scan-template`|Clones and scans source code from a public repository.|
-|`private-source-scan-template`|Connects with SSH credentials to clone and scan source code from a private repository.|
-|`public-image-scan-template`|Pulls and scans images from a public registry.|
-|`private-image-scan-template`|Connects with the registry credentials to pull and scan images from a private registry.|
-|`blob-source-scan-template`|To be used in a Supply Chain. Gets a `.tar.gz` available file with `wget`, uncompresses it, and scans the source code inside it.|
+| CR Name                        | Use Case                                                                                                                         |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| `public-source-scan-template`  | Clones and scans source code from a public repository.                                                                           |
+| `private-source-scan-template` | Connects with SSH credentials to clone and scan source code from a private repository.                                           |
+| `public-image-scan-template`   | Pulls and scans images from a public registry.                                                                                   |
+| `private-image-scan-template`  | Connects with the registry credentials to pull and scan images from a private registry.                                          |
+| `blob-source-scan-template`    | To be used in a Supply Chain. Gets a `.tar.gz` available file with `wget`, uncompresses it, and scans the source code inside it. |
 
-By default, three scan templates are deployed (`public-source-scan-template`,
-  `public-image-scan-template`, and `blob-source-scan-template`).
+By default, three scan templates are deployed:
 
-If `targetImagePullSecret` is set in `tap-values.yaml`, `private-image-scan-template` is also deployed.
-If `targetSourceSshSecret` is set in `tap-values.yaml`, `private-source-scan-template` is also deployed.
+- `public-source-scan-template`
+- `public-image-scan-template`
+- `blob-source-scan-template`
+
+If `targetImagePullSecret` is set in `tap-values.yaml`, `private-image-scan-template` is also
+deployed. If `targetSourceSshSecret` is set in `tap-values.yaml`, `private-source-scan-template` is
+also deployed.
 
 The private scan templates reference secrets created using the Docker server and credentials you
 provided, which means they are ready to use immediately.
 
-For more information about the `SourceScan` and `ImageScan` CRDs and how to customize your own, refer to [Configuring Code Repositories and Image Artifacts to be Scanned](scan-crs.md).
+For more information about the `SourceScan` and `ImageScan` CRDs and how to customize your own, see
+[Configuring Code Repositories and Image Artifacts to be Scanned](scan-crs.hbs.md).
 
-## <a id="policy-enforcement-vuln"></a>About policy enforcement around vulnerabilities found
+## <a id="policy-enforcement-vuln"></a> About policy enforcement around vulnerabilities found
 
-The Scan Controller supports policy enforcement by using an Open Policy Agent (OPA) engine. ScanPolicy (`scanpolicies.scanning.apps.tanzu.vmware.com`) allows scan results to be validated for company policy compliance and can prevent source code from being built or images from being deployed.
+The Scan Controller supports policy enforcement by using an Open Policy Agent (OPA) engine.
+`ScanPolicy` (`scanpolicies.scanning.apps.tanzu.vmware.com`) allows scan results to be validated for
+company policy compliance and can prevent source code from being built or images from being
+deployed.
 
-For more information, see [Configuring Policy Enforcement using Open Policy Agent (OPA)](policies.md).
+For more information, see
+[Enforce compliance policy using Open Policy Agent](policies.hbs.md).

@@ -1,27 +1,27 @@
 # Create a ScanTemplate with Supply Chain Security Tools - Scan
 
-This topic describes how to create a ScanTemplate with Supply Chain Security Tools (SCST) - Scan.
+This topic tells you how to create a `ScanTemplate` with Supply Chain Security Tools (SCST) - Scan.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 ## Overview
 
 The `ScanTemplate` custom resource (CR) defines how the scan Pod fulfills the task of vulnerability
-scanning. There are default `ScanTemplates` provided out of the box using the Tanzu Application
-Platform default scanner, `Anchore Grype`. One or more `initContainers` run to complete the scan and
+scanning. There are default `ScanTemplate`s, provided as standard, that use the Tanzu Application
+Platform default scanner Anchore Grype. One or more `initContainer`s run to complete the scan and
 must save results to a shared `volume`.
 
-After the `initContainers` completes, a single container on the scan Pod called `summary` combines
-the result of the initContainers so that the `Scan CR` status is updated.
+After the `initContainer`s finishes, a single container on the scan Pod called `summary` combines
+the result of the `initContainer`s so that the `Scan CR` status is updated.
 
-A customized ScanTemplate is created by editing or replacing `initContainer` definitions and reusing
-the `summary` container from the `grype` package. A container can read the `out.yaml` from an
-earlier step to locate relevant inputs.
+A customized `ScanTemplate` is created by editing or replacing `initContainer` definitions and
+reusing the `summary` container from the `grype` package. A container can read the `out.yaml` from
+an earlier step to locate relevant inputs.
 
-## <a id="output-model"></a> Output Model
+## <a id="output-model"></a> Output model
 
-Each initContainer can create a subdirectory in `/workspace` to use as a scratch space. Before
-terminating the container must create an `out.yaml` file in the subdirectory containing the relevant
+Each `initContainer` can create a subdirectory in `/workspace` to use as a scratch space. Before
+terminating, the container must create an `out.yaml` file in the subdirectory containing the relevant
 subset of fields from the output model:
 
 ```yaml
@@ -61,14 +61,16 @@ store:
   locations: []
 ```
 
-The `scan` portion of the earlier output is required and if missing the scan controller fails to
+The `scan` portion of the earlier output is required and, if missing, the scan controller fails to
 properly update the final status of the `Scan CR`. Other portions of the output, including those of
 `store` and `policy evaluation`, are optional and can be omitted if not applicable in a custom
-supply chain setup.
+supply-chain setup.
 
-## <a id="template-structure"></a> ScanTemplate Structure
+## <a id="template-structure"></a> `ScanTemplate` structure
 
-```console
+This is an example `ScanTemplate` structure:
+
+```yaml
 apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
 kind: ScanTemplate
 spec:
@@ -90,14 +92,15 @@ spec:
         - name: summary
 ```
 
-> **Note:** You cannot name a container `sleep` because there is already a container named `sleep`
-> which comes from the scan-link controller.
+> **Note** You cannot name a container `sleep` because there is already a container named `sleep`
+> that comes from the `scan-link` controller.
 
 ## <a id="sample-output"></a> Sample Outputs
 
+This is an example for a typical Git clone (source scan fetch stage) that is saved in
+`/workspace/git-clone/out.yaml`:
+
 ```yaml
-# example for a typical git clone (source scan fetch stage)
-# saved at: /workspace/git-clone/out.yaml
 fetch:
   git:
     url: github.com/my/repo
@@ -105,9 +108,9 @@ fetch:
     path: /workspace/git-clone/cloned-repository
 ```
 
+This is an example of a typical scan stage, which is saved in `/workspace/grype-scan/out.yaml`:
+
 ```yaml
-# an example of typical scan stage
-# saved at: /workspace/grype-scan/out.yaml
 scan:
   cveCount:
     critical: 0
@@ -127,9 +130,10 @@ scan:
   - /workspace/grype-scan/base.cyclonedx.xml
 ```
 
+This is an example of a typical evaluation stage, which is saved in
+`/workspace/policy-eval/out.yaml`:
+
 ```yaml
-# example of a typical evaluation stage
-# saved at: /workspace/policy-eval/out.yaml
 eval:
   violations:
     - banned package log4j
@@ -137,9 +141,10 @@ eval:
     - number of critical CVEs over threshold
 ```
 
+This is an example of a typical upload-to-store stage, which is saved in
+`/workspace/upload-to-store/out.yaml`:
+
 ```yaml
-# example of a typical upload to store stage
-# saved at: /workspace/upload-to-store/out.yaml
 store:
   locations:
     - http://metadata-store.cluster.local:8080/reports/3

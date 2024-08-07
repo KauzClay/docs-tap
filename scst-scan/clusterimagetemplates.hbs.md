@@ -1,30 +1,40 @@
 # Author a ClusterImageTemplate for Supply Chain integration
 
-This topic tells you how to create your own ClusterImageTemplate and customize the embedded ImageVulnerabilityScan to use the scanner of your choice.
+This topic tells you how to create your own `ClusterImageTemplate` and customize the embedded
+`ImageVulnerabilityScan` to use the scanner of your choice.
 
-## <a id='prerecs'></a> Prerequisites
+## <a id='prerecs'></a> Before you begin
 
-The following prerequisite is required to author a ClusterImageTemplate for Supply Chain integration:
+Before authoring a `ClusterImageTemplate` for Supply Chain integration:
 
-- You create your own ImageVulnerabilityScan or configured one of the samples provided in [Configure your custom ImageVulnerabilityScan](./ivs-custom-samples.hbs.md).
-- For more information, see ClusterImageTemplate in the [Cartographer documentation](https://cartographer.sh/docs/v0.3.0/reference/template/#clusterimagetemplate).
-- Understand `ytt` templates. See Carvel `ytt` [docs](https://carvel.dev/ytt/) for documentation and playground samples.
+- Create your own `ImageVulnerabilityScan` or configure one of the samples provided in
+  [Configure your custom ImageVulnerabilityScan](ivs-custom-samples.hbs.md). For more information,
+  see `ClusterImageTemplate` in the
+  [Cartographer documentation](https://cartographer.sh/docs/v0.3.0/reference/template/#clusterimagetemplate).
+- Understand `ytt` templates. For more information and playground samples, see the Carvel `ytt`
+  [documentation](https://carvel.dev/ytt/).
 
-## <a id='create-clusterimagetemplate'></a> Create a ClusterImageTemplate
+## <a id='create-clusterimagetemplate'></a> Create a `ClusterImageTemplate`
 
-This section describes how to create a ClusterImageTemplate using an ImageVulnerabilityScan with Trivy. To use a different scanner, replace the embedded ImageVulnerabilityScan with your own.
+This section describes how to create a `ClusterImageTemplate` by using an `ImageVulnerabilityScan`
+with Trivy. To use a different scanner, replace the embedded `ImageVulnerabilityScan` with your own.
 
-ClusterImageTemplate parameters and values:
+`ClusterImageTemplate` parameters and values are described in this table:
 
-* The `spec.params` in this sample YAML define default values for fields within the ImageVulnerabilityScan. For more information, see `params` in the [Cartographer documentation](https://cartographer.sh/docs/v0.3.0/reference/template/#clusterimagetemplate).
-  * `#@ data.values.params` in the `ytt` template block and in the ImageVulnerabilityScan both reference `spec.params` fields.
-* The values in the `data.values.workload` such as `metadata`, `labels`, `annotations`, and `spec` come from the supply chain workload.
-* The `data.values.image` is the container image built from Buildpacks in the supply chain step that scans for vulnerabilities.
-* The example YAML in this topic uses `ytt` to define a resource template written in `ytt` for the ImageVulnerabilityScan Custom Resource. For more information, see `ytt` in the [Cartographer documentation](https://cartographer.sh/docs/v0.3.0/reference/template/#clusterimagetemplate). For example, inside the `ytt` template are defined functions that you can use within the ImageVulnerabilityScan.
+| Parameter or value      | Description                                                                                                                                                                                                                           |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `spec.params`           | `spec.params` in this sample YAML defines default values for fields within `ImageVulnerabilityScan`.                                                                                                                                  |
+| `#@ data.values.params` | `#@ data.values.params` in the `ytt` template block and in the `ImageVulnerabilityScan` both reference `spec.params` fields.                                                                                                          |
+| `data.values.workload`  | The values in the `data.values.workload`, such as `metadata`, `labels`, `annotations`, and `spec`, come from the supply chain workload.                                                                                               |
+| `data.values.image`     | The `data.values.image` is the container image built from Buildpacks in the supply-chain step that scans for vulnerabilities.                                                                                                         |
+| `ytt`                   | The example YAML in this topic uses `ytt` to define a resource template written in `ytt` for the `ImageVulnerabilityScan` Custom Resource. The `ytt` template has defined functions that you can use within `ImageVulnerabilityScan`. |
 
-To create a ClusterImageTemplate:
+For more information, see `params` and `ytt` in the in the
+[Cartographer documentation](https://cartographer.sh/docs/v0.3.0/reference/template/#clusterimagetemplate).
 
-1. Create a YAML file with the following content and name it `custom-ivs-template.yaml`.
+To create a `ClusterImageTemplate`:
+
+1. Create a YAML file with the following content and name it `custom-ivs-template.yaml`:
 
     ```yaml
     apiVersion: carto.run/v1alpha1
@@ -199,20 +209,26 @@ To create a ClusterImageTemplate:
 
     ```
 
-    >**Note** `apps.tanzu.vmware.com/correlationid` contains the metadata of the mapping to the source of the scanned resource.
+   > **Note** `apps.tanzu.vmware.com/correlationid` contains the metadata of the mapping to the
+   > source of the scanned resource.
 
 2. Edit the following in your `custom-ivs-template.yaml` file:
 
-    - `.metadata.name` is the name of your ClusterImageTemplate. Ensure that it does not conflict with the names of packaged templates. See [Author your supply chains](../scc/authoring-supply-chains.hbs.md#providing-your-own-templates).
-    - `REGISTRY-SERVER` is the registry server used for the scan results location.
-    - `REGISTRY-REPOSITORY` is the registry repository used for the scan results location.
-    - `TRIVY-SCANNER-IMAGE` is the location of your Trivy scanner CLI image
-    - `.metadata.annotations.'app-scanning.apps.tanzu.vmware.com/scanner-name'` is the scanner image name reported in the Tanzu Developer Portal, formerly Tanzu Application Platform GUI.
+   - `.metadata.name`, which is the name of your `ClusterImageTemplate`. Ensure that it does not
+     conflict with the names of packaged templates. For more informatio, see
+     [Author your supply chains](../scc/authoring-supply-chains.hbs.md#templates).
+   - `REGISTRY-SERVER`, which is the registry server used for the scan results location.
+   - `REGISTRY-REPOSITORY`, which is the registry repository used for the scan results location.
+   - `TRIVY-SCANNER-IMAGE`, which is the location of your Trivy scanner CLI image.
+   - `.metadata.annotations.'app-scanning.apps.tanzu.vmware.com/scanner-name'`, which is the scanner
+     image name reported in Tanzu Developer Portal.
 
-3. Create the ClusterImageTemplate:
+3. Create the `ClusterImageTemplate` by running:
 
-    ```console
-    kubectl apply -f custom-ivs-template.yaml
-    ```
+   ```console
+   kubectl apply -f custom-ivs-template.yaml
+   ```
 
-4. After you create your custom ClusterImageTemplate, you can integrate it with SCST - Scan 2.0. See [Add App Scanning to default Test and Scan supply chains](./integrate-app-scanning.hbs.md).
+4. Integrate your custom `ClusterImageTemplate` with SCST - Scan 2.0. For more
+   information, see
+   [Enable SCST - Scan 2.0 for default Test and Scan supply chains](integrate-app-scanning.hbs.md).

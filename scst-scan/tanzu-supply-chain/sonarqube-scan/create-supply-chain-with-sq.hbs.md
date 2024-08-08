@@ -1,9 +1,9 @@
 # Create a supply chain that performs a SonarQube scan
 
-This topic tells you how to create a supply chain that performs a SonarQube scan. 
+This topic tells you how to create a supply chain that performs a SonarQube scan.
 
-The SonarQube scan component currently only supports scanning Maven or Gradle projects. 
-Access to the internet is needed to perform the scan task.
+The SonarQube scan component currently only supports scanning Maven or Gradle projects. You need
+internet access to perform the scan task.
 
 ## <a id="prerequisites"></a> Prepare
 
@@ -89,7 +89,7 @@ To generate SonarQube supply chain with overrides:
     Created file tasks/source-git-check.yaml
     Created file tasks/source-git-clone.yaml
     Created file tasks/store-content-oci.yaml
-    ```
+   ```
 
 1. Open the generated YAML file `supplychains/sonarqubesc.yaml`, uncomment the overrides section
    with the `sonar-host-url`, and provide the host URL.
@@ -163,7 +163,7 @@ To generate a SonarQube supply chain with default values:
     Created file tasks/source-git-check.yaml
     Created file tasks/source-git-clone.yaml
     Created file tasks/store-content-oci.yaml
-    ```
+   ```
 
 1. Open the generated YAML file `supplychains/sonarqubesc.yaml`, uncomment the `defaults` section
    with the `sonar-host-url`, and provide the host URL.
@@ -221,9 +221,10 @@ Where `DEV-NAMESPACE` is the namespace where the workload will run.
 
 This section describes how to customize a SonarQube scan task to run on a different image.
 
-The default image that the SonarQube scan task runs on is the `maven:3.9.8-amazoncorretto-17` image which has jdk 17 installed. If
-this version is not compatible with your project to perform the SonarQube scan, you can
-customize the task to use your own image with the jdk version you need.
+The default image that the SonarQube scan task runs on is the `maven:3.9.8-amazoncorretto-17` image,
+which has JDK 17 installed. If this JDK version is not compatible with your project for performing
+the SonarQube scan, you can customize the task to use your own image with the JDK version that you
+need.
 
 1. Edit the following line in `tasks/sonarqube-maven-scan.yaml`, which you generated earlier from
    the Tanzu Supply Chain CLI:

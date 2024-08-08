@@ -63,12 +63,18 @@ Define a workload YAML file
   - `SONAR-PROJECT-NAME` is the display name of the project being scanned in the SonarQube server.
   - `SONAR-PROJECT-KEY` is the project key for the project in SonarQube. It is optional and is the
     same as `sonar-project-name` if unset.
-  - `SONAR-TOKEN-SECRET-NAME` is the name of the k8s secret that contains the SonarQube project token generated in the SonarQube server. The secret must store the token under the key `sonar-token`. For more
-     information on generating the token, see the [SonarQube documentation](https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/).
-  - `SONAR-PROJECT-BASE-DIR` is the path to the directory to scan from the source code root. It is empty by default.
-  - `PROJECT-TYPE` is either "maven" or "gradle" depending on the source code project. Only maven and gradle projects are currently supported.
-  - `JDK-URL` is the url to download the jdk version compatible with the source project. If not given, the default jdk version installed in the task image will be used.
-  - `DEBUG-MODE` is for enabling debug logs in the scan, expects "true" or "false". It is false by default.
+  - `SONAR-TOKEN-SECRET-NAME` is the name of the Kubernetes secret that contains the SonarQube
+    project token generated in the SonarQube server. The secret must store the token under the key
+    `sonar-token`. For more information about generating the token, see the
+    [SonarQube documentation](https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/).
+  - `SONAR-PROJECT-BASE-DIR` is the path to the directory to scan from the source code root. It is
+    empty by default.
+  - `PROJECT-TYPE` is either `maven` or `gradle` depending on the source code project. Only Maven
+    and Gradle projects are currently supported.
+  - `JDK-URL` is the URL to download the JDK version that is compatible with the source project.
+    If not given, the default JDK version installed in the task image is used.
+  - `DEBUG-MODE` is for enabling debug logs in the scan. It expects `true` or `false`. It is `false`
+    by default.
 
   For more information about any of the `GIT-*` values, see
   [Source Git Provider](../../../supply-chain/reference/catalog/about.hbs.md#source-git-provider).
@@ -106,19 +112,21 @@ Where `DEV-NAMESPACE` is the developer namespace.
 
 ## <a id="observe-workload"></a> Observe the workload
 
-Observe the progress of the workload running through the supply chain by running:
+To observe the workload:
 
-```console
-watch -n 0.5 kubectl get pipelineruns,taskruns,pods, supplychain -n DEV-NAMESPACE
-```
+1. See the progress of the workload running through the supply chain by running:
 
-Where `DEV-NAMESPACE` is the developer namespace.
+   ```console
+   watch -n 0.5 kubectl get pipelineruns,taskruns,pods, supplychain -n DEV-NAMESPACE
+   ```
 
-To see the detailed output of the supply chain, run:
+   Where `DEV-NAMESPACE` is the developer namespace.
 
-```console
-tanzu workload run get WORKLOAD-RUN-NAME -n DEV-NAMESPACE --show-details
-```
+1. See the detailed output of the supply chain by running:
+
+   ```console
+   tanzu workload run get WORKLOAD-RUN-NAME -n DEV-NAMESPACE --show-details
+   ```
 
 For more information, see
 [Work with workloads](../../../supply-chain/development/how-to/discover-workloads.hbs.md).

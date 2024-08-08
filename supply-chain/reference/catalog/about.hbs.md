@@ -442,25 +442,25 @@ using the Maven or Gradle Sonar plug-in against the source input.
 ```yaml
 spec:
   sonarqube:
-    # This is the URL of the sonar server.
+    # This is the URL of the Sonar server.
     # +required
     sonar-host-url:
     # This is the path to the directory to scan from the repository root.
     sonar-project-base-dir:
-    # This is the project key for the sonar project. If not set it will be the same as the project name.
+    # This is the project key for the Sonar project. If not set it is the same as the project name.
     sonar-project-key:
-    # This is the display name of the project in the sonar server.
+    # This is the display name of the project in the Sonar server.
     # +required
     sonar-project-name:
-    # This is the name of the secret that contains the Sonarqube project token. See the Sonarqube documentation for more details: https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/.
+    # This is the name of the secret that contains the SonarQube project token. See the SonarQube documentation for more details: https://docs.sonarsource.com/sonarqube/latest/user-guide/user-account/generating-and-using-tokens/.
     # +required
     sonar-token-secret-name:
-    # This is the project type of source, only "maven" or "gradle" are supported.
+    # This is the project type of source. Only maven or gradle are supported.
     # +required
     project-type:
-    # This is the url to download the jdk version compatible with the source project. If not given, the default jdk version installed in the task image will be used.
+    # This is the URL to download the JDK version compatible with the source project. If not given, the default JDK version installed in the task image is used.
     jdk-url:
-    # This is for enabling debug logs in the scan, expects "true" or "false". It is false by default.
+    # This is for enabling debug logs in the scan. It expects true or false. It is false by default.
     debug-mode:
 ```
 
@@ -618,23 +618,23 @@ Performs a SonarQube sast scan
 spec:
   source:
     # This is used to retrieve source from a git repository.
-    # The tag, commit and branch fields are mutually exclusive, use only one.
+    # The tag, commit and branch fields are mutually exclusive. Use only one field.
     # +required
     git:
       # A git branch ref to watch for new source
       branch:
-      # A git commit sha to use
+      # A git commit SHA to use
       commit:
       # A git tag ref to watch for new source
       tag:
-      # The url to the git source repository
+      # The URL to the git source repository
       # +required
       url:
     # The sub path in the bundle to locate source code
     subPath:
   # SonarQube Scan configuration
   sonarqube:
-    # SonarQube server url
+    # SonarQube server URL
     # +required
     sonar-host-url:
     # The project display name in the SonarQube server
@@ -647,11 +647,11 @@ spec:
     sonar-token-secret-name:
     # Path to the directory to scan from the source code root
     sonar-project-base-dir:
-    # The project type of source, only "maven" or "gradle" are supported
+    # The project type of source. Only maven or gradle are supported.
     # +required
     project-type:
-    # The url to download the jdk version compatible with the source project
+    # The URL to download the JDK version compatible with the source project
     jdk-url:
-    # Enable debug logs in the scan, expects "true" or "false"
+    # Enable debug logs in the scan. It expects true or false.
     debug-mode:
 ```

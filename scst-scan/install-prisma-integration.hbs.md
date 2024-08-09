@@ -227,9 +227,6 @@ Access key and secret authentication
      - `PRISMA-CONFIG-SECRET` is the name of the secret you created that contains the Prisma
        configuration to connect to Prisma. This field is required.
 
-The Prisma integration can work with or without the SCST - Store integration. The `values.yaml` file
-is slightly different for each configuration.
-
 Access token authentication
 : To access token authentication:
 

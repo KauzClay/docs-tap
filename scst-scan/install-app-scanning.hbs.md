@@ -92,14 +92,14 @@ To install SCST - Scan 2.0:
         caCertData                                      string   The custom certificates to be trusted by the scan's connections
       ```
 
-      1. To edit any of the default installation settings, create an `app-scanning-values-file.yaml`
-         and append the key-value pairs to be modified to the file. For example:
+   1. To edit any of the default installation settings, create an `app-scanning-values-file.yaml`
+      and append the key-value pairs to be modified to the file. For example:
 
-         ```yaml
-         scans:
-           workspace:
-             storageSize: 200Mi
-         ```
+      ```yaml
+      scans:
+        workspace:
+          storageSize: 200Mi
+      ```
 
 3. Install the package by running:
 

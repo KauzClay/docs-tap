@@ -1,4 +1,4 @@
-# Multicluster setup for Supply Chain Security Tools - Store
+# Set up multicluster Supply Chain Security Tools - Store
 
 This topic describes how you can deploy Supply Chain Security Tools (SCST) - Store in a multicluster
 setup, including installing multiple profiles such as View, Build, Run, and Iterate.

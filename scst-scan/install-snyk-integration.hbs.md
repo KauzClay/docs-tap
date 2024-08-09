@@ -1,21 +1,21 @@
 # Prerequisites for Snyk Scanner for Supply Chain Security Tools - Scan (Beta)
 
-This topic describes the prerequisites you must complete to install Supply Chain Security Tools -
-Scan (Snyk Scanner) from the Tanzu Application Platform package repository.
+This topic describes the prerequisites you must complete to install Supply Chain Security Tools
+(SCST) - Scan (Snyk Scanner) from the Tanzu Application Platform package repository.
 
 > **Important** Snyk's image scanning capability is in beta. Snyk might only return a partial list
 > of CVEs when scanning Buildpack images.
 
 ## <a id="prereqs"></a> Prepare the Snyk Scanner configuration
 
-To prepare the Snyk Scanner configuration, follow these steps.
-
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
+
+To prepare the Snyk Scanner configuration, follow these steps.
 
 1. Obtain a Snyk API Token from the
    [Snyk documentation](https://docs.snyk.io/snyk-cli/authenticate-the-cli-with-your-account).
 
-2. Create a Snyk secret YAML file and insert the base64 encoded Snyk API token into the `snyk_token`:
+2. Create a Snyk secret YAML file and insert the base64-encoded Snyk API token into the `snyk_token`:
 
     ```yaml
     apiVersion: v1
@@ -39,7 +39,7 @@ To prepare the Snyk Scanner configuration, follow these steps.
 
 4. Define the `--values-file` flag to customize the default configuration. You must define the
    following fields in the `values.yaml` file for the Snyk Scanner configuration. You can add fields
-   as needed to activate or deactivate behaviors. You can append the values to this file as shown
+   as needed to activate or deactivate behaviors. You can append the values in this file as shown
    later in this topic. Create a `values.yaml` file by using the following configuration:
 
     ```yaml
@@ -51,59 +51,64 @@ To prepare the Snyk Scanner configuration, follow these steps.
         name: SNYK-TOKEN-SECRET
     ```
 
-    Where:
+   Where:
 
-    - `DEV-NAMESPACE` is your developer namespace. To use a namespace other than the default
-      namespace, ensure that the namespace exists before you install. If the namespace does not
-      exist, the scanner installation fails.
+   - `DEV-NAMESPACE` is your developer namespace. To use a namespace other than the default
+     namespace, ensure that the namespace exists before you install. If the namespace does not
+     exist, the scanner installation fails.
 
-    - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the credentials
-      to pull an image from a private registry for scanning.
+   - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the credentials to
+     pull an image from a private registry for scanning.
 
-    - `SNYK-TOKEN-SECRET` is the name of the secret you created that contains the `snyk_token` to
-      connect to the [Snyk API](https://docs.snyk.io/snyk-cli/configure-the-snyk-cli#environment-variables).
-      This field is required.
+   - `SNYK-TOKEN-SECRET` is the name of the secret you created that contains the `snyk_token` to
+     connect to the
+     [Snyk API](https://docs.snyk.io/snyk-cli/configure-the-snyk-cli#environment-variables). This
+     field is required.
 
-    The Snyk Scanner integration can work with or without the SCST - Store integration. The
-    `values.yaml` file is slightly different for each configuration.
+   The Snyk Scanner integration can work with or without the SCST - Store integration. The
+   `values.yaml` file is slightly different for each configuration.
 
-## <a id="store-integration"></a> SCST - Store integration
+## <a id="store-integration"></a> Use or deactivate SCST - Store integration
 
-**Using SCST - Store Integration:** To persist the results found by the Snyk Scanner, you can enable
-the SCST - Store integration by appending the fields to the `values.yaml` file.
+The SCST - Store integration is enabled by default. You can use the integration or deactivate it.
 
-The Grype and Snyk Scanner Integrations both enable the Metadata Store. To prevent conflicts, the
-configuration values are slightly different based on whether the Grype Scanner Integration is
-installed or not. If Tanzu Application Platform is installed using the Full Profile, the Grype
-Scanner Integration is installed, unless it is explicitly excluded.
+Use the integration
+: To persist the results found by the Snyk Scanner, you can enable the SCST - Store integration by
+  appending fields in the `values.yaml` file.
 
-- If the Grype Scanner Integration is installed in the same `dev-namespace` Snyk Scanner is installed:
+  The Grype and Snyk Scanner integrations both enable the Metadata Store. To prevent conflicts, the
+  configuration values are slightly different based on whether the Grype Scanner integration is
+  installed or not. If Tanzu Application Platform is installed by using the Full Profile, the Grype
+  Scanner integration is installed unless it is explicitly excluded.
+
+  - If the Grype Scanner integration is installed in the `dev-namespace` that Snyk Scanner is
+    installed in, apply this YAML:
 
     ```yaml
     #! ...
     metadataStore:
-      #! The url where the Store deployment is accessible.
+      #! The URL where the Store deployment is accessible.
       #! Default value is: "https://metadata-store-app.metadata-store.svc.cluster.local:8443"
       url: "STORE-URL"
       caSecret:
         #! The name of the secret that contains the ca.crt to connect to the Store Deployment.
         #! Default value is: "app-tls-cert"
         name: "CA-SECRET-NAME"
-        importFromNamespace: "" #! since both Snyk and Grype both enable store, one must leave importFromNamespace blank
+        importFromNamespace: "" #! Because both Snyk and Grype both enable store, one must leave importFromNamespace blank
       #! authSecret is for multicluster configurations.
       authSecret:
         #! The name of the secret that contains the auth token to authenticate to the Store Deployment.
         name: "AUTH-SECRET-NAME"
-        importFromNamespace: "" #! since both Snyk and Grype both enable store, one must leave importFromNamespace blank
+        importFromNamespace: "" #! Because both Snyk and Grype both enable store, one must leave importFromNamespace blank
     ```
 
-- If the Grype Scanner Integration is not installed in the same `dev-namespace` Snyk Scanner is
-  installed:
+  - If the Grype Scanner integration is not installed in the `dev-namespace` that Snyk Scanner is
+    installed in, apply this YAML:
 
     ```yaml
     #! ...
     metadataStore:
-      #! The url where the Store deployment is accessible.
+      #! The URL where the Store deployment is accessible.
       #! Default value is: "https://metadata-store-app.metadata-store.svc.cluster.local:8443"
       url: "STORE-URL"
       caSecret:
@@ -121,19 +126,21 @@ Scanner Integration is installed, unless it is explicitly excluded.
         importFromNamespace: "STORE-SECRETS-NAMESPACE"
     ```
 
-**Without SCST - Store Integration:** The SCST - Store integration is enabled by default. If you
-don’t want to use this integration, deactivate the integration by appending the following field to
-the `values.yaml` file:
+Deactivate the integration
+: The SCST - Store integration is enabled by default. If you do not want to use this integration,
+  deactivate the integration by appending the following field in the `values.yaml` file:
 
-```yaml
-# ...
-metadataStore:
-   url: "" # Configuration is moved, so set this string to empty.
-```
+    ```yaml
+    # ...
+    metadataStore:
+       url: "" # Configuration is moved, so set this string to empty.
+    ```
 
-## <a id="snyk-scan-policy"></a> Sample ScanPolicy for Snyk in SPDX JSON format
+## <a id="snyk-scan-policy"></a> Sample `ScanPolicy` for Snyk in SPDX JSON format
 
-1. Create a ScanPolicy YAML with a Rego file for scanner output in the SPDX JSON format. Here is a
+To make and apply `ScanPolicy` for Snyk in SPDX JSON format:
+
+1. Create `ScanPolicy` YAML with a Rego file for scanner output in the SPDX JSON format. Here is a
    sample scan policy resource:
 
     ```yaml
@@ -182,6 +189,5 @@ metadataStore:
 
 > **Note** The Snyk Scanner integration is only available for an image scan, not a source scan.
 
-After all prerequisites are completed, follow the steps in
-[Install another scanner for Supply Chain Security Tools - Scan](install-scanners.hbs.md)
-to install the Snyk Scanner.
+After all prerequisites are fulfilled, follow the steps in
+[Install another scanner for SCST - Scan](install-scanners.hbs.md) to install the Snyk Scanner.

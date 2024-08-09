@@ -121,7 +121,7 @@ the deployment to see if it's reproducible or flaking upon starting:
 kubectl rollout restart deployment scan-link-controller-manager -n scan-link-system
 ```
 
-## <a id="troubleshoot-scanner-metadata-config"></a> Troubleshooting scanner to MetadataStore configuration
+## <a id="scanner-mds-config"></a> Troubleshooting scanner to Metadata Store configuration
 
 ### Failed to post scan results to metadata store due to failed certificate verification
 
@@ -544,7 +544,7 @@ This is because the field `scanning.metadataStore.url` is removed. If this field
 `tap-values.yaml` provided for the upgrade, the reconciliation fails. To resolve this problem,
 remove the field from the values file and run the upgrade command again.
 
-### <a id="scanning-restricted-pss"></a> Scanning in a cluster with restricted Kubernetes Pod Security Standards
+### <a id="scanning-restricted-kpss"></a> Scanning in a cluster with restricted Kubernetes Pod Security Standards
 
 As part of compliance with the restricted profile Kubernetes Pod Security Standards, you must set
 the `securityContext` of containers and initContainers. This applies to the `prepare` initContainers

@@ -550,7 +550,7 @@
             - [Use Dockerfile-based builds](scc/dockerfile-based-builds.hbs.md)
             - [Tanzu Build Service integration](scc/tbs.hbs.md)
             - [Configure and deploy to multiple environments with custom parameters](scc/config-deploy-multi-env.hbs.md)
-              -  [Carvel Package Supply Chains (beta)](scc/carvel-package-supply-chain.hbs.md)
+              -  [Carvel Package Supply Chains](scc/carvel-package-supply-chain.hbs.md)
               -  [Use Gitops Delivery with a Carvel App (beta)](scc/delivery-with-carvel-app.hbs.md)
               - [Deploy Package and PackageInstall using Flux CD Kustomization (beta)](scc/delivery-with-flux.hbs.md)
               - [Use Gitops delivery with Argo CD (beta)](scc/delivery-with-argo.hbs.md)

@@ -1,15 +1,16 @@
 
 # Configure an ImageVulnerabilityScan for Snyk
 
-This topic gives you an example of how to configure a secret and ImageVulnerabilityScan (IVS) for Snyk.
+This topic gives you an example of how to configure a secret and `ImageVulnerabilityScan` (IVS) for
+Snyk.
 
 ## <a id="secret-example"></a> Example Secret
 
-> **Important** For the publicly available Snyk scanner CLI image, CLI commands and parameters used
-> are accurate at the time of documentation.
-
 This section contains a sample secret containing the Snyk API token, which authenticates your Snyk
 account. You must apply this once to your developer namespace.
+
+> **Important** For the publicly available Snyk scanner CLI image, CLI commands and parameters used
+> are accurate at the time of documentation.
 
 ```yaml
 apiVersion: v1
@@ -22,14 +23,14 @@ stringData:
 ```
 
 Where `SNYK-API-TOKEN` is your Snyk API token obtained by following the instructions in the
-[Snyk documentation](https://docs.snyk.io/snyk-cli/authenticate-the-cli-with-your-account).
-Do not base64 encode this value.
+[Snyk documentation](https://docs.snyk.io/snyk-cli/authenticate-the-cli-with-your-account). Do not
+encode this value in base64.
 
-## <a id="example"></a> Example ImageVulnerabilityScan
+## <a id="example"></a> Example `ImageVulnerabilityScan`
 
 This section contains a sample IVS that uses Snyk to scan a targeted image and push the results to
 the specified registry location. For information about the IVS specification, see
-[Configuration Options](ivs-create-your-own.hbs.md#img-vuln-config-options).
+[Configuration options](ivs-create-your-own.hbs.md#img-vuln-config-options).
 
 Sample IVS:
 
@@ -76,20 +77,22 @@ spec:
 Where:
 
 - `TARGET-IMAGE` is the image to be scanned. You must specify the digest.
-- `SNYK-SCANNER-IMAGE` is the image containing the Snyk CLI. For example, `snyk/snyk:golang`.
-  For information about publicly available Snyk images, see [DockerHub](https://hub.docker.com/r/snyk/snyk).
-  For more information about using the Snyk CLI, see the [Snyk documentation](https://docs.snyk.io/snyk-cli).
-- `XDG-CONFIG-HOME` is the directory that contains your Snyk CLI config file, `configstore/snyk.json`,
-  which is populated using the snyk-token `Secret` you created.
-  For more information, see the [Snyk Config documentation](https://docs.snyk.io/snyk-cli/commands/config).
+- `SNYK-SCANNER-IMAGE` is the image containing the Snyk CLI. For example, `snyk/snyk:golang`. For
+  information about publicly available Snyk images, see
+  [DockerHub](https://hub.docker.com/r/snyk/snyk). For more information about using the Snyk CLI,
+  see the [Snyk documentation](https://docs.snyk.io/snyk-cli).
+- `XDG-CONFIG-HOME` is the directory that contains your Snyk CLI configuration file,
+  `configstore/snyk.json`, which is populated using the `snyk-token` secret that you created. For
+  more information, see the
+  [Snyk Config documentation](https://docs.snyk.io/snyk-cli/commands/config).
 - `SNYK2SPDX-IMAGE` is the image used to convert the Snyk CLI output `scan.json` in the `snyk` step
-  to SPDX format and have its missing `DOCUMENT DESCRIBES` relation inserted.
-  See the Snyk [snyk2spdx repository](https://github.com/snyk-tech-services/snyk2spdx) in GitHub.
+  to SPDX format, and insert the missing `DOCUMENT DESCRIBES` relation. For more information, see
+  the Snyk [snyk2spdx repository](https://github.com/snyk-tech-services/snyk2spdx) in GitHub.
 
 To use the sample:
 
 1. Clone the [snyk2spdx repository](https://github.com/snyk-tech-services/snyk2spdx).
-1. Add the following Dockerfile to the root of the repository:
+1. Add the following Dockerfile to the root of the repository by running:
 
    ```console
    FROM node AS build
@@ -117,9 +120,9 @@ To use the sample:
 1. Build and push the image to a registry. Replace `SNYK2SPDX-IMAGE` with the new image you built.
 
    The `snyk2spdx` output does not conform to the
-   [verification process](verify-app-scanning-supply-chain.hbs.md).
-   Although the results might be ingested to the Tanzu Application Platform metadata store, VMware
-   does not ensure the accuracy of the results.
+   [verification process](verify-app-scanning-supply-chain.hbs.md). Although the results might be
+   ingested to the Tanzu Application Platform Metadata Store, VMware does not ensure the accuracy of
+   the results.
 
 > **Note** After detecting vulnerabilities, the Snyk image exits with Exit Code 1 and causes a
 > failed scan task. You can ignore the step error by setting `onError` and handling the error in a

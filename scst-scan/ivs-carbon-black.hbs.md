@@ -1,14 +1,15 @@
 # Configure a ImageVulnerabilityScan for Carbon Black
 
-This topic gives you an example of how to configure a secret and ImageVulnerabilityScan (IVS) for
+This topic gives you an example of how to configure a secret and `ImageVulnerabilityScan` (IVS) for
 Carbon Black.
 
 ## <a id="secret-example"></a> Example secret
 
 This section contains a sample secret containing the Carbon Black credentials inside the
-`~/.cbctl/cbctl.yaml` config file. These credentials are used to authenticate your Carbon Black account.
-You can find these credentials in the Carbon Black console.
-See the [Carbon Black documentation](https://developer.carbonblack.com/reference/carbon-black-cloud/container/latest/image-scanning-cli#configuration).
+`~/.cbctl/cbctl.yaml` configuration file. These credentials are used to authenticate your Carbon
+Black account. You can find these credentials in the Carbon Black console. For more information, see
+the
+[Carbon Black documentation](https://developer.carbonblack.com/reference/carbon-black-cloud/container/latest/image-scanning-cli#configuration).
 You must apply this once to your developer namespace.
 
 ```yaml
@@ -34,12 +35,11 @@ Where:
 ## <a id="example"></a> Example ImageVulnerabilityScan
 
 This section contains a sample IVS that uses Carbon Black to scan a targeted image and push the
-results to the specified registry location.
-For information about the IVS specification, see
-[Configuration Options](ivs-create-your-own.hbs.md#img-vuln-config-options).
+results to the specified registry location. For information about the IVS specification, see
+[Configuration options](ivs-create-your-own.hbs.md#img-vuln-config-options).
 
-Set the tekton-pipelines feature-flags configmap `enable-api-fields` to `alpha`. This lets you use
-the `stdoutConfig` which is needed to output the scan report as a file.
+Set the `tekton-pipelines` feature-flags `configmap` `enable-api-fields` to `alpha`. This lets you
+use the `stdoutConfig`, which is needed to export the scan report as a file.
 
 ```yaml
 apiVersion: app-scanning.apps.tanzu.vmware.com/v1alpha1
@@ -84,18 +84,18 @@ Where `CARBON-BLACK-SCANNER-IMAGE` is the Carbon Black scanner image. For exampl
 `cbartifactory/cbctl:latest`.
 
 For information about publicly available Carbon Black images, see
-[DockerHub](https://hub.docker.com/r/cbartifactory/cbctl).
-For more information about using the Carbon Black Scanner CLI, see the
+[DockerHub](https://hub.docker.com/r/cbartifactory/cbctl). For more information about using the
+Carbon Black Scanner CLI, see the
 [Carbon Black documentation](https://developer.carbonblack.com/reference/carbon-black-cloud/container/latest/image-scanning-cli/).
 
-The Carbon Black `cbctl-creds` secret is mounted as a workspace binding and the credentials are inserted
-into a `cbctl.yaml` config file that the Carbon Black CLI uses.
+The Carbon Black `cbctl-creds` secret is mounted as a workspace binding and the credentials are
+inserted into a `cbctl.yaml` configuration file that the Carbon Black CLI uses.
 
-`stdoutConfig.path` is specified to take the output stream of the step to a file where you can publish
-it to the registry. For more information, see the
+`stdoutConfig.path` is specified to take the output stream of the step to a file where you can
+publish it to the registry. For more information, see the
 [Tekton documentation](https://github.com/tektoncd/community/blob/main/teps/0011-redirecting-step-output-streams.md).
 
 ### <a id="disclaimer"></a> Disclaimer
 
-For the publicly available Carbon Black scanner CLI image, CLI commands and parameters used are
+For the publicly available Carbon Black scanner CLI image, the CLI commands and parameters used are
 accurate at the time of documentation.

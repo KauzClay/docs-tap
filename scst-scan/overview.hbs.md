@@ -8,7 +8,7 @@ This topic gives you an overview of use cases, features, and Common Vulnerabilit
 With Supply Chain Security Tools (SCST) - Scan, you can build and deploy secure trusted software
 that complies with your corporate security requirements. SCST - Scan provides scanning and
 gatekeeping capabilities that application and DevSecOps teams can incorporate early in their path to
-production. This is the best practice for reducing security risk and ensuring more efficient
+production. This is best practice for reducing security risk and ensuring more efficient
 remediation.
 
 ## <a id="use-cases"></a> Language support

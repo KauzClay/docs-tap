@@ -1,27 +1,30 @@
 # Configure code repositories and image artifacts for Supply Chain Security Tools - Scan
 
-This topic describes how you can configure code repositories and image artifacts for SCST - Scan.
+This topic describes how you can configure code repositories and image artifacts for Supply Chain
+Security Tools (SCST) - Scan.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
-## <a id="prerequisite"></a>Prerequisite
+## <a id="prerequisite"></a> Before you begin
 
-Both the source and image scans require you to define a `ScanTemplate`. Run `kubectl get scantemplates` for the ScanTemplates provided with the scanner installation. For information about how to reference these ScanTemplates, see [How to create a ScanTemplate](create-scan-template.md).
+Both the source and image scans require you to define a `ScanTemplate`. Run
+`kubectl get scantemplates` for the ScanTemplates provided with the scanner installation. For
+information about how to reference these ScanTemplates, see
+[How to create a ScanTemplate](create-scan-template.hbs.md).
 
-## <a id="deploy-scan-cr"></a>Deploy scan custom resources
+## <a id="deploy-scan-cr"></a> Deploy scan custom resources
 
 The scan controller defines two custom resources to create scans:
 
-* SourceScan
-* ImageScan
+- `SourceScan`
+- `ImageScan`
 
-### <a id="sourcescan"></a>SourceScan
+### <a id="sourcescan"></a> Create and deploy a `SourceScan` custom resource
 
-The `SourceScan` custom resource helps you define and trigger a scan for a given repository. You can deploy `SourceScan` with source code existing in a public repository or a private one:
+The `SourceScan` custom resource helps you define and trigger a scan for a given repository. You can
+deploy `SourceScan` with source code existing in a public repository or a private one:
 
-1. Create the `SourceScan` custom resource.
-
-    Example:
+1. Create the `SourceScan` custom resource as in this example:
 
     ```yaml
     apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
@@ -43,28 +46,29 @@ The `SourceScan` custom resource helps you define and trigger a scan for a given
         sshKeySecret:
         # A string containing the repository URL.
         url:
-        # The username needed to SSH connection. Default value is “git”
+        # The user name needed to SSH connection. Default value is “git”
         username:
 
       # A string defining the name of an existing ScanTemplate custom resource.
       scanTemplate: my-scan-template
 
-       # A string defining the name of an existing ScanPolicy custom resource. See "Enforcement Policies (OPA)" section.
+       # A string defining the name of an existing ScanPolicy custom resource. See the "Enforcement Policies (OPA)" section.
       scanPolicy: my-scan-policy
     ```
 
-1. Deploy the `SourceScan` custom resource to the desired namespace on cluster by running:
+1. Deploy the `SourceScan` custom resource to the desired namespace on the cluster by running:
 
-    ```console
-    kubectl apply -f <path_to_the_cr>/<custom_resource_filename>.yaml -n <desired_namespace>
-    ```
+   ```console
+   kubectl apply -f <path_to_the_cr>/<custom_resource_filename>.yaml -n <desired_namespace>
+   ```
 
-    After the scanning completes, the following fields appear in the custom resource and are filled by the scanner:
+   After the scanning finishes, the following fields appear in the custom resource and are filled
+   by the scanner:
 
-    ```console
+    ```yaml
     # These fields are populated from the source scan results
     status:
-      # The source code information as provided in the CycloneDX `bom>metadata>component>*` fields
+      # The source code information as provided in the CycloneDX bom>metadata>component>* fields
       artifact:
         blob:
           url:
@@ -90,7 +94,7 @@ The `SourceScan` custom resource helps you define and trigger a scan for a given
       # The latest datetime when the scanning was successfully finished.
       scannedAt:
       # Information about the scanner that was used for the latest image scan.
-      # This information reflects what's in the CycloneDX `bom>metadata>tools>tool>*` fields.
+      # This information reflects what's in the CycloneDX bom>metadata>tools>tool>* fields.
       scannedBy:
         scanner:
           # The name of the scanner that was used.
@@ -103,13 +107,12 @@ The `SourceScan` custom resource helps you define and trigger a scan for a given
           version: 1.0.0
     ```
 
-### <a id="imagescan"></a>ImageScan
+### <a id="imagescan"></a> Create and deploy an `ImageScan` custom resource
 
-The `ImageScan` custom resource helps you define and trigger a scan for a given image. You can deploy `ImageScan` with an image existing in a public or private registry:
+The `ImageScan` custom resource helps you define and trigger a scan for a given image. You can
+deploy `ImageScan` with an image in a public registry or a private registry:
 
-1. Create the `ImageScan` custom resource.
-
-    Example:
+1. Create the `ImageScan` custom resource as in this example:
 
     ```yaml
     apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
@@ -126,27 +129,28 @@ The `ImageScan` custom resource helps you define and trigger a scan for a given 
         # The secret needs to be deployed in the same namespace as the ImageScan
         imagePullSecret: my-image-pull-secret
 
-      # A string defining the name of an existing ScanTemplate custom resource. See "How To Create a ScanTemplate" section.
+      # A string defining the name of an existing ScanTemplate custom resource. See the "How To Create a ScanTemplate" section.
       scanTemplate: my-scan-template
 
-      # A string defining the name of an existing ScanPolicy custom resource. See "Enforcement Policies (OPA)" section.
+      # A string defining the name of an existing ScanPolicy custom resource. See the "Enforcement Policies (OPA)" section.
       scanPolicy: my-scan-policy
     ```
 
-1. Deploy the `ImageScan` custom resource to the desired namespace on cluster by running:
+1. Deploy the `ImageScan` custom resource to the desired namespace on the cluster by running:
 
-    ```console
-    kubectl apply -f <path_to_the_cr>/<custom_resource_filename>.yaml -n <desired_namespace>
-    ```
+   ```console
+   kubectl apply -f <path_to_the_cr>/<custom_resource_filename>.yaml -n <desired_namespace>
+   ```
 
-    After the scanning completes, the following fields appear in the custom resource and are filled by the scanner:
+   After the scanning finishes, the following fields appear in the custom resource and are filled
+   by the scanner:
 
     ```yaml
-     # These fields are populated from the image scan results
+    # These fields are populated from the image scan results
     status:
       artifact:
         registry:
-          # The image name with its digest as provided in the CycloneDX `bom>metadata>component>*` fields
+          # The image name with its digest as provided in the CycloneDX bom>metadata>component>* fields
           image:
           imagePullSecret:
 
@@ -168,7 +172,7 @@ The `ImageScan` custom resource helps you define and trigger a scan for a given 
       # The latest datetime when the scanning was successfully finished.
       scannedAt:
       # Information about the scanner used for the latest image scan.
-      # This information reflects what's in the CycloneDX `bom>metadata>tools>tool>*` fields.
+      # This information reflects what's in the CycloneDX bom>metadata>tools>tool>* fields.
       scannedBy:
         scanner:
           # The name of the scanner that was used.

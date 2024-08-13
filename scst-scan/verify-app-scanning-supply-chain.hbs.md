@@ -1,10 +1,10 @@
-# Verify scanning with Supply Chain integration
+# Verify scanning with a Supply Chain integration
 
 This topic tells you how to verify scanning with Supply Chains.
 
 ## <a id="create-workload"></a> Create a workload
 
-Create a sample workload with a pre-built image by using the `tanzu apps workload create` command:
+Create a sample workload with a pre-built image by running:
 
 ```console
 tanzu apps workload create WORKLOAD-NAME \
@@ -32,13 +32,13 @@ Where:
 Scan results are uploaded to the container image registry as an [imgpkg](https://carvel.dev/imgpkg/)
 bundle. To retrieve a vulnerability report:
 
-1. Retrieve the result location from the ImageVulnerabilityScan CR Status:
+1. Retrieve the result location from the `ImageVulnerabilityScan` CR status by running:
 
    ```console
    SCAN_RESULT_URL=$(kubectl get imagevulnerabilityscan my-scan -n DEV-NAMESPACE -o jsonpath='{.status.scanResult}')
    ```
 
-2. Download the bundle to a local directory and list the content:
+2. Download the bundle to a local directory and list the content by running:
 
    ```console
    imgpkg pull -b $SCAN_RESULT_URL -o scan-results/

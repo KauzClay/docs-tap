@@ -177,9 +177,9 @@ To install SCST - Scan (Scan controller):
 
    Where `VERSION` is your package version number. For example, `1.1.0`.
 
-#### <a id='install-grype-scanner'></a> Install SCST - Scan (Grype scanner)
+#### <a id='install-grype-scanner'></a> Install SCST - Scan (Grype Scanner)
 
-To install SCST - Scan (Grype scanner):
+To install SCST - Scan (Grype Scanner):
 
 1. List version information for the package by running:
 

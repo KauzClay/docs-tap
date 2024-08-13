@@ -56,7 +56,7 @@ The sample ScanPolicy resource have the following ytt logic which creates this p
 - `supply_chain` in your `tap-values.yaml` file is `testing_scanning`
 - `profile` in your `tap-values.yaml` file is either `full` or `build`.
 
-The [strict ScanPolicy](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/testing-scanning-supplychain-polyglot/scanpolicy-grype.yaml) does not allow any workloads that have Critical and High vulnerabilities to pass through the supply chain whereas [the lax ScanPolicy](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/testing-scanning-supplychain-polyglot/scanpolicy-grype-lax.yaml) allows the workloads to pass regardless of CVEs detected. The allowed severity level is configured using the `notAllowedSeverities := []` part of the rego file section of ScanPolicy.
+The [strict ScanPolicy](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/testing-scanning-supplychain-polyglot/scanpolicy-grype.yaml) does not allow any workloads that have Critical and High vulnerabilities to pass through the supply chain whereas [the lax ScanPolicy](https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/ns-provisioner-samples/testing-scanning-supplychain-polyglot/scanpolicy-grype-lax.yaml) allows the workloads to pass regardless of CVEs detected. The allowed severity level is configured using the `notAllowedSeverities := []` part of the Rego file section of ScanPolicy.
 
 >**Caution** The lax ScanPolicy is just added for tutorial purposes but it is not advised to use such a policy in Production workloads.
 

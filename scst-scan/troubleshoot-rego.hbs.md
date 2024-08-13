@@ -1,23 +1,30 @@
 # Troubleshoot Rego files with a scan policy for Supply Chain Security Tools - Scan
 
-This topic describes how you can use an example output to troubleshoot your Rego file for SCST - Scan. You use a Rego file in a scan policy custom resource. See [Enforce compliance policy using Open Policy Agent](./policies.hbs.md).
+This topic describes how you can use example output to troubleshoot your Rego file for Supply Chain
+Security Tools (SCST) - Scan. You use a Rego file in a scan policy custom resource. For more
+information, see [Enforce compliance policy by using Open Policy Agent](policies.hbs.md).
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
-For information about how to write Rego, see [Open Policy Agent documentation](https://www.openpolicyagent.org/docs/latest/policy-language/).
+For information about how to write Rego, see
+[Open Policy Agent documentation](https://www.openpolicyagent.org/docs/latest/policy-language/).
 
-## <a id="rego-playground"></a> Using the Rego playground
+## <a id="rego-playground"></a> Use the Rego playground
 
-Use the [Rego Playground](https://play.openpolicyagent.org/), to evaluate your Rego file against an input. In this example, use the example output of an image or source scan custom resource.
+Use the [Rego Playground](https://play.openpolicyagent.org/) to evaluate your Rego file against an
+input. In this example, use the example output of an image or source scan custom resource.
 
 ### <a id="sample-input-cyclonedx"></a> Sample input in CycloneDX's XML re-encoded as JSON format
 
-The following is an example scan custom resource output in CycloneDX's XML structure re-encoded as JSON. This example output contains CVEs at low, medium, high, and critical severities.
+The following is an example scan custom resource output in CycloneDX's XML structure re-encoded as
+JSON. This example output contains CVEs at low, medium, high, and critical severities.
 
 To troubleshoot using this example output:
 
-1. Paste your Rego file and the example output into the [Rego Playground](https://play.openpolicyagent.org/).
-2. Evaluate your Rego file against the example output and verify that your Rego file detects the intended CVEs. See this Rego [example](https://play.openpolicyagent.org/p/wwkyrYbHAv).
+1. Paste your Rego file and the example output into the
+   [Rego Playground](https://play.openpolicyagent.org/).
+2. Evaluate your Rego file against the example output and verify that your Rego file detects the
+   intended CVEs. See this Rego [example](https://play.openpolicyagent.org/p/wwkyrYbHAv).
 
 ```json
 {
@@ -180,12 +187,17 @@ To troubleshoot using this example output:
 
 ### <a id="sample-input-spdx"></a> Example input in SPDX JSON format
 
-The example in this section is a modified scan custom resource input, in  `.spdx.json`, that contains CVEs at low, medium, high, and critical severities. You can use this example input to evaluate your Rego file.
+The example in this section is a modified scan custom resource input, in `.spdx.json`, that contains
+CVEs at low, medium, high, and critical severities. You can use this example input to evaluate your
+Rego file.
 
 To troubleshoot using this example output:
 
-1. Paste your Rego file and the example input into the [Rego Playground](https://play.openpolicyagent.org/).
-2. Evaluate your Rego file against the output and verify that your Rego file detects the intended CVEs. See this Rego [example](https://play.openpolicyagent.org/p/gp0fUfaxOC).
+1. Paste your Rego file and the example input into the
+   [Rego Playground](https://play.openpolicyagent.org/).
+2. Evaluate your Rego file against the output and verify that your Rego file detects the intended
+   CVEs. For more information, see this Rego
+   [example](https://play.openpolicyagent.org/p/gp0fUfaxOC).
 
 ```json
 {

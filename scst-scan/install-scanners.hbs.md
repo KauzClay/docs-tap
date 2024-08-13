@@ -146,7 +146,7 @@ newly added `ScanTemplates` for the scanner.
 
    > **Note** As vulnerability scanners output different formats, the `ScanPolicies` can vary. For
    > information about policies and samples, see
-   > [Enforce compliance policy using Open Policy Agent](policies.hbs.md).
+   > [Enforce compliance policy by using Open Policy Agent](policies.hbs.md).
 
 1. Retrieve available `ScanTemplates` from the namespace where the scanner is installed by running:
 

@@ -1,10 +1,10 @@
 # Verifying an ImageVulnerabilityScan
 
-This topic tells you how to verify an ImageVulnerabilityScan without Supply Chain integration.
+This topic tells you how to verify an `ImageVulnerabilityScan` without a Supply Chain integration.
 
 ## <a id="overview"></a> Overview
 
-After you build an ImageVulnerabilityScan to bring your own scanner, you can validate the
+After you build an `ImageVulnerabilityScan` to bring your own scanner, you can validate the
 capabilities to verify the integration.
 
 Ensure that the scan integration is working correctly so that downstream servers such as AMR
@@ -18,9 +18,9 @@ To verify scanning:
 
 ## <a id="trigger-observe-scanning"></a> Trigger and observe scanning
 
-To verify that you can scan an image using your ImageVulnerabilityScan:
+To verify that you can scan an image by using your `ImageVulnerabilityScan`:
 
-1. Deploy your ImageVulnerabilityScan to the cluster by running:
+1. Deploy your `ImageVulnerabilityScan` to the cluster by running:
 
    ```console
    kubectl apply -f image-vulnerability-scan.yaml -n DEV-NAMESPACE
@@ -28,14 +28,14 @@ To verify that you can scan an image using your ImageVulnerabilityScan:
 
    Where `DEV-NAMESPACE` is the name of the developer namespace you want to use.
 
-1. Child resources are created. View the child PipelineRun, TaskRuns, and pods:
+1. Child resources are created. View the child `PipelineRun`, `TaskRuns`, and pods by running:
 
    ```console
    kubectl get -l imagevulnerabilityscan pipelinerun,taskrun,pod -n DEV-NAMESPACE
    ```
 
-1. When the scanning completes, the status is shown. Specify `-o wide` to see the digest of the
-   image scanned and the location of the published results.
+1. When the scanning finishes, the status is shown. Specify `-o wide` to see the digest of the
+   image scanned and the location of the published results by running:
 
    ```console
    kubectl get imagevulnerabilityscans -n DEV-NAMESPACE -o wide
@@ -53,13 +53,14 @@ To verify that you can scan an image using your ImageVulnerabilityScan:
 Scan results are uploaded to the container image registry as an [imgpkg](https://carvel.dev/imgpkg/)
 bundle. To retrieve a vulnerability report:
 
-1. Retrieve the result location from the ImageVulnerabilityScan CR Status:
+1. Retrieve the result location from the `ImageVulnerabilityScan` CR status:
 
    ```console
-   SCAN_RESULT_URL=$(kubectl get imagevulnerabilityscan my-scan -n DEV-NAMESPACE -o jsonpath='{.status.scanResult}')
+   SCAN_RESULT_URL=$(kubectl get imagevulnerabilityscan my-scan -n DEV-NAMESPACE -o \
+   jsonpath='{.status.scanResult}')
    ```
 
-2. Download the bundle to a local directory and list the content:
+2. Download the bundle to a local directory and list the content by running:
 
    ```console
    imgpkg pull -b $SCAN_RESULT_URL -o scan-results/
@@ -70,41 +71,42 @@ bundle. To retrieve a vulnerability report:
 
 After retrieving the scan results, you must verify that the scan results are in a format that
 downstream Tanzu Application Platform services such as AMR Observer support. AMR Observer supports
-the following SBOM formats and versions.
+the following SBOM formats and versions:
 
 <table>
-  <thead>
-  <tr>
-   <td>SBOM Formats</td>
-   <td>Versions</td>
-  </tr></thead>
-  <body>
-  <tr>
-   <td>CycloneDX</td>
-   <td>1.2, 1.3, 1.4, 1.5</td>
-  </tr>
-  <tr>
-   <td>SPDX</td>
-   <td>2.2</td>
-  </tr>
-  </body>
+<thead>
+<tr>
+<td>SBOM Formats</td>
+<td>Versions</td>
+</tr></thead>
+<tbody>
+<tr>
+<td>CycloneDX</td>
+<td>1.2, 1.3, 1.4, 1.5</td>
+</tr>
+<tr>
+<td>SPDX</td>
+<td>2.2</td>
+</tr>
+</tbody>
 </table>
 
-VMware recommends validating the scan results by using this CycloneDX tool,
-[sbom-utility](https://github.com/CycloneDX/sbom-utility).
-This tool validates CycloneDX and SPDX BOMs against versioned schemas.
+VMware recommends validating the scan results by using the CycloneDX tool
+[sbom-utility](https://github.com/CycloneDX/sbom-utility). This tool validates CycloneDX and SPDX
+BOMs against versioned schemas.
 
-> **Note** The output of the scan must be valid in accordance with SPDX or CycloneDX specifications.
-> If not, although it might be parsed correctly, VMware cannot ensure that the information is parsed
-> correctly, and results might not be displayed accurately in Tanzu Developer Portal and Tanzu
-> Application s CLI.
+> **Caution** The output of the scan must be valid in accordance with SPDX or CycloneDX specifications.
+> If not, although it might be parsed correctly, VMware cannot ensure that it is. If not parsed
+> correctly, results might not appear accurately in Tanzu Developer Portal and the Tanzu Application
+> CLI.
 
 To validate a scan format with sbom:
 
-1. Setup and install sbom. See the [sbom](https://github.com/CycloneDX/sbom-utility#installation)
+1. Set up and install sbom. See the [sbom](https://github.com/CycloneDX/sbom-utility#installation)
    documentation.
-2. Run the `sbom-utility` CLI with the subcommand [validate](https://github.com/CycloneDX/sbom-utility#validate)
-   to validate the scan report against its declared format, such as SPDX, CycloneDX, and version.
+2. Run the `sbom-utility` CLI with the subcommand
+   [validate](https://github.com/CycloneDX/sbom-utility#validate) to validate the scan report
+   against its declared format, such as SPDX, CycloneDX, and version, by running:
 
    ```console
    ./sbom-utility validate -i SCAN-REPORT-FILE-NAME

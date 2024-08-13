@@ -67,4 +67,4 @@ company policy compliance and can prevent source code from being built or images
 deployed.
 
 For more information, see
-[Enforce compliance policy using Open Policy Agent](policies.hbs.md).
+[Enforce compliance policy by using Open Policy Agent](policies.hbs.md).

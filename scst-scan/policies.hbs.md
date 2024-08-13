@@ -1,39 +1,53 @@
-# Enforce compliance policy using Open Policy Agent
+# Enforce compliance policy by using Open Policy Agent
 
-This topic describes how you can use Open Policy Agent to enforce compliance policy for Supply Chain Security Tools - Scan.
+This topic describes how you can use Open Policy Agent to enforce compliance policy for Supply Chain
+Security Tools (SCST) - Scan.
 
 {{> 'partials/scst-scan/scan-1-0-deprecation' }}
 
 ## <a id="writing-pol-temp"></a>Writing a policy template
 
-The Scan Policy custom resource (CR) allows you to define a Rego file for policy
-enforcement that you can reuse across image scan and source scan CRs.
+The Scan Policy custom resource (CR) allows you to define a Rego file for policy enforcement that
+you can reuse across image-scan and source-scan CRs.
 
-The Scan Controller supports policy enforcement by using an Open Policy Agent
-(OPA) engine with Rego files. This allows you to validate scan results for
-company policy compliance and can prevent source code from being built or images
-from being deployed.
+The Scan Controller supports policy enforcement by using an Open Policy Agent (OPA) engine with Rego
+files. This allows you to validate scan results for company policy compliance and can prevent the
+building of source code or the deployment of images.
 
 ## <a id="rego-file-contract"></a>Rego file contract
 
-To define a Rego file for an image scan or source scan, you must comply with the
-requirements defined for every Rego file for the policy verification to work.
-For information about how to write Rego, see [Open Policy Agent
-documentation](https://www.openpolicyagent.org/docs/latest/policy-language/).
+To define a Rego file for an image scan or source scan, you must comply with the requirements
+defined for every Rego file for the policy verification to work. For information about how to write
+Rego, see the
+[Open Policy Agent documentation](https://www.openpolicyagent.org/docs/latest/policy-language/).
 
-- **Package main:** The Rego file must define a package in its body called `main`. The system looks for this package to verify the scan results compliance.
+- **Package main:**
 
-- **Input match:** The Rego file evaluates one vulnerability match at a time, iterating as many times as the Rego file finds vulnerabilities in the scan. The match structure is accessed in the `input.currentVulnerability` object inside the Rego file and has the [CycloneDX](https://cyclonedx.org/docs/1.3/) format.
+  The Rego file must define a package in its body called `main`. The system
+  searches for this package to verify the scan results compliance.
 
-- **deny rule:** The Rego file must define a `deny` rule inside its body. `deny` is a set of error messages that are returned to the user. Each rule you write adds to that set of error messages. If the conditions in the body of the `deny` statement are true then the user is handed an error message. If false, the vulnerability is allowed in the Source or Image scan.
+- **Input match:**
+
+  The Rego file evaluates one vulnerability match at a time, iterating as many
+  times as the Rego file finds vulnerabilities in the scan. The match structure is accessed in the
+  `input.currentVulnerability` object inside the Rego file and has the
+  [CycloneDX](https://cyclonedx.org/docs/1.3/) format.
+
+- **`deny` rule:**
+
+  The Rego file must define a `deny` rule inside its body. `deny` is a set of error
+  messages that are returned to the user. Each rule you write adds to that set of error messages. If
+  the conditions in the body of the `deny` statement are `true` then the user is handed an error
+  message. If `false`, the vulnerability is allowed in the source or image scan.
 
 ## <a id="define-rego-file"></a>Define a Rego file for policy enforcement
 
-Follow these steps to define a Rego file for policy enforcement that you can
-reuse across image scan and source scan CRs that output in the CycloneDX XML
-format.
+Follow these steps to define a Rego file for policy enforcement that you can reuse across image scan
+and source scan CRs that output in the CycloneDX XML format.
 
->**Note** The Snyk Scanner outputs SPDX JSON. For an example of a ScanPolicy formatted for SPDX JSON output, see [Sample ScanPolicy for Snyk in SPDX JSON format](install-snyk-integration.md#snyk-scan-policy).
+> **Note** The Snyk Scanner outputs SPDX JSON. For an example of a `ScanPolicy` formatted for SPDX
+> JSON output, see
+> [Sample ScanPolicy for Snyk in SPDX JSON format](install-snyk-integration.hbs.md#snyk-scan-policy).
 
 1. Create a scan policy with a Rego file. The following is an example scan policy resource:
 
@@ -82,60 +96,63 @@ format.
         }
     ```
 
-    You can edit the following text boxes of the Rego file as part of the [CVE triage workflow](../scst-scan/triaging-and-remediating-cves.hbs.md#amend-scan-policy):
+   You can edit the following text boxes of the Rego file as part of the
+   [CVE triage workflow](../scst-scan/triaging-and-remediating-cves.hbs.md#amend-scan-policy):
 
-    - `notAllowedSeverities` contains the categories of CVEs that cause the SourceScan or ImageScan failing policy enforcement. The following example shows an `app-operator` blocking only `Critical`, `High` and `UnknownSeverity` CVEs.
+   - `notAllowedSeverities`, which contains the categories of CVEs that cause the `SourceScan` or
+     `ImageScan` to fail policy enforcement. The following example shows an `app-operator` blocking
+     only `Critical`, `High`, and `UnknownSeverity` CVEs:
 
-      ```yaml
-      ...
-      spec:
-        regoFile: |
-          package main
+     ```yaml
+     ...
+     spec:
+       regoFile: |
+         package main
 
-          # Accepted Values: "Critical", "High", "Medium", "Low", "Negligible", "UnknownSeverity"
-          notAllowedSeverities := ["Critical", "High", "UnknownSeverity"]
-          ignoreCves := []
-      ...
-      ```
+         # Accepted Values: "Critical", "High", "Medium", "Low", "Negligible", "UnknownSeverity"
+         notAllowedSeverities := ["Critical", "High", "UnknownSeverity"]
+         ignoreCves := []
+     ...
+     ```
 
-    - `ignoreCves` contains individual ignored CVEs when determining policy enforcement. In the following example, an `app-operator` ignores `CVE-2018-14643` and `GHSA-f2jv-r9rf-7988` if they are false positives. See [A Note on Vulnerability Scanners](overview.hbs.md#scst-scan-note).
+   - `ignoreCves` contains individual ignored CVEs when determining policy enforcement. In the
+     following example, an `app-operator` ignores `CVE-2018-14643` and `GHSA-f2jv-r9rf-7988` if they
+     are false positives. For more information, see
+     [Vulnerability Scanner limitations](overview.hbs.md#scst-scan-note).
 
-      ```yaml
-      ...
-      spec:
-        regoFile: |
-          package main
+     ```yaml
+     ...
+     spec:
+       regoFile: |
+         package main
 
-          notAllowedSeverities := []
-          ignoreCves := ["CVE-2018-14643", "GHSA-f2jv-r9rf-7988"]
-      ...
-      ```
+         notAllowedSeverities := []
+         ignoreCves := ["CVE-2018-14643", "GHSA-f2jv-r9rf-7988"]
+     ...
+     ```
 
-2. Deploy the scan policy to the cluster:
+2. Deploy the scan policy to the cluster by running:
 
-    ```console
-    kubectl apply -f <path_to_scan_policy>/<scan_policy_filename>.yaml -n <desired_namespace>
-    ```
+   ```console
+   kubectl apply -f <path_to_scan_policy>/<scan_policy_filename>.yaml -n <desired_namespace>
+   ```
 
-For information about how scan policies are used in the CVE triage workflow, see [Triaging and Remediating CVEs](../scst-scan/triaging-and-remediating-cves.hbs.md#amend-scan-policy).
+For information about how scan policies are used in the CVE triage workflow, see
+[Triage and Remediate CVEs for SCST - Scan](../scst-scan/triaging-and-remediating-cves.hbs.md#amend-scan-policy).
 
-## <a id="more-detail"></a>Further refine the Scan Policy for use
+## <a id="more-detail"></a> Further refine the scan policy for use
 
-The scan policy earlier demonstrates how vulnerabilities are
-ignored during a compliance check. It is not possible to audit why a
-vulnerability is ignored. You might want to allow an exception, where a build
-with a failing vulnerability is allowed to progress through a supply chain. You
-can allow this exception for a certain period of time, requiring an expiration
-date. Vulnerability Exploitability Exchange (VEX) documents are gaining
-popularity to capture security advisory information pertaining to
-vulnerabilities. You can use Rego for these use cases.
+The scan policy earlier demonstrates how vulnerabilities are ignored during a compliance check. It
+is not possible to audit why a vulnerability is ignored. You might want to allow an exception where
+a build with a failing vulnerability is allowed to progress through a supply chain. You can allow
+this exception for a period of time, which requires an expiration date. Vulnerability Exploitability
+Exchange (VEX) documents are gaining popularity to capture security advisory information pertaining
+to vulnerabilities. You can use Rego for these use cases.
 
-For example, the following scan policy includes an additional text box to
-capture comments regarding why the scan ignores a vulnerability. The
-`notAllowedSeverities` array remains an array of strings, but the `ignoreCves`
-array updates from an array of strings to an array of objects. This causes a
-change to the `contains` function, splitting it into separate functions for each
-array.
+For example, the following scan policy includes an additional text box to capture comments regarding
+why the scan ignores a vulnerability. The `notAllowedSeverities` array remains an array of strings,
+but the `ignoreCves` array updates from an array of strings to an array of objects. This causes a
+change to the `contains` function, splitting it into separate functions for each array.
 
 ```yaml
 ---
@@ -194,7 +211,8 @@ spec:
     }
 ```
 
-The following example includes an expiration text box and only allows the vulnerability to be ignored for a period of time:
+The following example includes an expiration text box and only allows the vulnerability to be
+ignored for a period of time:
 
 ```yaml
 ---
@@ -258,16 +276,17 @@ spec:
     }
 ```
 
-## <a id="troubleshoot-scan-policy-rego"></a>Troubleshooting Rego files (Scan Policy)
+## <a id="ts-scan-policy-rego"></a> Troubleshooting Rego files (Scan Policy)
 
-To troubleshoot or confirm that any modifications made to the rego file in the provided sample scan policy are functioning as intended, see [Troubleshooting Rego Files](./troubleshoot-rego.hbs.md).
+To troubleshoot or confirm that any modifications made to the Rego file in the provided sample scan
+policy are functioning as intended, see [Troubleshooting Rego Files](troubleshoot-rego.hbs.md).
 
-## <a id="gui-view-scan-policy"></a>Enable Tanzu Developer Portal to view ScanPolicy Resource
+## <a id="gui-view-scan-policy"></a> Enable Tanzu Developer Portal to view the `ScanPolicy` resource
 
-For the Tanzu Developer Portal to view the ScanPolicy resource, it must have a matching
+For the Tanzu Developer Portal to view the `ScanPolicy` resource, it must have a matching
 `kubernetes-label-selector` with a `part-of` prefix.
 
-The following example is portion of a ScanPolicy that is viewable by the Tanzu Developer Portal:
+The following example is a portion of a `ScanPolicy` that Tanzu Developer Portal can display:
 
 ```yaml
 ---
@@ -282,17 +301,21 @@ spec:
     ...
 ```
 
->**Note** Anything van be a value for the label. The Tanzu Application
->Platform GUI is looking for the existence of the `part-of` prefix string and
->doesn't match for anything else specific.
+> **Note** Anything van be a value for the label. Tanzu Developer Portal searches for
+> the existence of the `part-of` prefix string and does not match for anything else specific.
 
-## <a id="deprecated-rego-file"></a> Deprecated Rego file Definition
+## <a id="deprecated-rego-file"></a> Deprecated Rego file definition
 
-Before Scan Controller v1.2.0, you must use the following format where the rego file differences are:
+Before Scan Controller v1.2.0, you must use the following format where the Rego file differences
+are:
 
 - The package name must be `package policies` instead of `package main`.
-- The deny rule is a Boolean `isCompliant` instead of `deny[msg]`.
-  - **isCompliant rule:** The Rego file must define inside its body an `isCompliant` rule. This must be a Boolean type containing the result whether the vulnerability violates the security policy or not. If `isCompliant` is `true`, the vulnerability is allowed in the Source or Image scan. Otherwise, `false` is considered. Any scan that finds at least one vulnerability that evaluates to `isCompliant=false` makes the `PolicySucceeded` condition set to false.
+- The `deny` rule is the Boolean `isCompliant` instead of `deny[msg]`.
+- The Rego file must define an `isCompliant` rule inside its body. This must be a Boolean type
+  containing the result, whether the vulnerability violates the security policy or not. If
+  `isCompliant` is `true`, the vulnerability is allowed in the source or image scan. Otherwise,
+  `false` is considered. Any scan that finds at least one vulnerability that evaluates to
+  `isCompliant=false` sets the `PolicySucceeded` condition as `false`.
 
 The following is an example scan policy resource:
 

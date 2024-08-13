@@ -42,7 +42,7 @@ Workload DEF, it is counted four times.
 The **Workload Build Vulnerabilities** tables, with the **Violates Policy** tab and
 **Does Not Violate** tab, separate workloads based on the scan policy.
 For more information, see
-[Enforce compliance policy using Open Policy Agent](../../scst-scan/policies.hbs.md)
+[Enforce compliance policy by using Open Policy Agent](../../scst-scan/policies.hbs.md)
 The Unique CVEs column uses the same sum logic as described earlier, but for individual workloads.
 
 The sum of a workload's CVEs might not match the

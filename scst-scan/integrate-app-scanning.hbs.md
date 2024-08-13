@@ -8,7 +8,7 @@ configuration for Out of the Box Supply Chain with Testing and Scanning is SCST 
 
 SCST - Scan 2.0 includes two integrations for container image scanners:
 
-| Container Image Scanner | Documentation                                | Cluster Image Template Name      | Status                                               |
+| Container Image Scanner | Documentation                                | Cluster Image Template Name      | Description                                          |
 |:------------------------|:---------------------------------------------|:---------------------------------|:-----------------------------------------------------|
 | Aqua Trivy              | [Link](https://aquasecurity.github.io/trivy) | `image-vulnerability-scan-trivy` | Recommended scanner for SCST - Scan 2.0              |
 | Anchore Grype           | [Link](https://github.com/anchore/grype)     | `image-vulnerability-scan-grype` | Alternative to Trivy that is used in SCST - Scan 1.0 |
@@ -16,7 +16,7 @@ SCST - Scan 2.0 includes two integrations for container image scanners:
 VMware recommends using Aqua Trivy scanner with Tanzu Application Platform for container image
 scanning. If you want to remain consistent with the default scanner in SCST - Scan 1.0, Anchore
 Grype is included as an open-source alternative. Additionally, you can build an integration for
-additional scanners. For more information, see
+extra scanners. For more information, see
 [Bring your own scanner with SCST - Scan 2.0](bring-your-own-scanner.hbs.md).
 
 ## <a id="enable-supply-chain"></a> Enable with an out-of-the-box supply chain
@@ -32,12 +32,12 @@ To enable SCST - Scan 2.0 with an out-of-the-box supply chain using the Trivy sc
 
 1. Update your Tanzu Application Platform installation by running:
 
-    ```console
-    tanzu package installed update tap -p tap.tanzu.vmware.com -v TAP-VERSION  --values-file \
-    tap-values.yaml -n tap-install
-    ```
+   ```console
+   tanzu package installed update tap -p tap.tanzu.vmware.com -v TAP-VERSION  --values-file \
+   tap-values.yaml -n tap-install
+   ```
 
-    Where `TAP-VERSION` is the version of Tanzu Application Platform installed.
+   Where `TAP-VERSION` is the version of Tanzu Application Platform installed.
 
 1. Verify the scan capability is working as expected by creating a workload. For more information,
-   see [Verify scanning with Supply Chain integration](verify-app-scanning-supply-chain.hbs.md).
+   see [Verify scanning with a Supply Chain integration](verify-app-scanning-supply-chain.hbs.md).

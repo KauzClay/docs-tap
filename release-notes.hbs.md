@@ -100,9 +100,11 @@ The following issues, listed by component and area, are resolved in this release
 
 This release has the following known issues, listed by component and area.
 
-#### <a id='1-12-0-COMPONENT-NAME-ki'></a> v1.12.0 Known issues: COMPONENT-NAME
+#### <a id='1-12-0-tap-ki'></a> v1.12.0 Known issues: Tanzu Application Platform
 
-- Known issue description with link to workaround.
+- Installing or upgrading Tanzu Application Platform packages might fail initially, but reconcile
+  automatically within a few seconds. There is no current workaround because this is part of the
+  reconciliation loop that Tanzu Cluster Essentials tooling performs.
 
 ---
 

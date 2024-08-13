@@ -131,7 +131,7 @@ the container images.
 
 For more information, see [Set up developer namespaces to use your installed packages](../install-online/set-up-namespaces.hbs.md).
 
-For more information about SCC, see the [Openshift](https://docs.openshift.com/container-platform/4.11/authentication/managing-security-context-constraints.html) documentation.
+For more information about SCC, see the [OpenShift](https://docs.openshift.com/container-platform/4.11/authentication/managing-security-context-constraints.html) documentation.
 
 ## Tanzu Kubernetes Grid and clusters with PSA enabled
 

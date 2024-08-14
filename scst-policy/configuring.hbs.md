@@ -355,7 +355,8 @@ with the configured public key. Run:
     pod/cosign created (server dry run)
     ```
 
-    If you are using vSphere with Tanzu or OpenShift, you must add some overrides:
+    If you are using vSphere IaaS control plane (formerly named vSphere with Tanzu) or OpenShift,
+    you must add some overrides:
 
     ```console
     $ kubectl run cosign \

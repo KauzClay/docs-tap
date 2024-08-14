@@ -24,7 +24,7 @@ cluster versions for Tanzu Application Platform v{{ vars.url_version }}.
     <td>v1.17 or later</td>
   </tr>
   <tr>
-    <td>vSphere with Tanzu</td>
+    <td>vSphere IaaS control plane (formerly named vSphere with Tanzu)</td>
     <td>v8.0 Update 1c or later, v7.0 Update 3p or later</td>
   </tr>
   <tr>

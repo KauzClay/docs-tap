@@ -47,13 +47,13 @@ To configure logging with Fluent Bit for your Cloud Native Runtimes environment:
 
 1. VMware recommends that you add any integrations to the `ConfigMap` in your Knative Serving namespace. Follow the logging configuration steps in the Fluent Bit documentation to create the `Namespace`, `ServiceAccount`, `Role`, `RoleBinding`, and `ConfigMap`. To view these steps, see the [Fluent Bit documentation](https://docs.fluentbit.io/manual/installation/kubernetes#installation).
 
-2. If you are using TMC, vSphere with Tanzu, or Tanzu Kubernetes Cluster
-   to manage your cloud-native environment, create a role binding in the Kubernetes namespace
-   where your integration is deployed to grant permission for privileged Fluent Bit containers.
-   For information about creating a role binding on a Tanzu platform,
-   see [Add a Role Binding](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-DBC3FF6D-F206-4047-8F21-ED8154A7537D.html).
-   For information about viewing your Kubernetes namespaces,
-   see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/#viewing-namespaces).
+2. If you are using TMC, vSphere IaaS control plane (formerly named vSphere with Tanzu), or Tanzu
+   Kubernetes Cluster to manage your cloud-native environment, create a role binding in the
+   Kubernetes namespace where your integration is deployed to grant permission for privileged Fluent
+   Bit containers. For information about creating a role binding on a Tanzu platform, see
+   [Add a Role Binding](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-DBC3FF6D-F206-4047-8F21-ED8154A7537D.html).
+   For information about viewing your Kubernetes namespaces, see the
+   [Kubernetes documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/#viewing-namespaces).
 
    Create the following role binding:
 

@@ -1,31 +1,28 @@
 # Install Supply Chain Security Tools - Policy Controller
 
-You install Supply Chain Security Tools (SCST) - Policy Controller as part of the Tanzu Application
-Platform Full, Iterate, and Run profiles. You can use the instructions in this topic to manually
-install SCST - Policy Controller.
+You can install Supply Chain Security Tools (SCST) - Policy Controller as part of the Tanzu
+Application Platform Full, Iterate, and Run profiles. Follow the instructions in this topic if you
+want to manually install SCST - Policy Controller instead.
 
-> **Note** Follow the steps in this topic if you do not want to use a profile to install
-> SCST - Policy Controller. For more information about profiles, see
-> [Components and installation profiles](../about-package-profiles.hbs.md).
+For more information about profiles, see
+[Components and installation profiles](../about-package-profiles.hbs.md).
 
-## <a id='scst-policy-prereqs'></a> Prerequisites
+## <a id='scst-policy-prereqs'></a> Before you begin
 
-- Complete all prerequisites to install Tanzu Application Platform. For more information, see
-  [Prerequisites](../prerequisites.md).
-- A container image registry that supports TLS connections.
+- Fulfil all prerequisites to install Tanzu Application Platform. For more information, see
+  [Prerequisites](../prerequisites.hbs.md).
+- Obtain a container image registry that supports TLS connections.
 
-  > **Important** This component does not work with not secure registries.
+  > **Important** This component does not work with non-secure registries.
 
-- For keyless authorities support, you must set `policy.tuf_enabled: true`. By
-  default, the public official Sigstore The Update Framework (TUF) server is
-  used. To target an alternative Sigstore stack, specify `policy.tuf_mirror` and
-  `policy.tuf_root`.
+- For keyless authorities support, you must set `policy.tuf_enabled: true`. By default, the public
+  official Sigstore The Update Framework (TUF) server is used. To target an alternative Sigstore
+  stack, specify `policy.tuf_mirror` and `policy.tuf_root`.
 
-- If you are installing in an air-gapped environment and require keyless
-  authorities, you must deploy a Sigstore Stack on the cluster or be accessible
-  from the air-gapped environment.
+- If you are installing in an air-gapped environment and require keyless authorities, you must
+  deploy a Sigstore Stack on the cluster or be accessible from the air-gapped environment.
 
-- During configuration, you provide a cosign public key to validate signed images. The Policy
+- During configuration you provide a cosign public key to validate signed images. The Policy
   Controller only supports ECDSA public keys. An example cosign public key is provided that can
   validate an image from the public cosign registry. To provide your own key and images, follow the
   [Cosign Quick Start Guide](https://github.com/sigstore/cosign#quick-start) in GitHub.
@@ -33,7 +30,7 @@ install SCST - Policy Controller.
   > **Caution** This component rejects `pods` if they are not correctly configured. Test your
   > configuration in a test environment before applying policies to your production cluster.
 
-## <a id='install-scst-policy'></a> Install
+## <a id='install-scst-policy'></a> Install SCST - Policy Controller
 
 To install SCST - Policy Controller:
 
@@ -52,10 +49,11 @@ To install SCST - Policy Controller:
      policy.apps.tanzu.vmware.com  1.2.0          2023-10-01 20:00:00 -0400 EDT
    ```
 
-1. (Optional) Make changes to the default installation settings by running:
+1. (Optional) Edit the default installation settings by running:
 
    ```console
-   tanzu package available get policy.apps.tanzu.vmware.com/VERSION --values-schema --namespace tap-install
+   tanzu package available get policy.apps.tanzu.vmware.com/VERSION --values-schema --namespace \
+   tap-install
    ```
 
    Where `VERSION` is the version number you discovered. For example, `1.2.0`.
@@ -63,7 +61,8 @@ To install SCST - Policy Controller:
    For example:
 
    ```console
-   $ tanzu package available get policy.apps.tanzu.vmware.com/1.2.0 --values-schema --namespace tap-install
+   $ tanzu package available get policy.apps.tanzu.vmware.com/1.2.0 --values-schema --namespace \
+   tap-install
    | Retrieving package details for policy.apps.tanzu.vmware.com/1.2.0...
 
    KEY                        DEFAULT        TYPE     DESCRIPTION
@@ -102,171 +101,173 @@ To install SCST - Policy Controller:
    tuf_mirror                                string   TUF mirror address
    ```
 
-1. Create a file named `scst-policy-values.yaml` and add the settings you want to customize:
+### <a id='create-scst-pol-values'></a> Create `scst-policy-values.yaml`
 
-   - `custom_ca_secrets`:
+Create a file named `scst-policy-values.yaml` and add the settings you want to customize:
 
-     If your container registries are secured by self-signed certificates, this setting controls
-     which secrets are added to the application container as custom certificate authorities (CAs).
-     `custom_ca_secrets` consists of an array of items. Each item contains two text boxes: the
-     `secret_name` text box defines the name of the secret, and the `namespace` text box defines the
-     name of the namespace where said secret is stored.
+- `custom_ca_secrets`:
 
-     For example:
+  If your container registries are secured by self-signed certificates, this setting controls which
+  secrets are added to the application container as custom certificate authorities (CAs).
+  `custom_ca_secrets` consists of an array of items. Each item contains two text boxes: The
+  `secret_name` text box defines the name of the secret and the `namespace` text box defines the
+  name of the namespace where the secret is stored.
 
-      ```yaml
-      custom_ca_secrets:
-      - secret_name: first-ca
-          namespace: ca-namespace
-      - secret_name: second-ca
-          namespace: ca-namespace
-      ```
+  For example:
 
-      > **Note** This setting is allowed even if `custom_cas` is defined.
+    ```yaml
+    custom_ca_secrets:
+    - secret_name: first-ca
+        namespace: ca-namespace
+    - secret_name: second-ca
+        namespace: ca-namespace
+    ```
 
-   - `custom_cas`:
+> **Note** This setting is allowed even if `custom_cas` is defined.
 
-     This setting enables adding certificate content in PEM format. The certificate content is added
-     to the application container as custom certificate authorities (CAs) to communicate with
-     registries deployed with self-signed certificates. `custom_cas` consists of an array of items.
+- `custom_cas`:
 
-     Each item contains a single text box named `ca_content`. The value of this text box must be a
-     PEM-formatted certificate authority. The certificate content must be defined as a YAML block,
-     preceded by the literal indicator (`|`) to preserve line breaks and ensure that the
-     certificates are interpreted correctly.
+  This setting enables adding certificate content in PEM format. The certificate content is added
+  to the application container as custom certificate authorities (CAs) to communicate with
+  registries deployed with self-signed certificates. `custom_cas` consists of an array of items.
 
-     For example:
+  Each item contains a single text box named `ca_content`. The value of this text box must be a
+  PEM-formatted certificate authority. The certificate content must be defined as a YAML block,
+  preceded by the literal indicator (`|`) to preserve line breaks and ensure that the certificates
+  are interpreted correctly.
 
-      ```yaml
-      custom_cas:
-      - ca_content: |
-            ----- BEGIN CERTIFICATE -----
-            first certificate content here...
-            ----- END CERTIFICATE -----
-      - ca_content: |
-            ----- BEGIN CERTIFICATE -----
-            second certificate content here...
-            ----- END CERTIFICATE -----
-      ```
+  For example:
 
-      > **Note** This setting is allowed even if `custom_ca_secrets` is defined.
+    ```yaml
+    custom_cas:
+    - ca_content: |
+          ----- BEGIN CERTIFICATE -----
+          first certificate content here...
+          ----- END CERTIFICATE -----
+    - ca_content: |
+          ----- BEGIN CERTIFICATE -----
+          second certificate content here...
+          ----- END CERTIFICATE -----
+    ```
 
-   - `deployment_namespace`:
+  > **Note** This setting is allowed even if `custom_ca_secrets` is defined.
 
-     This setting controls the namespace to which this component is deployed. When not specified,
-     the namespace `cosign-system` is assumed. This component creates the specified namespace to
-     deploy required resources. Select a namespace that is not used by any other components.
+- `deployment_namespace`:
 
-   - `limits_cpu`:
+  This setting controls the namespace to which this component is deployed. When not specified, the
+  namespace `cosign-system` is assumed. This component creates the specified namespace to deploy
+  required resources. Select a namespace that is not used by any other components.
 
-     This setting controls the maximum CPU resource allocated to the Policy admission controller.
-     The default value is "200m". See
-     [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu).
+- `limits_cpu`:
 
-   - `limits_memory`:
+  This setting controls the maximum CPU resource allocated to the Policy admission controller. The
+  default value is `200m`. For more information, see
+  [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu).
 
-     This setting controls the maximum memory resource allocated to the Policy
-     admission controller. The default value is "200Mi". See
-     [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory).
+- `limits_memory`:
 
-   - `quota.pod_number`:
+  This setting controls the maximum memory resource allocated to the Policy admission controller.
+  The default value is `200Mi`. For more information, see
+  [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory).
 
-     This setting controls the maximum number of pods that are allowed in the deployment namespace
-     with the `system-cluster-critical` priority class. This priority class is added to the pods to
-     prevent preemption of this component's pods in case of node pressure.
+- `quota.pod_number`:
 
-     The default value for this text box is `6`. If your use requires more than 6 pods, change this
-     value to allow the number of replicas you intend to deploy.
+  This setting controls the maximum number of pods that are allowed in the deployment namespace with
+  the `system-cluster-critical` priority class. This priority class is added to the pods to prevent
+  preemption of this component's pods in case of node pressure.
 
-     > **Note** VMware recommends to run this component with a critical priority level to prevent
-     > the cluster from rejecting all admission requests if the component's `pod`s are evicted due
-     > to resource limits.
+  The default value for this text box is `6`. If your use requires more than six pods, change this
+  value to allow the number of replicas you intend to deploy.
 
-   - `replicas`:
+  > **Note** VMware recommends running this component with a critical priority level to prevent the
+  > cluster from rejecting all admission requests if the component's pods are evicted because of
+  > resource limits.
 
-     This setting controls the default amount of replicas deployed by this component. The default
-     value is `1`.
+- `replicas`:
 
-     **For production environments**: VMware recommends you increase the number of replicas to `3`
-     to ensure that the availability of the component and better admission performance.
+  This setting controls the default number of replicas deployed by this component. The default value
+  is `1`.
 
-   - `requests_cpu`:
+  For production environments, VMware recommends increasing the number of replicas to `3` to ensure
+  the availability of the component and better admission performance.
 
-     This setting controls the minimum CPU resource allocated to the Policy admission controller.
-     During CPU contention, this value is used as a weighting where higher values indicate more CPU
-     time is allocated. The default value is `20m`. See
-     [CPU resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
-     in the Kubernetes documentation.
+- `requests_cpu`:
 
-   - `requests_memory`:
+  This setting controls the minimum CPU resource allocated to the Policy admission controller.
+  During CPU contention, this value is used as a weighting where higher values indicate more CPU
+  time is allocated. The default value is `20m`. For more information, see
+  [CPU resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+  in the Kubernetes documentation.
 
-     This setting controls the minimum memory resource allocated to the Policy admission controller.
-     The default value is `20Mi`. See
-     [Memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)
-     in the Kubernetes documentation.
+- `requests_memory`:
 
-   - `tuf_enabled`:
+  This setting controls the minimum memory resource allocated to the Policy admission controller.
+  The default value is `20Mi`. For more information, see
+  [Memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)
+  in the Kubernetes documentation.
 
-     This setting defines whether the TUF initialization is done on startup. It is required for
-     keyless verification support. The default value is `false`, which means that keyless
-     authorities of `ClusterImagePolicy` are not supported. Also, policy-controller does not have an
-     external dependency on setup.
+- `tuf_enabled`:
 
-   - `tuf_root`:
+  This setting defines whether the TUF initialization is performed on startup. It is required for
+  keyless verification support. The default value is `false`, which means that keyless authorities
+  of `ClusterImagePolicy` are not supported. `policy-controller` does not have an external
+  dependency on setup.
 
-     The root.json file content of the TUF mirror.
+- `tuf_root`:
 
-   - `tuf_mirror`:
+  This setting is for the `root.json` file content of the TUF mirror.
 
-     This setting defines the TUF mirror address which is used for doing the initialization.
+- `tuf_mirror`:
 
-   - `no_match_policy`:
+  This setting defines the TUF mirror address which is used for doing the initialization.
 
-     The action when no policy matches the admitting image digest. Valid values are `"warn"`,
-     `"allow"`, or `"deny"`. Default value is `"deny"`
+- `no_match_policy`:
 
-   - `fail_on_empty_authorities`:
+  This setting is the action when no policy matches the admitting image digest. Valid values are
+  `"warn"`, `"allow"`, and `"deny"`. The default value is `"deny"`.
 
-     Failing or allowing empty authorities when adding a new `ClusterImagePolicy`. Default value is
-     `true`.
+- `fail_on_empty_authorities`:
 
-1. Install the package:
+  This setting is for failing or allowing empty authorities when adding a new `ClusterImagePolicy`.
+  The default value is `true`.
 
-   ```console
-   tanzu package install policy-controller \
-     --package policy.apps.tanzu.vmware.com \
-     --version VERSION \
-     --namespace tap-install \
-     --values-file scst-policy-values.yaml
-   ```
+### <a id='install-package'></a> Install the package
 
-   Where `VERSION` is the version number you discovered earlier. For example, `1.2.0`.
+Install the package by running:
 
-   For example:
+```console
+tanzu package install policy-controller \
+  --package policy.apps.tanzu.vmware.com \
+  --version VERSION \
+  --namespace tap-install \
+  --values-file scst-policy-values.yaml
+```
 
-   ```console
-   $ tanzu package install policy-controller \
-       --package policy.apps.tanzu.vmware.com \
-       --version 1.2.0 \
-       --namespace tap-install \
-       --values-file scst-policy-values.yaml
+Where `VERSION` is the version number you discovered earlier. For example, `1.2.0`.
 
-     Installing package 'policy.apps.tanzu.vmware.com'
-     Getting package metadata for 'policy.apps.tanzu.vmware.com'
-     Creating service account 'policy-controller-tap-install-sa'
-     Creating cluster admin role 'policy-controller-tap-install-cluster-role'
-     Creating cluster role binding 'policy-controller-tap-install-cluster-rolebinding'
-     Creating package resource
-     Waiting for 'PackageInstall' reconciliation for 'policy-controller'
-     'PackageInstall' resource install status: Reconciling
-     'PackageInstall' resource install status: ReconcileSucceeded
-     'PackageInstall' resource successfully reconciled
+For example:
 
-     Added installed package 'policy-controller'
-   ```
+```console
+$ tanzu package install policy-controller \
+    --package policy.apps.tanzu.vmware.com \
+    --version 1.2.0 \
+    --namespace tap-install \
+    --values-file scst-policy-values.yaml
 
-After you run the commands earlier the policy controller is running.
+  Installing package 'policy.apps.tanzu.vmware.com'
+  Getting package metadata for 'policy.apps.tanzu.vmware.com'
+  Creating service account 'policy-controller-tap-install-sa'
+  Creating cluster admin role 'policy-controller-tap-install-cluster-role'
+  Creating cluster role binding 'policy-controller-tap-install-cluster-rolebinding'
+  Creating package resource
+  Waiting for 'PackageInstall' reconciliation for 'policy-controller'
+  'PackageInstall' resource install status: Reconciling
+  'PackageInstall' resource install status: ReconcileSucceeded
+  'PackageInstall' resource successfully reconciled
+
+  Added installed package 'policy-controller'
+```
 
 Policy Controller is now installed, but it does not enforce any policies by default. Policies must
 be explicitly configured on the cluster. To configure signature verification policies, see
-[Configuring Supply Chain Security Tools - Policy](configuring.md).
+[Configuring Supply Chain Security Tools - Policy](configuring.hbs.md).

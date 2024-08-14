@@ -3,8 +3,8 @@
 Supply Chain Security Tools (SCST) - Policy Controller is a security tool that helps you ensure that
 the container images in their registry have not been tampered with.
 
-> **Important** SCST - Policy Controller is deprecated. VMware plans to remove it in a future
-> Tanzu Application Platform version.
+> **Important** SCST - Policy Controller is deprecated. VMware plans to remove it in a future Tanzu
+> Application Platform version.
 
 Policy Controller is a Kubernetes Admission Controller that allows you to apply policies to verify
 signatures on container images before being admitted to a cluster.
@@ -12,7 +12,7 @@ signatures on container images before being admitted to a cluster.
 The Policy Controller:
 
 - Verifies signatures on container images used by Kubernetes resources
-- Enforces policies to allow or deny images being admitted a cluster
+- Enforces policies to allow or deny images being admitted in a cluster
 - Allows operators to define multiple policies in the cluster
 - Allows operators to select which `namespaces` to enforce policies against
 - Supports `cosign` signatures and keyless signing
@@ -28,18 +28,17 @@ It enforces its policies against all resources that create `Pod`s as part of the
 - `DaemonSet`
 - `CronJob`
 
-> **Note** This component is the successor to `Supply Chain Security Tools - Sign`, which is
-> deprecated. Support and maintenance for `Supply Chain Security Tools - Sign` continues. Monitor
-> Release Notes for updates.
+> **Note** This component is the successor to SCST - Sign, which is deprecated. Support and
+> maintenance for SCST - Sign continues.
 
-Supply Chain Security Tools - Policy Controller is based on Sigstore's Policy Controller and is
-compatible only with `cosign` signatures. See [Cosign](https://github.com/sigstore/cosign) and
-[Policy Controller](https://github.com/sigstore/policy-controller)
-in GitHub. For information about image signing and verification, see [Sigstore](https://www.sigstore.dev/)
-open source community and the [cosign](https://docs.sigstore.dev/cosign/overview) project in GitHub.
+SCST - Policy Controller is based on Sigstore's Policy Controller and is compatible only with
+`cosign` signatures. For more information, see [Cosign](https://github.com/sigstore/cosign) and
+[Policy Controller](https://github.com/sigstore/policy-controller) in GitHub. For information about
+image signing and verification, see the [Sigstore](https://www.sigstore.dev/) open-source community
+and the [cosign](https://docs.sigstore.dev/cosign/overview) project in GitHub.
 
 The Policy Controller component is a policy enforcement tool only. It does not sign images.
-Operators can configure image signing for their containers in several ways, including:
+Operators can configure image-signing for their containers in several ways, including:
 
 - By using [Tanzu Build Service](../tanzu-build-service/tbs-image-signing.hbs.md)
 - By using [kpack](https://github.com/buildpacks-community/kpack/blob/main/docs/tutorial.md)
@@ -50,7 +49,7 @@ unless configured with the `COSIGN_REPOSITORY` environment variable. Policy Cont
 credentials provided in the admission request, Service Account, or `signaturePullSecrets` defined in
 the policy to connect to the registry to verify a signature.
 
-> **Important** This component does not work with insecure registries.
+> **Important** This component does not work with non-secure registries.
 
-To install Supply Chain Security Tools - Policy Controller, see
-[Install Supply Chain Security Tools - Policy Controller](./install-scst-policy.hbs.md).
+To install SCST - Policy Controller, see
+[Install SCST - Policy Controller](install-scst-policy.hbs.md).

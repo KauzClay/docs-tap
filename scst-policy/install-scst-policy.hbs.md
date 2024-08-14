@@ -123,7 +123,7 @@ Create a file named `scst-policy-values.yaml` and add the settings you want to c
         namespace: ca-namespace
     ```
 
-> **Note** This setting is allowed even if `custom_cas` is defined.
+  > **Note** This setting is allowed even if `custom_cas` is defined.
 
 - `custom_cas`:
 

@@ -136,7 +136,7 @@ spec:
 Authorities listed in the `authorities` block of the `ClusterImagePolicy` are `key` or `keyless`
 specifications.
 
-#### <a id="key-authority"></a> Configure `key`
+### <a id="key-authority"></a> Configure `key`
 
 Each `key` authority can contain a PEM-encoded ECDSA public key, a `secretRef`, or a `kms` path. For
 example:
@@ -167,7 +167,7 @@ The secret referenced in `key.secretRef.name` must be created in the `cosign-sys
 the namespace where the Policy Controller is installed. This secret must only contain one `data`
 entry with the public key.
 
-#### <a id="keyless-authority"></a> Configure `keyless`
+### <a id="keyless-authority"></a> Configure `keyless`
 
 Each keyless authority can contain a Fulcio URL, a Rekor URL, a certificate, or an array of
 identities.
@@ -215,7 +215,7 @@ policy that matches against the images, they must each have at least one valid s
 using the authorities specified. If an image does not match any policy, the Policy Controller does
 not admit the image.
 
-#### <a id="cip-static-action"></a> Configure `static.action`
+### <a id="cip-static-action"></a> Configure `static.action`
 
 `ClusterImagePolicy` authorities are configured to always `pass` or `fail` with `static.action`.
 

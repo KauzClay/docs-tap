@@ -1,19 +1,19 @@
 <!-- Configure port forwarding to connect to the metadata store -->
 
 Configure port-forwarding for the service so that the curl command can access SCST - Store.
-You can configure port-forwarding in a separate terminal window or in the background.
+You can configure port-forwarding in a separate terminal window or in the background:
 
-From a separate terminal window, run:
+- From a separate terminal window, run:
 
-```console
-kubectl port-forward service/metadata-store-app 8443:8443 -n metadata-store
-```
+  ```console
+  kubectl port-forward service/metadata-store-app 8443:8443 -n metadata-store
+  ```
 
-Alternatively, run the following command in the background:
+- Alternatively, in the background run:
 
-```console
-kubectl port-forward service/metadata-store-app 8443:8443 -n metadata-store &
-```
+  ```console
+  kubectl port-forward service/metadata-store-app 8443:8443 -n metadata-store &
+  ```
 
 ### Edit your `/etc/hosts` file for port-forwarding
 

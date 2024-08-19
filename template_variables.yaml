@@ -3,7 +3,7 @@ template_variables:
   tap_version: 1.12.0
   url_version: 1.12
   dash_version: 1-12
-  ce_version: 1.9
+  ce_version: 1.10
   hide_content: true
   staging_toggle: docs
   app-sso:

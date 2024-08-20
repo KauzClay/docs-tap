@@ -44,6 +44,10 @@ This release includes the following changes, listed by component and area.
 - You can manually activate or deactivate Gateway API support by configuring the `controller.gateway_api_support`
   field.
 
+#### <a id='1-12-0-buildpacks'></a> v1.12.0 Features: Buildpacks and Stacks
+
+- A new FIPS compliant Jammy stack on Tanzu is now generally available - The [`VMware Tanzu Base FIPS Stack for Ubuntu 22.04`](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-stacks.html#fips-compliance).
+
 ---
 
 ### <a id='1-12-0-breaking-changes'></a> v1.12.0 Breaking changes

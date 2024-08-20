@@ -779,7 +779,7 @@
           - [How To](./supply-chain/platform-engineering/how-to/about.hbs.md)
               - [Install the Tanzu CLI Plug-ins](./supply-chain/platform-engineering/how-to/install-the-cli.hbs.md)
               - [Install Tanzu Supply Chain](./supply-chain/platform-engineering/how-to/installing-supply-chain/about.hbs.md)
-                  - [Install via profile (recommended)](./supply-chain/platform-engineering/how-to/installing-supply-chain/install-authoring-profile.hbs.md)
+                  - [Install by using a profile (recommended)](./supply-chain/platform-engineering/how-to/installing-supply-chain/install-authoring-profile.hbs.md)
                   - [Install manually](./supply-chain/platform-engineering/how-to/installing-supply-chain/installing-manually.hbs)
                   - [Configure Tanzu Supply Chain](./supply-chain/platform-engineering/how-to/installing-supply-chain/post-install-configuration.hbs.md)
               - [Supply Chain Authoring](./supply-chain/platform-engineering/how-to/supply-chain-authoring/about.hbs.md)

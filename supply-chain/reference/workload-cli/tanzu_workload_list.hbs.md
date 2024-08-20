@@ -6,7 +6,7 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 Lists all workloads
 
-list configuration options include:
+List configuration options include:
 
 - Output the list for all namespaces
 - Output the list for a specific namespace
@@ -44,6 +44,7 @@ tanzu workload list
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads
+- [tanzu workload](tanzu_workload.hbs.md) for creating, updating, viewing, and listing Tanzu
+  Workloads

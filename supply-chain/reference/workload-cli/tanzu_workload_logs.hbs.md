@@ -39,6 +39,7 @@ tanzu workload logs NAME
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-[tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads
+- [tanzu workload](tanzu_workload.hbs.md) for creating, updating, viewing, and listing Tanzu
+  Workloads

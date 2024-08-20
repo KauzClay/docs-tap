@@ -1,6 +1,6 @@
 # How to Author a Supply Chain
 
-This section has topics, aimed at platform engineers, that tell you about authoring SupplyChain
+This section has topics, aimed at platform engineers, that tell you about authoring `SupplyChain`
 resources.
 
 {{> 'partials/supply-chain/beta-banner' }}

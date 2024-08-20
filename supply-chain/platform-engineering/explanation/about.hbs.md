@@ -58,7 +58,7 @@ The flow of operations is as follows:
 
 1. The developer observes the progress of runs using the Tanzu CLI.
 
-## <a id="gitops"></a> Managing SupplyChains with GitOps
+## <a id="gitops"></a> Managing `SupplyChain` resources with GitOps
 
 `SupplyChain` resources, such as the authoring resources `SupplyChain`, `Component`, Tekton
 `Pipeline`, and Tekton `Task`, are delivered to clusters through a Git repository and GitOps source

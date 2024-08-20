@@ -55,7 +55,7 @@ The version of your `SupplyChain` primitive that is embedded in the name must ad
 described in this section.
 
 A patch update is required to update `SupplyChain` without an API change. The controller ensures
-taht this rule cannot be broken when comparing `SupplyChain` primitives on the cluster.
+that this rule cannot be broken when comparing `SupplyChain` primitives on the cluster.
 
 For example, you can apply to a cluster:
 
@@ -76,16 +76,16 @@ Recommended version practices:
   - Use a patch update, such as `1.2.5` to `1.2.6`
   - Keep the same kind, such as `ServerAppV1`
 - If the API is unchanged, but something significantly different occurs because of changes to the
-  `spec.stages`, consider doing:
-  - An update to the minor or major version, such as `1.2.5` to `1.3.0`
-  - An update to the kind, such as `ServerAppV2`
-  - A change of kind, such as `ServerAppWithApprovalV1`
-- If the API changes, consider doing:
-  - An update to the minor or major version, such as `1.2.5` to `1.3.0`
-  - An update to the kind, such as `ServerAppV2`
+  `spec.stages`, consider:
+  - Updating the minor or major version, such as `1.2.5` to `1.3.0`
+  - Updating the kind, such as `ServerAppV2`
+  - Changing the kind, such as `ServerAppWithApprovalV1`
+- If the API changes, consider:
+  - Updating the minor or major version, such as `1.2.5` to `1.3.0`
+  - Updating the kind, such as `ServerAppV2`
 
-This ensures effective communication to your users. New kind versions typically indicate that the user
-must migrate their resources to the new API.
+This ensures effective communication to your users. New kind versions typically indicate that the
+user must migrate their resources to the new API.
 
 ## <a id="validation"></a> Integrity validation
 
@@ -98,4 +98,5 @@ A `SupplyChain` primitive is not valid if:
 - The name does not match the `spec.defines` section.
 - `SupplyChain` breaks the versioning rules.
 
-For more information, see [status.conditions[]](../../reference/api/supplychain.hbs.md#statusconditions).
+For more information, see
+[status.conditions[]](../../reference/api/supplychain.hbs.md#statusconditions).

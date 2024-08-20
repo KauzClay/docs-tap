@@ -7,7 +7,7 @@ This topic gives you reference information about the `Workload` resource for Tan
 `Workload` resources are custom resource definitions (CRDs) created by `SupplyChain` resources.
 They are also one of the two duck type resources in Tanzu Supply Chain.
 
-## Static CustomResourceDefinitions API
+## Static `CustomResourceDefinitions` API
 
 Every `Workload` resource is defined as a `CustomResourceDefinition`:
 
@@ -19,7 +19,7 @@ kind: CustomResourceDefinition
 ### `metadata.labels`
 
 `Workload` resources always have the following labels. The `chain-name` and `chain-namespace` labels
-reference the location of the SupplyChain resource that created this `Workload`. The `chain-role`
+reference the location of the `SupplyChain` resource that created this `Workload`. The `chain-role`
 identifies this as a Workload. The other possible value is `workload-run`.
 
 ```yaml
@@ -89,7 +89,7 @@ metadata:
 
 ## Dynamic Workload API
 
-### <a id='spec'></a>`spec`
+### <a id='spec'></a> `spec`
 
 The `spec` of a `Workload` resource is dynamic, however it is immutable after it is applied. The
 `spec` is derived by combining the [Component configurations](component.hbs.md#specconfig) of all

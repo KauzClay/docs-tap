@@ -4,7 +4,7 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 ## Synopsis
 
-supplychain management
+This is for `supplychain` management.
 
 ## Options
 
@@ -14,10 +14,12 @@ supplychain management
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu supplychain component](tanzu_supplychain_component.hbs.md) - Interacting with supplychain components
-- [tanzu supplychain generate](tanzu_supplychain_generate.hbs.md) - Generate a supplychain scaffold
-- [tanzu supplychain get](tanzu_supplychain_get.hbs.md) - Get supplychain
-- [tanzu supplychain init](tanzu_supplychain_init.hbs.md) - Initialize supplychain
-- [tanzu supplychain list](tanzu_supplychain_list.hbs.md) - Lists all supplychains
+- [tanzu supplychain component](tanzu_supplychain_component.hbs.md) for interacting with
+  `supplychain` components
+- [tanzu supplychain generate](tanzu_supplychain_generate.hbs.md) for generating a `supplychain`
+  scaffold
+- [tanzu supplychain get](tanzu_supplychain_get.hbs.md) for getting `supplychain`
+- [tanzu supplychain init](tanzu_supplychain_init.hbs.md) for initializing `supplychain`
+- [tanzu supplychain list](tanzu_supplychain_list.hbs.md) for listing all `supplychain`s

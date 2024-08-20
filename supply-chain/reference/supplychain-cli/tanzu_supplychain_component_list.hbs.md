@@ -4,11 +4,11 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 ## Synopsis
 
-Lists all available supplychain components
+Lists all available `supplychain` components
 
-component list configuration options include:
+Component list configuration options include:
 
-- Output the component list formatted
+- Output the component list formatted.
 
 ```console
 tanzu supplychain component list [flags]
@@ -37,6 +37,7 @@ tanzu supplychain component list
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu supplychain component](tanzu_supplychain_component.hbs.md) - Interacting with supplychain components
+- [tanzu supplychain component](tanzu_supplychain_component.hbs.md) for interacting with
+  `supplychain` components

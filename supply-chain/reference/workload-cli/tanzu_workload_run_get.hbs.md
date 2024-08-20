@@ -6,7 +6,7 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 Get the details of the specified workload run within a namespace.
 
-workload run get configuration options include:
+`workload run get` configuration options include:
 
 - Specify the namespace of the workload run
 - Output the workload run formatted
@@ -40,6 +40,6 @@ tanzu workload run get NAME
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu workload run](tanzu_workload_run.hbs.md) - View workload runs
+- [tanzu workload run](tanzu_workload_run.hbs.md) for viewing workload runs

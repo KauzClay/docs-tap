@@ -12,19 +12,21 @@ Build a `SupplyChain` resource if you do not already have one. For how to build 
 ## <a id="get-started"></a> Get started
 
 In [Build your first Supply Chain](my-first-supply-chain.hbs.md), you built a `SupplyChain` resource
-that retrieves the source code from a Git repository, and builds and packages it as a Carvel package.
-The `SupplyChain` resource then initiates a pull request to transfer the Carvel package to
+that retrieves the source code from a Git repository, and builds and packages it as a Carvel
+package. The `SupplyChain` resource then initiates a pull request to transfer the Carvel package to
 a GitOps repository, which enables the installation of the built package on the Run clusters.
 
 This topic tells you how to create a component that you can use in your `SupplyChain` resource for
 unit-testing your Maven apps. You will create a component called `maven-unit-tester`, which will run
 unit tests on the source pulled by the `source-git-provider` stage.
 
+Run:
+
 ```console
 tanzu supplychain component get source-git-provider-1.0.0 --show-details
 ```
 
-Example:
+Example output:
 
 ```console
 ...
@@ -282,8 +284,8 @@ The section describes how to write a `Component` manifest that defines the follo
 - `Inputs`, which is a list of named `Outputs` from a previous stage in a `SupplyChain` resource
   that the current `Component` resource depends on.
 
-- `Outputs`, which are named outputs from this component another `Component` resource can use as
-  `Inputs`.
+- `Outputs`, which are named outputs from this component that another `Component` resource can use
+  as `Inputs`.
 
 - The Pipeline Run Definition section, which defines the work performed by this component.
   `spec.pipelineRun` is used to create a Tekton `PipelineRun` and has many similarities.
@@ -311,7 +313,7 @@ The section describes how to write a `Component` manifest that defines the follo
     ```
 
 1. Define `Component` inputs and outputs. In this case, the output of the `source-git-provider`
-   component is used as an input for the `maven-unit-tester` component.
+   component is used as an input for the `maven-unit-tester` component:
 
     ```yaml
         inputs:

@@ -4,7 +4,7 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 ## Synopsis
 
-Apply a workload of specific kind on the cluster from the file
+Apply a workload of a specific kind on the cluster from the file.
 
 ```console
 tanzu workload apply [NAME] [flags]
@@ -34,6 +34,7 @@ tanzu workload apply --file workload.yaml
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads.
+- [tanzu workload](tanzu_workload.hbs.md) for creating, updating, viewing, and listing Tanzu
+  Workloads.

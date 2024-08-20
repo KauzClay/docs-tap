@@ -1,20 +1,21 @@
 # Install an authored Supply Chain
 
-This topic tells you how to install a `SupplyChain` authored using the Tanzu Supply Chain CLI plug-in.
+This topic tells you how to install a `SupplyChain` authored using the Tanzu Supply Chain CLI
+plug-in.
+
 {{> 'partials/supply-chain/beta-banner' }}
 
 ## <a id="prepare"></a> Prepare
 
-- Ensure that you created a `SupplyChain` by following the tutorial
-  [Build your first SupplyChain](my-first-supply-chain.hbs.md).
-- The `make install` command requires the `kapp` CLI to be installed on your computer.
-  Install [kapp CLI](https://carvel.dev/kapp/docs/latest/install/).
+- Create a `SupplyChain` by following the tutorial
+  [Build your first SupplyChain](my-first-supply-chain.hbs.md)
+- Install [kapp CLI](https://carvel.dev/kapp/docs/latest/install/)
 
 ## <a id="install"></a> Install
 
 To install an authored Supply Chain:
 
-1. Create a namespace where you want to install the `SupplyChain`:
+1. Create a namespace where you want to install the `SupplyChain` by running:
 
    ```console
    kubectl create namespace mysupplychains

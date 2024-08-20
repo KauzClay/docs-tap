@@ -6,7 +6,7 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 Get the details of the specified workload within a namespace.
 
-workload get configuration options include:
+Workload `get` configuration options include:
 
 - Specify the namespace of the workload
 - Specify the kind of the workload
@@ -40,6 +40,7 @@ tanzu workload get NAME
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads
+- [tanzu workload](tanzu_workload.hbs.md) for creating, updating, viewing, and listing Tanzu
+  Workloads

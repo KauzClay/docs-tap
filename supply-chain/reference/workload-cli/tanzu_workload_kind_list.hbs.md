@@ -33,6 +33,6 @@ tanzu workload kind list
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu workload kind](tanzu_workload_kind.hbs.md) - View supported workload types (kinds)
+- [tanzu workload kind](tanzu_workload_kind.hbs.md) for viewing supported workload types (kinds)

@@ -4,9 +4,7 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 ## Synopsis
 
-Lists all supplychains
-
-list configuration options include:
+Lists all `supplychain`s. List configuration options include:
 
 - Output the list for all namespaces
 - Output the list for a specific namespace
@@ -41,6 +39,6 @@ tanzu supplychain list
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu supplychain](tanzu_supplychain.hbs.md) - supplychain management
+- [tanzu supplychain](tanzu_supplychain.hbs.md) for `supplychain` management

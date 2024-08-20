@@ -4,11 +4,9 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 ## Synopsis
 
-Generate a supplychain scaffold
+Generate a `supplychain` scaffold. Generate configuration options include:
 
-Generate configuration options include:
-
-- Kind, component list and the description
+- Kind, component list, and the description
 
 ```console
 tanzu supplychain generate [flags]
@@ -38,6 +36,6 @@ tanzu supplychain generate --kind ServerAppV1 --description DESCRIPTION
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu supplychain](tanzu_supplychain.hbs.md) - supplychain management
+- [tanzu supplychain](tanzu_supplychain.hbs.md) for `supplychain` management

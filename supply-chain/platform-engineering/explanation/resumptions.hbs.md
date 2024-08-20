@@ -10,14 +10,13 @@ For reference information about resumptions, see [Component API](../../reference
 
 Resumptions are an important part of the Tanzu Supply Chain `Component` resource.
 
-The `Component` resource deals with the configuration to pass to resumptions and pipelines, or
-the pipeline to run when the `Component` stage is reached in the supply chain.
-Resumptions are focused on the reasons to run again.
+The `Component` resource deals with the configuration to pass to resumptions and pipelines, or the
+pipeline to run when the `Component` stage is reached in the supply chain. Resumptions are focused
+on the reasons to run again.
 
 Resumptions are executed on a timer that is specified in the `resumptions` array of the component.
-When resumptions trigger they execute a Tekton `TaskRun` to detect new values.
-These are common for detecting changes to source repositories, image repositories, and new versions
-of binaries.
+When resumptions trigger they execute a Tekton `TaskRun` to detect new values. These are common for
+detecting changes to source repositories, image repositories, and new versions of binaries.
 
 If a run reaches a stage with a resumption, the system generates a `resumptionKey` based on the
 value of the parameters that are passed to the resumption. If a resumption has already been executed
@@ -29,8 +28,8 @@ After the last completion of a resumption `TaskRun`, resumptions wait for the pe
 `resumptions[].trigger.runAfter` before running it again.
 
 When a result for a resumption changes, all the `WorkloadRun` resources with the same
-`resumptionKey` are cloned, truncated back to the stage of the resumption, and progress starts from
-there. This is the mechanism for resumptions triggering a new `WorkloadRun`.
+`resumptionKey` are cloned and then truncated back to the stage of the resumption. Progress starts
+from there. This is the mechanism for resumptions triggering a new `WorkloadRun`.
 
 <!--
 [SupplyChain]: ./supply-chains.hbs.md

@@ -33,36 +33,37 @@ metadata:
 
 ### <a id='spec-config'></a>`spec.config`
 
-The [spec.stages](#specstages) structure introduces `Components` where the aggregated
-[config sections](component.hbs.md#specconfig), form the SupplyChain's configuration and become the
+The [spec.stages](#specstages) structure introduces `Components`, where the aggregated
+[config sections](component.hbs.md#specconfig) form the `SupplyChain`'s configuration and become the
 [Workload spec](workload.hbs.md#spec).
 
 This configuration can be altered by changing defaults, or overridden and hidden from the `Workload`.
 
 #### <a id='spec-config-defaults'></a>`spec.config.defaults`
 
-Change or add defaults for the config that is presented
-in the [Workload's spec](workload.hbs.md#spec).
+Change or add defaults for the config that is presented in the
+[Workload's spec](workload.hbs.md#spec).
 
 `spec.config.defaults` is an array of `path:` and `value:` fields, where:
 
-- `path`: Path to the configuration value, formatted as either:
+- `path` is the path to the configuration value, formatted as either:
   - The full path to the field you want to set.
   - The path to any structure where all desired child fields must be set.
 - `value`: A string or structure value.
 
 #### <a id='spec-config-overrides'></a>`spec.config.overrides`
 
-Override the value of a config field, so that it no longer appears in the [Workload spec](workload.hbs.md#spec).
+Override the value of a config field, so that it no longer appears in the
+[Workload spec](workload.hbs.md#spec).
 
 `spec.config.overrides` is an array of `path:` and `value:` fields, where:
 
-- `path`: path to the configuration value, formatted as either:
+- `path` is the path to the configuration value, formatted as either:
 
   - The full path to the field you wish to set.
   - The path to any structure where all desired child fields must be set.
 
-- `value`: string or structure value.
+- `value` is the string or structure value.
 
 #### Example
 
@@ -87,28 +88,29 @@ spec:
 
 The `spec.defines` object defines the `Workload` custom resource definition (CRD).
 
-`spec.defines.group` (**required**) is used to fill in the `group` field in the
+`spec.defines.group` (required) is used to fill in the `group` field in the
 [CustomResourceDefinitionSpec].
 
 `spec.defines.group` is the classic domain-formatted group of any Kubernetes object.
-Use your organization's top level domain, or a departmental domain.
+Use your organization's top-level domain or a departmental domain.
 
-`spec.defines.kind` (**required**) is the name of the resource in CamelCase.
+`spec.defines.kind` (required) is the name of the resource in CamelCase.
 
-`spec.defines.plural` (**required**) is typically the plural down-cased form of the kind.
+`spec.defines.plural` (required) is typically the plural form of the kind.
 It must be all lowercase.
 
-**Recommendation:** pluralize the name after the version, e.g: `WebAppV1` becomes `webappv1s`
+VMware recommends that you pluralize the name after the version. For example, change `WebAppV1` to
+`webappv1s`.
 
-`spec.defines.singular` is optional and defaults to the lowercase of `kind`, for example `ServerAppv1`
-becomes `serverappv1`.
+`spec.defines.singular` is optional and is the lowercase of `kind` by default. For example,
+`ServerAppv1` becomes `serverappv1`.
 
-`spec.defines.shortnames` is a list and defaults to empty. Use this to specify an array of aliases
-for your kind. These are great to simplify `kubectl` commands.
+`spec.defines.shortnames` is a list and is empty by default. Use this to specify an array of aliases
+for your kind. These are great for simplifying `kubectl` commands.
 
 #### `spec.defines.categories`
 
-`spec.defines.categories` is a list and defaults to empty. `spec.defines.categories` specify a
+`spec.defines.categories` is a list and is empty by default. `spec.defines.categories` specify a
 collection term for a group of kinds, so that `kubectl get <category>` returns instances of all
 kinds in the category.
 
@@ -155,11 +157,11 @@ This is where you define the operations of this `SupplyChain`.
 ### `spec.stages[].name`
 
 Each stage has a `name`, which is shown to the user in the CLI and UI.
-`name` can only be composed of hyphens(`-`) and lower case alphanumeric characters (`a-z0-9`).
+`name` can only be composed of hyphens and lowercase alphanumeric characters.
 
 ### `spec.stages[].componentRef`
 
-Each stage also has a `componentRef` with a single field `name`.
+Each stage also has a `componentRef` with a single field, `name`.
 `componentRef.Name` refers to the name of a Tanzu Supply Chain [Component] resource.
 Currently, [Component] must exist in the same namespace as the `SupplyChain`. For more information,
 see the Tanzu Supply Chain [known issues](../../../release-notes.hbs.md#1-10-0-supply-chain-ki).
@@ -169,9 +171,10 @@ previous stage.
 
 ### <a id='security-context'></a> `spec.stages[].securityContext`
 
-Each stage can specify a `securityContext` with a single field `runAs`. When this is
-set to `workload` the stage is executed in the namespace of the Workload rather than the Supply
-Chain. See [Security Model](../../platform-engineering/explanation/security-model.hbs.md).
+Each stage can specify a `securityContext` with a single field, `runAs`. When this is set to
+`workload` the stage is executed in the namespace of the Workload rather than the Supply Chain. For
+more information, see
+[Security Model](../../platform-engineering/explanation/security-model.hbs.md).
 
 #### Example
 
@@ -200,37 +203,37 @@ spec:
 Every `status.conditions[]` in Tanzu Supply Chain resources follows a
 [strict set of conventions](statuses.hbs.md).
 
-The top-level condition type is `Ready` as SupplyChain is a Living resource.
+The top-level condition type is `Ready` because `SupplyChain` is a living resource.
 
 The sub-types are:
 
 #### RBACDefined
 
-| Reason        | Meaning                                                                                                                                                  |
-|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ready         | The RoleBindings for the kind declared in [spec.defines](#specdefines) was created on cluster                                                          |
-| AlreadyExists | The RoleBinding record already exists.<br/>Most common cause of this issue is another Supply Chain with the same [`spec.defines`](#specdefines) section. |
-| UnknownError  | The RoleBinding record failed due to an exceptional error. Look at the reconciler logs and contact Tanzu Support                                         |
+| Reason          | Meaning                                                                                                                                                    |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Ready`         | The `RoleBinding`s for the kind declared in [spec.defines](#specdefines) was created on the cluster.                                                       |
+| `AlreadyExists` | The `RoleBinding` record already exists.<br/>Most common cause of this issue is another Supply Chain with the same [`spec.defines`](#specdefines) section. |
+| `UnknownError`  | The `RoleBinding` record failed due to an exceptional error. Look at the reconciler logs and contact Tanzu Support.                                        |
 
 #### APIsDefined
 
-| Reason        | Meaning                                                                                                                                                                         |
-|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ready         | The CRD for the kind declared in [spec.defines](#specdefines) was created on cluster                                                                                          |
-| Conflict      | The CRD already exists and is managed by another SupplyChain.<br/>Most common cause of this issue is another Supply Chain with the same [`spec.defines`](#specdefines) section. |
-| Invalid       | The CRD is invalid<br/>Most common cause of this is an illegal OpenAPIV3Schema in the [Component].                                                                              |
-| Unknown error | The CRD could not be created due to an exceptional error. Look at the reconciler logs and contact Tanzu Support                                                                 |
+| Reason          | Meaning                                                                                                                                                                         |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Ready`         | The CRD for the kind declared in [spec.defines](#specdefines) was created on the cluster.                                                                                       |
+| `Conflict`      | The CRD already exists and is managed by another SupplyChain.<br/>Most common cause of this issue is another Supply Chain with the same [`spec.defines`](#specdefines) section. |
+| `Invalid`       | The CRD is invalid<br/>Most common cause of this is an illegal OpenAPIV3Schema in the [Component].                                                                              |
+| `Unknown error` | The CRD could not be created due to an exceptional error. Look at the reconciler logs and contact Tanzu Support.                                                                |
 
 #### StageMapping
 
-| Reason                      | Meaning                                                                                                                                      |
-|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| Ready                       | The [stages](#specstages) pass all the [validation rules](../../platform-engineering/explanation/supply-chains.hbs.md#integrity-validation). |
-| NoSuchComponent             | The referenced component cannot be found.                                                                                                    |
-| NoSuchInput                 | The input to the stage is not emitted by any stage.                                                                                          |
-| InputNotSatisfiedUntilLater | The input to the stage is not emitted by a previous stage.                                                                                   |
-| InputMismatch               | The input matches a previous output by name, however the type does not match.                                                                |
-| OutputRedefined             | The output redefines an existing output. Shadowing of outputs is not supported.                                                              |
+| Reason                        | Meaning                                                                                                                                      |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| `Ready`                       | The [stages](#specstages) pass all the [validation rules](../../platform-engineering/explanation/supply-chains.hbs.md#integrity-validation). |
+| `NoSuchComponent`             | The referenced component cannot be found.                                                                                                    |
+| `NoSuchInput`                 | The input to the stage is not emitted by any stage.                                                                                          |
+| `InputNotSatisfiedUntilLater` | The input to the stage is not emitted by a previous stage.                                                                                   |
+| `InputMismatch`               | The input matches a previous output by name, however the type does not match.                                                                |
+| `OutputRedefined`             | The output redefines an existing output. Shadowing of outputs is not supported.                                                              |
 
 <!--
 [Workload]: workload.hbs.md

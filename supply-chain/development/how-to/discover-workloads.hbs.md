@@ -18,7 +18,7 @@ Use the Tanzu Workload CLI plug-in to see available `Workload` kinds by running:
 tanzu workload kinds list
 ```
 
-Example:
+Example output:
 
 ```console
 KIND                        VERSION   DESCRIPTION
@@ -50,7 +50,7 @@ To generate a workload manifest:
 
    Where `APP-NAME` is the name of the app. For example, `my-web-app`.
 
-   Example:
+   Example output:
 
    ```console
    apiVersion: vmware.com/v1
@@ -78,9 +78,9 @@ To generate a workload manifest:
    #! other configuration
    ```
 
-1. Store the `Workload` manifest in a file for use by the `tanzu workload create`,
-   `tanzu workload apply`, and `tanzu workload get` commands, and pipe the output into a `workload.yaml`
-   file, by running:
+1. Store the `Workload` manifest in a file for use by running the `tanzu workload create`,
+   `tanzu workload apply`, and `tanzu workload get` commands, and pipe the output into a
+   `workload.yaml` file, by running:
 
    ```console
    tanzu workload generate APP-NAME --kind buildwebapps.vmware.com > workload.yaml
@@ -134,14 +134,14 @@ To create a workload:
 To apply a workload:
 
 1. The `tanzu workload create` command is only used to create a `Workload` that does not already
-   exist. To update an existing `Workload`, use `tanzu workload apply`. Apply a `Workload` manifest
+   exist. To update an existing `Workload`, run `tanzu workload apply`. Apply a `Workload` manifest
    to the cluster by running:
 
    ```console
    tanzu workload apply --file workload.yaml --namespace build
    ```
 
-   Example:
+   Example output:
 
    ```console
    Creating workload:
@@ -180,7 +180,7 @@ Delete a `Workload` by name within a namespace by running:
 tanzu workload delete --file /tmp/workload.yaml --namespace build
 ```
 
-Example:
+Example output:
 
 ```console
 Really delete the workload my-web-app of kind buildwebapps.vmware.com from the build namespace? [yN]: y
@@ -191,7 +191,7 @@ Successfully deleted workload my-web-app
 
 ## <a id="observe-runs"></a> Observe the runs of your workload
 
-Use the Tanzu Workload CLI plug-in to observe `Workloads` and their `WorkloadRuns`:
+To use the Tanzu Workload CLI plug-in to observe `Workloads` and their `WorkloadRuns`:
 
 1. List all workloads on the cluster by running:
 
@@ -199,7 +199,7 @@ Use the Tanzu Workload CLI plug-in to observe `Workloads` and their `WorkloadRun
    tanzu workload list --namespace build
    ```
 
-   Example:
+   Example output:
 
    ```console
    Listing workloads from the build namespace
@@ -261,7 +261,7 @@ Use the Tanzu Workload CLI plug-in to observe `Workloads` and their `WorkloadRun
 
    Where `APP-NAME` is the application name. For example, `my-web-app`.
 
-   Example:
+   Example output:
 
    ```console
    Overview

@@ -2,30 +2,30 @@
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-This section introduces the catalog of components shipped with TAP. You will find all of these
-components in the "authoring" profile.
+This section introduces the catalog of components shipped with Tanzu Application Platform (commonly
+known as TAP). You can find all of these components in the Authoring profile.
 
 ## app-config-server
 
 Version: 1.0.0
 
-### Description:
+### Description
 
-Generates configuration for a Server application from a Conventions PodIntent.
-Server applications contain a K8s Deployment and Service and can be configured with Ingress.
+`app-config-server` generates configuration for a server application from a Conventions `PodIntent`.
+Server applications contain a Kubernetes deployment and service and can be configured with Ingress.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| conventions | [conventions](./output-types.hbs.md#conventions) |
+| Name          | Type                                             |
+|---------------|--------------------------------------------------|
+| `conventions` | [conventions](output-types.hbs.md#conventions)   |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| oci-yaml-files | [oci-yaml-files](./output-types.hbs.md#oci-yaml-files) |
-| oci-ytt-files | [oci-ytt-files](./output-types.hbs.md#oci-ytt-files) |
+| Name             | Type                                                   |
+|------------------|--------------------------------------------------------|
+| `oci-yaml-files` | [oci-yaml-files](output-types.hbs.md#oci-yaml-files)   |
+| `oci-ytt-files`  | [oci-ytt-files](output-types.hbs.md#oci-ytt-files)     |
 
 ### Config
 
@@ -47,23 +47,23 @@ spec:
 
 Version: 1.0.0
 
-### Description:
+### Description
 
-Generates configuration for a Web application from a Conventions PodIntent.
+`app-config-web` generates configuration for a web application from a Conventions `PodIntent`.
 Web applications contain a Knative Service.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| conventions | [conventions](./output-types.hbs.md#conventions) |
+| Name          | Type                                           |
+|---------------|------------------------------------------------|
+| `conventions` | [conventions](output-types.hbs.md#conventions) |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| oci-yaml-files | [oci-yaml-files](./output-types.hbs.md#oci-yaml-files) |
-| oci-ytt-files | [oci-ytt-files](./output-types.hbs.md#oci-ytt-files) |
+| Name             | Type                                                 |
+|------------------|------------------------------------------------------|
+| `oci-yaml-files` | [oci-yaml-files](output-types.hbs.md#oci-yaml-files) |
+| `oci-ytt-files`  | [oci-ytt-files](output-types.hbs.md#oci-ytt-files)   |
 
 ### Config
 
@@ -87,21 +87,21 @@ Version: 1.0.0
 
 ### Description
 
-Generates configuration for a Worker application from a Conventions PodIntent.
-Worker applications contain a K8s Deployment.
+Generates configuration for a Worker application from a Conventions `PodIntent`.
+Worker applications contain a Kubernetes Deployment.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| conventions | [conventions](./output-types.hbs.md#conventions) |
+| Name          | Type                                           |
+|---------------|------------------------------------------------|
+| `conventions` | [conventions](output-types.hbs.md#conventions) |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| oci-yaml-files | [oci-yaml-files](./output-types.hbs.md#oci-yaml-files) |
-| oci-ytt-files | [oci-ytt-files](./output-types.hbs.md#oci-ytt-files) |
+| Name             | Type                                                 |
+|------------------|------------------------------------------------------|
+| `oci-yaml-files` | [oci-yaml-files](output-types.hbs.md#oci-yaml-files) |
+| `oci-ytt-files`  | [oci-ytt-files](output-types.hbs.md#oci-ytt-files)   |
 
 ### Config
 
@@ -129,16 +129,16 @@ Builds an app with buildpacks using kpack
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| source | [source](./output-types.hbs.md#source) |
-| git | [git](./output-types.hbs.md#git) |
+| Name     | Type                                 |
+|----------|--------------------------------------|
+| `source` | [source](output-types.hbs.md#source) |
+| `git`    | [git](output-types.hbs.md#git)       |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| image | [image](./output-types.hbs.md#image) |
+| Name    | Type                               |
+|---------|------------------------------------|
+| `image` | [image](output-types.hbs.md#image) |
 
 ### Config
 
@@ -182,20 +182,20 @@ Version: 1.0.0
 
 ### Description
 
-Generates a carvel package from OCI images containing raw YAML files and YTT files.
+`carvel-package` generates a carvel package from OCI images containing raw YAML files and YTT files.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| oci-yaml-files | [oci-yaml-files](./output-types.hbs.md#oci-yaml-files) |
-| oci-ytt-files | [oci-ytt-files](./output-types.hbs.md#oci-ytt-files) |
+| Name             | Type                                                 |
+|------------------|------------------------------------------------------|
+| `oci-yaml-files` | [oci-yaml-files](output-types.hbs.md#oci-yaml-files) |
+| `oci-ytt-files`  | [oci-ytt-files](output-types.hbs.md#oci-ytt-files)   |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| package | [package](./output-types.hbs.md#package) |
+| Name      | Type                                   |
+|-----------|----------------------------------------|
+| `package` | [package](output-types.hbs.md#package) |
 
 ### Config
 
@@ -240,28 +240,28 @@ Version: 1.0.0
 
 ### Description
 
-The Conventions component analyzes the `image` input as described in the
-[Cartographer Conventions](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/cartographer-conventions-about.html)
-documentation and produces a `conventions` output image.
+The `conventions` component analyzes the `image` input as described in the
+[Cartographer Conventions](../../../cartographer-conventions/about.hbs.md) documentation and
+produces a `conventions` output image.
 
-Depends on:
+`conventions` depends on:
 
-- Managed Resource Controller.
+- Managed Resource Controller
   - Tanzu Carvel Package: `managed-resource-controller.apps.tanzu.vmware.com @ >=0.1.2`
 - Conventions Controller
   - Tanzu Carvel Package: `cartographer.tanzu.vmware.com @ >= 0.8.10`
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| image | [image](./output-types.hbs.md#image) |
+| Name    | Type                               |
+|---------|------------------------------------|
+| `image` | [image](output-types.hbs.md#image) |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| conventions | [conventions](./output-types.hbs.md#conventions) |
+| Name          | Type                                           |
+|---------------|------------------------------------------------|
+| `conventions` | [conventions](output-types.hbs.md#conventions) |
 
 ### Config
 
@@ -280,17 +280,17 @@ Version: 1.0.0
 
 ### Description
 
-Deploys K8s resources to the cluster.
+`deployer` deploys Kubernetes resources to the cluster.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| package | [package](./output-types.hbs.md#package) |
+| Name    | Type                                   |
+|---------|----------------------------------------|
+| package | [package](output-types.hbs.md#package) |
 
 ### Outputs
 
-* _none_
+There are no outputs.
 
 ### Config
 
@@ -311,17 +311,17 @@ Version: 1.0.0
 
 ### Description
 
-Writes carvel package config directly to a gitops repository
+`git-writer` writes carvel package configuration directly to a GitOps repository.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| package | [package](./output-types.hbs.md#package) |
+| Name      | Type                                   |
+|-----------|----------------------------------------|
+| `package` | [package](output-types.hbs.md#package) |
 
 ### Outputs
 
-* _none_
+There are no outputs.
 
 ### Config
 
@@ -345,19 +345,19 @@ Version: 1.0.0
 
 ### Description
 
-Writes carvel package config to a gitops repository and opens a PR
+`git-writer-pr` writes carvel package configuration to a GitOps repository and opens a PR.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| package | [package](./output-types.hbs.md#package) |
+| Name      | Type                                   |
+|-----------|----------------------------------------|
+| `package` | [package](output-types.hbs.md#package) |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| git-pr | [git-pr](./output-types.hbs.md#git-pr) |
+| Name     | Type                                 |
+|----------|--------------------------------------|
+| `git-pr` | [git-pr](output-types.hbs.md#git-pr) |
 
 ### Config
 
@@ -381,20 +381,20 @@ Version: 1.0.0
 
 ### Description
 
-Builds an app with kaniko
+`kaniko-build` builds an app with kaniko.
 
 ### Inputs
 
-| Name   | Type                                 |
-|--------|--------------------------------------|
-| source | [source](output-types.hbs.md#source) |
-| git    | [git](output-types.hbs.md#git)       |
+| Name     | Type                                 |
+|----------|--------------------------------------|
+| `source` | [source](output-types.hbs.md#source) |
+| `git`    | [git](output-types.hbs.md#git)       |
 
 ### Outputs
 
-| Name  | Type                               |
-|-------|------------------------------------|
-| image | [image](output-types.hbs.md#image) |
+| Name    | Type                               |
+|---------|------------------------------------|
+| `image` | [image](output-types.hbs.md#image) |
 
 ### Config
 
@@ -424,18 +424,18 @@ Version: 1.0.0
 
 ### Description
 
-The SonarQube Supply Chain component performs a Static Application Security Testing (SAST) scan by
-using the Maven or Gradle Sonar plug-in against the source input.
+`sonarqube-sast-scan` performs a Static Application Security Testing (SAST) scan by using the Maven
+or Gradle Sonar plug-in against the source input.
 
 ### Inputs
 
-| Name   | Type                                   |
-|--------|----------------------------------------|
-| source | [source](./output-types.hbs.md#source) |
+| Name     | Type                                 |
+|----------|--------------------------------------|
+| `source` | [source](output-types.hbs.md#source) |
 
 ### Outputs
 
-* _none_
+There are no outputs.
 
 ### Config
 
@@ -472,18 +472,18 @@ Version: 1.0.0
 
 ### Description
 
-Source git provider retrieves source code and monitors a git repository.
+`source-git-provider` retrieves source code and monitors a Git repository.
 
 ### Inputs
 
-* _none_
+There are no inputs.
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| source | [source](./output-types.hbs.md#source) |
-| git | [git](./output-types.hbs.md#git) |
+| Name     | Type                                   |
+|----------|----------------------------------------|
+| `source` | [source](./output-types.hbs.md#source) |
+| `git`    | [git](./output-types.hbs.md#git)       |
 
 ### Config
 
@@ -515,23 +515,23 @@ Version: 1.0.0
 
 ### Description
 
-Takes the type source and immediately outputs it as type package.
+`source-package-translator` takes the type source and immediately outputs it as type package.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| source | [source](./output-types.hbs.md#source) |
+| Name   | Type                                 |
+|--------|--------------------------------------|
+| source | [source](output-types.hbs.md#source) |
 
 ### Outputs
 
-| Name | Type |
-| --- | --- |
-| package | [package](./output-types.hbs.md#package) |
+| Name    | Type                                   |
+|---------|----------------------------------------|
+| package | [package](output-types.hbs.md#package) |
 
 ### Config
 
-_none_
+There is no configuration.
 
 ---
 
@@ -541,18 +541,18 @@ Version: 1.0.0
 
 ### Description
 
-Performs a trivy image scan using the scan 2.0 components
+`trivy-image-scan` performs a Trivy image scan using the scan 2.0 components.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| image | [image](./output-types.hbs.md#image) |
-| git | [git](./output-types.hbs.md#git) |
+| Name    | Type                               |
+|---------|------------------------------------|
+| `image` | [image](output-types.hbs.md#image) |
+| `git`   | [git](output-types.hbs.md#git)     |
 
 ### Outputs
 
-* _none_
+There are no outputs.
 
 ### Config
 
@@ -600,17 +600,17 @@ Version: 1.0.0
 
 ### Description
 
-Performs a SonarQube sast scan
+`sonarqube-sast-scan` performs a SonarQube SAST scan.
 
 ### Inputs
 
-| Name | Type |
-| --- | --- |
-| git | [git](./output-types.hbs.md#git) |
+| Name  | Type                           |
+|-------|--------------------------------|
+| `git` | [git](output-types.hbs.md#git) |
 
 ### Outputs
 
-* _none_
+There are no outputs.
 
 ### Config
 

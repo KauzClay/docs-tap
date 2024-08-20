@@ -40,6 +40,7 @@ tanzu supplychain component get NAME
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu supplychain component](tanzu_supplychain_component.hbs.md)	- Interacting with supplychain components
+- [tanzu supplychain component](tanzu_supplychain_component.hbs.md) for interacting with supplychain
+  components

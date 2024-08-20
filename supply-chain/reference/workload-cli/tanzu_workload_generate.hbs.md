@@ -6,7 +6,7 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 Generate a workload manifest with specified configuration.
 
-workload configuration options include:
+Workload configuration options include:
 
 - kind of the workload to generate
 
@@ -35,6 +35,7 @@ tanzu workload generate NAME
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu workload](tanzu_workload.hbs.md) - create, update, view and list Tanzu Workloads
+- [tanzu workload](tanzu_workload.hbs.md) for creating, updating, viewing, and and listing Tanzu
+  Workloads

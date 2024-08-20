@@ -4,7 +4,8 @@ This topic gives you reference information about the `Component` resource for Ta
 
 {{> 'partials/supply-chain/beta-banner' }}
 
-Components define the work to be done in one [Stage](supplychain.hbs.md#specstages) of the `SupplyChain`.
+Components define the work to be performed in one [Stage](supplychain.hbs.md#specstages) of the
+`SupplyChain`.
 
 ## Type and Object Metadata
 
@@ -15,9 +16,9 @@ kind: Component
 
 ### `metadata.name`
 
-`metadata.name:` must have a `-M.m.p` suffix, representing the major, minor, and patch of this
-version of the component. Changes to the config section should coincide with a bump to major or
-minor versions. Reserve patch increments for changes that do not alter the API, or the behavior
+`metadata.name:` must have an `-M.m.p` suffix, representing the major, minor, and patch of this
+version of the component. Changes to the config section should coincide with an update to major or
+minor versions. Reserve patch increments for changes that do not alter the API or the behavior
 significantly.
 
 ```yaml
@@ -34,12 +35,12 @@ the component to operate.
 
 `spec.config` is an array of objects. Each object has three fields:
 
-- `path` describes the path in the workload where this configuration is appended or merged. It must
-  start with `spec.`
-- `schema` defines a property. It must be a valid OpenAPI v3 schema. For more information, see the
-  [Kubernetes documentation](https://kubernetes.io/docs/home/) and the
+- `path`, which describes the path in the workload where this configuration is appended or merged.
+  It must start with `spec.`
+- `schema`, which defines a property. It must be a valid OpenAPI v3 schema. For more information,
+  see the [Kubernetes documentation](https://kubernetes.io/docs/home/) and the
   [OpenAPI documentation](https://swagger.io/specification/).
-- `required` determines whether the property that `path` references is marked as required.
+- `required`, which determines whether the property that `path` references is marked as required.
 
 > **Note** Use the `required` field in the `spec.config` array to mark properties as required. You
 > can mark child properties separately in the `schema`.
@@ -120,8 +121,8 @@ properties:
 
 ### `spec.description`
 
-`spec.description` describes the component's purpose.
-You see this description in `tanzu workload run list`.
+`spec.description` describes the component's purpose. You see this description when running
+`tanzu workload run list`.
 
 ```yaml
 spec:
@@ -130,9 +131,8 @@ spec:
 
 ### `spec.inputs`
 
-The inputs this component requires.
-This component cannot be added to a supply chain unless a previous stage exposes the name and type as
-output.
+The inputs this component requires. This component cannot be added to a supply chain unless a
+previous stage exposes the name and type as output.
 
 ```yaml
   inputs:
@@ -143,8 +143,7 @@ output.
 ### `spec.outputs`
 
 The outputs this component emits. Outputs are references to an artifact located at the `url`.
-
-URL string `json:"url,omitempty"`
+The URL string is `json:"url,omitempty"`.
 
 ```yaml
 outputs:
@@ -158,17 +157,19 @@ outputs:
 
 The digest of this output. If not provided, the default is `$(pipeline.results.digest)`.
 
-Use a template replacement to describe where the digest originates, in either the
-pipeline or resumption. For example, `$(resumption.results.commitId)` or `$(pipeline.results.shasum)`.
+Use a template replacement to describe where the digest originates, in either the pipeline or
+resumption. For example, `$(resumption.results.commitId)` or `$(pipeline.results.shasum)`.
 
-This digest must be a [cryptographic hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function)
-to assure operators of the supply chain that the value correlates to the data in the artifact at the
-`url`. Describe how the digest is formed so that it can be verified at a later date if the
-authenticity of the artifact needs to be checked.
+This digest must be a
+[cryptographic hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) to assure
+operators of the supply chain that the value correlates to the data in the artifact at the `url`.
+Describe how the digest is formed so that it can be verified at a later date if the authenticity of
+the artifact needs to be checked.
 
 #### `spec.outputs[].url`
 
-The URL that holds the artifact of this output. If not provided, the default is `$(pipeline.results.url)`.
+The URL that holds the artifact of this output. If not provided, the default is
+`$(pipeline.results.url)`.
 
 Use a template replacement to describe where the URL originates, typically in the pipeline. For
 example, `$pipeline.results.buildURL`.
@@ -197,12 +198,12 @@ Tekton `PipelineRun` and `spec.pipelineRun`.
 `spec.pipelineRun.params` are the same as Tekton `PipelineRun` parameters except for one major
 difference: You can populate `spec.pipelineRun.params` by using templates.
 
-The available references for templating are:
+The available references for templates are:
 
-| reference                                     | source                                           | examples                                                   |
+| Reference                                     | Source                                           | Example                                                    |
 |-----------------------------------------------|--------------------------------------------------|------------------------------------------------------------|
 | `$(config.spec...)`                           | References to the [config](#spec-config)         | `$(config.spec.source.git.url)`                            |
-| `$(workload.spec...)`                         | The same as `$(config.spec)...` - **Deprecated** | `$(workload.spec.source.git.url)`                          |
+| `$(workload.spec...)`                         | The same as `$(config.spec)...` (deprecated)     | `$(workload.spec.source.git.url)`                          |
 | `$(workload.metadata...)`                     | The workload metadata                            | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
 | `$(inputs.<input-name>.[url\|digest])`        | An input URL or digest                           | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
 | `$(resumptions.<resumption-name>.results...)` | A [resumption](#specresumptions) result          | `$(resumptions.check-source.results.sha)`                  |
@@ -222,17 +223,18 @@ specification.
 ### `spec.pipelineRun.taskRunTemplates`
 
 If you need to define `taskRunTemplates` to pass to Tekton `PipelineRun`, use
-`spec.pipelineRun.taskRunTemplates`. This is identical to the Tekton `PipelineRun` `taskRunTemplates`
-specification.
+`spec.pipelineRun.taskRunTemplates`. This is identical to the Tekton `PipelineRun`
+`taskRunTemplates` specification.
 
 #### `spec.pipelineRun.workspaces`
 
 If you need to define workspaces to pass to Tekton `PipelineRun`, use `spec.pipelineRun.workspaces`.
-This field is an array of workspace definitions, and is identical to the Tekton Workspaces specification.
+This field is an array of workspace definitions, and is identical to the Tekton Workspaces
+specification.
 
-| Reference                                     | Source                                                                                         | Examples                                                   |
+| Reference                                     | Source                                                                                         | Example                                                    |
 |-----------------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| `$(workload.spec...)` (deprecated)            | The workload spec                                                                              | `$(workload.spec.source.git.url)`                          |
+| `$(workload.spec...)` (deprecated)            | The workload specification                                                                     | `$(workload.spec.source.git.url)`                          |
 | `$(workload.metadata...)`                     | The workload metadata                                                                          | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
 | `$(config.spec...)`                           | `config.spec` is derived from `workload.spec`, unless modified by `supplychain.spec.overrides` | `$(config.spec.source.git.url)`                            |
 | `$(inputs.<input-name>.[url\|digest])`        | An input URL or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
@@ -263,7 +265,7 @@ spec:
 
 ### `spec.resumptions[]`
 
-`spec.resumptions[]` define Tekton `TaskRuns`. They are optional, but useful to describe small, fast
+`spec.resumptions[]` define Tekton `TaskRuns`. They are optional, but useful to describe small fast
 tasks that check for dependency changes, such as new source, or new base images.
 
 For a detailed explanation of resumptions, see
@@ -278,29 +280,29 @@ or `base-image`.
 #### `spec.resumptions[].trigger.runaAfter`
 
 `spec.resumptions[].trigger.runaAfter` describes the rerun period for the task. The task is
-executed, and after it completes (successfully or otherwise), Tanzu Supply Chain waits the
+executed, and after it finishes (successfully or otherwise), Tanzu Supply Chain waits for the
 `runaAfter` period and then executes the task again. This continues indefinitely.
 
-`runAfter` can be specified using the
-[`time.ParseDuration()`](https://pkg.go.dev/maze.io/x/duration#ParseDuration) specification.
+`runAfter` can be specified by using the
+[time.ParseDuration()](https://pkg.go.dev/maze.io/x/duration#ParseDuration) specification.
 
 #### `spec.resumptions[].taskRef`
 
-The `spec.resumptions[].taskRef` has one field `name` that must refer to the `metadata.name`
-of a Tekton `Task` that resides in the same namespace as the `Component` and `SupplyChain`.
+The `spec.resumptions[].taskRef` has one field `name` that must refer to the `metadata.name` of a
+Tekton `Task` that resides in the same namespace as the `Component` and `SupplyChain`.
 
-This is the task that run's on the resumptions `spec.resumptions[].trigger`
+This is the task that runs on the resumptions `spec.resumptions[].trigger`
 
 #### `spec.resumptions[].params`
 
-`spec.resumptions[].params` are the same as Tekton `TaskRun` Parameters with one major difference:
-you can populate them using templates.
+`spec.resumptions[].params` are the same as Tekton `TaskRun` parameters with one major difference:
+You can populate them by using templates.
 
-The available references for templating references are:
+The available references for templates are:
 
-| Reference                              | Source                                                                                         | Examples                                                   |
+| Reference                              | Source                                                                                         | Example                                                    |
 |----------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| `$(workload.spec...)` (deprecated)     | The workload spec                                                                              | `$(workload.spec.source.git.url)`                          |
+| `$(workload.spec...)` (deprecated)     | The workload specification                                                                     | `$(workload.spec.source.git.url)`                          |
 | `$(workload.metadata...)`              | The workload metadata                                                                          | `$(workload.metadata.labels)`, `$(workload.metadata.name)` |
 | `$(config.spec...)`                    | `config.spec` is derived from `workload.spec`, unless modified by `supplychain.spec.overrides` | `$(config.spec.source.git.url)`                            |
 | `$(inputs.<input-name>.[url\|digest])` | An input URL or digest                                                                         | `$(inputs.image.url)`, `$(inputs.image.digest)`            |
@@ -332,11 +334,11 @@ The available references for templating references are:
 Every `status.conditions[]` in Tanzu Supply Chain resources follows a
 [strict set of conventions](statuses.hbs.md)
 
-`Component` resources are "living", however they are resistant to changes in their spec, They're
-designed to be immutable on production servers, so that accidental spec changes do not break the API
-delivered to end users.
+`Component` resources are "living", however they are resistant to changes in their specification.
+They are designed to be immutable on production servers so that accidental specification changes do
+not break the API delivered to end users.
 
-If a `Component`'s top level condition `Ready` is ever something other than `status: "True"` then
+If a `Component`'s top-level condition `Ready` is ever something other than `status: "True"` then
 the `reason` field should describe the problem with the component.
 
 ### `status.details`
@@ -360,10 +362,10 @@ status:
   observedGeneration: 1
 ```
 
-### <a id='status-docs'></a>`status.docs`
+### <a id='status-docs'></a> `status.docs`
 
-`status.docs` contains a human-readable explanation of the content of the component.
-It's useful for CLIs and UIs, and provides a clean summary of the component.
+`status.docs` contains a human-readable explanation of the content of the component. It is useful
+for CLIs and UIs and provides a clean summary of the component.
 
 #### Example
 
@@ -375,7 +377,7 @@ docs: |
 
   ## Description
 
-  Monitors a git repository
+  Monitors a Git repository
 
   ## Inputs
 
@@ -383,25 +385,25 @@ docs: |
 
   ## Outputs
 
-  | Name   | Type                                 |
-  |--------|--------------------------------------|
-  | source | [source](output-types.hbs.md#source) |
+  | Name   | Type                                            |
+  |--------|-------------------------------------------------|
+  | source | [source](../catalog/output-types.hbs.md#source) |
 
   ## Config
 
   `\``yaml
   spec:
     source:
-      # Fill this object in if you want your source to come from git.
+      # Fill this object in if you want your source to come from Git.
       # The tag, commit and branch fields are mutually exclusive, use only one.
       git:
-        # A git branch ref to watch for new source
+        # A Git branch ref to watch for new source
         branch:
-        # A git commit sha to use
+        # A Git commit SHA to use
         commit:
-        # A git tag ref to watch for new source
+        # A Git tag ref to watch for new source
         tag:
-        # The url to the git source repository
+        # The URL to the git source repository
         # +required
         url:
   `\``

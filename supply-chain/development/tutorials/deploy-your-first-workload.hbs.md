@@ -12,12 +12,12 @@ The built artifact is then pushed to a GitOps repository that the platform engin
 
 Install:
 
-- [Tanzu CLI](../../../install-tanzu-cli.hbs.md#install-tanzu-cli)
+- [The Tanzu CLI](../../../install-tanzu-cli.hbs.md#install-tanzu-cli)
 - [Tanzu Workload CLI plug-in](../how-to/install-the-cli.hbs.md)
 
 ## <a id="deploy-workload"></a> Deploy a workload
 
-To get started:
+To deploy a workload:
 
 1. See which `SupplyChain` resources are available to you, and which kinds of `Workload` resources
    you can create by using those `SupplyChain` resources, by running:
@@ -26,7 +26,7 @@ To get started:
    tanzu workload kind list
    ```
 
-   Example output:
+   Example:
 
    ```console
    $ tanzu workload kind list
@@ -109,17 +109,17 @@ To get started:
         packageDomain: "tanzu.vmware.com"
     ```
 
-   > **Caution** The beta version of the Tanzu Supply Chain does not support platform engineer-level
-   > overrides and defaults. Therefore, the `Workload` generate command also shows the entries that
+   > **Caution** The beta version of Tanzu Supply Chain does not support platform engineer-level
+   > overrides and defaults. Therefore, the `workload generate` command also shows the entries that
    > a platform engineer is supposed to set, such as the registry details.
    >
    > When the overrides feature is available, a platform engineer can set platform-level values, such
-   > as the registry details. These entries are not part of the `generate` command output because that
-   > is something a platform engineer does not want a developer to override.
+   > as the registry details. These entries are not part of the `workload generate` command output
+   > because that is something a platform engineer does not want a developer to override.
    >
    > This causes a much smaller `Workload` specification that only has values that a developer can
-   > provide for the `SupplyChain`. This helps to keep the platform engineering role and the developer
-   > role separate.
+   > provide for the `SupplyChain`. This helps to keep the platform engineering role and the
+   > developer role separate.
 
 1. Use the `tanzu workload apply` command to apply your `AppBuildV1` workload to the cluster. If
    your workload YAML file is not named `workload.yaml`, use the `-f` flag to point to it.
@@ -313,108 +313,108 @@ When your `WorkloadRun` has gone through the Supply Chain, the output of the `Wo
 Workload Run Output
 : **tanzu workload run get tanzu-java-web-app-run-454m5 --show-details**
 
-    ```console
-    📡 Overview
-      name:        tanzu-java-web-app
-      kind:        appbuildv1s.supplychains.tanzu.vmware.com/tanzu-java-web-app
-      run id:      appbuildv1runs.supplychains.tanzu.vmware.com/tanzu-java-web-app-run-454m5
-      status:      Succeeded
-      namespace:   dev
-      age:         68m
+  ```console
+  📡 Overview
+    name:        tanzu-java-web-app
+    kind:        appbuildv1s.supplychains.tanzu.vmware.com/tanzu-java-web-app
+    run id:      appbuildv1runs.supplychains.tanzu.vmware.com/tanzu-java-web-app-run-454m5
+    status:      Succeeded
+    namespace:   dev
+    age:         68m
 
-    📓 Spec
-      1 + |---
-      2 + |apiVersion: supplychains.tanzu.vmware.com/v1alpha1
-      3 + |kind: AppBuildV1
-      4 + |metadata:
-      5 + |  name: tanzu-java-web-app
-      6 + |  namespace: dev
-      7 + |spec:
-      8 + |  carvel:
-      9 + |    packageDomain: tanzu.vmware.com
-      10 + |    packageName: tanzu-java-web-app
-      11 + |  gitOps:
-      12 + |    baseBranch: main
-      13 + |    subPath: packages
-      14 + |    url: GITOPS-REPO-PATH
-      15 + |  registry:
-      16 + |    repository: REPOSITORY-PATH
-      17 + |    server: REGISTRY-SERVER
-      18 + |  source:
-      19 + |    git:
-      20 + |      branch: main
-      21 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-      22 + |    subPath: tanzu-java-web-app
+  📓 Spec
+    1 + |---
+    2 + |apiVersion: supplychains.tanzu.vmware.com/v1alpha1
+    3 + |kind: AppBuildV1
+    4 + |metadata:
+    5 + |  name: tanzu-java-web-app
+    6 + |  namespace: dev
+    7 + |spec:
+    8 + |  carvel:
+    9 + |    packageDomain: tanzu.vmware.com
+    10 + |    packageName: tanzu-java-web-app
+    11 + |  gitOps:
+    12 + |    baseBranch: main
+    13 + |    subPath: packages
+    14 + |    url: GITOPS-REPO-PATH
+    15 + |  registry:
+    16 + |    repository: REPOSITORY-PATH
+    17 + |    server: REGISTRY-SERVER
+    18 + |  source:
+    19 + |    git:
+    20 + |      branch: main
+    21 + |      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    22 + |    subPath: tanzu-java-web-app
 
-    🏃 Stages
-      ├─ source-git-provider
-      │  ├─ 📋 check-source - Success
-      │  │  ├─ Duration: 31s
-      │  │  └─ Results
-      │  │     ├─ message: using git-branch: main
-      │  │     ├─ sha: e4e23867bcffcbf7a165e2fefe3c48dc28b076d6
-      │  │     └─ url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-      │  └─ 📋 pipeline - Success
-      │     ├─ Duration: 1m28s
-      │     └─ Results
-      │        ├─ url: IMAGE-URL
-      │        └─ digest: IMAGE-SHA
-      ├─ buildpack-build
-      │  ├─ 📋 check-builders - Success
-      │  │  ├─ Duration: 26s
-      │  │  └─ Results
-      │  │     ├─ builder-image: BUILDER-IMAGE-USED
-      │  │     ├─ message: Builders resolved
-      │  │     └─ run-image: RUN-IMAGE-USED
-      │  └─ 📋 pipeline - Success
-      │     ├─ Duration: 2m59s
-      │     └─ Results
-      │        ├─ url: IMAGE-URL
-      │        └─ digest: IMAGE-SHA
-      ├─ conventions
-      │  └─ 📋 pipeline - Success
-      │     ├─ Duration: 33s
-      │     └─ Results
-      │        ├─ url: IMAGE-URL
-      │        └─ digest: IMAGE-SHA
-      ├─ app-config-server
-      │  └─ 📋 pipeline - Success
-      │     ├─ Duration: 1m12s
-      │     └─ Results
-      │        ├─ url: IMAGE-URL
-      │        ├─ digest: IMAGE-SHA
-      │        ├─ url-overlay: IMAGE-URL
-      │        └─ digest-overlay: IMAGE-SHA
-      ├─ carvel-package
-      │  └─ 📋 pipeline - Success
-      │     ├─ Duration: 49s
-      │     └─ Results
-      │        ├─ url: IMAGE-URL
-      │        └─ digest: IMAGE-SHA
-      └─ git-writer-pr
-      └─ 📋 pipeline - Success
-          ├─ Duration: 34s
-          └─ Results
-              ├─ url: PULL-REQUEST-URL-TO-GITOPS-REPO
-              └─ digest: IMAGE-SHA
-    ```
+  🏃 Stages
+    ├─ source-git-provider
+    │  ├─ 📋 check-source - Success
+    │  │  ├─ Duration: 31s
+    │  │  └─ Results
+    │  │     ├─ message: using git-branch: main
+    │  │     ├─ sha: e4e23867bcffcbf7a165e2fefe3c48dc28b076d6
+    │  │     └─ url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+    │  └─ 📋 pipeline - Success
+    │     ├─ Duration: 1m28s
+    │     └─ Results
+    │        ├─ url: IMAGE-URL
+    │        └─ digest: IMAGE-SHA
+    ├─ buildpack-build
+    │  ├─ 📋 check-builders - Success
+    │  │  ├─ Duration: 26s
+    │  │  └─ Results
+    │  │     ├─ builder-image: BUILDER-IMAGE-USED
+    │  │     ├─ message: Builders resolved
+    │  │     └─ run-image: RUN-IMAGE-USED
+    │  └─ 📋 pipeline - Success
+    │     ├─ Duration: 2m59s
+    │     └─ Results
+    │        ├─ url: IMAGE-URL
+    │        └─ digest: IMAGE-SHA
+    ├─ conventions
+    │  └─ 📋 pipeline - Success
+    │     ├─ Duration: 33s
+    │     └─ Results
+    │        ├─ url: IMAGE-URL
+    │        └─ digest: IMAGE-SHA
+    ├─ app-config-server
+    │  └─ 📋 pipeline - Success
+    │     ├─ Duration: 1m12s
+    │     └─ Results
+    │        ├─ url: IMAGE-URL
+    │        ├─ digest: IMAGE-SHA
+    │        ├─ url-overlay: IMAGE-URL
+    │        └─ digest-overlay: IMAGE-SHA
+    ├─ carvel-package
+    │  └─ 📋 pipeline - Success
+    │     ├─ Duration: 49s
+    │     └─ Results
+    │        ├─ url: IMAGE-URL
+    │        └─ digest: IMAGE-SHA
+    └─ git-writer-pr
+    └─ 📋 pipeline - Success
+        ├─ Duration: 34s
+        └─ Results
+            ├─ url: PULL-REQUEST-URL-TO-GITOPS-REPO
+            └─ digest: IMAGE-SHA
+  ```
 
 Workload Get Output
 : **tanzu workload get tanzu-java-web-app**
 
-    ```console
-    📡 Overview
-    name:       tanzu-java-web-app
-    kind:       appbuildv1s.supplychains.tanzu.vmware.com/tanzu-java-web-app
-    namespace:  dev
-    age:        74m
+  ```console
+  📡 Overview
+  name:       tanzu-java-web-app
+  kind:       appbuildv1s.supplychains.tanzu.vmware.com/tanzu-java-web-app
+  namespace:  dev
+  age:        74m
 
-    🏃 Runs:
-    ID                            STATUS     DURATION  AGE
-    tanzu-java-web-app-run-454m5  Succeeded  16m       72m
+  🏃 Runs:
+  ID                            STATUS     DURATION  AGE
+  tanzu-java-web-app-run-454m5  Succeeded  16m       72m
 
-    🔎 To view a run information, use 'tanzu workload run get run-id'
-    ```
+  🔎 To view a run information, use 'tanzu workload run get run-id'
+  ```
 
 Based on the description of the `AppBuildV1` kind from the `tanzu workload kind list` command, the
 Supply Chain pulls the source code from the Git repository, builds it by using buildpacks, and then
@@ -429,5 +429,5 @@ You have now used Tanzu Supply Chain to deploy your first workload.
 
 ## <a id="next-steps"></a> Next Steps
 
-See these [How-to guides](./../how-to/about.hbs.md) for developers to learn more about Tanzu Supply
+See these [How-to guides](../how-to/about.hbs.md) for developers to learn more about Tanzu Supply
 Chain.

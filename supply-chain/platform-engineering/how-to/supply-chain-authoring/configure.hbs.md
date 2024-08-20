@@ -1,6 +1,6 @@
 # Configure a Supply Chain using the Tanzu CLI
 
-This topic tells you how to construct a SupplyChain configuration.
+This topic tells you how to construct a `SupplyChain` configuration.
 
 {{> 'partials/supply-chain/beta-banner' }}
 
@@ -8,30 +8,31 @@ This topic tells you how to construct a SupplyChain configuration.
 
 To prepare:
 
-- Ensure that the [Tanzu CLI](../../../../install-tanzu-cli.hbs.md#install-tanzu-cli), and
-  [Tanzu Supply Chain CLI plug-in](../../../platform-engineering/how-to/install-the-cli.hbs.md)
-  are installed on your computer.
+- Install the [Tanzu CLI](../../../../install-tanzu-cli.hbs.md#install-tanzu-cli) and
+  [Tanzu Supply Chain CLI plug-in](../../../platform-engineering/how-to/install-the-cli.hbs.md).
 
 - Ensure that Tanzu Supply Chain packages and Catalog Component packages are installed on the Tanzu
   Application Platform cluster that you are using to author your supply chain.
 
-  If you [Install Tanzu Supply Chain with the authoring profile (recommended)](../../how-to/installing-supply-chain/install-authoring-profile.hbs.md),
-  these packages are automatically installed.
+  If you install Tanzu Supply Chain
+  [with the Authoring profile](../../how-to/installing-supply-chain/install-authoring-profile.hbs.md)
+  (recommended), these packages are automatically installed.
 
-  If you [Install Tanzu Supply Chain manually](../../how-to/installing-supply-chain/installing-manually.hbs.md),
-  you must install the packages individually.
+  If you install Tanzu Supply Chain
+  [manually](../../how-to/installing-supply-chain/installing-manually.hbs.md), you must install the
+  packages individually.
 
-## SupplyChain configuration
+## `SupplyChain` configuration
 
-SupplyChains can be configured to supply default and override values for each component. This allows
-a platform engineer to either pre-populate common default values for a component or override values
-to always be some value that the developer cannot edit.
+`SupplyChains` can be configured to supply default and override values for each component. This
+allows a platform engineer to either pre-populate common default values for a component or override
+values to always be some value that the developer cannot edit.
 
-### Generate SupplyChain with overrides
+### Generate `SupplyChain` with overrides
 
-Platform engineers generate SupplyChains with overrides to allow them to define values that cannot
+Platform engineers generate `SupplyChains` with overrides to allow them to define values that cannot
 be changed by developers using the `Workload` (Developer API). By configuring overrides for each
-component in the SupplyChain, the generated `Workload` will not contain values that have been
+component in the `SupplyChain`, the generated `Workload` will not contain values that were
 overridden.
 
 Overrides consist of:
@@ -45,10 +46,10 @@ Overrides consist of:
 
 #### Overrides use case
 
-As a platform engineer, I want all built images to be accessible only through my organizations QA
-registry.
+In this use case, as a platform engineer you want all built images to be accessible only through my
+organizations QA registry:
 
-1. Generate the SupplyChain by running:
+1. Generate the `SupplyChain` by running:
 
    ```console
    tanzu supplychain generate \
@@ -64,7 +65,7 @@ registry.
        --allow-overrides
    ```
 
-   The Tanzu Supply Chain CLI plug-in creates the required files to deploy your SupplyChain in the
+   The Tanzu Supply Chain CLI plug-in creates the required files to deploy your `SupplyChain` in the
    current directory:
 
    ```console
@@ -73,7 +74,7 @@ registry.
    ...
    ```
 
-2. To configure overrides, open `supplychains/appbuildv1.yaml` in your editor, and go to the
+2. To configure overrides, open `supplychains/appbuildv1.yaml` in your editor and scroll to the
    following section:
 
     ```yaml
@@ -125,9 +126,9 @@ registry.
    structure where all desired child fields must be set. For example:
 
     Full path
-    : Example path `spec.registry.repository`. In this example, there is no value for
-      `spec.registry.server`, and therefore `spec.registry.server` is not available to edit later in
-      the `Workload`.
+    : This example is for the path `spec.registry.repository`. In this example, there is no value
+      for `spec.registry.server`, and therefore `spec.registry.server` is not available to edit
+      later in the `Workload`.
 
       ```yaml
       config:
@@ -170,11 +171,11 @@ registry.
             value: {}
       ```
 
-### Generate SupplyChain with defaults
+### Generate `SupplyChain` with defaults
 
-Platform engineers generate SupplyChains with `defaults` to allow them to define default values that
-can be changed by developers using the `Workload` (Developer API). By configuring `defaults` for each
-component in the SupplyChain, the generated `Workload` contains default values.
+Platform engineers generate `SupplyChains` with `defaults` to allow them to define default values
+that can be changed by developers using the `Workload` (Developer API). By configuring `defaults`
+for each component in the `SupplyChain`, the generated `Workload` contains default values.
 
 `defaults` consist of:
 
@@ -188,7 +189,7 @@ component in the SupplyChain, the generated `Workload` contains default values.
 
 For the `defaults` use case:
 
-1. Generate the SupplyChain by supplying the `--allow-defaults` flag:
+1. Generate the `SupplyChain` by supplying the `--allow-defaults` flag:
 
    ```console
    tanzu supplychain generate \
@@ -202,7 +203,7 @@ For the `defaults` use case:
        --allow-defaults
    ```
 
-   The Tanzu Supply Chain CLI plug-in creates the required files to deploy your SupplyChain in the
+   The Tanzu Supply Chain CLI plug-in creates the required files to deploy your `SupplyChain` in the
    current directory:
 
    ```console

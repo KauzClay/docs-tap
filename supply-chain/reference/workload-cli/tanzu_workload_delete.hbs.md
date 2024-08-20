@@ -4,10 +4,8 @@ This topic gives you command-specific information for the Tanzu Supply Chain CLI
 
 ## Synopsis
 
-Delete a workload by name within a namespace.
-
-Deleting a workload prevents new builds while preserving built images in the
-registry.
+Delete a workload by name within a namespace. Deleting a workload prevents new builds while
+preserving built images in the registry.
 
 ```console
 tanzu workload delete [NAME] [flags]
@@ -39,6 +37,7 @@ tanzu workload delete NAME
       --no-color          deactivate color, bold, animations, and emoji output
 ```
 
-## SEE ALSO
+## See also
 
-- [tanzu workload](tanzu_workload.hbs.md)	 - create, update, view and list Tanzu Workloads
+- [tanzu workload](tanzu_workload.hbs.md) is for creating, updating, viewing, and listing Tanzu
+  Workloads

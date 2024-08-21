@@ -37,16 +37,18 @@ This release includes the following changes, listed by component and area.
 - Upgrades to Spring Boot v3.3.1 and other dependency upgrades.
 - Supports Kubernetes v1.30.
 
+#### <a id='1-12-0-buildpacks'></a> v1.12.0 Features: Buildpacks and Stacks
+
+- The VMware Tanzu Base FIPS Stack for Ubuntu 22.04 is now generally available. For more information,
+  see [FIPS Compliance](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-stacks.html#fips-compliance)
+  in the VMware Tanzu Buildpacks documentation.
+
 #### <a id='1-12-0-cert-manager'></a> v1.12.0 Features: cert-manager
 
 - Upgrades to cert-manager v1.15.1.
 - Gateway API support is automatically enabled when the relevant APIs are present on the cluster.
-- You can manually activate or deactivate Gateway API support by configuring the `controller.gateway_api_support`
-  field.
-
-#### <a id='1-12-0-buildpacks'></a> v1.12.0 Features: Buildpacks and Stacks
-
-- A new FIPS compliant Jammy stack on Tanzu is now generally available - The [`VMware Tanzu Base FIPS Stack for Ubuntu 22.04`](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-stacks.html#fips-compliance).
+- You can manually activate or deactivate Gateway API support by configuring the
+  `controller.gateway_api_support` field.
 
 ---
 

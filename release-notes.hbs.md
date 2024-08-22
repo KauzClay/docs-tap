@@ -43,6 +43,11 @@ This release includes the following changes, listed by component and area.
   see [FIPS Compliance](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-stacks.html#fips-compliance)
   in the VMware Tanzu Buildpacks documentation.
 
+- Building on the optimizations added in TAP 1.11 for the Tanzu Java Buildpack, Spring Boot CDS 
+  (see https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-java-java-buildpack.html#optimizations),
+  further optimizations have been added in 1.12. When CDS is enabled, the buildpack will now autoconfigure some well-know relational 
+  database properties to prevent database access on app startup during the 'training-run'.
+
 #### <a id='1-12-0-cert-manager'></a> v1.12.0 Features: cert-manager
 
 - Upgrades to cert-manager v1.15.1.

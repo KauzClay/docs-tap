@@ -36,4 +36,4 @@ Flux CD, Tekton, and the External Secrets operator.
 Any custom CA certificates must be configured directly by those components.
 
 For information about using Git with a custom CA in supply chains and configuring the `caFile`
-parameter, see [Git Authentication](../scc/git-auth.hbs.md#https-with-custom-ca-certificate).
+parameter, see [Git Authentication](../scc/git-auth.hbs.md#http-custom-cert).

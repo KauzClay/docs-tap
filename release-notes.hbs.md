@@ -43,9 +43,9 @@ This release includes the following changes, listed by component and area.
   see [FIPS Compliance](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-stacks.html#fips-compliance)
   in the VMware Tanzu Buildpacks documentation.
 
-- Building on the optimizations added in Tanzu Application Platform v1.11 for the Tanzu Java
-  Buildpack and Spring Boot CDS, more optimizations are in v1.12. For more information, see
-  [Use the Tanzu Java Buildpack](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-java-java-buildpack.html#optimizations).
+- There are more optimizations for the Tanzu Java Buildpack and Spring Boot CDS. For more
+  information, see
+  [Optimizations](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/services/tanzu-buildpacks/GUID-java-java-buildpack.html#optimizations).
   When CDS is enabled, the buildpack now automatically configures some well-known relational
   database properties to prevent database access in an app startup during the training run.
 

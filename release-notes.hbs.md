@@ -58,7 +58,7 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-12-0-scst-scan-2'></a> v1.12.0 Features: Supply Chain Security Tools (SCST) - Scan 2.0
 
-- [SCST - Scan 2.0](scst-scan/scan-2-0.hbs.md) is now the default scanner for the Out of the Box Supply
+- [SCST - Scan 2.0](scst-scan/scan-2-0.hbs.md) is now the default scanner for Out of the Box Supply
   Chain - Testing and Scanning.
 
 ---
@@ -73,11 +73,11 @@ This release includes the following changes, listed by component and area.
 
 #### <a id='1-12-0-scst-scan-2-bc'></a> v1.12.0 Breaking changes: Supply Chain Security Tools (SCST) - Scan 2.0
 
-- [SCST - Scan 2.0](scst-scan/scan-2-0.hbs.md) is the default scanner for the Out of the Box Supply
+- [SCST - Scan 2.0](scst-scan/scan-2-0.hbs.md) is the default scanner for Out of the Box Supply
   Chain - Testing and Scanning. As a consequence of this change, the
   [ScanPolicy](scst-scan/policies.hbs.md) resource is not supported in the Out of the Box Supply Chain.
 
-  You can revert back to SCST - Scan 1.0 as the scanner for Out of the Box supply chain.
+  You can revert back to SCST - Scan 1.0 as the scanner for Out of the Box Supply Chain.
   For instructions, see
   [Scan images using SCST - Scan 1.0](scc/ootb-supply-chain-testing-scanning.hbs.md#using-scan-v1).
   If you use SCST - Scan 1.0, you can use the ScanPolicy resource as before.

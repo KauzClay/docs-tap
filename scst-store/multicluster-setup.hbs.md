@@ -5,8 +5,8 @@ This is necessary when installing multiple profiles such as View, Build, Run, an
 
 > **Note** This topic assumes that you are using SCST - Scan 2.0, as described in
 > [Add testing and scanning to your application](../getting-started/add-test-and-security.hbs.md).
-> If you are still using the deprecated SCST - Scan 1.0, you must follow these steps and the
-> [extra steps required for Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md) too.
+> If you are still using the deprecated SCST - Scan 1.0, you must follow the steps in this topic and
+> the extra steps required for SCST - Scan 1.0 in [Set up multicluster for Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
 
 ## <a id='overview'></a> Overview
 
@@ -28,10 +28,10 @@ CloudEvent Handler.
 
 To deploy AMR in a multicluster setup:
 
-1. Copy the AMR CloudEvent Handler CA certificate from the View cluster.
-1. Copy the AMR CloudEvent Handler edit token from the View cluster.
-1. Apply the AMR CloudEvent Handler CA certificate and edit token for the Build and Run cluster.
-1. Install the Build and Run profiles.
+1. [Copy the AMR CloudEvent Handler CA certificate from the View cluster](#copy-ceh-ca)
+1. [Copy the AMR CloudEvent Handler edit token from the View cluster](#copy-ceh-token)
+1. [Apply the AMR CloudEvent Handler CA certificate and edit token to the Build and Run clusters](#apply-ceh-ca-token)
+1. [Install the Build and Run profiles](#install-build-run-profiles)
 
 ## <a id='copy-ceh-ca'></a> Copy the AMR CloudEvent Handler CA certificate data from the View cluster
 

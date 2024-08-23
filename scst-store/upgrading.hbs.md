@@ -21,8 +21,9 @@ Multicluster
   clusters. You must configure  AMR Observer to communicate with AMR CloudEvent Handler, which is
   installed on the View cluster.
 
-  See [Multicluster setup for SCST - AMR](multicluster-setup.hbs.md) to learn how to configure
-  the new AMR. Also there exist instructions to [set up the SCST - Scan 1.0 for being able to use Metadata Store](../scst-scan/multicluster-setup-scan-v1.hbs.md). 
+  To learn how to configure AMR, see [Set up multicluster Artifact Metadata Repository](multicluster-setup.hbs.md).
+  For instructions to set up SCST - Scan 1.0 to use Metadata Store, see
+  [Set up multicluster for Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
   The relevant new configurations in the topic for Tanzu Application Platform v1.7 and later are:
 
   1. [Copy AMR CloudEvent Handler CA certificate data from the View cluster](multicluster-setup.hbs.md#copy-ceh-ca)

@@ -134,44 +134,48 @@ Create workload:
      17 + |    subPath: tanzu-java-web-app
 ```
 
-## <a id="using-scan-v1"></a> Scan Images using supply chain security tools - scan v1
+## <a id="using-scan-v1"></a> Scan images using SCST - Scan 1.0
 
-By default out of the box testing and scanning supply chain provides scanning with Aqua `Trivy` scanner
-as part of [supply chain security tools - scan 2.0](../scst-scan/scan-2-0.hbs.md). For backwards compatibility, it is possible
-to use [Scan 1.0](../scst-scan/scan-1-0.hbs.md).  To do so, add the following to your `tap-values.yaml`:
+By default, the Out of the Box Testing and Scanning supply chain provides scanning with Aqua `Trivy`
+scanner as part of [SCST - Scan 2.0](../scst-scan/scan-2-0.hbs.md). For backwards compatibility,
+you can use [SCST - Scan 1.0](../scst-scan/scan-1-0.hbs.md) by doing the following:
 
-```yaml
-  ootb_supply_chain_testing_scanning:
-    image_scanner_template_name: image-scanner-template
+1. Add the following to your `tap-values.yaml` file:
+
+    ```yaml
+      ootb_supply_chain_testing_scanning:
+        image_scanner_template_name: image-scanner-template
+    ```
+
+1. To further customize the scan component, you can add the following to your `tap-values.yaml` file:
+
+    ```yaml
+    ootb_supply_chain_testing_scanning:
+      image_scanner_template_name: image-scanner-template
+      scanning:
+        image:
+          policy: SCAN-POLICY
+          template: SCAN-TEMPLATE
+    ```
+
+    Where `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
+
+When you use SCST - Scan 1.0 in the Supply Chain, to set workload parameters related to `ScanPolicy`
+and `ScanTemplate` through the CLI, run these commands:
+
+```console
+tanzu apps workload apply WORKLOAD --param "scanning_image_policy=SCAN-POLICY" -n DEV-NAMESPACE
+tanzu apps workload apply WORKLOAD --param "scanning_image_template=SCAN-TEMPLATE" -n DEV-NAMESPACE
 ```
 
-In that case further customization of scan component is possible as:
+Where:
 
-```yaml
-ootb_supply_chain_testing_scanning:
-  image_scanner_template_name: image-scanner-template
-  scanning:
-    image:
-      policy: SCAN-POLICY
-      template: SCAN-TEMPLATE
-```
+- `WORKLOAD` is the name of the workload.
+- `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
+- `DEV-NAMESPACE` is the developer namespace.
 
-Where `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
+For more information, see:
 
-- When SCST - Scan 1.0 is used back in Supply Chain, to set workload parameters related to `ScanPolicy` and `ScanTemplate` through cli, use the following commands:
-
-  ```console
-  tanzu apps workload apply WORKLOAD --param "scanning_image_policy=SCAN-POLICY" -n DEV-NAMESPACE
-  tanzu apps workload apply WORKLOAD --param "scanning_image_template=SCAN-TEMPLATE" -n DEV-NAMESPACE
-  ```
-
-  Where:
-
-  - `WORKLOAD` is the name of the workload.
-  - `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
-  - `DEV-NAMESPACE` is the developer namespace.
-
-  For more information, see
-  [Create or update a workload](../cli-plugins/apps/tutorials/create-update-workload.hbs.md).
-  [Enforce compliance policy by using Open Policy Agent](../scst-scan/policies.hbs.md)
-  [About source and image scans](../scst-scan/explanation.hbs.md#about-source-and-image-scans)
+- [Create or update a workload](../cli-plugins/apps/tutorials/create-update-workload.hbs.md)
+- [Enforce compliance policy by using Open Policy Agent](../scst-scan/policies.hbs.md)
+- [About source and image scans](../scst-scan/explanation.hbs.md#about-source-and-image-scans)

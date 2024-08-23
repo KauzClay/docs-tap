@@ -1,27 +1,29 @@
-# Multi-cluster setup for Scan 1.0
+# Set up multicluster for Scan 1.0
+
+This topic tells you how to set up your configuration to enable SCST - Scan 1.0 to connect with
+SCST - Store in a multicluster deployment.
 
 > **Important** Scan 1.0 was deprecated in Tanzu Application Platform v1.10. The default scan component
 > to use in the Test and Scan supply chain is Scan 2.0. These steps are required in addition to the earlier
 > steps if you are still using Scan 1.0. For more information about Scan 1.0 and Scan 2.0, see the
-> [SCST - Scan component overview](../scst-scan/overview.hbs.md).
-> Also see [multi-cluster setup instructions for Scan 2.0](../scst-store/multicluster-setup.hbs.md).
-
-This topic talks about setting up the configuration to allow SCST - Scan 1.0 to talk to SCST - Store in a multi-cluster
-deployment.
+> [SCST - Scan component overview](../scst-scan/overview.hbs.md). For instructions to set up multicluster
+> for Scan 2.0, see [Set up multicluster Artifact Metadata Repository](../scst-store/multicluster-setup.hbs.md).
 
 ## <a id='summary'></a> Procedure summary
 
 To deploy SCST - Store in a multicluster setup:
 
-1. Copy the Metadata Store CA certificate from the View cluster.
-1. Copy the Metadata Store authentication token from the View cluster.
-1. Apply the Metadata Store CA certificate and authentication token to the Build cluster.
-1. Install the Build and Run profiles.
+1. [Copy the Metadata Store CA certificate from the View cluster](#copy-metadata)
+1. [Copy the Metadata Store authentication token from the View cluster](#copy-auth-view)
+1. [Configure the Metadata Store CA certificate and authentication token on the Build cluster](#apply-kubernetes)
+1. [Configure Grype in the Build profile values file](#grype-mds-config)
+1. [Export SCST - Store secrets to a developer namespace in a multicluster deployment](#export-multicluster)
+1. [Install the Build and Run profiles](#install-build-run-profiles)
 
 ## <a id='copy-metadata'></a> Copy the Metadata Store CA certificate from the View cluster
 
-With your kubectl targeted at the View cluster, you can get Metadata Store's TLS CA certificate by
-running:
+With your kubectl targeted at the View cluster, copy the TLS CA certificate for Metadata Store to
+the `MDS_CA_CERT` environment variable by running:
 
 ```console
 MDS_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"" | base64 -d)
@@ -29,15 +31,13 @@ MDS_CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r 
 
 ## <a id='copy-auth-view'></a> Copy the Metadata Store authentication token from the View cluster
 
-Copy the Metadata Store authentication token into an environment variable by running:
+Copy the Metadata Store authentication token into the `MDS_AUTH_TOKEN` environment variable by running:
 
 ```console
 MDS_AUTH_TOKEN=$(kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d)
 ```
 
-You use this environment variable in the next step.
-
-## <a id='apply-kubernetes'></a> Configure SCST - Scan with the Metadata Store CA certificate and authentication token on the Build cluster
+## <a id='apply-kubernetes'></a> Configure the Metadata Store CA certificate and authentication token on the Build cluster
 
 Within the Build profile `values.yaml` file, add the following snippet:
 
@@ -52,7 +52,7 @@ scanning:
         token: <CONTENTS OF $MDS_AUTH_TOKEN>
 ```
 
-This snippet contains the content of `$MDS_CA_CERT` and `$MDS_AUTH_TOKEN` copied in an earlier step.
+This snippet contains the content of `$MDS_CA_CERT` and `$MDS_AUTH_TOKEN` copied earlier.
 This content configures SCST - Scan with the Metadata Store CA certificate and authentication token.
 
 ## <a id='grype-mds-config'></a> Configure Grype in the Build profile values file
@@ -86,9 +86,9 @@ Where:
 - `TARGET-REGISTRY-CREDENTIALS-SECRET` is the name of the secret that contains the credentials to
   pull an image from the registry for scanning.
 
-## <a id="export-multicluster"></a> Export SCST - Store secrets to a developer namespace in a Tanzu Application Platform multicluster deployment
+## <a id="export-multicluster"></a> Export SCST - Store secrets to a developer namespace in a multicluster deployment
 
-SCST - Scan 1.0 required SCST - Store to be configured in every developer namespace with an SCST -
+SCST - Scan 1.0 requires SCST - Store to be configured in every developer namespace with an SCST -
 Store certificate and authentication token.
 
 To export secrets by creating `SecretExport` resources on the developer namespace:
@@ -138,4 +138,3 @@ and [install the Run profile](../multicluster/installing-multicluster.hbs.md#ins
 
 - [Ingress support](../scst-store/ingress.hbs.md)
 - [Custom certificate configuration](../scst-store/custom-cert.hbs.md)
-

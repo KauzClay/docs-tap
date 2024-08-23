@@ -1,8 +1,8 @@
 # Enable SCST - Scan 2.0 for default Test and Scan supply chains
 
-This topic tells you how to enable Supply Chain Security Tools (SCST) - Scan 2.0 and an included
-container image scanner for Out of the Box Supply Chain with Testing and Scanning. The default
-configuration for Out of the Box Supply Chain with Testing and Scanning is SCST - Scan 1.0.
+The default configuration for Out of the Box Supply Chain with Testing and Scanning is
+SCST - Scan 2.0 while using Trivy as scanner. This topic tells you how to use Grype as 
+scanner with Supply Chain Security Tools (SCST) - Scan 2.0 
 
 ## <a id="overview"></a> Overview
 
@@ -21,13 +21,14 @@ extra scanners. For more information, see
 
 ## <a id="enable-supply-chain"></a> Enable with an out-of-the-box supply chain
 
-To enable SCST - Scan 2.0 with an out-of-the-box supply chain using the Trivy scanner:
+By default SCST - Scan 2.0 is enabled in out-of-the-box supply chain using Trivy scanner.
+To use Grype as the scanner with supply chain:
 
 1. Update your `tap-values.yaml` file to specify the Trivy `ClusterImageTemplate` as follows:
 
     ```yaml
     ootb_supply_chain_testing_scanning:
-      image_scanner_template_name: image-vulnerability-scan-trivy
+      image_scanner_template_name: image-vulnerability-scan-grype
     ```
 
 1. Update your Tanzu Application Platform installation by running:

@@ -304,7 +304,7 @@ Another scanner is already installed
   installed scanner in the namespace that you want to install Prisma Scanner in.
 
   For information about how the scanner was likely initially created, see
-  [Set up multicluster SCST - Store](../scst-store/multicluster-setup.hbs.md)
+  [Set up multicluster SCST - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md)
 
   Here is an example `values.yaml` when there are other scanners already installed in the same
   `dev-namespace` where Prisma Scanner is installed:
@@ -338,7 +338,7 @@ Another scanner is already installed
 No other scanners are installed
 : For information about creating and exporting secrets for the Metadata Store CA and authentication
   token referenced in the data values when installing Prisma Scanner, see
-  [Set up multicluster Supply Chain Security Tools (SCST) - Store](../scst-store/multicluster-setup.hbs.md).
+  [Set up multicluster Supply Chain Security Tools (SCST) - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
 
   An example `values.yaml` when no other scanner integrations installed in the same `dev-namespace`
   where Prisma Scanner is installed:

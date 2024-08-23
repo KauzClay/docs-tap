@@ -193,63 +193,6 @@ To install OOTB Supply Chain with Testing and Scanning:
     If the package is not already installed, follow the steps in [Supply Chain Security Tools - Scan](../scst-scan/install-scst-scan.hbs.md)
     to install the required scanning components.
 
-1. Apply a ScanPolicy in the required namespace. The sample ScanPolicy provided in this step is
-   configured with `notAllowedSeverities := ["Critical","High","UnknownSeverity"]`.
-   This blocks a supply chain when the scanner finds CVEs with critical, high, and unknown ratings.
-
-    You can also configure the supply chain to use your own custom policies and apply exceptions when
-    you want to ignore certain CVEs. See
-    [Out of the Box Supply Chain with Testing and Scanning](../scc/ootb-supply-chain-testing-scanning.hbs.md#updates-to-developer-namespace).
-    To apply the sample ScanPolicy, you can either add the namespace flag to the kubectl command or
-    add the namespace field to the template by running:
-
-    ```console
-    kubectl apply -f - -o yaml << EOF
-    ---
-    apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
-    kind: ScanPolicy
-    metadata:
-      name: scan-policy
-      labels:
-        'app.kubernetes.io/part-of': 'enable-in-gui'
-    spec:
-      regoFile: |
-        package main
-
-        # Accepted Values: "Critical", "High", "Medium", "Low", "Negligible", "UnknownSeverity"
-        notAllowedSeverities := ["Critical", "High", "UnknownSeverity"]
-        ignoreCves := []
-
-        contains(array, elem) = true {
-          array[_] = elem
-        } else = false { true }
-
-        isSafe(match) {
-          severities := { e | e := match.ratings.rating.severity } | { e | e := match.ratings.rating[_].severity }
-          some i
-          fails := contains(notAllowedSeverities, severities[i])
-          not fails
-        }
-
-        isSafe(match) {
-          ignore := contains(ignoreCves, match.id)
-          ignore
-        }
-
-        deny[msg] {
-          comps := { e | e := input.bom.components.component } | { e | e := input.bom.components.component[_] }
-          some i
-          comp := comps[i]
-          vulns := { e | e := comp.vulnerabilities.vulnerability } | { e | e := comp.vulnerabilities.vulnerability[_] }
-          some j
-          vuln := vulns[j]
-          ratings := { e | e := vuln.ratings.rating.severity } | { e | e := vuln.ratings.rating[_].severity }
-          not isSafe(vuln)
-          msg = sprintf("CVE %s %s %s", [comp.name, vuln.id, ratings])
-        }
-    EOF
-    ```
-
 1. (optional) The Tanzu Application Platform profiles install the [Supply Chain Security Tools - Store](../scst-store/overview.md) package by default. To persist and query the vulnerability results post-scan, confirm it is installed by running:
 
     ```console
@@ -339,8 +282,8 @@ pipeline:
     NAME                                LATESTIMAGE                                                                                                      READY
     image.kpack.io/tanzu-java-web-app   10.188.0.3:5000/foo/tanzu-java-web-app@sha256:1d5bc4d3d1ffeb8629fbb721fcd1c4d28b896546e005f1efd98fbc4e79b7552c   True
 
-    NAME                                                          PHASE       SCANNEDIMAGE                                                                                                AGE   CRITICAL   HIGH   MEDIUM   LOW   UNKNOWN   CVETOTAL
-    imagescan.scanning.apps.tanzu.vmware.com/tanzu-java-web-app   Completed   10.188.0.3:5000/foo/tanzu-java-web-app@sha256:1d5bc4d3d1ffeb8629fbb721fcd1c4d28b896546e005f1efd98fbc4e79b7552c   14s
+   NAME                                                    SCANRESULT                           SCANNEDIMAGE                                                                                                        SUCCEEDED   REASON
+   app-scanning.apps.tanzu.vmware.com/tanzu-java-web-app   registry/project/scan-results@digest 10.188.0.3:5000/foo/tanzu-java-web-app@sha256:1d5bc4d3d1ffeb8629fbb721fcd1c4d28b896546e005f1efd98fbc4e79b7552c   True        Succeeded
 
     NAME                                                             READY   REASON   AGE
     podintent.conventions.carto.run/tanzu-java-web-app   True             7s

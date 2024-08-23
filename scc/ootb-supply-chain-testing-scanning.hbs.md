@@ -88,154 +88,6 @@ objects that you configured in the other supply chain setups:
   For more information, see
   [Out of the Box Supply Chain Testing](ootb-supply-chain-testing.hbs.md#developer-namespace).
 
-And the new objects, that you create here:
-
-- **scan policy**: Defines what to do with the results taken from scanning the source code and image
-  produced. For more information, see [ScanPolicy section](#scan-policy).
-
-- **source scan template**: A template of how TaskRuns are created for scanning the source code.
-  See [ScanTemplate section](#scan-template).
-
-- **image scan template**: A template of how TaskRuns are created for scanning the image produced by
-  the supply chain. See [ScanTemplate section](#scan-template).
-
-The following section includes details about the new objects, compared to Out of the Box Supply
-Chain With Testing.
-
-### <a id="updates-to-developer-ns"></a> Updates to the developer namespace
-
-For source and image scans, scan templates and scan policies must exist in the same namespace as the
-workload. These define:
-
-- `ScanTemplate`: how to run a scan, allowing one to change details about the execution of the scan
-  (either for images or source code)
-
-- `ScanPolicy`: how to evaluate whether the artifacts scanned are compliant. For example, allowing
-  one to be either very strict, or restrictive about particular vulnerabilities found.
-
-The names of the objects must match the names in the example with default installation
-configurations. This is overridden either by using the `ootb_supply_chain_testing_scanning` package
-configuration in the `tap-values.yaml` file or by using workload parameters:
-
-- To override by using the `ootb_supply_chain_testing_scanning` package configuration, make the
-  following modification to your `tap-values.yaml` file and perform a
-  [Tanzu Application Platform update](../upgrading.hbs.md#upgrading-tanzu-application-platform).
-
-    ```yaml
-    ootb_supply_chain_testing_scanning:
-      scanning:
-        source:
-          policy: SCAN-POLICY
-          template: SCAN-TEMPLATE
-        image:
-          policy: SCAN-POLICY
-          template: SCAN-TEMPLATE
-    ```
-
-    Where `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
-
-- To override through workload parameters, use the these commands.
-
-  ```console
-  tanzu apps workload apply WORKLOAD --param "scanning_source_policy=SCAN-POLICY" -n DEV-NAMESPACE
-  tanzu apps workload apply WORKLOAD --param "scanning_source_template=SCAN-TEMPLATE" -n DEV-NAMESPACE
-  ```
-
-  Where:
-
-  - `WORKLOAD` is the name of the workload.
-  - `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
-  - `DEV-NAMESPACE` is the developer namespace.
-
-  For more information, see
-  [Create or update a workload](../cli-plugins/apps/tutorials/create-update-workload.hbs.md).
-
-#### <a id="scan-policy"></a> ScanPolicy
-
-The ScanPolicy defines a set of rules to evaluate for a particular scan to consider the artifacts
-(image or source code) either compliant or not.
-
-When a ImageScan or SourceScan is created to run a scan, those reference a policy whose name must
-match the following sample `scan-policy`:
-
-```console
----
-apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
-kind: ScanPolicy
-metadata:
-  name: scan-policy
-  labels:
-    'app.kubernetes.io/part-of': 'enable-in-gui'
-spec:
-  regoFile: |
-    package main
-
-    # Accepted Values: "Critical", "High", "Medium", "Low", "Negligible", "UnknownSeverity"
-    notAllowedSeverities := ["Critical", "High", "UnknownSeverity"]
-    ignoreCves := []
-
-    contains(array, elem) = true {
-      array[_] = elem
-    } else = false { true }
-
-    isSafe(match) {
-      severities := { e | e := match.ratings.rating.severity } | { e | e := match.ratings.rating[_].severity }
-      some i
-      fails := contains(notAllowedSeverities, severities[i])
-      not fails
-    }
-
-    isSafe(match) {
-      ignore := contains(ignoreCves, match.id)
-      ignore
-    }
-
-    deny[msg] {
-      comps := { e | e := input.bom.components.component } | { e | e := input.bom.components.component[_] }
-      some i
-      comp := comps[i]
-      vulns := { e | e := comp.vulnerabilities.vulnerability } | { e | e := comp.vulnerabilities.vulnerability[_] }
-      some j
-      vuln := vulns[j]
-      ratings := { e | e := vuln.ratings.rating.severity } | { e | e := vuln.ratings.rating[_].severity }
-      not isSafe(vuln)
-      msg = sprintf("CVE %s %s %s", [comp.name, vuln.id, ratings])
-    }
-```
-
-See [Writing Policy Templates](../scst-scan/policies.md).
-
-#### <a id="scan-template"></a> ScanTemplate
-
-A ScanTemplate defines the PodTemplateSpec used by a TaskRun to run a particular scan (image or
-source). When the supply chain initiates an ImageScan or SourceScan, they reference these templates
-which must live in the same namespace as the workload with the names matching the following:
-
-- source scanning (`blob-source-scan-template`)
-- image scanning (`private-image-scan-template`)
-
-You can install the Grype ScanTemplates in the namespace that you are writing the workload to with
-Namespace Provisioner.
-See [Provision developer namespaces in Namespace Provisioner](../namespace-provisioner/provision-developer-ns.hbs.md).
-
-Label the namespace that you are writing the workload to, with the default namespace_selector
-`apps.tanzu.vmware.com/tap-ns=""`, by running:
-
-```console
-kubectl label namespaces YOUR-DEV-NAMESPACE apps.tanzu.vmware.com/tap-ns=""
-```
-
-> **Note** Although you can customize the templates, if you are following the Getting Started
-> guide, VMware recommends that you follow what is provided in the installation of
-> `grype.scanning.apps.tanzu.vmware.com`. For more information, see
-> [About Source and Image Scans](../scst-scan/explanation.hbs.md#about-src-and-image-scans).
-
-#### <a id="storing-scan-results"></a>Enable storing scan results
-
-To enable SCST - Scan to store scan results by using SCST - Store, see
-[Developer namespace setup](../scst-store/developer-namespace-setup.hbs.md) for exporting the
-SCST - Store CA certificate and authentication token to the developer namespace.
-
 #### <a id="multiple-pl"></a> Allow multiple Tekton pipelines in a namespace
 
 {{> 'partials/multiple-pipelines' }}
@@ -282,20 +134,44 @@ Create workload:
      17 + |    subPath: tanzu-java-web-app
 ```
 
-## <a id="cve-triage-workflow"></a> CVE triage workflow
+## <a id="using-scan-v1"></a> Scan Images using supply chain security tools - scan v1
 
-The Supply Chain halts progression if either a SourceScan
-(`sourcescans.scanning.apps.tanzu.vmware.com`) or an ImageScan
-(`imagescans.scanning.apps.tanzu.vmware.com`) fails policy enforcement through the
-[ScanPolicy](../scst-scan/policies.hbs.md#define-a-rego-file-for-policy-enforcement)
-(`scanpolicies.scanning.apps.tanzu.vmware.com`).
+By default out of the box testing and scanning supply chain provides scanning with Aqua `Trivy` scanner
+as part of [supply chain security tools - scan 2.0](../scst-scan/scan-2-0.hbs.md). For backwards compatibility, it is possible
+to use [Scan 1.0](../scst-scan/scan-1-0.hbs.md).  To do so, add the following to your `tap-values.yaml`:
 
-This can prevent source code from building or images deploying that contain vulnerabilities that are
-in violation of the user-defined scan policy. For information about learning how to handle these
-vulnerabilities and unblock your Supply Chain, see
-[Triaging and Remediating CVEs](../scst-scan/triaging-and-remediating-cves.hbs.md).
+```yaml
+  ootb_supply_chain_testing_scanning:
+    image_scanner_template_name: image-scanner-template
+```
 
-## <a id="scan-diff-scanner"></a> Scan Images using a different scanner
+In that case further customization of scan component is possible as:
 
-[Supply Chain Security Tools - Scan](../scst-scan/install-scst-scan.md) includes additional
-integrations for running an image scan using Snyk.
+```yaml
+ootb_supply_chain_testing_scanning:
+  image_scanner_template_name: image-scanner-template
+  scanning:
+    image:
+      policy: SCAN-POLICY
+      template: SCAN-TEMPLATE
+```
+
+Where `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
+
+- When SCST - Scan 1.0 is used back in Supply Chain, to set workload parameters related to `ScanPolicy` and `ScanTemplate` through cli, use the following commands:
+
+  ```console
+  tanzu apps workload apply WORKLOAD --param "scanning_image_policy=SCAN-POLICY" -n DEV-NAMESPACE
+  tanzu apps workload apply WORKLOAD --param "scanning_image_template=SCAN-TEMPLATE" -n DEV-NAMESPACE
+  ```
+
+  Where:
+
+  - `WORKLOAD` is the name of the workload.
+  - `SCAN-POLICY` and `SCAN-TEMPLATE` are the names of the `ScanPolicy` and `ScanTemplate`.
+  - `DEV-NAMESPACE` is the developer namespace.
+
+  For more information, see
+  [Create or update a workload](../cli-plugins/apps/tutorials/create-update-workload.hbs.md).
+  [Enforce compliance policy by using Open Policy Agent](../scst-scan/policies.hbs.md)
+  [About source and image scans](../scst-scan/explanation.hbs.md#about-source-and-image-scans)

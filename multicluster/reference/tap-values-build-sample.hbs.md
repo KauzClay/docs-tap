@@ -117,7 +117,7 @@ credentials to pull an image from the registry for scanning.
 <!-- For more information about identifying the Entitlement Account Number, see [Locating the Entitlement Account number for new orders](https://kb.vmware.com/s/article/2148565). -->
 - `VIEW-CLUSTER-INGRESS-DOMAIN` is the subdomain you set up on the View profile cluster. This matches the `shared.ingress_domain` on the View profile cluster.
 - `AMR-GRAPHQL-READ-ACCESS-TOKEN` is the read access token. For more information about how to obtain the token, see [AMR GraphQL querying](../../scst-store/amr/graphql-query.hbs.md#connect-to-amr-graphql).
-- `AMR-CLOUDEVENT-HANDLER-CA` contains the AMR CloudEvent Handler CA data. For more information about configuring the `amr` portion of the values file, see [Set up multicluster Supply Chain Security Tools (SCST) - Store](../../scst-store/multicluster-setup.hbs.md).
+- `AMR-CLOUDEVENT-HANDLER-CA` contains the AMR CloudEvent Handler CA data. For more information about configuring the `amr` portion of the values file, see [Set up multicluster AMR](../../scst-store/multicluster-setup.hbs.md).
 
 When you install Tanzu Application Platform, it is bootstrapped with the `lite`
 set of dependencies, including buildpacks and stacks, for application builds.
@@ -126,7 +126,7 @@ You can find the buildpack and stack artifacts installed with Tanzu Application 
 on the [Broadcom Support Portal](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Tanzu%20Build%20Service%20(TBS)) under **VMware Tanzu Build Service Dependencies**.
 You can update the dependencies by [upgrading Tanzu Application Platform](../../upgrading.md) to the latest patch.
 
-See [Set up multicluster Supply Chain Security Tools (SCST) - Store](../../scst-store/multicluster-setup.hbs.md) for more information about the value settings of `grype.metadataStore`.
+See [Set up multicluster Supply Chain Security Tools (SCST) - Scan 1.0](../../scst-scan/multicluster-setup-scan-v1.hbs.md) for more information about the value settings of `grype.metadataStore`.
 
 You must set the `scanning.metadatastore.url` to an empty string if you're installing Grype Scanner v1.2.0 and later or Snyk Scanner to deactivate the embedded SCST - Store integration.
 

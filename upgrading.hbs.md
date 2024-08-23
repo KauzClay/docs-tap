@@ -29,7 +29,7 @@ Before you upgrade Tanzu Application Platform:
   installing or upgrading to Tanzu Application Platform v1.7 and later.
   This field must not present in the `tap-non-sensitive-values.yaml` file when performing the upgrade.
 
-- As of v1.12, Supply Chain Security Tools (SCST) - Scan 2.0 is default scanner for the
+- As of v1.12, Supply Chain Security Tools (SCST) - Scan 2.0 is default scanner for
   Out of the Box Supply Chain - Testing and Scanning.
   If you are deploying Tanzu Application Platform in a multicluster configuration, see the instructions
   in [Set up multicluster Artifact Metadata Repository](scst-store/multicluster-setup.hbs.md).

@@ -122,6 +122,10 @@ The following issues, listed by component and area, are resolved in this release
 
 - Resolved issue description.
 
+#### <a id='1-12-0-contour'></a> v1.12.0 Resolved issues: Contour
+
+- Resolved issue where renewed CA certificate didn't get updated in the CA section of Envoy and Contour certificate's secrets
+
 ---
 
 ### <a id='1-12-0-known-issues'></a> v1.12.0 Known issues

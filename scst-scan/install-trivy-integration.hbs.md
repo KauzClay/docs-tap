@@ -226,7 +226,7 @@ Another scanner is installed
   as it already exists.
 
   For information about how the scanner was initially created, see
-  [Set up multicluster Supply Chain Security Tools (SCST) - Store](../scst-store/multicluster-setup.hbs.md).
+  [Set up multicluster Supply Chain Security Tools (SCST) - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
 
   The following example `values.yaml` has other scanners already installed in the same
   `dev-namespace` where Trivy is installed:
@@ -260,7 +260,7 @@ Another scanner is installed
 No other scanner is installed
 : For a walkthrough of creating and exporting secrets for the Metadata Store CA and authentication
   token which referenced in the data values, see
-  [Set up multicluster Supply Chain Security Tools (SCST) - Store](../scst-store/multicluster-setup.hbs.md).
+  [Set up multicluster Supply Chain Security Tools (SCST) - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
 
   The following example `values.yaml` has no other scanner integrations installed in the same
   `dev-namespace` where Trivy is installed:

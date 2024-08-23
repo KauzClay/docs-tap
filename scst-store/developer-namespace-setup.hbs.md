@@ -49,7 +49,7 @@ To use `tap-values.yaml` to deploy Tanzu Application Platform, if using a single
 ## Multicluster - using `SecretExport`
 
 In a multicluster deployment, follow the steps in
-[Multicluster setup for SCST - Store](multicluster-setup.hbs.md), which describe how to create
+[Multicluster setup for SCST - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md, which describe how to create
 secrets and export secrets to developer namespaces.
 
 ## Next steps

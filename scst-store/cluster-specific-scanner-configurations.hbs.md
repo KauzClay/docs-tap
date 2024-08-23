@@ -13,7 +13,7 @@ more information, see
 [Install your Tanzu Application Platform profile](../install-online/profile.hbs.md#install-profile).
 
 For multicluster configurations, scanners use `ingress-cert` of SCST - Store in the View cluster.
-For more information, see [Multicluster setup for SCST - Store](multicluster-setup.hbs.md).
+For more information, see [Multicluster setup for SCST - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
 
 ### Single-cluster configuration
 
@@ -41,4 +41,4 @@ To view a sample Build profile YAML file, see
 [Build profile](../multicluster/reference/tap-values-build-sample.hbs.md).
 
 For information about how Build profile uses the configuration, see
-[How to configure Grype in the Build profile values file](multicluster-setup.hbs.md#grype-mds-config).
+[How to configure Grype in the Build profile values file](../scst-scan/multicluster-setup-scan-v1.hbs.md#grype-mds-config).

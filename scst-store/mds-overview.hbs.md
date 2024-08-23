@@ -16,7 +16,7 @@ and emits in human-readable and machine-readable formats, including JSON, text, 
 ## <a id='multicluster-config'></a> Multicluster configuration
 
 You can configure the Metadata Store in a multicluster setup. For more information, see
-[Multicluster setup for Supply Chain Security Tools - Store](multicluster-setup.hbs.md).
+[Multicluster setup for Supply Chain Security Tools - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
 
 ## <a id='integrate'></a> Integrating with Tanzu Developer Portal
 

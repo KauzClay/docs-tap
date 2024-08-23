@@ -152,7 +152,7 @@ ensure that the `caSecret` from the scanner `DEV-NAMESPACE` matches the `caSecre
 
    > **Note** `caSecret.name` is set to `store-ca-cert`.
    > For more information, see
-   > [Set up multicluster Supply Chain Security Tools (SCST) - Store](../scst-store/multicluster-setup.hbs.md#export-multicluster).
+   > [Set up multicluster Supply Chain Security Tools (SCST) - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md).
 
    If you are using a single-cluster setup, the default value for
    `grype.metadataStore.caSecret.name` is `app-tls-cert`. For more information, see
@@ -191,7 +191,7 @@ ensure that the `caSecret` from the scanner `DEV-NAMESPACE` matches the `caSecre
    SCST - Store creates the single-cluster `secretexport` by default. For more information, see
    [Deployment details and configuration](../scst-store/deployment-details.hbs.md#exporting-certificates).
    For information about creating the multicluster `secretexport`, see
-   [Set up multicluster SCST - Store](../scst-store/multicluster-setup.hbs.md#export-multicluster).
+   [Set up multicluster SCST - Scan 1.0](../scst-scan/multicluster-setup-scan-v1.hbs.md#export-multicluster).
 
 1. Verify that the `ca.crt` field in both secrets from `METADATASTORE-NAMESPACE` and `DEV-NAMESPACE`
    match, or that the `ca.crt` field of the secret in the `METADATASTORE-NAMESPACE` includes the
@@ -411,7 +411,7 @@ A connection error while attempting to connect to the local cluster URL causes t
 is a multicluster deployment, set the `grype.metadataStore.url` property in your Build profile
 `values.yaml` file. You must set the ingress domain of SCST - Store, which is deployed in the View
 cluster. For information about this configuration, see
-[Configure Grype in the Build profile values file](../scst-store/multicluster-setup.hbs.md#grype-mds-config).
+[Configure Grype in the Build profile values file](../scst-scan/multicluster-setup-scan-v1.hbs.md#grype-mds-config).
 
 ### `SourceScan` error with SCST - Store endpoint without a prefix
 

@@ -29,15 +29,10 @@ Before you upgrade Tanzu Application Platform:
   installing or upgrading to Tanzu Application Platform v1.7 and later.
   This field must not present in the `tap-non-sensitive-values.yaml` file when performing the upgrade.
 
-- If you manually created a secret to configure the Metadata Store CA Certificate for
-  Supply Chain Security Tools (SCST) - Scan, you must configure this certificate in the
-  Build profile `tap-values.yaml` file before upgrading. For more information, see
-  [Configure SCST - Scan with the Metadata Store CA certificate and authentication token on the Build cluster](scst-store/multicluster-setup.hbs.md).
-
-- As of v1.10, when installing the Tanzu Application Platform Build profile or Full profile, Supply
-  Chain Security Tools (SCST) - Scan 2.0 is also installed on the cluster. If you installed SCST -
-  Scan 2.0 manually in an earlier Tanzu Application Platform version, uninstall SCST - Scan 2.0
-  before upgrading to {{vars.url_version}} to avoid conflict.
+- As of v1.12, the Supply Chain Security Tools (SCST) - Scan 2.0 is now default scanner for out of the box
+  testing and scanning supply chain. If you are deploying TAP in a multicluster configuration please refer
+  to [setting up multicluster Artifact Metadata Repository](scst-store/multicluster-setup.hbs.md) instructions if you
+  haven't do so already in the past.
 
 ### Notes
 

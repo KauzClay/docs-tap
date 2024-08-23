@@ -55,6 +55,10 @@ This release includes the following changes, listed by component and area.
 - You can manually activate or deactivate Gateway API support by configuring the
   `controller.gateway_api_support` field.
 
+#### <a id='1-12-0-scst-scan-2'></a> v1.12.0 Features: Supply Chain Security Tools (SCST) - Scan 2.0
+
+- [Scan 2.0](scst-scan/scan-2-0.hbs.md) is now the default scanner for out of the box testing and scanning supply chain.
+
 ---
 
 ### <a id='1-12-0-breaking-changes'></a> v1.12.0 Breaking changes
@@ -64,6 +68,11 @@ This release includes the following changes, listed by component and area.
 #### <a id='1-12-0-COMPONENT-NAME-bc'></a> v1.12.0 Breaking changes: COMPONENT-NAME
 
 - Breaking change description.
+
+#### <a id='1-12-0-scst-scan-2-bc'></a> v1.12.0 Breaking changes: Supply Chain Security Tools (SCST) - Scan 2.0
+
+- [Scan 2.0](scst-scan/scan-2-0.hbs.md) is now the default scanner for out of the box testing and scanning supply chain. One of the consequences of this change will be the resource ScanPolicy is not supported in out of the box supply chain.
+- It is possible [to switch back](scc/ootb-supply-chain-testing-scanning.hbs.md#using-scan-v1) to [SCST - Scan 1.0](scst-scan/scan-1-0.hbs.md) as scanner for out of the box supply chain. In that case the resource [ScanPolicy](scst-scan/policies.hbs.md) can be used as before.
 
 ---
 

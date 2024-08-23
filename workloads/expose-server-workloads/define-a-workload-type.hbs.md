@@ -6,7 +6,7 @@ type of workload is created.
 
 1. Delete the `Ingress` resource previously created.
 
-1. Install the `yq` CLI on your local machine.
+1. Install the `yq` CLI.
 
 1. Save the existing `server-template` in a local file by running:
 
@@ -20,16 +20,7 @@ type of workload is created.
    yq eval '.spec.ytt' secure-server-template.yaml > spec-ytt.yaml
    ```
 
-1. In the next step, you add the `Ingress` resource snippet to `spec-ytt.yaml`. This step provides a
-   sample `Ingress` resource snippet. Make the following edits before adding the `Ingress` resource
-   snippet to `spec-ytt.yaml`:
-
-   - Replace `INGRESS-DOMAIN` with the Ingress domain you set during the installation.
-   - Set the annotation `cert-manager.io/cluster-issuer` to the `shared.ingress_issuer` value
-     configured during installation or leave it as `tap-ingress-selfsigned` to use the default one.
-   - This configuration is based on your workload service running on port `8080`.
-
-    The `Ingress` resource snippet looks like this:
+1. Add the following sample `Ingress` resource snippet to the `spec-ytt.yaml` file:
 
     ```yaml
     ---
@@ -62,8 +53,15 @@ type of workload is created.
                       number: 8080
     ```
 
-1. Add the `Ingress` resource snippet to the `spec-ytt.yaml` file and save. Look for the `Service`
-   resource, and insert the snippet before the last `#@ end`. For example:
+   Where:
+
+   - `INGRESS-DOMAIN` is the Ingress domain you set during the installation.
+   - `tap-ingress-selfsigned` is the `shared.ingress_issuer` value configured during installation or
+     leave it as `tap-ingress-selfsigned` to use the default one.
+
+    > **Note** This configuration is based on your workload service running on port `8080`.
+
+1. Find the `Service` resource and insert the snippet before the last `#@ end`. For example:
 
     ```yaml
 
@@ -132,10 +130,11 @@ type of workload is created.
       delivery.yml: #@ yaml.encode(delivery())
     ```
 
-1. Add the snippet to the `.spec.ytt` property in `secure-server-template.yaml`:
+1. Add the snippet to the `.spec.ytt` property in `secure-server-template.yaml` by running:
 
    ```console
-   SPEC_YTT=$(cat spec-ytt.yaml) yq eval -i '.spec.ytt |= strenv(SPEC_YTT)' secure-server-template.yaml
+   SPEC_YTT=$(cat spec-ytt.yaml) yq eval -i '.spec.ytt |= strenv(SPEC_YTT)' \
+   secure-server-template.yaml
    ```
 
 1. Change the name of the `ClusterConfigTemplate` to `secure-server-template` by running:
@@ -170,7 +169,7 @@ type of workload is created.
    worker-template          82m
    ```
 
-1. Add the new workload type to the `tap-values.yaml`. The new workload type is named `secure-server`
+1. Add the new workload type to `tap-values.yaml`. The new workload type is named `secure-server`
    and the `cluster_config_template_name` is `secure-server-template`.
 
     ```yaml
@@ -186,14 +185,14 @@ type of workload is created.
           cluster_config_template_name: secure-server-template
     ```
 
-1. Update your Tanzu Application Platform installation as follows:
+1. Update your Tanzu Application Platform installation by running:
 
    ```console
    tanzu package installed update tap -p tap.tanzu.vmware.com --values-file \
    "/path/to/your/config/tap-values.yaml"  -n tap-install
    ```
 
-1. Give privileges to the `deliverable` role to manage `Ingress` resources:
+1. Give privileges to the `deliverable` role to manage `Ingress` resources by running:
 
    ```console
    cat <<EOF | kubectl apply -f -
@@ -220,17 +219,15 @@ type of workload is created.
    EOF
    ```
 
-1. Update the workload type to `secure-server`:
-
-   > **Note** If you created the `Ingress` resource manually in the previous section, delete it
-   > before this.
+1. If you created the `Ingress` resource manually in the previous section, delete it. Update the
+   workload type to `secure-server` by running:
 
    ```console
    tanzu apps workload apply spring-sensors-consumer-web --type=secure-server
    ```
 
-1. After the process finishes, verify that the resources Deployment, Service, and Ingress appear by
-   running:
+1. After the process finishes, verify that the resources `Deployment`, `Service`, and `Ingress`
+   appear by running:
 
    ```console
    kubectl get ingress,svc,deploy -l carto.run/workload-name=spring-sensors-consumer-web
@@ -239,7 +236,7 @@ type of workload is created.
    Expected output:
 
    ```console
-   kubectl get ingress,svc,deploy -l carto.run/workload-name=tanzu-java-web-app-js
+   $ kubectl get ingress,svc,deploy -l carto.run/workload-name=tanzu-java-web-app-js
    NAME                                                    CLASS    HOSTS                                          ADDRESS          PORTS     AGE
    ingress.networking.k8s.io/spring-sensors-consumer-web   <none>   spring-sensors-consumer-web.INGRESS-DOMAIN   34.111.111.111   80, 443   37s
 

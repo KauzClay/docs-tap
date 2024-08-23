@@ -1,16 +1,16 @@
 # Overview of workloads
 
-This topic provides you with an overview of workload types in Tanzu Application Platform
-(commonly known as TAP).
+This topic provides you with an overview of workload types in Tanzu Application Platform (commonly
+known as TAP).
 
 ## <a id="workload-features"></a> Workload features
 
 Tanzu Application Platform allows you to quickly build and test applications regardless of your
 familiarity with Kubernetes.
 
-You can turn source code into a workload that runs in a container with a URL.
-You can also use supply chains to build applications that process work from a message queue,
-or provide arbitrary network services.
+You can turn source code into a workload that runs in a container with a URL. You can also use
+supply chains to build applications that process work from a message queue or provide arbitrary
+network services.
 
 A workload allows you to choose application specifications, such as repository location, environment
 variables, service binding, and so on. For more information about workload creation and management,

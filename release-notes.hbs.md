@@ -256,10 +256,6 @@ Vuln code error: ALAS-2024-2600
 
 The following issues, listed by component and area, are resolved in this release.
 
-#### <a id='1-12-0-COMPONENT-NAME-ri'></a> v1.12.0 Resolved issues: COMPONENT-NAME
-
-- Resolved issue description.
-
 #### <a id='1-12-0-contour'></a> v1.12.0 Resolved issues: Contour
 
 - Resolved issue where renewed CA certificate didn't get updated in the CA section of Envoy and
@@ -336,17 +332,6 @@ For open source component versions in this Tanzu Application Platform release, s
 | Tanzu Developer Portal                             | 1.12.1                    |
 | Tanzu Supply Chain (beta)                          | 0.4.16                    |
 | Tekton Pipelines                                   | 0.56.4+tanzu.3            |
-
----
-
-## <a id='deprecations'></a> Deprecations
-
-The following features, listed by component, are deprecated.
-Deprecated features remain on this list until they are retired from Tanzu Application Platform.
-
-### <a id='COMPONENT-NAME-deprecations'></a> COMPONENT-NAME deprecations
-
-- Deprecation description including the release when the feature will be removed.
 
 ---
 

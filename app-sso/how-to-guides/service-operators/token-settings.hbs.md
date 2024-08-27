@@ -82,7 +82,10 @@ A full example is as follows:
 #!
 #! usage:
 #!
-#! ytt -f token-viewer.yaml --data-value ingress_domain=example.com --data-value-yaml 'authserver_selector={"name": "ci"}'
+#! ytt -f token-viewer.yaml \
+#!   --data-value ingress_domain=example.com \
+#!   --data-value-yaml 'authserver_selector={"name": "ci"}' \
+#!   --data-value namespace=default
 #!
 #! Then navigate to http://token-viewer.<INGRESS_DOMAIN>
 #!
@@ -185,6 +188,7 @@ spec:
             - --skip-provider-button=true
             - --pass-authorization-header=true
             - --prefer-email-to-user=true
+            - #@ "--whitelist-domain=*." + data.values.ingress_domain
         - image: python:3.9
           name: application
           securityContext:
@@ -200,6 +204,12 @@ spec:
             limits:
               cpu: 100m
               memory: 100Mi
+          env:
+            - name: ISSUER_URI
+              valueFrom:
+                secretKeyRef:
+                  name: my-client-registration
+                  key: issuer-uri
           command: [ "python" ]
           args:
             - -c
@@ -207,6 +217,8 @@ spec:
               from http.server import HTTPServer, BaseHTTPRequestHandler
               import base64
               import json
+              import os
+              from urllib.parse import quote_plus
 
               class Handler(BaseHTTPRequestHandler):
                   def do_GET(self):
@@ -222,11 +234,16 @@ spec:
                       self.send_response(200)
                       self.send_header("Content-type", "text/html")
                       self.end_headers()
+                      # This uses the authserver's unsupported RP-initiated logout
+                      token = self.headers.get("Authorization").split("Bearer ")[-1]
+                      authserver_logout_uri = quote_plus(os.environ.get("ISSUER_URI") + "/connect/logout?id_token_hint=" + token)
+                      logout_uri = f"/oauth2/sign_out?rd={authserver_logout_uri}"
                       page = f"""
                       <h1>It Works!</h1>
                       <p>You are logged in as <b>{username}</b></p>
                       <p><a href="/jwt">Show me my id_token (JWT format)</a></p>
                       <p><a href="/token">Show me my id_token (JSON format)</a></p>
+                      <p><a href="{logout_uri}">Log out</a></p>
                       """
                       self.wfile.write(page.encode("utf-8"))
 

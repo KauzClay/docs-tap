@@ -8,7 +8,7 @@ drop-down menu at the top of this page.
 
 The following table has the component versions for the AWS Services package.
 
-<!-- Version list for TAP 1.11. Add patch updates, if any, in a new column. -->
+<!-- Version list for TAP 1.12. Add patch updates, if any, in a new column. -->
 
 <table>
   <thead>
@@ -20,7 +20,7 @@ The following table has the component versions for the AWS Services package.
   <tbody>
     <tr>
       <td>AWS Services package</td>
-      <td>0.4.0</td>
+      <td>0.4.1</td>
     </tr>
     <tr>
       <td>provider-aws</td>

@@ -11,7 +11,7 @@ implementation of [Service Binding](https://servicebinding.io/).
 
 The following table has the component versions for the Service Bindings package.
 
-<!-- Version list for TAP 1.11. Add patch updates, if any, in a new column. -->
+<!-- Version list for TAP 1.12. Add patch updates, if any, in a new column. -->
 
 <table>
   <thead>
@@ -23,7 +23,7 @@ The following table has the component versions for the Service Bindings package.
   <tbody>
     <tr>
         <td>Service Bindings package version</td>
-        <td>0.12.1</td>
+        <td>0.12.2</td>
     </tr>
     <tr>
         <td>Service Bindings runtime version</td>

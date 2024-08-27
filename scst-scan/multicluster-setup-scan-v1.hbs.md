@@ -1,4 +1,4 @@
-# Set up multicluster for Scan 1.0
+# Set up multicluster for SCST - Scan 1.0
 
 This topic tells you how to set up your configuration to enable SCST - Scan 1.0 to connect with
 SCST - Store in a multicluster deployment.

@@ -17,7 +17,6 @@ This release includes the following changes, listed by component and area.
 #### <a id='1-12-0-appsso'></a> v1.12.0 Features: Application Single Sign-On
 
 - Upgrades to Spring Boot v3.3.1 and other dependency upgrades.
-- Supports Kubernetes v1.30.
 
 #### <a id='1-12-0-buildpacks'></a> v1.12.0 Features: Buildpacks and Stacks
 

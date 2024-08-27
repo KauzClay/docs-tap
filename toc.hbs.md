@@ -600,7 +600,7 @@
             - [Troubleshoot Rego files with a scan policy](scst-scan/troubleshoot-rego.hbs.md)
             - [Additional scan resources](scst-scan/scan-crs.hbs.md)
                 - [Configure code repositories and image artifacts](scst-scan/scan-crs.hbs.md)
-                - [Set up multicluster for Scan 1.0](scst-scan/multicluster-setup-scan-v1.hbs.md)
+                - [Set up multicluster for SCST - Scan 1.0](scst-scan/multicluster-setup-scan-v1.hbs.md)
                 - [Enforce compliance policy by using Open Policy Agent](scst-scan/policies.hbs.md)
                 - [Create a ScanTemplate](scst-scan/create-scan-template.hbs.md)
                 - [View scan status conditions](scst-scan/results.hbs.md)

@@ -8,29 +8,11 @@ This topic contains release notes for Tanzu Application Platform v{{ vars.url_ve
 
 ## <a id='1-12-0'></a> v1.12.0
 
-**Release Date**: 13 August 2024
+**Release Date**: 27 August 2024
 
 ### <a id='1-12-0-whats-new'></a> What's new in Tanzu Application Platform v1.12.0
 
 This release includes the following platform-wide enhancements.
-
-#### <a id='1-12-0-new-platform-features'></a> New platform-wide features
-
-- Feature Description.
-
-#### <a id='1-12-0-new-components'></a> New components
-
-- [COMPONENT-NAME-AND-LINK-TO-DOCS](): Component description.
-
----
-
-### <a id='1-12-0-new-features'></a> v1.12.0 New features by component and area
-
-This release includes the following changes, listed by component and area.
-
-#### <a id='1-12-0-COMPONENT-NAME'></a> v1.12.0 Features: COMPONENT-NAME
-
-- Feature description.
 
 #### <a id='1-12-0-appsso'></a> v1.12.0 Features: Application Single Sign-On
 
@@ -66,10 +48,6 @@ This release includes the following changes, listed by component and area.
 ### <a id='1-12-0-breaking-changes'></a> v1.12.0 Breaking changes
 
 This release includes the following changes, listed by component and area.
-
-#### <a id='1-12-0-COMPONENT-NAME-bc'></a> v1.12.0 Breaking changes: COMPONENT-NAME
-
-- Breaking change description.
 
 #### <a id='1-12-0-scst-scan-2-bc'></a> v1.12.0 Breaking changes: Supply Chain Security Tools (SCST) - Scan 2.0
 
@@ -124,7 +102,8 @@ The following issues, listed by component and area, are resolved in this release
 
 #### <a id='1-12-0-contour'></a> v1.12.0 Resolved issues: Contour
 
-- Resolved issue where renewed CA certificate didn't get updated in the CA section of Envoy and Contour certificate's secrets
+- Resolved issue where renewed CA certificate didn't get updated in the CA section of Envoy and
+  Contour certificate's secrets
 
 ---
 
@@ -146,57 +125,57 @@ The following table lists the Tanzu Application Platform package versions includ
 For open source component versions in this Tanzu Application Platform release, see
 [Open source component versions](oss-component-versions.hbs.md).
 
-| Component Name                                               | Version |
-| ------------------------------------------------------------ | ------- |
-| API Auto Registration                                        |         |
-| API portal                                                   |         |
-| Application Accelerator                                      |         |
-| Application Configuration Service                            |         |
-| Application Live View APIServer                              |         |
-| Application Live View back end                               |         |
-| Application Live View connector                              |         |
-| Application Live View conventions                            |         |
-| Application Single Sign-On                                   | 5.2.1   |
-| Artifact Metadata Repository Observer                        |         |
-| AWS Services                                                 |         |
-| Bitnami Services                                             |         |
-| Cartographer Conventions                                     |         |
-| cert-manager                                                 | 2.10.0  |
-| Cloud Native Runtimes                                        |         |
-| Contour                                                      |         |
-| Crossplane                                                   |         |
-| Default Roles                                                |         |
-| Developer Conventions                                        |         |
-| Enterprise Config Server                                     |         |
-| External Secrets Operator                                    |         |
-| Flux CD Source Controller                                    |         |
-| Grype Scanner for SCST - Scan                                |         |
-| Local Source Proxy                                           |         |
-| Managed Resource Controller (beta)                           |         |
-| Namespace Provisioner                                        |         |
-| Out of the Box Delivery - Basic                              |         |
-| Out of the Box Supply Chain - Basic                          |         |
-| Out of the Box Supply Chain - Testing                        |         |
-| Out of the Box Supply Chain - Testing and Scanning           |         |
-| Out of the Box Templates                                     |         |
-| Service Bindings                                             |         |
-| Service Registry                                             |         |
-| Services Toolkit                                             |         |
-| Snyk Scanner for SCST - Scan (beta)                          |         |
-| Source Controller                                            |         |
-| Spring Boot conventions                                      |         |
-| Spring Cloud Gateway                                         |         |
-| Supply Chain Choreographer                                   |         |
-| Supply Chain Security Tools - Policy Controller (deprecated) |         |
-| Supply Chain Security Tools - Scan (deprecated)              |         |
-| Supply Chain Security Tools - Scan 2.0                       |         |
-| Supply Chain Security Tools - Store                          |         |
-| Tanzu Application Platform Telemetry                         |         |
-| Tanzu Build Service                                          |         |
-| Tanzu CLI                                                    |         |
-| Tanzu Developer Portal                                       |         |
-| Tanzu Supply Chain (beta)                                    |         |
-| Tekton Pipelines                                             |         |
+| Component Name                                     | Version                   |
+|----------------------------------------------------|---------------------------|
+| API Auto Registration                              | 0.5.1                     |
+| API portal                                         | 1.5.0                     |
+| Application Accelerator                            | 1.12.0                    |
+| Application Configuration Service                  | 2.4.1                     |
+| Application Live View APIServer                    | 1.10.0                    |
+| Application Live View back end                     | 1.10.0                    |
+| Application Live View connector                    | 1.10.0                    |
+| Application Live View conventions                  | 1.10.0                    |
+| Application Single Sign-On                         | 5.2.1                     |
+| Artifact Metadata Repository Observer              | 0.8.1                     |
+| AWS Services                                       | 0.4.1                     |
+| Bitnami Services                                   | 0.6.0                     |
+| Cartographer Conventions                           | 0.9.1                     |
+| cert-manager                                       | 2.10.0                    |
+| Cloud Native Runtimes                              | 2.8.0                     |
+| Contour                                            | 2.4.1                     |
+| Crossplane                                         | 0.7.2                     |
+| Default Roles                                      | 1.1.0                     |
+| Developer Conventions                              | 0.16.4                    |
+| Enterprise Config Server                           | 1.0.2                     |
+| External Secrets Operator                          | 0.9.4+tanzu.3             |
+| Flux CD Source Controller                          | 1.1.2+vmware.6.1722938838 |
+| Grype Scanner for SCST - Scan                      | 1.9.1                     |
+| Local Source Proxy                                 | 0.2.1                     |
+| Managed Resource Controller (beta)                 | 0.4.19                    |
+| Namespace Provisioner                              | 0.6.2                     |
+| Out of the Box Delivery - Basic                    | 0.17.1                    |
+| Out of the Box Supply Chain - Basic                | 0.17.1                    |
+| Out of the Box Supply Chain - Testing              | 0.17.1                    |
+| Out of the Box Supply Chain - Testing and Scanning | 0.17.1                    |
+| Out of the Box Templates                           | 0.17.1                    |
+| Service Bindings                                   | 0.12.2                    |
+| Service Registry                                   | 1.4.1                     |
+| Services Toolkit                                   | 0.15.1                    |
+| Snyk Scanner for SCST - Scan (beta)                | 1.3.0                     |
+| Source Controller                                  | 0.9.2                     |
+| Spring Boot conventions                            | 1.10.0                    |
+| Spring Cloud Gateway                               | 2.2.5                     |
+| Supply Chain Choreographer                         | 0.9.1                     |
+| Supply Chain Security Tools - Policy Controller    | 1.6.4                     |
+| Supply Chain Security Tools - Scan                 | 1.9.1                     |
+| Supply Chain Security Tools - Scan 2.0             | 0.5.0                     |
+| Supply Chain Security Tools - Store                | 1.12.1                    |
+| Tanzu Application Platform Telemetry               | 0.7.0                     |
+| Tanzu Build Service                                | 1.15.4                    |
+| Tanzu CLI                                          | 1.3.0                     |
+| Tanzu Developer Portal                             | 1.12.1                    |
+| Tanzu Supply Chain (beta)                          | 0.4.16                    |
+| Tekton Pipelines                                   | 0.56.4+tanzu.3            |
 
 ---
 

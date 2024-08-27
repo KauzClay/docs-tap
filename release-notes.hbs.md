@@ -66,7 +66,7 @@ This release includes the following changes, listed by component and area.
 
 This release has the following security fixes, listed by package.
 
-table>
+<table>
 <thead>
 <tr>
 <th>Package Name</th>

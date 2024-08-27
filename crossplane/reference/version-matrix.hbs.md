@@ -8,7 +8,7 @@ drop-down menu at the top of this page.
 
 The following table has the component versions for the Crossplane package.
 
-<!-- Version list for TAP 1.11. Add patch updates, if any, in a new column. -->
+<!-- Version list for TAP 1.12. Add patch updates, if any, in a new column. -->
 
 <table>
   <thead>
@@ -20,7 +20,7 @@ The following table has the component versions for the Crossplane package.
   <tbody>
     <tr>
       <td>Crossplane package</td>
-      <td>0.7.0</td>
+      <td>0.7.2</td>
     </tr>
     <tr>
       <td>Upbound Crossplane (UXP)</td>

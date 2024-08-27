@@ -95,7 +95,7 @@ in the VMware Tanzu Buildpacks documentation
 
 #### <a id="lite-buildpacks"></a> Lite dependencies: buildpacks
 
-The `lite` dependencies contain the following buildpacks in Tanzu Application Platform v1.11:
+The `lite` dependencies contain the following buildpacks in Tanzu Application Platform v1.12:
 
 | Buildpack | Version | Supported Stacks |
 |-----------|---------|------------------|
@@ -142,7 +142,7 @@ in the VMware Tanzu Buildpacks documentation.
 
 #### <a id="full-buildpacks"></a> Full dependencies: buildpacks
 
-The `full` dependencies contain the following buildpacks in Tanzu Application Platform v1.11:
+The `full` dependencies contain the following buildpacks in Tanzu Application Platform v1.12:
 
 | Buildpack                              | Version | Supported Stacks            |
 |----------------------------------------|---------|-----------------------------|

@@ -112,9 +112,9 @@ This release has the following security fixes, listed by package.
 <tr>
 <td>sonarqube.component.apps.tanzu.vmware.com</td>
 <td><details><summary>Expand to see the list</summary><ul>
-Vuln code error: ALAS-2024-2607
-Vuln code error: ALAS-2024-2604
-Vuln code error: ALAS-2024-2600
+<li><a href="https://alas.aws.amazon.com/AL2/ALAS-2024-2607.html">ALAS-2024-2607</a></li>
+<li><a href="https://alas.aws.amazon.com/AL2/ALAS-2024-2604.html">ALAS-2024-2604</a></li>
+<li><a href="https://alas.aws.amazon.com/AL2/ALAS-2024-2600.html">ALAS-2024-2600</a></li>
 </ul></details></td>
 </tr>
 <tr>

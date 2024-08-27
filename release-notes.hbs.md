@@ -10,9 +10,9 @@ This topic contains release notes for Tanzu Application Platform v{{ vars.url_ve
 
 **Release Date**: 27 August 2024
 
-### <a id='1-12-0-whats-new'></a> What's new in Tanzu Application Platform v1.12.0
+### <a id='1-12-0-new-features'></a> v1.12.0 New features by component and area
 
-This release includes the following platform-wide enhancements.
+This release includes the following changes, listed by component and area.
 
 #### <a id='1-12-0-appsso'></a> v1.12.0 Features: Application Single Sign-On
 

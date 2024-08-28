@@ -8,7 +8,7 @@ This topic contains release notes for Tanzu Application Platform v{{ vars.url_ve
 
 ## <a id='1-12-0'></a> v1.12.0
 
-**Release Date**: 27 August 2024
+**Release Date**: 28 August 2024
 
 ### <a id='1-12-0-new-features'></a> v1.12.0 New features by component and area
 

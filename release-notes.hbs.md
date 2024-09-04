@@ -272,6 +272,27 @@ This release has the following known issues, listed by component and area.
   automatically within a few seconds. There is no current workaround because this is part of the
   reconciliation loop that Tanzu Cluster Essentials tooling performs.
 
+- After upgrade, workload pods may fail to become ready, due to errors pulling
+  images. Particularly, they fail to pull the queue-proxy sidecar image. Due to a
+  bug in kapp rebase rules, the pods are trying to pull an outdated image. This
+  can be resolved by applying an overlay to the `cnrs` package (see [Customize
+  Package Installation docs](./customize-package-installation.hbs.md)):
+
+  ```yaml
+  #@ load("@ytt:data", "data")
+  #@ load("@ytt:overlay", "overlay")
+
+  #@overlay/match by=overlay.subset({"kind":"Config"}), expects="1+"
+  ---
+  rebaseRules:
+  #@overlay/append
+  - path: [data, queue-sidecar-image]
+    type: copy
+    sources: [new, existing]
+    resourceMatchers:
+    - kindNamespaceNameMatcher: {kind: ConfigMap, namespace: knative-serving, name: config-deployment}
+  ```
+
 ---
 
 ### <a id='1-12-0-components'></a> v1.12.0 Component versions
